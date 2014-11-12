@@ -10,9 +10,9 @@
 <body>
 	<div class="all">
 		<div class="gamesList">
-			<ul>
-				<li><a href="/games/lotto">Lotto</a></li>
-				<li><a href="/games/toto">TOTO</a></li>
+			<ul th:each="item : ${text}">
+				<li><a href="#" th:href="@{/game(id=${item.getID()})}"
+					th:text="${item.getTitle()}">Game Name</a></li>
 			</ul>
 		</div>
 	</div>

@@ -15,6 +15,26 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
  * Spiel auswählen
  * Tipp erstellen
  * Tipps einsehen
+ * 
+ * 
+ * Startseite
+ * 2 Knöpfe zu den beiden Spielen
+ * 
+ * TOTO Seite
+ * Liste aller Spiele - Format "XX. Spieltag" - Link zu Spieltag
+ * 
+ * Lotto Seite
+ * Liste aller Spiele - Format "Losung vom DD.MM.JJ" - Link zu Losung
+ * 
+ * Lotto Losung
+ * 
+ * 
+ * 
+ * TOTO Spieltag
+ * Liste aller Spiele des Tages
+ * Select Ergebnis
+ * Absenden
+ * --> Tipp erstellen
  */
 
 @Configuration

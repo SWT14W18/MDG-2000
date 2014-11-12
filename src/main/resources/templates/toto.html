@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+<title th:text="test">Testtemplate</title>
+</head>
+<body>
+	<div class="all">
+		<div class="gamesList">
+
+			<form action="game/createTip/">
+				<p th:each="match : ${matches}"> 
+				
+					<span th:text="@{${match.getHomeName()}+' - '+${match.getGuestName()}}">FC Beispiel - KeinPlan SC</span>
+					<input type="radio" th:name="${match.getID()}" value="0">Sieg Heim</input>
+					<input type="radio" th:name="${match.getID()}" value="1">Unendschieden</input>
+					<input type="radio" th:name="${match.getID()}" value="2">Sieg Auswärts</input>
+					<input type="radio" th:name="${match.getID()}" value="3" checked="checked">None</input>
+				</p>
+				<input type="submit"></input>
+			</form>
+
+		</div>
+	</div>
+</body>
+</html>
