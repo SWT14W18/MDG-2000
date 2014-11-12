@@ -9,12 +9,22 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
+/*
+ * Funktionen
+ * Spiele eines types anzeigen
+ * Spiel auswählen
+ * Tipp erstellen
+ * Tipps einsehen
+ */
+
 @Configuration
 //@Import({ SalespointWebConfiguration.class })
 //@EnableAutoConfiguration
 @ComponentScan
 public class Prototype {
 
+	private GameManager gameManager = new GameManager();
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Prototype.class, args);
 	}
