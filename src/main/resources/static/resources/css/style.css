@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    text-align: center;
+    background-image: url(/MDG-2000/src/main/resources/static/resources/img/Windows_background.jpg);
+    background-attachment: fixed;
+    font-family: Arial, sans-sarif;
+}
+header, nav, footer, aside, section {
+    display: block;
+}
+
+#wrapper {
+    background-color: #eeeeee;
+    width: 1024px;
+    border: 2px solid red;
+    margin: 0 auto;
+    margin-top: 10px;
+    text-align: left;
+    background-image: url(/MDG-2000/src/main/resources/static/resources/img/Euroscheine_transparent.jpg);
+    
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    border-radius: 20px 20px 20px 20px;
+
+    -moz-box-shadow: 10px 10px 10px grey;
+    -webkit-box-shadow: 10px 10px 10px grey;
+    box-shadow: 10px 10px 10px grey;
+}
+
+header {
+    /*background-color: yellow;*/
+    background-image: url(/MDG-2000/src/main/resources/static/resources/img/Geldmuenze-header.jpg);
+    height: 200px;
+    width: 1024px;
+    margin: 0 auto;
+    
+    -moz-border-radius: 0 0 20px 20px;
+    -webkit-border-radius: 0 0 20px 20px;
+    border-radius: 0 0 20px 20px;
+    
+    -moz-box-shadow: 10px 10px 10px grey;
+    -webkit-box-shadow: 10px 10px 10px grey;
+    box-shadow: 10px 10px 10px grey;
+}
+
+header p {
+    /*background-color: orange;*/
+    text-align: right;
+    padding-right: 15px;
+}
+
+#logotext {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20pt;
+    
+}
+
+#steuerungoben {
+    /*background-color: yellow;*/
+    background-color: hsla(0, 0%, 50%, 0.4);
+    height: 24px;
+    padding-left: 20px;
+    
+    -moz-border-radius: 20px 20px 0px 0px;
+    -webkit-border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px;
+}
+
+#steuerungoben ul {
+    list-style-type: none;
+}
+
+#steuerungoben li {
+    display: inline;
+}
+
+#steuerungoben a {
+    display: block;
+    width: 300px;
+    /*background-color: yellow;*/
+    text-align: center;
+    /*border-right: 1px solid red;*/
+    float: left;
+    line-height: 24px;
+    color: white;
+    text-decoration: none;
+}
+
+#steuerungoben a:hover {
+    background-image: url(bilder/grau-50.png);
+}
+
+#steuerunglinks {
+    background-color: #f1e2e2;
+    background-color: hsla(0, 0%, 100%, 0.4);
+    width: 220px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    border-radius: 20px 20px 20px 20px;
+}
+
+#steuerunglinks ul {
+    padding-left: 2em;
+    padding-top: 20px;
+    list-style-type: none;
+}
+
+#steuerunglinks li {
+    padding-bottom: 0.5em;
+}
+
+aside {
+    /*background-color: #0808000;*/
+    width: 350px;
+    float: right;
+}
+
+aside p {
+    margin-top: 10px;
+}
+
+aside img{
+    margin-left: 0 auto;
+    border: 1px solid silver;
+}
+
+section {
+    background-color: #e4d8d8;
+    background-color: hsla(0, 0%, 50%, 0.4);
+    margin-left: 250px;
+    margin-right: 360px;
+    margin-top: 10px;
+    /*height: 700px;*/
+    
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    border-radius: 20px 20px 20px 20px;
+}
+
+section h1 {
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+}
+
+footer {
+    /*background-color: brown;*/
+    background-image: url(bilder/grau-50.png);
+    color: white;
+    text-align: center;
+    padding-left: 20px;
+    clear: both;
+    
+    -moz-border-radius: 0 0 20px 20px;
+    -webkit-border-radius: 0 0 20px 20px;
+    border-radius: 0 0 20px 20px;
+
+}
