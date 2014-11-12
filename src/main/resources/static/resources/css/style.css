@@ -5,7 +5,7 @@
 
 body {
     text-align: center;
-    background-image: url(/MDG-2000/src/main/resources/static/resources/img/Windows_background.jpg);
+    background-image: url(../img/Windows_background.jpg);
     background-attachment: fixed;
     font-family: Arial, sans-sarif;
 }
@@ -20,7 +20,7 @@ header, nav, footer, aside, section {
     margin: 0 auto;
     margin-top: 10px;
     text-align: left;
-    background-image: url(/MDG-2000/src/main/resources/static/resources/img/Euroscheine_transparent.jpg);
+    background-image: url(../img/Euroscheine_transparent.jpg);
     
     -moz-border-radius: 20px 20px 20px 20px;
     -webkit-border-radius: 20px 20px 20px 20px;
@@ -33,7 +33,7 @@ header, nav, footer, aside, section {
 
 header {
     /*background-color: yellow;*/
-    background-image: url(/MDG-2000/src/main/resources/static/resources/img/Geldmuenze-header.jpg);
+    background-image: url(../img/Geldmuenze-header.jpg);
     height: 200px;
     width: 1024px;
     margin: 0 auto;
@@ -92,7 +92,7 @@ header p {
 }
 
 #steuerungoben a:hover {
-    background-image: url(bilder/grau-50.png);
+    background-image: url(../img/grau-50.png);
 }
 
 #steuerunglinks {
@@ -154,7 +154,7 @@ section h1 {
 
 footer {
     /*background-color: brown;*/
-    background-image: url(bilder/grau-50.png);
+    background-image: url(../img/grau-50.png);
     color: white;
     text-align: center;
     padding-left: 20px;
