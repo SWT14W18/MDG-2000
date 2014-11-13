@@ -12,10 +12,10 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 /*
  * Funktionen
- * Spiele eines types anzeigen
- * Spiel auswählen
- * Tipp erstellen
- * Tipps einsehen
+ * Spiele eines types anzeigen //Done
+ * Spiel auswählen //Done
+ * Tipp erstellen //Done für TOTO
+ * Tipps einsehen //halb done (tipps können gesehen werden, aber keine details)
  * 
  * 
  * Startseite
@@ -28,7 +28,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
  * Liste aller Spiele - Format "Losung vom DD.MM.JJ" - Link zu Losung
  * 
  * Lotto Losung
- * 
+ * 12 Spielfelder
  * 
  * 
  * TOTO Spieltag

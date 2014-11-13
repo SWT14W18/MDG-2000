@@ -1,7 +1,5 @@
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,20 +9,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class IndexController
 {
-    
-    private Random random = new Random();
-    
     @RequestMapping("/index")
     public String index(ModelMap modelMap)
     {
-           return "index";
+        return "index";
     }
     
     @RequestMapping("/games/lotto")
     public String gamesLotto(ModelMap modelMap)
     {
         modelMap.addAttribute("text", Prototype.getInstance().getGameManager().getLottoGames());
-
+        
         return "games";
     }
     
@@ -32,7 +27,7 @@ public class IndexController
     public String gamesToto(ModelMap modelMap)
     {
         modelMap.addAttribute("text", Prototype.getInstance().getGameManager().getTotoGames());
-   
+        
         return "games";
     }
     
@@ -79,7 +74,6 @@ public class IndexController
     
     private String createTotoTip(TotoGame game, Map<String, String> params, ModelMap modelMap)
     {
-        Collection<TotoMatch> matches = game.getMatches();
         Map<Long, TotoValue> tips = new HashMap<>();
         for (TotoMatch match : game.getMatches())
         {
