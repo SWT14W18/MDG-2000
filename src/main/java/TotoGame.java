@@ -1,10 +1,11 @@
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 
 public class TotoGame extends Game {
 
-	public void createTip() {
-
+	public void createTip(Map<Long, TotoValue> tips) {
+	    
 	}
 
 	@Override
