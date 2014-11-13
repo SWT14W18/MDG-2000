@@ -1,0 +1,32 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+		<title>Welcome</title>
+	</head>
+	<body>
+		<h1>Lotterie</h1>
+		<h2>Mach dein Glück!</h2>
+		<br/>
+		<div class="welc">
+		<h3>Willkommen</h3>
+		<p>Du möchtest jede Woche auf deine Lieblingszahlen setzen?</p>
+		<p>Du möchtest an unterschiedlichen Fussball-wetten teilnehmen?</p>
+		<p>Du möchtest mit deiner Familie die Millionen knacken?</p>
+		<br/>
+		<p>Wir bieten einen erstklassigen Service mit dem DU dich sicherfühlen kannst.</p>
+		<table style="width:100%">
+			<tr><td>- Automatische Wettausschüttung</td></tr>
+			<tr><td>- Gemeinschaftswetten</td></tr>
+			<tr><td>- Fussball TOTO und LOTTO gleichzeitig</td></tr>
+			<tr><td>- gesicherte Lotteriekonten</td></tr>
+			<tr><td>- $$$ CashFlow</td></tr>
+		</table> 
+		<br/>
+		
+
+		<p>Gleich Ausprobieren! <a th:href="@{/login}" th:text="#{welc.login}">login</a></p>
+		</div>
+	</body>
+</html>

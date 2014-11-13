@@ -1,0 +1,35 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{/resources/css/style.css}" />
+		<title>Login</title>
+	</head>
+	<body>
+		<h1>Lotterie</h1>
+		<h2>Mach dein Glück!</h2>
+		<br/>
+		<div class="main">
+		<h3>Einloggen:</h3>
+		
+		<form action="/login" method="post">
+		<p class="log">Benutzername</p>
+		<div align="center"><input type="text" name="user" autofocus="autofocus"/></div>
+		<p class="log">Passwort</p>
+		<div align="center"><input type="password" name="pass"  /></div>
+		<br/>
+		<div align="center"><input type="submit" th:value="#{login.submit}" value="loggin"/></div>
+		</form>
+		<br/>
+		<br/>
+		<br/>
+		<p th:if="${loginError}">Falscher Benutzername oder Passwort!</p>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<p class="foot">Noch nicht regristriert? Kein Problem: Regristrierung</p>
+		</div>
+	</body>
+</html>
