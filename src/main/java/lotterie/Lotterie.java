@@ -29,7 +29,7 @@ public class Lotterie {
 
 		@Override
 		public void addViewControllers(ViewControllerRegistry registry) {
-			registry.addViewController("/Index").setViewName("index");
+			//registry.addViewController("/Index").setViewName("index");
 		}
 	}
 	
