@@ -39,57 +39,72 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
  */
 
 @Configuration
-//@Import({ SalespointWebConfiguration.class })
-//@EnableAutoConfiguration
+// @Import({ SalespointWebConfiguration.class })
+// @EnableAutoConfiguration
 @ComponentScan
-public class Prototype {
+public class Prototype
+{
     private static Prototype instance;
     
+    private GameManager gameManager = new GameManager();
+    private List<Tip> tips = new ArrayList<>();
     
-	private GameManager gameManager = new GameManager();
-	private List<Tip> tips = new ArrayList<>();
-	
-	{
-	    instance = this;
-	}
-	
-	public static void main(String[] args) {
-		SpringApplication.run(Prototype.class, args);
-	}
-
-	@Configuration
-	static class VideoShopWebConfiguration extends SalespointWebConfiguration {
-		/**
-		 * We configure {@code /login} to be directly routed to the
-		 * {@code login} template without any controller interaction.
-		 *
-		 * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#addViewControllers(org.springframework.web.servlet.config.annotation.ViewControllerRegistry)
-		 */
-		@Override
-		public void addViewControllers(ViewControllerRegistry registry) {
-			//registry.addViewController("/index").setViewName("index");
-		}
-	}
-	
-	public static Prototype getInstance()
-	{
-	    return instance;
-	}
-	
-	public void addTip(Tip tip)
-	{
-	    tips.add(tip);
-	}
-
+    {
+        instance = this;
+    }
+    
+    public static void main(String[] args)
+    {
+        SpringApplication.run(Prototype.class, args);
+    }
+    
+    @Configuration
+    static class VideoShopWebConfiguration extends SalespointWebConfiguration
+    {
+        /**
+         * We configure {@code /login} to be directly routed to the {@code login} template without any controller interaction.
+         *
+         * @see org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter#addViewControllers(org.springframework.web.servlet.config.annotation.ViewControllerRegistry)
+         */
+        @Override
+        public void addViewControllers(ViewControllerRegistry registry)
+        {
+            // registry.addViewController("/index").setViewName("index");
+        }
+    }
+    
+    public static Prototype getInstance()
+    {
+        return instance;
+    }
+    
+    public void addTip(Tip tip)
+    {
+        tips.add(tip);
+    }
+    
     public Game getGame(long id)
     {
-        // TODO Auto-generated method stub
-        return new TotoGame();
+        return gameManager.getGame(id);
     }
-
+    
     public List<Tip> getTips()
     {
         return tips;
+    }
+    
+    // setup
+    {
+        gameManager.addGame(new LottoGame("okay"));
+        gameManager.addGame(new LottoGame("das"));
+        gameManager.addGame(new LottoGame("funzt"));
+        gameManager.addGame(new TotoGame());
+        gameManager.addGame(new TotoGame());
+    }
+    
+    public GameManager getGameManager()
+    {
+        return gameManager;
     }
 }
 
@@ -97,9 +112,9 @@ public class Prototype {
 @EnableWebMvcSecurity
 class WebSecuriryConfig extends WebSecurityConfigurerAdapter
 {
-	@Override
-	protected void configure(HttpSecurity http) throws Exception
-	{
-		http.authorizeRequests().anyRequest().permitAll();
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception
+    {
+        http.authorizeRequests().anyRequest().permitAll();
+    }
 }

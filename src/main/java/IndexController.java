@@ -17,24 +17,22 @@ public class IndexController
     @RequestMapping("/index")
     public String index(ModelMap modelMap)
     {
-        modelMap.addAttribute("text", new LottoGame[] { new LottoGame("Das"), new LottoGame("ist"), new LottoGame("ein"), new LottoGame("test") });// "Das ist ein test text. Random Number: " + random.nextInt());
-        
-        return "index";
+           return "index";
     }
     
     @RequestMapping("/games/lotto")
     public String gamesLotto(ModelMap modelMap)
     {
-        modelMap.addAttribute("text", new LottoGame[] { new LottoGame("Das"), new LottoGame("ist"), new LottoGame("ein"), new LottoGame("test") });// "Das ist ein test text. Random Number: " + random.nextInt());
-        
+        modelMap.addAttribute("text", Prototype.getInstance().getGameManager().getLottoGames());
+
         return "games";
     }
     
     @RequestMapping("/games/toto")
     public String gamesToto(ModelMap modelMap)
     {
-        modelMap.addAttribute("text", new TotoGame[] { new TotoGame(), new TotoGame(), new TotoGame(), new TotoGame() });
-        
+        modelMap.addAttribute("text", Prototype.getInstance().getGameManager().getTotoGames());
+   
         return "games";
     }
     
@@ -65,6 +63,14 @@ public class IndexController
         return "error";
     }
     
+    @RequestMapping("/tips")
+    public String getTips(ModelMap modelMap)
+    {
+        modelMap.addAttribute("tips", Prototype.getInstance().getTips());
+        
+        return "tips";
+    }
+    
     private String createLottoTip(LottoGame game, Map<String, String> params, ModelMap modelMap)
     {
         // TODO Auto-generated method stub
@@ -90,9 +96,9 @@ public class IndexController
             }
         }
         
-        Prototype.getInstance().addTip(new TotoTip(tips));
+        Prototype.getInstance().addTip(new TotoTip(game, tips));
         
-        return null;
+        return "success";
     }
     
     private String handleLottoGame(LottoGame game, ModelMap modelMap)
