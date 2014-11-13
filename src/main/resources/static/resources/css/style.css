@@ -154,7 +154,7 @@ section h1 {
 
 footer {
     /*background-color: brown;*/
-    background-image: url(../img/grau-50.png);
+    background-image: url(./img/grau-50.png);
     color: white;
     text-align: center;
     padding-left: 20px;

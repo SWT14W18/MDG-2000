@@ -33,6 +33,7 @@ public class Lotterie {
 		}
 	}
 	
+		
 	@Configuration
 	@EnableGlobalMethodSecurity(prePostEnabled = true)
 	static class WebSecurityConfiguration extends SalespointSecurityConfiguration {
@@ -40,11 +41,11 @@ public class Lotterie {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 
-			http.csrf().disable();
+			http.authorizeRequests().anyRequest().permitAll();
 
-			http.authorizeRequests().antMatchers("/**").permitAll().and().//
-					formLogin().loginPage("/login").loginProcessingUrl("/login").and(). //
-					logout().logoutUrl("/logout").logoutSuccessUrl("/");
+			//http.authorizeRequests().antMatchers("/**").permitAll().and().//
+			//		formLogin().loginPage("/login").loginProcessingUrl("/login").and(). //
+			//		logout().logoutUrl("/logout").logoutSuccessUrl("/");
 		}
 	}
 
