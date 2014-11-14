@@ -10,4 +10,8 @@ public class TotoTip extends Tip
         this.tips = tips;
     }
     
+    public Map<Long, TotoValue> getMatchTips()
+    {
+        return tips;
+    }
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class IndexController
 {
     @RequestMapping("/index")
-    public String index(ModelMap modelMap)
+    public String index()
     {
         return "index";
     }
@@ -46,14 +46,14 @@ public class IndexController
     }
     
     @RequestMapping("/game/createTip")
-    public String createTip(@RequestParam Map<String, String> params, ModelMap modelMap)
+    public String createTip(@RequestParam Map<String, String> params)
     {
         Game game = Prototype.getInstance().getGame(Long.valueOf(params.get("gameid")));
         
         if (game instanceof TotoGame)
-            return createTotoTip((TotoGame) game, params, modelMap);
+            return createTotoTip((TotoGame) game, params);
         else if (game instanceof LottoGame)
-            return createLottoTip((LottoGame) game, params, modelMap);
+            return createLottoTip((LottoGame) game, params);
         
         return "error";
     }
@@ -66,13 +66,14 @@ public class IndexController
         return "tips";
     }
     
-    private String createLottoTip(LottoGame game, Map<String, String> params, ModelMap modelMap)
+    @SuppressWarnings("unused")
+    private String createLottoTip(LottoGame game, Map<String, String> params)
     {
         // TODO Auto-generated method stub
         return null;
     }
     
-    private String createTotoTip(TotoGame game, Map<String, String> params, ModelMap modelMap)
+    private String createTotoTip(TotoGame game, Map<String, String> params)
     {
         Map<Long, TotoValue> tips = new HashMap<>();
         for (TotoMatch match : game.getMatches())
@@ -95,6 +96,7 @@ public class IndexController
         return "success";
     }
     
+    @SuppressWarnings("unused")
     private String handleLottoGame(LottoGame game, ModelMap modelMap)
     {
         // TODO Auto-generated method stub

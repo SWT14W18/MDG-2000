@@ -1,3 +1,4 @@
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
  * Spiel auswählen //Done
  * Tipp erstellen //Done für TOTO
  * Tipps einsehen //halb done (tipps können gesehen werden, aber keine details)
- * 
  * 
  * Startseite
  * 2 Knöpfe zu den beiden Spielen
@@ -39,9 +39,10 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
  * --> Tipp erstellen
  */
 
+@SuppressWarnings("deprecation") //too lazy to use proper date stuff...
 @Configuration
 @Import({ SalespointWebConfiguration.class })
-//@EnableAutoConfiguration
+// @EnableAutoConfiguration
 @ComponentScan
 public class Prototype
 {
@@ -96,9 +97,9 @@ public class Prototype
     
     // setup
     {
-        gameManager.addGame(new LottoGame("okay"));
-        gameManager.addGame(new LottoGame("das"));
-        gameManager.addGame(new LottoGame("funzt"));
+        gameManager.addGame(new LottoGame(new Date(2014, 11, 16)));
+        gameManager.addGame(new LottoGame(new Date(2014, 11, 23)));
+        gameManager.addGame(new LottoGame(new Date(2014, 11, 30)));
         gameManager.addGame(new TotoGame());
         gameManager.addGame(new TotoGame());
     }
