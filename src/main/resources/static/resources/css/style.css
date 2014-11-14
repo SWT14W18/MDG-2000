@@ -133,6 +133,13 @@ aside img{
     border: 1px solid silver;
 }
 
+p.Center {
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  
+}
+
 section {
     background-color: #e4d8d8;
     background-color: hsla(0, 0%, 50%, 0.4);
@@ -154,7 +161,7 @@ section h1 {
 
 footer {
     /*background-color: brown;*/
-    background-image: url(./img/grau-50.png);
+    background-image: url(../img/grau-50.png);
     color: white;
     text-align: center;
     padding-left: 20px;

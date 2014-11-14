@@ -1,26 +1,22 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html lang="de">
   <head>
-    <meta charset="UTF-8"/>    
-    <title>Mach dein Glulck!!</title>
-
+    <title>Login</title>
+    
     <meta name="description" content="Die Lotterie Mach dein Glulck!!"/>
     <meta name="author" content="RB"/>
     <meta name="keywords" content="Lotterie"/>
     
     <link href="../resources/css/style.css" type="text/css" rel="stylesheet"/>
-
-</head>
-
-<body>
-<!--div id="wrapper"-->
+  </head>
+  
+  <body>
   <header>
     <p id="logotext">
       <strong>Mach Dein Gluck!</strong>
     </p>
   </header>
-  
-<div id="wrapper">  
+  <div id="wrapper">  
   
   <nav id="steuerungoben">
     <ul>
@@ -39,12 +35,18 @@
   </nav>  
   
   <aside>  
-    <p><b>Spiele:</b></p>
       <img src="../resources/img/Fussballtoto.png" width="200" height="200" alt="Fussballtoto"/>
       <img src="../resources/img/Lottologo.jpeg" width="340" height="210" alt="6aus49 Zahlenlotto"/>     
   </aside>
   <section>
-    <h1>Registriere dich jetzt oder log dich ein, um sofort spielen zu k&ouml;nnen!</h1>
+    <h1 th:text="${Kunde}">Das ist der Login-Bildschirm!!</h1>
+    <form action="/Input">
+     <p class="Center">Vorname:</p>
+     <div align="center"><input name="vorname" type="text" size="30" maxlength="30"/></div>
+     <p class="Center">Passwort:</p>
+     <div align="center"><input name="passwort" type="password" size="30" maxlength="40"/></div>
+     <br/><div align="center"><input type="submit" value="Login"/></div>
+   </form>
   </section>  
     
   <footer>    
@@ -52,5 +54,5 @@
   </footer>
 
 </div>    
-</body>
+  </body>
 </html>
