@@ -29,7 +29,7 @@ public class Lotterie {
 
 		@Override
 		public void addViewControllers(ViewControllerRegistry registry) {
-			//registry.addViewController("/Index").setViewName("index");
+			registry.addViewController("/Login").setViewName("Login");
 		}
 	}
 	
@@ -41,11 +41,12 @@ public class Lotterie {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 
-			http.authorizeRequests().anyRequest().permitAll();
+			//http.authorizeRequests().anyRequest().permitAll();
+			http.csrf().disable();
 
-			//http.authorizeRequests().antMatchers("/**").permitAll().and().//
-			//		formLogin().loginPage("/login").loginProcessingUrl("/login").and(). //
-			//		logout().logoutUrl("/logout").logoutSuccessUrl("/");
+			http.authorizeRequests().antMatchers("/**").permitAll().and().//
+					formLogin().loginPage("/Login").loginProcessingUrl("/Login").and(). //
+					logout().logoutUrl("/logout").logoutSuccessUrl("/");
 		}
 	}
 

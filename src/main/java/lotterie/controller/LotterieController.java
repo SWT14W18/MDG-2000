@@ -9,7 +9,6 @@ import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,14 +27,18 @@ class LotterieController {
 	
 	@RequestMapping({"/","/Index"})
     public String index() {
+	
+	
+		if(authenticationManager.getCurrentUser().isPresent()) return "Index_eingeloggt";
+		
 		return "Index";
 	}
 	
-	@RequestMapping({"/Login"})
+	/*@RequestMapping({"/Login"})
 	public String login(ModelMap modelmap){
 		modelmap.addAttribute("Kunde", "Ich bin Günther");
 		return "Login";
-	}
+	}*/
 	
 	@RequestMapping({"/Registrieren"})
 	public String registrieren(){
@@ -48,7 +51,11 @@ class LotterieController {
 		
 		if(user.isPresent()){
 			
-		  if(authenticationManager.matches(new Password(passwort), user.get().getPassword())) return "Index";
+		  if(authenticationManager.matches(new Password(passwort), user.get().getPassword())){
+		      
+			  
+			  return index();
+		  }
 		  
 		}
 		return "Registrieren";

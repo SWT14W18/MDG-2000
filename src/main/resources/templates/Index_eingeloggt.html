@@ -39,15 +39,7 @@
       <img src="../resources/img/Lottologo.jpeg" width="340" height="210" alt="6aus49 Zahlenlotto"/>     
   </aside>
   <section>
-    <h1 th:text="${Kunde}">Das ist der Login-Bildschirm!!</h1>
-    <p th:if="${loginError}">Wrong User or Password</p>
-    <form th:action="@{/Login}" method="post">
-     <p class="Center">Vorname:</p>
-     <div align="center"><input name="username" type="text" size="30" maxlength="30"/></div>
-     <p class="Center">Passwort:</p>
-     <div align="center"><input name="password" type="password" size="30" maxlength="40"/></div>
-     <br/><div align="center"><input type="submit" value="Login"/></div>
-   </form>
+    <h1>Du bist eingeloggt!!!</h1> 
   </section>  
     
   <footer>    
