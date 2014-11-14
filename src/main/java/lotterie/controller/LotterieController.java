@@ -45,6 +45,15 @@ class LotterieController {
 		return "Registrieren";
 	}
 	
+	@RequestMapping({"/register"})
+	public String register(@RequestParam("username") String vorname, @RequestParam("password") String passwort){
+		if(userAccountManager.contains(new UserAccountIdentifier(vorname))){
+			return "error";
+		}
+		userAccountManager.save(userAccountManager.create(vorname, passwort));
+		return "index";
+	}
+	
 	@RequestMapping({"/Input"})
 	public String input(@RequestParam("vorname") String vorname, @RequestParam("passwort") String passwort){
 		Optional<UserAccount> user = userAccountManager.get(new UserAccountIdentifier(vorname));
