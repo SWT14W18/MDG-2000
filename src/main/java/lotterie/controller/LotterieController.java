@@ -34,12 +34,6 @@ class LotterieController {
 		return "Index";
 	}
 	
-	/*@RequestMapping({"/Login"})
-	public String login(ModelMap modelmap){
-		modelmap.addAttribute("Kunde", "Ich bin Günther");
-		return "Login";
-	}*/
-	
 	@RequestMapping({"/Registrieren"})
 	public String registrieren(){
 		return "Registrieren";
