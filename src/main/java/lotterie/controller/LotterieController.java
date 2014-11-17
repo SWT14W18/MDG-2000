@@ -34,6 +34,12 @@ class LotterieController {
 		return "Index";
 	}
 	
+	@RequestMapping({"/Bank"})
+	public String bank(){
+		return "Bank";
+	}
+	
+	
 	/*@RequestMapping({"/Login"})
 	public String login(ModelMap modelmap){
 		modelmap.addAttribute("Kunde", "Ich bin Günther");
