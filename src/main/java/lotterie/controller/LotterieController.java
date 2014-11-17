@@ -45,7 +45,7 @@ class LotterieController {
 			return "error";
 		}
 		userAccountManager.save(userAccountManager.create(vorname, passwort));
-		return "index";
+		return "login";
 	}
 	
 	@RequestMapping({"/Input"})
