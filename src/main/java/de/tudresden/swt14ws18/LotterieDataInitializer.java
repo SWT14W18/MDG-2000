@@ -1,6 +1,7 @@
 package de.tudresden.swt14ws18;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Role;
@@ -12,6 +13,7 @@ import org.springframework.util.Assert;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.BankAccountRepository;
+import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.CustomerRepository;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
@@ -38,6 +40,8 @@ public class LotterieDataInitializer implements DataInitializer{
 	public void initialize() {
 
 		initializeUsers(userAccountManager, customerRepository, bankAccountRepository);
+		
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date()));
 	}
 	
 	private void initializeUsers(UserAccountManager userAccountManager, CustomerRepository customerRepository, BankAccountRepository bankAccountRepository) {
