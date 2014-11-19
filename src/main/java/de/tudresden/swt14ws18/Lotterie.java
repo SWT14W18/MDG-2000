@@ -33,10 +33,6 @@ public class Lotterie {
 
     @Configuration
     static class LotterieWebConfiguration extends SalespointWebConfiguration {
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-	    registry.addViewController("/Login").setViewName("Login");
-	}
     }
 
     @Configuration
@@ -45,7 +41,7 @@ public class Lotterie {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    http.csrf().disable();
-	    http.authorizeRequests().antMatchers("/**").permitAll().and().formLogin().loginPage("/Login").loginProcessingUrl("/Login").and().logout()
+	    http.authorizeRequests().antMatchers("/**").permitAll().and().formLogin().loginPage("/login").loginProcessingUrl("/login").and().logout()
 		    .logoutUrl("/logout").logoutSuccessUrl("/");
 	}
     }

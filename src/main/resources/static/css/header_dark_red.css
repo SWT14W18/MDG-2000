@@ -1,4 +1,12 @@
-body,html{
+/* ###########################################################################################################################################
+		Header und Section und Footer wurden immer davor geschrieben um mit der Suche schnell zu den einzelnen Teilen zu switchen
+								Beschreibung liegt bei wichtigen Teilen vor
+	
+	##########################################################################################################################################
+*/
+
+
+body,html{ /* Hintergrund verlauf */
 height: 100%;
 background: rgb(209,209,209);
 background: -moz-radial-gradient(center, ellipse cover,  rgba(209,209,209,1) 0%, rgba(242,249,254,1) 100%);
@@ -14,7 +22,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1d1d1', end
     min-height: 100%;
 }
 
-header {
+header { /* Weißes border oben und schwarzer unten , verlauf im header */
    border-top: 1px solid #FFFFFF;
    border-bottom: 1px solid #111111;
    border-left: none;
@@ -69,7 +77,7 @@ header ul#navigation > li:not(:first-child){/*Alle Navigationselemente außer da
 		border-image: linear-gradient(to top, black, rgba(0, 0, 0, 0)) 1 100%; 
 		width:160px;
 }
-header ul#navigation > li:nth-child(5){
+header ul#navigation > li:nth-child(5){ /* Das Geld ist das 5. Child und hat eine kleine größe */
         border-right:1px;
         border-left:1px;
 		border-style: solid;
@@ -80,7 +88,7 @@ header ul#navigation > li:nth-child(5){
 		border-image: linear-gradient(to top, black, rgba(0, 0, 0, 0)) 1 100%; 
 		width:120px;
 }
-header ul#navigation > li.lilogin{
+header ul#navigation > li.lilogin{ 
         border-right:1px;
         border-left:1px;
 		border-style: solid;
@@ -102,17 +110,17 @@ header ul#navigation > li:hover label{/*Hover-Effekt für die Listenelemente*/
 		-ms-user-select: none; /* IE10+ */
 			cursor:pointer;
 }		
-header ul#navigation > li span p{/*Design des Textes im Reiter 'maxmusti'*/
+header ul#navigation > li span p{/*Design des Textes im Reiter 'BENUTZERNAME'*/
         font-family: 'Ubuntu', sans-serif;
         font-size: 17px;
         font-weight: 600;
         color: #333333;
         margin-top: 0px;
 }
-header .lileft{/*Ordnet 'Overview','Details' und 'Settings' links an.*/
+header .lileft{/*Ordnet links an.*/
         float:left;
 }
-header .liright{/*Ordnet 'Register','Login' und 'maxmusi' rechts an.*/
+header .liright{/*Ordnet rechts an.*/
         float:right;
 }
 header ul#navigation li.lilogin{
@@ -148,52 +156,23 @@ header ul#navigation > li:hover span {/*Blendet die Popup-spanulare beim Hovern 
 		 
 		 
 }
-header span label {/*Design der hellgrauen Beschriftungen der einzelnen Input-Komponenten in den Popup-spanularen.*/
+header span label {/*Design der Beschriftungen der einzelnen Input-Komponenten in den Popup-spanularen.*/
          font-family: 'Ubuntu', sans-serif;
          color: #333333;
          font-size: 16px;
          font-weight: bold;
 }
-header #login_checkbox{/*Bewirkt, dass die Checkbox im 'Login'-Tab neben dem Label 'Remember me' steht.*/
-         height: auto;
-         width: auto;
-         margin-right: 10px;
-         margin-top: 10px;
-         vertical-align:middle;
-}
 
-header ul#navigation > li span > ul#navi_menu {
+header ul#navigation > li span > ul#navi_menu { /*Höhe der Unterelemente */
 		height:50px;	
 		
 }
-header ul#navigation > li span > ul#navi_menu:last-child  > li.span_open > #navi_button{
+header ul#navigation > li span > ul#navi_menu:last-child  > li.span_open > #navi_button{ /* Runde untere ecken */
          border-bottom-left-radius: 5px;
          border-bottom-right-radius: 5px;
 }
 
-header ul#navigation > li span > ul#navi_menu > li.span_open > #navi_button{
-	padding-top:20px;
-	text-align:center;
-	width:160px;
-	height:29px;
-    background: #EFEFEF;
-	border-top: 1px solid;
-    border-top-color:#CFCFCF;
-	cursor:pointer;
-}
-header ul#navigation > li:first-child label {
-         font-family: 'Ubuntu', sans-serif;
-         color: #333333;
-         font-size: 20px;
-		 margin-top:-3px;
-         font-weight: bold;
-		 	cursor:pointer;
-}
-header ul#navigation > li span > ul#navi_menu > li.span_open > #navi_button > label{
-	color:#333333;
-		cursor:pointer;
-}
-header ul#navigation > li span > ul#navi_menu:nth-child(5)> li.span_open > #navi_button{
+header ul#navigation > li span > ul#navi_menu:nth-child(5)> li.span_open > #navi_button{ /*runde untere ecken */ 
 
 	padding-top:20px;
 	text-align:center;
@@ -205,6 +184,33 @@ header ul#navigation > li span > ul#navi_menu:nth-child(5)> li.span_open > #navi
 		cursor:pointer;
 	
 }
+
+header ul#navigation > li span > ul#navi_menu > li.span_open > #navi_button{ /* Fingersymbol beim hovern und design des nicht ausgewählten unterpunktes */
+	padding-top:20px;
+	text-align:center;
+	width:160px;
+	height:29px;
+    background: #EFEFEF;
+	border-top: 1px solid;
+    border-top-color:#CFCFCF;
+	cursor:pointer;
+}
+
+header ul#navigation > li span > ul#navi_menu > li.span_open > #navi_button > label{ /* Schrift des geöffnenten nicht ausgewählten unterpunktes */
+		color:#333333;
+		cursor:pointer;
+}
+
+header ul#navigation > li:first-child label { /* schrift von 'MACH DEIN GLÜCK' */
+         font-family: 'Ubuntu', sans-serif;
+         color: #333333;
+         font-size: 20px;
+		 margin-top:-3px;
+         font-weight: bold;
+		 	cursor:pointer;
+}
+
+
 
 header ul#navigation > li span > ul#navi_menu > li.span_open > #navi_button:hover{ /* design für angewähltes objekt des untermenus der navileiste */ 
 
@@ -226,7 +232,7 @@ header ul#navigation > li span > ul#navi_menu > li.span_open > #navi_button:hove
 	color:#111111;
 }
 
-header a{
+header a{ /* links haben keine unterstrich */
 	text-decoration:none;
 }
 
@@ -354,9 +360,10 @@ section p {
 }
 
 
+
+
 div.fehler{
 	width:22%;
-	min-height:10%;
 	height:auto;
 	position:absolute;
 	color: #D8000C;

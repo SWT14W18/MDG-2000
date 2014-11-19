@@ -79,14 +79,7 @@
                          </span>
                    </li>
 
-				   <li class="liright">
-				   <a th:href="bankaccount.html">
-				   <label class="menuentry_money">
-				   2022,14 
-				   <i class="fa fa-eur"></i>
-				   </label>
-				   </a>
-				   </li>
+				   <li class="liright"><a th:href="bankaccount.html"><label class="menuentry_money">2022,14 <i class="fa fa-eur"></i></label></a></li>
 				   
 				   </div> <!-- ROLE USER ende -->
 				   
@@ -102,13 +95,18 @@
 						</div>
 				   
 				   
-				   
+				   <div sec:authorize="!isAuthenticated()">
+                            
+
 				   <li class="liright"><a th:href="registration.html"><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
-					<form>
+					
+					<form action="/login" method="post">
 						<li class="lilogin"><label class="menuentry_login"><input class="loginButton" type="submit" value="Login" tabindex="3" /></label></li>
 						<li class="lilogin"><label class="menuentry_login"><input type="password" placeholder="Passwort" class="loginInput" name="password" tabindex="2" /></label></li> 
 						<li class="lilogin"><label class="menuentry_login"><input type="text" placeholder="Benutzername" class="loginInput" name="username" tabindex="1"/></label></li>
 					</form>
+					
+                    </div>
               </ul>
          </nav>
     </header>
