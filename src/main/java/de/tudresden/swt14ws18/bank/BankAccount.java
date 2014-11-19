@@ -37,6 +37,13 @@ public class BankAccount {
 	balance += trans.getAmount();
 	transactions.add(trans);
     }
+    
+    public void payIn(double balance)
+    {
+    	Transaction trans = new Transaction(null, this, balance);
+    	balance += balance;
+    	transactions.add(trans);
+    }
 
     public double getBalance() {
 	return balance;
