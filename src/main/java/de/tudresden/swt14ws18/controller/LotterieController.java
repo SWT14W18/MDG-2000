@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.BankAccountRepository;
 import de.tudresden.swt14ws18.gamemanagement.GameManager;
+import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.CommunityRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
@@ -62,14 +63,16 @@ public class LotterieController {
 	}
 	
 	@RequestMapping("/toto")
-	public String toto(){
+	public String toto(ModelMap map){
+		map.addAttribute("games", gameManager.getUnfinishedGames(GameType.TOTO));
+		System.out.println(gameManager.getGames(GameType.TOTO));
 		return "games/toto";
 	}
 	
 	@RequestMapping("/lotto")
 	public String lotto(ModelMap map){
 	    //map.addAttribute("games", gameManager.getUnfinishedGames(GameType.LOTTO));
-		return "games/lottoTipp";
+		return "games/lotto";
 	}
 	
 	@RequestMapping("/createLottoTip")
