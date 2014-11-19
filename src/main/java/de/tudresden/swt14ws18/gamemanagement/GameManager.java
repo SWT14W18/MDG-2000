@@ -28,6 +28,16 @@ public class GameManager {
 
 	return list;
     }
+    
+    public List<Game> getUnfinishedGames(GameType type) {
+	List<Game> list = new ArrayList<>();
+
+	for (Game value : games.values())
+	    if (value.getType() == type && !value.isFinished())
+		list.add(value);
+
+	return list;
+    }
 
     public void setNextLottoPot(LottoGame game) {
 	LottoGame result = null;

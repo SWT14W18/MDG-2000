@@ -28,4 +28,13 @@ public class TotoGame extends Game {
     public List<TotoMatch> getMatches() {
 	return matches;
     }
+
+    @Override
+    public boolean isFinished() {
+	for (TotoMatch match : getMatches())
+	    if (match.getResult() == TotoResult.NOT_PLAYED)
+		return false;
+
+	return true;
+    }
 }

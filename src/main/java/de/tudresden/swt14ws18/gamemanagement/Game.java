@@ -28,4 +28,6 @@ public abstract class Game extends Observable {
     public Date getDate() {
 	return date;
     }
+
+    public abstract boolean isFinished();
 }

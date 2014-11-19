@@ -97,4 +97,9 @@ public class LottoGame extends Game {
 	return result;
     }
 
+    @Override
+    public boolean isFinished() {
+	return getResult() != null;
+    }
+
 }
