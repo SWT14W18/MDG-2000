@@ -4,6 +4,7 @@ import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import de.tudresden.swt14ws18.useraccountmanager.CommunityRepository;
 import de.tudresden.swt14ws18.useraccountmanager.CustomerRepository;
@@ -27,4 +28,8 @@ public class LotterieController {
 		this.communityRepository = communityRepository;
 	}
 
+	@RequestMapping("/")
+	public String index(){
+		return "/index";
+	}
 }
