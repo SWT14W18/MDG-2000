@@ -1,13 +1,8 @@
 package de.tudresden.swt14ws18.useraccountmanager;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 public abstract class Customer {
 	
-	@Id
-	@GeneratedValue
-	private long id;
 	private String name;
 	private String password;
 	

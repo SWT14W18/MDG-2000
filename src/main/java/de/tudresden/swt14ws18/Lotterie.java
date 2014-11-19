@@ -4,7 +4,6 @@ import org.salespointframework.Salespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
 import org.salespointframework.SalespointWebConfiguration;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import de.tudresden.swt14ws18.bank.BankAccount;
 
 @Configuration
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 @EntityScan(basePackageClasses = { Salespoint.class, Lotterie.class })
 @EnableJpaRepositories(basePackageClasses = { Salespoint.class, Lotterie.class })
 @ComponentScan

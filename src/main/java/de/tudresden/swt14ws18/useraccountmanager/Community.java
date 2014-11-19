@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import org.salespointframework.useraccount.UserAccount;
@@ -11,6 +13,10 @@ import org.salespointframework.useraccount.UserAccount;
 @Entity
 public class Community extends Customer{
 
+	@Id
+	@GeneratedValue
+	private long id;
+	
 	private Set<ConcreteCustomer> members = new HashSet<>();
 	private ConcreteCustomer admin;
 	@OneToOne

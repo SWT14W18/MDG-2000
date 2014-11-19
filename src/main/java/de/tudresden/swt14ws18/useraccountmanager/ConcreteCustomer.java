@@ -1,6 +1,8 @@
 package de.tudresden.swt14ws18.useraccountmanager;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import org.salespointframework.useraccount.UserAccount;
@@ -10,6 +12,10 @@ import de.tudresden.swt14ws18.bank.BankAccount;
 @Entity
 public class ConcreteCustomer extends Customer{
 	
+	
+	@Id
+	@GeneratedValue
+	private long id;
 	//private Account account;
 	private int messages;
 	public Status state;
