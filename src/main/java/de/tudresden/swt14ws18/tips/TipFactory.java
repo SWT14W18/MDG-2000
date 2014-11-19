@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.gamemanagement.Game;
-import de.tudresden.swt14ws18.gamemanagement.GameManager;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
@@ -70,8 +70,7 @@ public class TipFactory {
 	    return null;
 	}
 
-	GameManager manager = null;
-	List<Game> g = manager.getUnfinishedGames(GameType.LOTTO);
+	List<Game> g = Lotterie.getInstance().getGameManager().getUnfinishedGames(GameType.LOTTO);
 	for (LottoNumbers num : numbers)
 	    for (int i = 0; i < games; i++) 
 		tips.add(new LottoTip((LottoGame) g.get(i), num));

@@ -22,9 +22,38 @@ body {
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1> Toto Tipperstellung</h1>
+		<h1> Toto Tipperstellung</h1>		
+			<form action="/createTotoTip" method="post">
+				<div class="tipp">
+ 					<p>
+   						<select name="teamA" size="7">
+							<option value="0">Mannschaft1</option>
+							<option value="1">Mannschaft2</option>
+							<option value="2">Mannschaft3</option>
+							<option value="3">Mannschaft4</option>
+							<option value="4">Mannschaft5</option>
+ 						 </select>
+ 					</p>
+ 					<p>
+   						 <select name="teamB" size="7">
+							<option value="0">Mannschaft1</option>
+							<option value="1">Mannschaft2</option>
+							<option value="2">Mannschaft3</option>
+							<option value="3">Mannschaft4</option>
+							<option value="4">Mannschaft5</option>
+ 						 </select>
+ 					</p>
+					<select name="outcome">
+						<option value="0">Sieg</option>
+						<option value="1">Niederlage</option>
+						<option value="2">Unentschieden</option>	
+					</select>
+				</div>
+			<input type="hidden" name="gameType" value="lotto" />
+			<input type="submit" />
+			</form>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>
-</body>	
+</body>
 </html>

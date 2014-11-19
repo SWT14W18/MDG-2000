@@ -1,5 +1,6 @@
 package de.tudresden.swt14ws18.controller;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.salespointframework.useraccount.AuthenticationManager;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.BankAccountRepository;
+import de.tudresden.swt14ws18.gamemanagement.GameManager;
+import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.CommunityRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.CustomerRepository;
@@ -30,14 +33,18 @@ public class LotterieController {
 	private final CommunityRepository communityRepository;
 	private final AuthenticationManager authenticationManager;
 	private final BankAccountRepository bankAccountRepository;
+	private final GameManager gameManager;
 	
 	@Autowired
-	public LotterieController(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository, AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository){
-		
+	public LotterieController(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository, AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository, GameManager gameManager){
+	    	Assert.notNull(gameManager, "UserAccountManager must not be null!");
+	    	Assert.notNull(authenticationManager, "UserAccountManager must not be null!");
+	    	Assert.notNull(bankAccountRepository, "UserAccountManager must not be null!");
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
 		Assert.notNull(customerRepository, "CustomerRepository must not be null!");
 		Assert.notNull(communityRepository, "CommunityRepository must not be null");
 		
+		this.gameManager = gameManager;
 		this.userAccountManager = userAccountManager;
 		this.customerRepository = customerRepository;
 		this.communityRepository = communityRepository;
@@ -60,8 +67,16 @@ public class LotterieController {
 	}
 	
 	@RequestMapping("/lotto")
-	public String lotto(){
-		return "games/lotto";
+	public String lotto(ModelMap map){
+	    //map.addAttribute("games", gameManager.getUnfinishedGames(GameType.LOTTO));
+		return "games/lottoTipp";
+	}
+	
+	@RequestMapping("/createLottoTip")
+	public String createLottoTip(@RequestParam Map<String,String> params, ModelMap map) {
+	    TipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()));
+	    
+	    return "index";
 	}
 	
 	@RequestMapping("/groupoverview")
