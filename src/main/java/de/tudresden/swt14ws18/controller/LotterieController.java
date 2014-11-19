@@ -53,73 +53,86 @@ public class LotterieController {
 		this.authenticationManager = authenticationManager;
 	}
 	@RequestMapping({"/","/index"})
-	public String Toindex(){
+	public String Toindex(ModelMap map){
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 		return "index";
 	}
 	
 	@RequestMapping("/gameoverview")
-	public String gameoverview(){
+	public String gameoverview(ModelMap map){
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 		return "games/overview";
 	}
 	
 	@RequestMapping("/toto")
 	public String toto(ModelMap map){
 		map.addAttribute("games", gameManager.getUnfinishedGames(GameType.TOTO));
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 		System.out.println(gameManager.getGames(GameType.TOTO));
 		return "games/toto";
 	}
 	
 	@RequestMapping("/lotto")
 	public String lotto(ModelMap map){
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 	    //map.addAttribute("games", gameManager.getUnfinishedGames(GameType.LOTTO));
 		return "games/lotto";
 	}
 	
 	@RequestMapping("/createLottoTip")
 	public String createLottoTip(@RequestParam Map<String,String> params, ModelMap map) {
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 	    TipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()));
 	    
 	    return "index";
 	}
 	
 	@RequestMapping("/groupoverview")
-	public String groupoverview(){
+	public String groupoverview(ModelMap map){
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 		return "groups/overview";
 	}
 	
 	@RequestMapping("/groupcreate")
-	public String groupcreate(){
+	public String groupcreate(ModelMap map){
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 		return "groups/create";
 	}
 	
 	@RequestMapping("/groupjoin")
-	public String groupjoin(){
+	public String groupjoin(ModelMap map){
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 		return "groups/join";
 	}
 	
 	@RequestMapping("/groupmanage")
-	public String groupmanage(){
+	public String groupmanage(ModelMap map){
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 		return "groups/manage";
 	}
 	@RequestMapping("/profil")
-	public String profil(){
+	public String profil(ModelMap map){
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 		return "profil";
 	}
 	
 	@RequestMapping("/bankaccount")
-	public String bankaccount(ModelMap modelMap){
+	public String bankaccount(ModelMap map){
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 		return "bankaccount";
 	}
 	
 	@RequestMapping("/logout")
-	public String logout(){
+	public String logout(ModelMap map){
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 		return "logout";
 	}
 	
 	@RequestMapping({"/registration"})
-	public String register(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap modelMap){
+	public String register(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap map){
 		if(userAccountManager.contains(new UserAccountIdentifier(vorname))){
-			modelMap.addAttribute("registrationError", true);
+			map.addAttribute("registrationError", true);
+			map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 			return "registration";
 		}
 		
@@ -137,8 +150,8 @@ public class LotterieController {
 	}
 	
 	@RequestMapping({"/input"})
-	public String input(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap modelMap){
-		
+	public String input(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap map){
+		map.addAttribute("balance",customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount().getBalance());
 		Optional<UserAccount> user = userAccountManager.get(new UserAccountIdentifier(vorname));
 		
 		if(user.isPresent()){
@@ -151,7 +164,7 @@ public class LotterieController {
 		  
 		}
 		
-		modelMap.addAttribute("loginError",true);
+		map.addAttribute("loginError",true);
 		return "index";
 	}
 	
