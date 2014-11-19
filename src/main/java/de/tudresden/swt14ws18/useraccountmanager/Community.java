@@ -15,9 +15,12 @@ public class Community extends Customer{
 	@OneToOne
 	private UserAccount userAccount;
 	
+	private CommunityRepository repository;
+	
 	public Community(String name, String password, UserAccount userAccount) {
 		super(name, password);
 		this.userAccount = userAccount;
+		repository.save(this);
 	}
 	
 	public boolean isMember(ConcreteCustomer concreteCustomer){
