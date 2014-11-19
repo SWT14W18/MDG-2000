@@ -104,7 +104,7 @@ public class LotterieController {
 	}
 	
 	@RequestMapping("/bankaccount")
-	public String bankaccount(){
+	public String bankaccount(ModelMap modelMap){
 		return "bankaccount";
 	}
 	
@@ -126,7 +126,7 @@ public class LotterieController {
 		userAccountManager.save(ua);
 		
 		BankAccount ba = new BankAccount();
-		
+	
 		ConcreteCustomer c1 = new ConcreteCustomer(vorname,passwort,Status.ACTIVE, ua, ba);
 		
 		customerRepository.save(c1);
