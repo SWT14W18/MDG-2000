@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class GameManager {
     private static final double LOTTO_PRICE = 1.00D;
     private static final double INPUT_INTO_POT = 0.9D;

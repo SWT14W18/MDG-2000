@@ -3,6 +3,7 @@ package de.tudresden.swt14ws18;
 import org.salespointframework.Salespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
 import org.salespointframework.SalespointWebConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityScan;
@@ -11,9 +12,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
+import de.tudresden.swt14ws18.gamemanagement.GameManager;
 
 @Configuration
 @EnableAutoConfiguration
@@ -21,7 +22,26 @@ import de.tudresden.swt14ws18.bank.BankAccount;
 @EnableJpaRepositories(basePackageClasses = { Salespoint.class, Lotterie.class })
 @ComponentScan
 public class Lotterie {
+    private static Lotterie instance;
     private BankAccount account = new BankAccount();
+    private GameManager gameManager;
+
+    public Lotterie() {
+	instance = this;
+    }
+    
+    @Autowired
+    public void setGameManager(GameManager gameManager) {
+	this.gameManager = gameManager;
+    }
+
+    public GameManager getGameManager() {
+	return gameManager;
+    }
+
+    public static Lotterie getInstance() {
+	return instance;
+    }
 
     public static void main(String[] args) {
 	SpringApplication.run(Lotterie.class, args);
