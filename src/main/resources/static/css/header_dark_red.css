@@ -356,6 +356,7 @@ section p {
 
 div.fehler{
 	width:22%;
+	min-height:10%;
 	height:auto;
 	position:absolute;
 	color: #D8000C;

@@ -90,11 +90,24 @@
 				   
 				   </div> <!-- ROLE USER ende -->
 				   
+				   		<div class="fehler" th:if="${loginError}">
+							<p class="h">Fehler</p>
+							<p>Benutername oder Passwort stimmmen nicht &uuml;berein!</p>
+							<p>Versuchen sie es erneut.</p>
+							<br/>
+							<form>
+							<input class="loginButton" type="button" value="ok" tabindex="3" onclick="location='index.html'" />
+							</form>
+							<p>Wenn du noch keine Account hast:<br/> <a href="index.html">Registrieren!</a></p>
+						</div>
+				   
+				   
+				   
 				   <li class="liright"><a th:href="registration.html"><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
 					<form>
 						<li class="lilogin"><label class="menuentry_login"><input class="loginButton" type="submit" value="Login" tabindex="3" /></label></li>
-						<li class="lilogin"><label class="menuentry_login"><input type="password" placeholder="Passwort" class="loginInput" tabindex="2" /></label></li> 
-						<li class="lilogin"><label class="menuentry_login"><input type="text" placeholder="Benutzername" class="loginInput" tabindex="1"/></label></li>
+						<li class="lilogin"><label class="menuentry_login"><input type="password" placeholder="Passwort" class="loginInput" name="password" tabindex="2" /></label></li> 
+						<li class="lilogin"><label class="menuentry_login"><input type="text" placeholder="Benutzername" class="loginInput" name="username" tabindex="1"/></label></li>
 					</form>
               </ul>
          </nav>

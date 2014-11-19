@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+w<!DOCTYPE html>
 <html>
 <head>
 <title>Lotterie Mach dein Gl&uuml;ck!!!</title>
@@ -23,6 +23,13 @@ body {
 	<div th:replace="fragments/header :: header"></div>
 	<section>
 		<h1> Registrierung</h1>
+		
+		<form>
+			<input class="loginButton" type="submit" value="Login" tabindex="3" />
+			<input type="password" placeholder="Passwort" class="loginInput" name="password" tabindex="2" />
+			<input type="text" placeholder="Benutzername" class="loginInput" name="username" tabindex="1"/>
+		</form>
+			
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>
