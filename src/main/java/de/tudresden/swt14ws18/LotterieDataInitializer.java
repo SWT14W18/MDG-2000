@@ -5,7 +5,6 @@ import java.util.Arrays;
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
-import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,14 +38,14 @@ public class LotterieDataInitializer implements DataInitializer{
 	
 	private void initializeUsers(UserAccountManager userAccountManager, CustomerRepository customerRepository) {
 
-		if (userAccountManager.get(new UserAccountIdentifier("boss")).isPresent()) {
-			return;
-		}
+//		if (userAccountManager.get(new UserAccountIdentifier("boss")).isPresent()) {
+//			return;
+//		}
+//
+//		UserAccount bossAccount = userAccountManager.create("boss", "123", new Role("ROLE_BOSS"));
+//		userAccountManager.save(bossAccount);
 
-		UserAccount bossAccount = userAccountManager.create("boss", "123", new Role("ROLE_BOSS"));
-		userAccountManager.save(bossAccount);
-
-		final Role customerRole = new Role("ROLE_CUSTOMER");
+		final Role customerRole = new Role("ROLE_USER");
 
 		UserAccount ua1 = userAccountManager.create("hans", "123", customerRole);
 		userAccountManager.save(ua1);
