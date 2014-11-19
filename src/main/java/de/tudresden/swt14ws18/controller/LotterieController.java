@@ -123,7 +123,8 @@ public class LotterieController {
 	}
 	
 	@RequestMapping({"/input"})
-	public String input(@RequestParam("vorname") String vorname, @RequestParam("passwort") String passwort, ModelMap modelMap){
+	public String input(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap modelMap){
+		
 		Optional<UserAccount> user = userAccountManager.get(new UserAccountIdentifier(vorname));
 		
 		if(user.isPresent()){
