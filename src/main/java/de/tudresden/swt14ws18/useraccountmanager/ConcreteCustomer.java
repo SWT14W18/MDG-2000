@@ -13,12 +13,29 @@ public class ConcreteCustomer extends Customer{
 	private enum Status {
 		ACTIVE, CLOSED, ANONYM
 	}
+	Status state;
 	@OneToOne
 	private UserAccount userAccount;
+	
+	private CustomerRepository repository;
+	
+	@Deprecated
+	protected ConcreteCustomer() {
+	}
 	
 	public ConcreteCustomer(String name, String password, Status state, UserAccount userAccount) {
 		super(name, password);
 		this.userAccount = userAccount;
+		this.state = state;
+		repository.save(this);
+	}
+	
+	public Status getState(){
+		return state;
+	}
+	
+	public int countMessages(){
+		return messages;
 	}
 	
 	public void payMessage(){
