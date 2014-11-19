@@ -1,7 +1,7 @@
 package de.tudresden.swt14ws18.useraccountmanager;
 
 
-public abstract class Customer {
+public class Customer {
 	
 	private String name;
 	private String password;
