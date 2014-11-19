@@ -11,6 +11,7 @@ public class ConcreteCustomer extends Customer{
 	//private Account account;
 	private int messages;
 	public Status state;
+	
 	@OneToOne
 	private UserAccount userAccount;
 	
@@ -24,7 +25,7 @@ public class ConcreteCustomer extends Customer{
 		super(name, password);
 		this.userAccount = userAccount;
 		this.state = state;
-		repository.save(this);
+		//repository.save(this);
 	}
 	
 	public void setStatus(Status state){
