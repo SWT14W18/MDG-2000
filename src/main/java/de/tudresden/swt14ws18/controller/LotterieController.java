@@ -27,8 +27,12 @@ public class LotterieController {
 		this.customerRepository = customerRepository;
 		this.communityRepository = communityRepository;
 	}
-
 	@RequestMapping("/")
+	public String Toindex(){
+		return "index";
+	}
+	
+	@RequestMapping("/index")
 	public String index(){
 		return "index";
 	}
