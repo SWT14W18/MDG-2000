@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.salespointframework.useraccount.AuthenticationManager;
 import org.salespointframework.useraccount.Password;
+import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.useraccountmanager.CommunityRepository;
+import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.CustomerRepository;
+import de.tudresden.swt14ws18.useraccountmanager.Status;
 
 @Controller
 public class LotterieController {
@@ -107,7 +110,15 @@ public class LotterieController {
 			modelMap.addAttribute("registrationError", true);
 			return "registration";
 		}
-		userAccountManager.save(userAccountManager.create(vorname, passwort));
+		
+		final Role customerRole = new Role("ROLE_USER");
+		
+		UserAccount ua = userAccountManager.create(vorname,passwort, customerRole);
+		userAccountManager.save(ua);
+		
+		ConcreteCustomer c1 = new ConcreteCustomer(vorname,passwort,Status.ACTIVE, ua);
+		
+		customerRepository.save(c1);
 		return "index";
 	}
 	
