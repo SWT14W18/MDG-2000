@@ -23,7 +23,11 @@ public class Community extends Customer{
 		this.userAccount = userAccount;
 		this.admin = admin;
 		addMember(admin);
-		//repository.save(this);
+		repository.save(this);
+	}
+	
+	public ConcreteCustomer getAdmin(){
+		return admin;
 	}
 	
 	public boolean addMember(ConcreteCustomer newMember){
