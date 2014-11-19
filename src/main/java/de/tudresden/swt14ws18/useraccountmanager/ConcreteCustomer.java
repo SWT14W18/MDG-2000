@@ -23,17 +23,17 @@ public class ConcreteCustomer extends Customer{
 	@OneToOne
 	private UserAccount userAccount;
 	
-	//private BankAccount account;
+	private BankAccount account;
 	
 	@Deprecated
 	protected ConcreteCustomer() {
 	}
 	
-	public ConcreteCustomer(String name, String password, Status state, UserAccount userAccount) {
+	public ConcreteCustomer(String name, String password, Status state, UserAccount userAccount, BankAccount bankAccount) {
 		super(name, password);
 		this.userAccount = userAccount;
 		this.state = state;
-		//this.account = new BankAccount();
+		this.account = bankAccount;
 	}
 	
 	public void setStatus(Status state){

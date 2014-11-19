@@ -1,7 +1,9 @@
 package de.tudresden.swt14ws18.bank;
 
 
+
 public class Transaction {
+	
     private BankAccount to;
     private BankAccount from;
     private double amount;

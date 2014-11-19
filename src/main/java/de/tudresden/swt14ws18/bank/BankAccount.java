@@ -3,8 +3,20 @@ package de.tudresden.swt14ws18.bank;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class BankAccount {
+	
+	@Id
+	@GeneratedValue
+	private long id;
+	
     private double balance = 0;
+    @OneToMany
     private List<Transaction> transactions = new ArrayList<>();
 
     public boolean outgoingTransaction(BankAccount to, double amount) {

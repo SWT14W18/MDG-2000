@@ -15,6 +15,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import de.tudresden.swt14ws18.bank.BankAccount;
+import de.tudresden.swt14ws18.bank.BankAccountRepository;
 import de.tudresden.swt14ws18.useraccountmanager.CommunityRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.CustomerRepository;
@@ -27,9 +29,10 @@ public class LotterieController {
 	private final CustomerRepository customerRepository;
 	private final CommunityRepository communityRepository;
 	private final AuthenticationManager authenticationManager;
+	private final BankAccountRepository bankAccountRepository;
 	
 	@Autowired
-	public LotterieController(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository, AuthenticationManager authenticationManager){
+	public LotterieController(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository, AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository){
 		
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
 		Assert.notNull(customerRepository, "CustomerRepository must not be null!");
@@ -38,6 +41,7 @@ public class LotterieController {
 		this.userAccountManager = userAccountManager;
 		this.customerRepository = customerRepository;
 		this.communityRepository = communityRepository;
+		this.bankAccountRepository = bankAccountRepository;
 		this.authenticationManager = authenticationManager;
 	}
 	@RequestMapping("/")
@@ -116,7 +120,9 @@ public class LotterieController {
 		UserAccount ua = userAccountManager.create(vorname,passwort, customerRole);
 		userAccountManager.save(ua);
 		
-		ConcreteCustomer c1 = new ConcreteCustomer(vorname,passwort,Status.ACTIVE, ua);
+		BankAccount ba = new BankAccount();
+		
+		ConcreteCustomer c1 = new ConcreteCustomer(vorname,passwort,Status.ACTIVE, ua, ba);
 		
 		customerRepository.save(c1);
 		return "index";
