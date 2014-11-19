@@ -21,6 +21,9 @@ public class Transaction {
     private BankAccount from;
     private double amount;
 
+    @Deprecated
+    public Transaction() {}
+    
     public Transaction(BankAccount from, BankAccount to, double amount) {
 	this.to = to;
 	this.from = from;

@@ -59,10 +59,23 @@ public class LotterieController {
 	if (authenticationManager.getCurrentUser().isPresent()) {
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 
-	    map.addAttribute("balance", new DecimalFormat("#0.00").format(customer.getAccount().getBalance()));
+	    map.addAttribute("balance", new DecimalFormat("#.00").format(customer.getAccount().getBalance()));
 
 	}
 
+    }
+    
+    @RequestMapping("/einzahlen")
+    public String einzahlen(@RequestParam("newMoney") double money, ModelMap map)
+    {
+	handleGeneralValues(map);
+
+	if (authenticationManager.getCurrentUser().isPresent()) {
+	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+	    customer.getAccount().payIn(money);
+	    bankAccountRepository.save(customer.getAccount());
+	}
+	return "index";
     }
 
     @RequestMapping({ "/", "/index" })

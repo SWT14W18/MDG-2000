@@ -47,6 +47,11 @@ public class LotterieDataInitializer implements DataInitializer{
 		initializeUsers(userAccountManager, customerRepository, bankAccountRepository);
 		
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date()));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date()));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date()));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date()));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date()));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date()));
 		
 		Map<TotoResult, Double> quotes = new HashMap<>();
 		quotes.put(TotoResult.DRAW, 2D);
