@@ -141,16 +141,6 @@ header span {/*Design des Popup-spanulars welches beim Hovern über die Navigati
          z-index: 9;
          display: none;
 }
-header input {/*Design der Textboxen in den Popup-spanularen*/
-         height: 35px;
-         width: 235px;
-         border: 1px solid #DDDDDD;
-         border-radius: 3px;
-         background-color: #fafafa;
-         margin: 3px 0px 10px 0px;
-         padding: 0px 11px 0px 11px;
-         box-sizing: border-box;
-}
 header ul#navigation > li:hover span {/*Blendet die Popup-spanulare beim Hovern über ein Navigationselement ein.*/
          display: block;
 		 
@@ -241,6 +231,7 @@ header .loginInput {
 		width: 140px;
 		margin: 0px auto;
 		height: 30px;
+		border-radius:3px;
 		float:left;		
 }
 header .loginButton {
@@ -269,13 +260,13 @@ header .loginButton {
 
 section {
 /* jo */
-box-shadow: 5px 5px 5px 3px #888;
+		box-shadow: 5px 5px 5px 3px #888;
 		width:1280px;
 		margin: 0 auto;
 		text-align:left;
 		border-width: 1px;
 		border-style: solid;
-		border-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 1)0%, rgba(197,25,25,0.75), rgba(0,0,0,1)) 100%;
+		border-image: -webkit-linear-gradient(top, rgba(0,0,0,1), rgba(197,25,25,0.75), rgba(0,0,0,1)) 1 100%;
 		border-image: -moz-linear-gradient(top, rgba(0,0,0,1), rgba(197,25,25,0.75), rgba(0,0,0,1)) 1 100%; 
 		border-image: -ms-linear-gradient(top, rgba(0,0,0,1), rgba(197,25,25,0.75), rgba(0,0,0,1)) 1 100%; 
 		border-image: -o-linear-gradient(top, rgba(0,0,0,1), rgba(197,25,25,0.75), rgba(0,0,0,1)) 1 100%;
@@ -359,18 +350,29 @@ section p {
 		text-align:center;
 }
 
+section input {/*Design der Textboxen in den Popup-spanularen*/
+         height: 35px;
+         width: 235px;
+         border: 1px solid #F5B3B3;
+         border-radius: 3px;
+         background-color: #fafafa;
+         margin: 3px 0px 10px 0px;
+         padding: 0px 11px 0px 11px;
+         box-sizing: border-box;
+}
+
 
 
 
 div.fehler{
-	width:22%;
+	width:26%;
 	height:auto;
 	min-height:20%;
+	top: 200px;
 	position:absolute;
 	color: #D8000C;
 	background: #FFE2E2;
-	left:39%;
-	top:30%;
+	left:37%;
 	text-align:center;
 	border:3px solid red;
 	font-size:17px;
