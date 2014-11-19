@@ -4,7 +4,7 @@
                    <!--Alle Navigationselemente die links ausgerichtet sind:-->
                    <li class="lileft" ><a href="index.html"><label class="menuentry"  >Mach dein Gl&uuml;ck!!!</label></a></li>
 				   
-				   <div sec:authorize="hasRole('ROLE_USER')"> <!-- nur für User sichtbar , ROLE USER -->
+				   <div sec:authorize="hasRole('ROLE_USER')"> <!-- nur fuer user sichtbar , ROLE USER -->
 				   
                    <li class="lileft"><a href="gameoverview.html"><label class="menuentry" ><i class="fa fa-th-large"></i> Spiel</label><a>
 				         <span>
@@ -86,8 +86,8 @@
 				   <li class="liright"><a href="registration.html"><<label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
 					<form>
 						<li class="lilogin"><label class="menuentry_login"><input class="loginButton" type="submit" value="Login" tabindex="3" /></label></li>
-						<li class="lilogin"><label class="menuentry_login"><input type="password" placeholder="Passwort" class="loginInput" tabindex="2" /></label> 
-						<li class="lilogin"><label class="menuentry_login"><input type="text" placeholder="Benutzername" class="loginInput" tabindex="1"/></label> 
+						<li class="lilogin"><label class="menuentry_login"><input type="password" placeholder="Passwort" class="loginInput" tabindex="2" /></label></li>
+						<li class="lilogin"><label class="menuentry_login"><input type="text" placeholder="Benutzername" class="loginInput" tabindex="1"/></label></li>
 					</form>
               </ul>
          </nav>
