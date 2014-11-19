@@ -13,14 +13,22 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
+import de.tudresden.swt14ws18.bank.BankAccount;
+
 @Configuration
 @EnableAutoConfiguration
 @EntityScan(basePackageClasses = { Salespoint.class, Lotterie.class })
 @EnableJpaRepositories(basePackageClasses = { Salespoint.class, Lotterie.class })
 @ComponentScan
 public class Lotterie {
+    private BankAccount account = new BankAccount();
+
     public static void main(String[] args) {
 	SpringApplication.run(Lotterie.class, args);
+    }
+
+    public BankAccount getBankAccount() {
+	return account;
     }
 
     @Configuration
@@ -33,14 +41,11 @@ public class Lotterie {
 
     @Configuration
     @EnableGlobalMethodSecurity(prePostEnabled = true)
-    static class WebSecurityConfiguration extends
-	    SalespointSecurityConfiguration {
+    static class WebSecurityConfiguration extends SalespointSecurityConfiguration {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    http.csrf().disable();
-	    http.authorizeRequests().antMatchers("/**").permitAll().and()
-		    .formLogin().loginPage("/Login")
-		    .loginProcessingUrl("/Login").and().logout()
+	    http.authorizeRequests().antMatchers("/**").permitAll().and().formLogin().loginPage("/Login").loginProcessingUrl("/Login").and().logout()
 		    .logoutUrl("/logout").logoutSuccessUrl("/");
 	}
     }

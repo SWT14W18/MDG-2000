@@ -5,6 +5,8 @@ import javax.persistence.OneToOne;
 
 import org.salespointframework.useraccount.UserAccount;
 
+import de.tudresden.swt14ws18.bank.BankAccount;
+
 @Entity
 public class ConcreteCustomer extends Customer{
 	
@@ -16,6 +18,7 @@ public class ConcreteCustomer extends Customer{
 	private UserAccount userAccount;
 	
 	private CustomerRepository repository;
+	private BankAccount account;
 	
 	@Deprecated
 	protected ConcreteCustomer() {
@@ -25,6 +28,7 @@ public class ConcreteCustomer extends Customer{
 		super(name, password);
 		this.userAccount = userAccount;
 		this.state = state;
+		this.account = new BankAccount();
 		repository.save(this);
 	}
 	
@@ -52,7 +56,7 @@ public class ConcreteCustomer extends Customer{
 		//TODO:
 	}
 	
-	/*public Account getAccount(){
-		//TODO:
-	}*/
+	public BankAccount getAccount(){
+	    return account;
+	}
 }
