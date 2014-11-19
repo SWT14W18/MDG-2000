@@ -2,6 +2,8 @@ package de.tudresden.swt14ws18;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Role;
@@ -14,6 +16,9 @@ import org.springframework.util.Assert;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.BankAccountRepository;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.gamemanagement.TotoGame;
+import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
+import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.CustomerRepository;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
@@ -42,6 +47,14 @@ public class LotterieDataInitializer implements DataInitializer{
 		initializeUsers(userAccountManager, customerRepository, bankAccountRepository);
 		
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date()));
+		
+		Map<TotoResult, Double> quotes = new HashMap<>();
+		quotes.put(TotoResult.DRAW, 2D);
+		quotes.put(TotoResult.WIN_GUEST, 2D);
+		quotes.put(TotoResult.WIN_HOME, 2D);
+		new TotoMatch("FC Blue", "Rot SC", quotes);
+		
+		Lotterie.getInstance().getGameManager().addGame(new TotoGame(new Date(), 1, Arrays.asList(new TotoMatch[] {new TotoMatch("FC Blue", "Rot SC", quotes)})));
 	}
 	
 	private void initializeUsers(UserAccountManager userAccountManager, CustomerRepository customerRepository, BankAccountRepository bankAccountRepository) {
