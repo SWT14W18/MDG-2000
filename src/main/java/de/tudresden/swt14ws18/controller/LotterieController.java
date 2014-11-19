@@ -103,11 +103,6 @@ public class LotterieController {
 		return "logout";
 	}
 	
-//	@RequestMapping("/registration")
-//	public String registration(){
-//		return "register";
-//	}
-	
 	@RequestMapping({"/registration"})
 	public String register(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap modelMap){
 		if(userAccountManager.contains(new UserAccountIdentifier(vorname))){
