@@ -7,6 +7,8 @@ import javax.persistence.OneToOne;
 
 import org.salespointframework.useraccount.UserAccount;
 
+import de.tudresden.swt14ws18.bank.BankAccount;
+
 @Entity
 public class ConcreteCustomer extends Customer{
 	
@@ -15,7 +17,7 @@ public class ConcreteCustomer extends Customer{
 	@GeneratedValue
 	private long id;
 	
-	private int messages;
+	private int messages = 0;
 	public Status state;
 	
 	@OneToOne
@@ -46,6 +48,10 @@ public class ConcreteCustomer extends Customer{
 		return messages;
 	}
 	
+	public void addMessage(){
+		messages++;
+	}
+	
 	public void payMessage(){
 		//TODO: 
 	}
@@ -58,7 +64,7 @@ public class ConcreteCustomer extends Customer{
 		//TODO:
 	}
 	
-//	public BankAccount getAccount(){
-//	    return account;
-//	}
+	public BankAccount getAccount(){
+	    return null;
+	}
 }
