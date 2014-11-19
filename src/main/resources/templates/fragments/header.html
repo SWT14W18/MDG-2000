@@ -70,7 +70,7 @@
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="logout.html"><label>Ausloggen <i class="fa fa-sign-out"></i></label></a>
+											<a th:href="@{/logout}" ><label>Ausloggen <i class="fa fa-sign-out"></i></label></a>
 										</div>
 									</li>
 								</ul>
@@ -80,21 +80,22 @@
 				   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="bankaccount.html"><label class="menuentry_money">2022,14 <i class="fa fa-eur"></i></label></a></li>
 
 				   
-				   		<div class="fehler" th:if="${loginError}">
+				   		<div class="fehler" th:if="${param.error}">
 							<p class="h">Fehler</p>
 							<p>Benutername oder Passwort stimmmen nicht &uuml;berein!</p>
 							<p>Versuchen sie es erneut.</p>
-							<br/>
+						    <br/>
 							<form>
 							<input class="loginButton" type="button" value="ok" tabindex="3" onclick="location='index.html'" />
 							</form>
+							<br/>
 							<p>Wenn du noch keine Account hast:<br/> <a href="index.html">Registrieren!</a></p>
 						</div>
                             
 
 				   <li sec:authorize="!isAuthenticated()" class="liright"><a th:href="registration.html"><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
 					
-					<form sec:authorize="!isAuthenticated()" action="/login" method="post">
+					<form sec:authorize="!isAuthenticated()" th:action="@{/login}" method="post">
 						<li class="lilogin"><label class="menuentry_login"><input class="loginButton" type="submit" value="Login" tabindex="3" /></label></li>
 						<li class="lilogin"><label class="menuentry_login"><input type="password" placeholder="Passwort" class="loginInput" name="password" tabindex="2" /></label></li> 
 						<li class="lilogin"><label class="menuentry_login"><input type="text" placeholder="Benutzername" class="loginInput" name="username" tabindex="1"/></label></li>

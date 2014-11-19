@@ -365,6 +365,7 @@ section p {
 div.fehler{
 	width:22%;
 	height:auto;
+	min-height:20%;
 	position:absolute;
 	color: #D8000C;
 	background: #FFE2E2;
@@ -375,6 +376,7 @@ div.fehler{
 	font-size:17px;
 	box-shadow: 5px 5px 5px 3px #888;
 	border-radius: 5px;
+	z-index:1;
 }
 
 div.fehler p {
@@ -390,7 +392,7 @@ div.fehler p.h{
 		padding-right:0px;
 		line-height:150%;
 		font-family: 'Ubuntu condensed',sans-serif;
-        font-size:40;
+        font-size:30px;
         font-weight: 600;
         color: #D8000C;
 }

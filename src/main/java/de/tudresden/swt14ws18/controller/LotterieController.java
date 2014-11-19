@@ -44,13 +44,8 @@ public class LotterieController {
 		this.bankAccountRepository = bankAccountRepository;
 		this.authenticationManager = authenticationManager;
 	}
-	@RequestMapping("/")
+	@RequestMapping({"/","/index"})
 	public String Toindex(){
-		return "index";
-	}
-	
-	@RequestMapping("/index")
-	public String index(){
 		return "index";
 	}
 	
