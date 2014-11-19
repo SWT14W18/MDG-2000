@@ -101,19 +101,19 @@ header ul#navigation > li.lilogin{
 }
 header ul#navigation > li:hover{/*Hover-Effekt für die Listenelemente*/
 		background-color: #eeeeee;
-			cursor:pointer;
+		cursor:pointer;
 }
 header ul#navigation > li:hover label{/*Hover-Effekt für die Listenelemente*/
 		color:#C51919;
 		-webkit-user-select: none; /* Chrome/Safari */        
 		-moz-user-select: none; /* Firefox */
 		-ms-user-select: none; /* IE10+ */
-			cursor:pointer;
+		cursor:pointer;
 }		
-header ul#navigation > li span p{/*Design des Textes im Reiter 'BENUTZERNAME'*/
+header ul#navigation > li span a label{/*Design des Textes im Reiter 'BENUTZERNAME'*/
         font-family: 'Ubuntu', sans-serif;
-        font-size: 17px;
-        font-weight: 600;
+        font-size: 16px;
+        font-weight: 500;
         color: #333333;
         margin-top: 0px;
 }

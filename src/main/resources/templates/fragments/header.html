@@ -4,9 +4,7 @@
                    <!--Alle Navigationselemente die links ausgerichtet sind:-->
                    <li class="lileft" ><a th:href="index.html"><label class="menuentry"  >Mach dein Gl&uuml;ck!!!</label></a></li>
 				   
-				   <div sec:authorize="hasRole('ROLE_USER')"> <!-- nur f�r User sichtbar , ROLE USER -->
-				   
-                   <li class="lileft"><a th:href="gameoverview.html"><label class="menuentry" ><i class="fa fa-th-large"></i> Spiel</label></a>
+                   <li sec:authorize="hasRole('ROLE_USER')" class="lileft"><a th:href="gameoverview.html"><label class="menuentry" ><i class="fa fa-th-large"></i> Spiel</label></a>
 				         <span>
 								<ul id="navi_menu">
 									<li class="span_open">
@@ -26,7 +24,7 @@
                          </span>
 				   </li>
 				   
-                   <li class="lileft" ><a th:href="groupoverview.html"><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></a>
+                   <li sec:authorize="hasRole('ROLE_USER')" class="lileft" ><a th:href="groupoverview.html"><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></a>
 						 <span>
 								<ul id="navi_menu">
 									<li class="span_open">
@@ -52,7 +50,7 @@
 								</ul>
                          </span>
 				   </li>
-                   <li class="liright"><a th:href="profil.html"><label class="menuentry"><i class="fa fa-user"></i> Lars Beck</label></a>
+                   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="profil.html"><label class="menuentry"><i class="fa fa-user"></i> Lars Beck</label></a>
                          <span>
 								<ul id="navi_menu">
 									<li class="span_open">
@@ -79,9 +77,8 @@
                          </span>
                    </li>
 
-				   <li class="liright"><a th:href="bankaccount.html"><label class="menuentry_money">2022,14 <i class="fa fa-eur"></i></label></a></li>
-				   
-				   </div> <!-- ROLE USER ende -->
+				   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="bankaccount.html"><label class="menuentry_money">2022,14 <i class="fa fa-eur"></i></label></a></li>
+
 				   
 				   		<div class="fehler" th:if="${loginError}">
 							<p class="h">Fehler</p>
@@ -93,20 +90,16 @@
 							</form>
 							<p>Wenn du noch keine Account hast:<br/> <a href="index.html">Registrieren!</a></p>
 						</div>
-				   
-				   
-				   <div sec:authorize="!isAuthenticated()">
                             
 
-				   <li class="liright"><a th:href="registration.html"><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
+				   <li sec:authorize="!isAuthenticated()" class="liright"><a th:href="registration.html"><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
 					
-					<form action="/login" method="post">
+					<form sec:authorize="!isAuthenticated()" action="/login" method="post">
 						<li class="lilogin"><label class="menuentry_login"><input class="loginButton" type="submit" value="Login" tabindex="3" /></label></li>
 						<li class="lilogin"><label class="menuentry_login"><input type="password" placeholder="Passwort" class="loginInput" name="password" tabindex="2" /></label></li> 
 						<li class="lilogin"><label class="menuentry_login"><input type="text" placeholder="Benutzername" class="loginInput" name="username" tabindex="1"/></label></li>
 					</form>
-					
-                    </div>
+			
               </ul>
          </nav>
     </header>
