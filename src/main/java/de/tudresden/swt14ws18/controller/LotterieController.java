@@ -30,6 +30,61 @@ public class LotterieController {
 
 	@RequestMapping("/")
 	public String index(){
-		return "/index";
+		return "index";
 	}
+	
+	@RequestMapping("/gameoverview")
+	public String gameoverview(){
+		return "games/overview";
+	}
+	
+	@RequestMapping("/toto")
+	public String toto(){
+		return "games/toto";
+	}
+	
+	@RequestMapping("/lotto")
+	public String lotto(){
+		return "games/lotto";
+	}
+	
+	@RequestMapping("/groupoverview")
+	public String groupoverview(){
+		return "groups/overview";
+	}
+	
+	@RequestMapping("/groupcreate")
+	public String groupcreate(){
+		return "groups/create";
+	}
+	
+	@RequestMapping("/groupjoin")
+	public String groupjoin(){
+		return "groups/join";
+	}
+	
+	@RequestMapping("/groupmanage")
+	public String groupmanage(){
+		return "groups/manage";
+	}
+	@RequestMapping("/profil")
+	public String profil(){
+		return "profil";
+	}
+	
+	@RequestMapping("/bankaccount")
+	public String bankaccount(){
+		return "bankaccount";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(){
+		return "logout";
+	}
+	
+	@RequestMapping("/registration")
+	public String registration(){
+		return "registration";
+	}
+	
 }
