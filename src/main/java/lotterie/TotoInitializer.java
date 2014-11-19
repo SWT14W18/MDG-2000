@@ -29,32 +29,32 @@ public class TotoInitializer {
 	    JsonParser jp = new JsonParser(); 
 	    JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
 	    JsonObject rootobj = root.getAsJsonObject(); 
-	    JsonArray Matches = (JsonArray) rootobj.get("matchdata");
+	    JsonArray matches = (JsonArray) rootobj.get("matchdata");
 	    String team1;
 	    String team2;
 	    String date;
 	    for (int i=0;i<306;i++){
 	    	try {
-	    			JsonObject Match = (JsonObject) Matches.get(i);
-	    			team1 = Match.get("name_team1").getAsString();	
-	    			team2 = Match.get("name_team2").getAsString();
-	    			date = Match.get("match_date_time").getAsString();
-	    			SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy");
+	    			JsonObject match = (JsonObject) matches.get(i);
+	    			team1 = match.get("name_team1").getAsString();	
+	    			team2 = match.get("name_team2").getAsString();
+	    			date = match.get("match_date_time").getAsString();
+	    			SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 	    			Date actualDate = sdf.parse("19.11.2014");
 	    			Date playDate = sdf.parse(date.substring(8, 10)+"."+date.substring(5, 7)+"."+date.substring(0, 4));
 	    			String stringDate = sdf.format(playDate );
-//	    			if (playDate.before(actualDate)) {
-//	    				JsonObject results = (JsonObject) Match.get("match_results");
-//	    				JsonArray result = (JsonArray) results.get("match_result");
-//	    				JsonObject finalResult = (JsonObject) result.get(0);
-//	    				String pointsTeam1 = finalResult.get("points_team1").getAsString();	
-//	    				String pointsTeam2 = finalResult.get("points_team2").getAsString();	
-//	    				
-//	    				System.out.println(stringDate + " - " + team1 + " : " + team2 + " - " + pointsTeam1 + " : " + pointsTeam2);
-//	    			}
-//	    			else {
+	    			if (playDate.before(actualDate)) {
+	    				JsonObject results = (JsonObject) match.get("match_results");
+	    				JsonArray result = (JsonArray) results.get("match_result");
+	    				JsonObject finalResult = (JsonObject) result.get(0);
+	    				String pointsTeam1 = finalResult.get("points_team1").getAsString();	
+	    				String pointsTeam2 = finalResult.get("points_team2").getAsString();	
+	    				
+	    				System.out.println(stringDate + " - " + team1 + " : " + team2 + " - " + pointsTeam1 + " : " + pointsTeam2);
+	    			}
+	    			else {
 	    				System.out.println(stringDate + " - " + team1 + " : " + team2);
-//	    			}
+	    			}
 	    	}
 	    	catch(ParseException ex){
 	    		ex.printStackTrace();
