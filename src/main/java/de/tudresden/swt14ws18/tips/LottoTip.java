@@ -62,7 +62,10 @@ public class LottoTip extends Tip {
 	notifyObservers(true);
 
 	if (!isValid())
+	{
+	    getGame().deleteObserver(this);
 	    return;
+	}
 
 	result = getGame().getResult().compare(getNumbers());
 	getGame().registerResult(result);

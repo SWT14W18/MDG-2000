@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public class GameManager {
+    private static final double LOTTO_PRICE = 1.00D;
+    private static final double INPUT_INTO_POT = 0.9D;
     private Map<Long, Game> games = new HashMap<>();
 
     public Game getGame(long id) {
@@ -26,23 +28,22 @@ public class GameManager {
 
 	return list;
     }
-    
-    public void test(LottoGame game)
-    {
+
+    public void setNextLottoPot(LottoGame game) {
 	LottoGame result = null;
-	
-	for(Game g : games.values())
-	{
-	    if(g.getType() != GameType.LOTTO)
+
+	for (Game g : games.values()) {
+	    if (g.getType() != GameType.LOTTO)
 		continue;
-	    
-	    if(!game.getDate().after(g.getDate()))
+
+	    if (!game.getDate().after(g.getDate()))
 		continue;
-	    
-	    if(result == null || g.getDate().before(result.getDate()))
+
+	    if (result == null || g.getDate().before(result.getDate()))
 		result = (LottoGame) g;
 	}
 
-	
+	if (result != null)
+	    result.setWinningPot(game.getRemainingPot() + game.countObservers() * LOTTO_PRICE * INPUT_INTO_POT);
     }
 }

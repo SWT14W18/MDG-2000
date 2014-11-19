@@ -7,7 +7,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class LottoGame extends Game {
+
+    private GameManager manager;
 
     private static final String title = "Losung vom %1$s";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -21,8 +25,13 @@ public class LottoGame extends Game {
 	super(date);
     }
 
+    @Autowired
+    public void setGameManager(GameManager manager) {
+	this.manager = manager;
+    }
+
     public void setWinningPot(double winningPot) {
-	//TODO missing formula
+	// TODO missing formula
     }
 
     public LottoNumbers getResult() {
@@ -37,11 +46,12 @@ public class LottoGame extends Game {
 	    throw new IllegalArgumentException("You can't set the result of a game, that already has been set!");
 
 	this.result = result;
-	this.notifyObservers(false); //report that game is ready and that tips please report their result
-	this.notifyObservers(true); //report that the game now knows who won how much
-	
-	
-	//TODO notify GameManager/NextGame to define new WinningPot
+	this.notifyObservers(false); // report that game is ready and that tips
+				     // please report their result
+	this.notifyObservers(true); // report that the game now knows who won
+				    // how much
+
+	manager.setNextLottoPot(this);
     }
 
     @Override
@@ -66,6 +76,16 @@ public class LottoGame extends Game {
 	int number = resultMap.get(r);
 
 	return new BigDecimal(win / number).setScale(2, RoundingMode.FLOOR).doubleValue();
+    }
+
+    public double getRemainingPot() {
+	double result = 0;
+
+	for (LottoResult r : LottoResult.values())
+	    if (!resultMap.containsKey(r) || resultMap.get(r) == 0)
+		result += winLevels.get(r);
+
+	return result;
     }
 
 }
