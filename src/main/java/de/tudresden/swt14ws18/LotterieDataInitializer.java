@@ -80,15 +80,14 @@ public class LotterieDataInitializer implements DataInitializer{
 		BankAccount ba1 = new BankAccount();
 		BankAccount ba2 = new BankAccount();
 		BankAccount ba3 = new BankAccount();
-		BankAccount ba4 = new BankAccount();
-		
-		bankAccountRepository.save(Arrays.asList(ba1,ba2,ba3,ba4));
+		BankAccount ba4 = new BankAccount();		
 
 		ConcreteCustomer c1 = new ConcreteCustomer("hans","123",Status.ACTIVE, ua1,ba1);
 		ConcreteCustomer c2 = new ConcreteCustomer("dextermorgan", "123", Status.ACTIVE, ua2,ba2);
 		ConcreteCustomer c3 = new ConcreteCustomer("earlhickey", "123", Status.ACTIVE, ua3,ba3);
 		ConcreteCustomer c4 = new ConcreteCustomer("mclovinfogell", "123", Status.ACTIVE, ua4,ba4);
-		
+
+		bankAccountRepository.save(Arrays.asList(ba1,ba2,ba3,ba4));
 		customerRepository.save(Arrays.asList(c1, c2, c3, c4));
 	}
 }

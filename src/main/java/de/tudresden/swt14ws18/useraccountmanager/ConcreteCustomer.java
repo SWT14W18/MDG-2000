@@ -35,6 +35,7 @@ public class ConcreteCustomer extends Customer{
 		this.userAccount = userAccount;
 		this.state = state;
 		this.account = bankAccount;
+		
 	}
 	
 	public void setStatus(Status state){
@@ -66,6 +67,6 @@ public class ConcreteCustomer extends Customer{
 	}
 	
 	public BankAccount getAccount(){
-	    return null;
+	    return account;
 	}
 }

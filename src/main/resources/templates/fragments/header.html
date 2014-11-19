@@ -77,7 +77,7 @@
                          </span>
                    </li>
 
-				   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="bankaccount.html"><label class="menuentry_money" >${param.balance} <i class="fa fa-eur"></i></label></a></li>
+				   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="bankaccount.html"><label class="menuentry_money"> <i class="fa fa-eur" th:text="${balance}"></i></label></a></li>
 
 				   
 				   		<div class="fehler" th:if="${param.error}">
