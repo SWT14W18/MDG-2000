@@ -79,14 +79,7 @@
                          </span>
                    </li>
 
-				   <li class="liright">
-				   <a th:href="bankaccount.html">
-				   <label class="menuentry_money">
-				   2022,14 
-				   <i class="fa fa-eur"></i>
-				   </label>
-				   </a>
-				   </li>
+				   <li class="liright"><a th:href="bankaccount.html"><label class="menuentry_money">2022,14 <i class="fa fa-eur"></i></label></a></li>
 				   
 				   </div> <!-- ROLE USER ende -->
 				   
@@ -103,7 +96,7 @@
 				   
 				   
 				   <div sec:authorize="!isAuthenticated()">
-                            User: <span sec:authentication="name">miquel</span> 
+                            
 
 				   <li class="liright"><a th:href="registration.html"><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
 					
