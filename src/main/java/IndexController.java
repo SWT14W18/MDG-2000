@@ -62,6 +62,8 @@ public class IndexController
     public String getTips(ModelMap modelMap)
     {
         modelMap.addAttribute("tips", Prototype.getInstance().getTips());
+        modelMap.addAttribute("empty", Prototype.getInstance().getTips().isEmpty());
+        
         
         return "tips";
     }
