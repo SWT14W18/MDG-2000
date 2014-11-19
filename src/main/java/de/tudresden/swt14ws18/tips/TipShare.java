@@ -18,6 +18,16 @@ public class TipShare implements Iterable<Entry<ConcreteCustomer, Double>>{
     public double getRemainingShare() {
 	return remainingShare;
     }
+    
+    public boolean containsShareholder(ConcreteCustomer customer)
+    {
+	return share.containsKey(customer);
+    }
+    
+    public double getShare(ConcreteCustomer customer)
+    {
+	return share.containsKey(customer) ? share.get(customer) : 0;
+    }
 
     public boolean addShareholder(ConcreteCustomer customer, double amount) {
 	if (share.containsKey(customer))

@@ -26,4 +26,23 @@ public class GameManager {
 
 	return list;
     }
+    
+    public void test(LottoGame game)
+    {
+	LottoGame result = null;
+	
+	for(Game g : games.values())
+	{
+	    if(g.getType() != GameType.LOTTO)
+		continue;
+	    
+	    if(!game.getDate().after(g.getDate()))
+		continue;
+	    
+	    if(result == null || g.getDate().before(result.getDate()))
+		result = (LottoGame) g;
+	}
+
+	
+    }
 }

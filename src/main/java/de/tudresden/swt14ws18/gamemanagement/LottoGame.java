@@ -40,6 +40,7 @@ public class LottoGame extends Game {
 	this.notifyObservers(false); //report that game is ready and that tips please report their result
 	this.notifyObservers(true); //report that the game now knows who won how much
 	
+	
 	//TODO notify GameManager/NextGame to define new WinningPot
     }
 

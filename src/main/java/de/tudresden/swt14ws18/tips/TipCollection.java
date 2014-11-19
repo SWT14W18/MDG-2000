@@ -13,17 +13,6 @@ import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Customer;
 
-/*
- * Ablauf
- * Spiel ist fertig, sendet 1. update an Tips
- * Tipps melden update an Tippschein
- * Tippschein überprüft/bearbeitet Kontostand, markiert als fertig/invalid
- * Tipps melden Ergebnis an Spiel, oder brechen ab
- * Spiel sendet 2. update an Tips
- * Tips sendet 2. update an Tippschein
- * Tippschein zahlt aus
- */
-
 public class TipCollection<T extends Tip> implements Observer {
 
     private Lotterie lotterie;
@@ -75,13 +64,7 @@ public class TipCollection<T extends Tip> implements Observer {
 	    return;
 
 	double win = tip.getWinAmount();
-	double ownerExtra = 0;
-
-	for (Entry<ConcreteCustomer, Double> entry : getShares())
-	    if (entry.getKey() == owner) {
-		ownerExtra = entry.getValue();
-		break;
-	    }
+	double ownerExtra = getShares().getShare(owner);
 
 	BankAccount lotterie = getLotterie().getBankAccount();
 	if(ownerExtra + getShares().getRemainingShare() > 0)
@@ -102,16 +85,15 @@ public class TipCollection<T extends Tip> implements Observer {
     private void checkMoney(Observable o) {
 	Tip tip = (Tip) o;
 
-	double ownerExtra = 0;
+	double ownerExtra = getShares().getShare(owner);
 
+	// check if money is available
 	for (Entry<ConcreteCustomer, Double> entry : getShares()) {
 	    ConcreteCustomer customer = entry.getKey();
 	    Double value = entry.getValue();
 
-	    if (customer == owner) {
-		ownerExtra = value;
+	    if (customer == owner) 
 		continue;
-	    }
 
 	    if (!customer.getAccount().hasBalance(value * tip.getInput())) {
 		customer.addMessage();
@@ -124,6 +106,7 @@ public class TipCollection<T extends Tip> implements Observer {
 	    tip.invalidate(false);
 	}
 
+	// take money
 	for (Entry<ConcreteCustomer, Double> entry : getShares()) {
 	    ConcreteCustomer customer = entry.getKey();
 	    Double value = entry.getValue();
