@@ -23,6 +23,7 @@ public class ConcreteCustomer extends Customer{
 	@OneToOne
 	private UserAccount userAccount;
 	
+	@OneToOne
 	private BankAccount account;
 	
 	@Deprecated
