@@ -12,7 +12,7 @@ public class TotoMatch extends Observable {
 
     private String teamHome;
     private String teamGuest;
-    private Result result = Result.NOT_PLAYED;
+    private TotoResult result = TotoResult.NOT_PLAYED;
 
     public TotoMatch(String teamHome, String teamGuest) {
 	this.teamGuest = teamGuest;
@@ -27,11 +27,19 @@ public class TotoMatch extends Observable {
 	return teamGuest;
     }
 
-    public Result getResult() {
+    public TotoResult getResult() {
 	return result;
     }
 
-    public void setResult(Result result) {
+    public void setResult(TotoResult result) {
+	if (result == TotoResult.NOT_PLAYED)
+	    throw new IllegalArgumentException(
+		    "You can't set the result of a game to NOT PLAYED!");
+
+	if (getResult() != TotoResult.NOT_PLAYED)
+	    throw new IllegalArgumentException(
+		    "You can't set the result of a game, that already has been set!");
+
 	this.result = result;
 	this.notifyObservers();
     }
