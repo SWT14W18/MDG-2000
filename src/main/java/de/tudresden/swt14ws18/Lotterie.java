@@ -53,6 +53,11 @@ public class Lotterie {
 
     @Configuration
     static class LotterieWebConfiguration extends SalespointWebConfiguration {
+    	
+    	@Override
+		public void addViewControllers(ViewControllerRegistry registry) {
+			registry.addViewController("/login").setViewName("login");
+		}
     }
 
     @Configuration
