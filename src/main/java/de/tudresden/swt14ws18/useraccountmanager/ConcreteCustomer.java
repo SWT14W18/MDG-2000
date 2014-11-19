@@ -10,10 +10,7 @@ public class ConcreteCustomer extends Customer{
 	
 	//private Account account;
 	private int messages;
-	private enum Status {
-		ACTIVE, CLOSED, ANONYM
-	}
-	Status state;
+	public Status state;
 	@OneToOne
 	private UserAccount userAccount;
 	
@@ -28,6 +25,10 @@ public class ConcreteCustomer extends Customer{
 		this.userAccount = userAccount;
 		this.state = state;
 		repository.save(this);
+	}
+	
+	public void setStatus(Status state){
+		this.state = state;
 	}
 	
 	public Status getState(){
