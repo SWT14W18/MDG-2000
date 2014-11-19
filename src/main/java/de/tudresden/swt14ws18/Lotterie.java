@@ -10,11 +10,13 @@ import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
+import de.tudresden.swt14ws18.bank.TransactionRepository;
 import de.tudresden.swt14ws18.gamemanagement.GameManager;
 
 @Configuration
@@ -25,6 +27,7 @@ import de.tudresden.swt14ws18.gamemanagement.GameManager;
 public class Lotterie {
     private static Lotterie instance;
     private BankAccount account = new BankAccount();
+    private TransactionRepository transactionRepo;
     private GameManager gameManager;
 
     public Lotterie() {
@@ -34,6 +37,11 @@ public class Lotterie {
     @Autowired
     public void setGameManager(GameManager gameManager) {
 	this.gameManager = gameManager;
+    }
+
+    @Autowired
+    public void setTransactionRepository(TransactionRepository transactionRepo) {
+	this.transactionRepo = transactionRepo;
     }
 
     public GameManager getGameManager() {
@@ -70,5 +78,9 @@ public class Lotterie {
 	    http.authorizeRequests().antMatchers("/**").permitAll().and().formLogin().loginPage("/login").loginProcessingUrl("/login").and().logout()
 		    .logoutUrl("/logout").logoutSuccessUrl("/");
 	}
+    }
+
+    public TransactionRepository getTransactionRepo() {
+	return transactionRepo;
     }
 }

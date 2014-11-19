@@ -8,13 +8,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Entity
 public class BankAccount {
-	
-	@Id
-	@GeneratedValue
-	private long id;
-	
+    
+    @Id
+    @GeneratedValue
+    private long id;
+
+    
     private double balance = 0;
     @OneToMany
     private List<Transaction> transactions = new ArrayList<>();
@@ -24,7 +27,7 @@ public class BankAccount {
 	    throw new IllegalArgumentException("amount must be greater than 0!");
 
 	if (balance < amount)
-	    return false; 
+	    return false;
 
 	balance -= amount;
 	Transaction trans = new Transaction(this, to, amount);
@@ -37,12 +40,11 @@ public class BankAccount {
 	balance += trans.getAmount();
 	transactions.add(trans);
     }
-    
-    public void payIn(double balance)
-    {
-    	Transaction trans = new Transaction(null, this, balance);
-    	balance += balance;
-    	transactions.add(trans);
+
+    public void payIn(double amount) {
+	Transaction trans = new Transaction(null, this, amount);
+	balance += amount;
+	transactions.add(trans);
     }
 
     public double getBalance() {

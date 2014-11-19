@@ -1,5 +1,6 @@
 package de.tudresden.swt14ws18.controller;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.Optional;
 
@@ -57,10 +58,8 @@ public class LotterieController {
     public void handleGeneralValues(ModelMap map) {
 	if (authenticationManager.getCurrentUser().isPresent()) {
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-	    System.out.println(customer);
-	    System.out.println(customer.getAccount());
-	    System.out.println(customer.getAccount().getBalance());
-	    //map.addAttribute("balance", customer.getAccount().getBalance());
+
+	    map.addAttribute("balance", new DecimalFormat("#0.00").format(customer.getAccount().getBalance()));
 
 	}
 

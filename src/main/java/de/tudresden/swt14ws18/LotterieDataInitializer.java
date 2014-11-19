@@ -80,7 +80,8 @@ public class LotterieDataInitializer implements DataInitializer{
 		BankAccount ba1 = new BankAccount();
 		BankAccount ba2 = new BankAccount();
 		BankAccount ba3 = new BankAccount();
-		BankAccount ba4 = new BankAccount();		
+		BankAccount ba4 = new BankAccount();	
+		ba1.payIn(100);
 
 		ConcreteCustomer c1 = new ConcreteCustomer("hans","123",Status.ACTIVE, ua1,ba1);
 		ConcreteCustomer c2 = new ConcreteCustomer("dextermorgan", "123", Status.ACTIVE, ua2,ba2);
