@@ -30,4 +30,9 @@ public class LottoNumbers {
     public int[] getNumbers() {
 	return numbers;
     }
+    
+    public LottoResult compare(LottoNumbers number) {
+	
+	return LottoResult.valueOf(Util.matches(getNumbers(), number.getNumbers()), getSuperNumber() == number.getSuperNumber());
+    }
 }
