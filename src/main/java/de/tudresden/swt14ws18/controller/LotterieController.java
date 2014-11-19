@@ -27,4 +27,8 @@ public class LotterieController {
 		this.communityRepository = communityRepository;
 	}
 
+	@RequestMapping("/")
+	public index(){
+		retrun "/index";
+	}
 }
