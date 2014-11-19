@@ -31,7 +31,16 @@ public class LottoGame extends Game {
     }
 
     public void setWinningPot(double winningPot) {
-	// TODO missing formula
+	winLevels.put(LottoResult.NONE, 0 * winningPot);
+	winLevels.put(LottoResult.TWO_SUPER, 0.1 * winningPot);
+	winLevels.put(LottoResult.THREE, 0.1 * winningPot);
+	winLevels.put(LottoResult.THREE_SUPER, 0.1 * winningPot);
+	winLevels.put(LottoResult.FOUR, 0.1 * winningPot);
+	winLevels.put(LottoResult.FOUR_SUPER, 0.1 * winningPot);
+	winLevels.put(LottoResult.FIVE, 0.1 * winningPot);
+	winLevels.put(LottoResult.FIVE_SUPER, 0.1 * winningPot);
+	winLevels.put(LottoResult.SIX, 0.1 * winningPot);
+	winLevels.put(LottoResult.SIX_SUPER, 0.2 * winningPot);
     }
 
     public LottoNumbers getResult() {
