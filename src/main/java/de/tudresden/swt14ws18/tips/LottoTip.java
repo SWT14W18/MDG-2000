@@ -34,36 +34,42 @@ public class LottoTip extends Tip {
 
     @Override
     public void update(Observable o, Object arg) {
-
 	if ((Boolean) arg)
 	    handleResult();
 	else
 	    calculateResult();
-
-	// TODO Auto-generated method stub
-
     }
 
     private void handleResult() {
 	if (result == null)
 	    throw new IllegalStateException("Tried to resolve a tip, which has not be processed yet!");
 
-	if (result == LottoResult.NONE)
+	if (result == LottoResult.NONE || isValid())
 	    return;
-	
-	double amount = getGame().getWinAmount(result);
-	
-	// TODO give win
 
+	notifyObservers(false);
+    }
+
+    @Override
+    public double getWinAmount() {
+	return getGame().getWinAmount(getResult());
     }
 
     private void calculateResult() {
 	if (getGame().getResult() == null)
 	    return;
 
-	// TODO remove input
+	notifyObservers(true);
+
+	if (!isValid())
+	    return;
 
 	result = getGame().getResult().compare(getNumbers());
 	getGame().registerResult(result);
+    }
+    
+    @Override
+    public double getInput() {
+	return input;
     }
 }

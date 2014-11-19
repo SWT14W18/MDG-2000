@@ -3,24 +3,22 @@ package de.tudresden.swt14ws18.tips;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import de.tudresden.swt14ws18.Lotterie;
-
 public abstract class Tip extends Observable implements Observer {
 
-    private Lotterie lotterie;
+    private boolean valid = true;
 
     public Tip() {
     }
 
-    @Autowired
-    protected void setLotterie(Lotterie lotterie) {
-	this.lotterie = lotterie;
+    public boolean isValid() {
+	return valid;
     }
-
-    public Lotterie getLotterie() {
-	return lotterie;
+    
+    public void invalidate(boolean valid) {
+	this.valid = valid;
     }
-
+    
+    public abstract double getInput();
+    
+    public abstract double getWinAmount();
 }

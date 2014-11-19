@@ -25,23 +25,25 @@ public class TotoTip extends Tip {
     public TotoResult getResult() {
 	return result;
     }
-    
-    public double getInput()
-    {
+
+    public double getInput() {
 	return input;
+    }
+
+    public double getWinAmount() {
+	return game.getResult() == getResult() ? input * game.getQuote(getResult()) : 0;
     }
 
     @Override
     public void update(Observable o, Object arg) {
-	if(getGame().getResult() == TotoResult.NOT_PLAYED)
+	if (getGame().getResult() == TotoResult.NOT_PLAYED)
 	    return;
-	
-	//TODO game played - take the money
-	
-	if(getGame().getResult() != result)
+
+	notifyObservers(true);
+
+	if (!isValid())
 	    return;
-	
-	//TODO player won - give him his money
-	
+
+	notifyObservers(false);
     }
 }

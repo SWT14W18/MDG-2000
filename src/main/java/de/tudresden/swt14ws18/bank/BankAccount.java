@@ -33,4 +33,8 @@ public class BankAccount {
     public List<Transaction> getTransactions() {
 	return transactions;
     }
+
+    public boolean hasBalance(double value) {
+	return balance >= value;
+    }
 }
