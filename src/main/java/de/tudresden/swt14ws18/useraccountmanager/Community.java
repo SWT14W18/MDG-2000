@@ -12,15 +12,28 @@ import org.salespointframework.useraccount.UserAccount;
 public class Community extends Customer{
 
 	private Set<ConcreteCustomer> members = new HashSet<>();
+	private ConcreteCustomer admin;
 	@OneToOne
 	private UserAccount userAccount;
 	
 	private CommunityRepository repository;
 	
-	public Community(String name, String password, UserAccount userAccount) {
+	public Community(String name, String password, UserAccount userAccount, ConcreteCustomer admin) {
 		super(name, password);
 		this.userAccount = userAccount;
-		repository.save(this);
+		this.admin = admin;
+		addMember(admin);
+		//repository.save(this);
+	}
+	
+	public boolean addMember(ConcreteCustomer newMember){
+		if(!members.contains(newMember)){
+			members.add(newMember);
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	public boolean isMember(ConcreteCustomer concreteCustomer){
