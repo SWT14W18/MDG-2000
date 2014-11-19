@@ -7,8 +7,8 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import de.tudresden.swt14ws18.tipmanagement.LottoGame;
-import de.tudresden.swt14ws18.tipmanagement.TotoGame;
+import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.gamemanagement.TotoGame;
 
 public class GameTests {
 

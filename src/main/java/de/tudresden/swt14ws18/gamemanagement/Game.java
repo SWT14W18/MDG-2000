@@ -1,19 +1,16 @@
-package de.tudresden.swt14ws18.tipmanagement;
+package de.tudresden.swt14ws18.gamemanagement;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Observer;
+import java.util.Observable;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public abstract class Game {
+public abstract class Game extends Observable {
     @GeneratedValue
     @Id
     private long id;
 
-    private List<Observer> observer = new ArrayList<>();
     private Date date;
 
     public Game(Date date) {
@@ -30,9 +27,5 @@ public abstract class Game {
 
     public Date getDate() {
 	return date;
-    }
-
-    public void register(Observer obs) {
-	observer.add(obs);
     }
 }

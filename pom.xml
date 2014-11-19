@@ -53,6 +53,10 @@
 			<artifactId>salespoint-framework</artifactId>
 			<version>6.0.0.RELEASE</version>
 		</dependency>
+		<dependency>
+		  <groupId>org.projectreactor</groupId>
+		  <artifactId>reactor-core</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

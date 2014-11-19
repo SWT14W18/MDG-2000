@@ -1,15 +1,14 @@
-package de.tudresden.swt14ws18.tipmanagement;
+package de.tudresden.swt14ws18.gamemanagement;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
-
 public class LottoGame extends Game {
 
     private static final String title = "Losung vom %1$s";
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-    
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
+	    "dd.MM.yyyy");
+
     public LottoGame(Date date) {
 	super(date);
     }
@@ -21,7 +20,7 @@ public class LottoGame extends Game {
 
     @Override
     public GameType getType() {
-	return GameType.TOTO;
+	return GameType.LOTTO;
     }
 
 }
