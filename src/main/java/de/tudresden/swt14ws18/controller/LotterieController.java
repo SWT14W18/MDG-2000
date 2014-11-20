@@ -134,6 +134,12 @@ public class LotterieController {
 	}
 	return "index";
     }
+    
+    @RequestMapping("/impressum")
+    public String getImpressum(ModelMap map) {
+	handleGeneralValues(map);
+	return "impressum";
+    }
 
     @RequestMapping("/groupoverview")
     public String groupoverview(ModelMap map) {
