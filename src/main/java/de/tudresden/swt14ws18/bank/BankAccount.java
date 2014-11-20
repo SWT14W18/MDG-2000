@@ -42,6 +42,9 @@ public class BankAccount {
     }
 
     public void payIn(double amount) {
+	if(amount < 0)
+	    return;
+	
 	Transaction trans = new Transaction(null, this, amount);
 	balance += amount;
 	transactions.add(trans);
