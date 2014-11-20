@@ -18,7 +18,14 @@ public abstract class Tip extends Observable implements Observer {
 	this.valid = valid;
     }
     
+    public abstract Finishable getGame();
+    
     public abstract double getInput();
     
     public abstract double getWinAmount();
+    
+    public boolean isFinished() {
+	return getGame().isFinished();
+    }
+    
 }

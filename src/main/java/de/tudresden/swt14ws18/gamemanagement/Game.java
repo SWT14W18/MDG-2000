@@ -3,12 +3,12 @@ package de.tudresden.swt14ws18.gamemanagement;
 import java.util.Date;
 import java.util.Observable;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import de.tudresden.swt14ws18.tips.Finishable;
+
 @MappedSuperclass
-public abstract class Game extends Observable {
+public abstract class Game extends Observable implements Finishable {
     //@GeneratedValue
     //@Id
     private long id;

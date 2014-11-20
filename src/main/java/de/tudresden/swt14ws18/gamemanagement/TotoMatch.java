@@ -6,7 +6,9 @@ import java.util.Observable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-public class TotoMatch extends Observable {
+import de.tudresden.swt14ws18.tips.Finishable;
+
+public class TotoMatch extends Observable implements Finishable {
     @GeneratedValue
     @Id
     private long id;
@@ -49,10 +51,15 @@ public class TotoMatch extends Observable {
 	    throw new IllegalArgumentException("You can't set the result of a game, that already has been set!");
 
 	this.result = result;
-	this.notifyObservers(true); //report that the game is finished in all things
+	this.notifyObservers(true); // report that the game is finished in all
+				    // things
     }
 
     public long getId() {
 	return id;
+    }
+
+    public boolean isFinished() {
+	return getResult() != TotoResult.NOT_PLAYED;
     }
 }

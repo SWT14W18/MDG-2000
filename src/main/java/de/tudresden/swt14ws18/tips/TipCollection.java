@@ -56,6 +56,14 @@ public class TipCollection implements Observer {
 	else
 	    payout(o);
     }
+    
+    public boolean isFinished() {
+	for(Tip tip : tips)
+	    if(!tip.isFinished())
+		return false;
+	
+	return true;
+    }
 
     private void payout(Observable o) {
 	Tip tip = (Tip) o;
