@@ -9,14 +9,16 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class Game extends Observable {
-    @GeneratedValue
-    @Id
+    //@GeneratedValue
+    //@Id
     private long id;
+    private static long idCounter = 0;
 
     private Date date;
 
     public Game(Date date) {
 	this.date = date;
+	id = idCounter++;
     }
 
     public long getId() {

@@ -13,7 +13,7 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 public class TipFactory {
 
-    public static TipCollection<?> craftTips(Map<String, String> map, ConcreteCustomer owner) {
+    public static TipCollection craftTips(Map<String, String> map, ConcreteCustomer owner) {
 	switch (map.get("gameType")) {
 	case "lotto":
 	    return craftLottoTips(map, owner);
@@ -25,9 +25,9 @@ public class TipFactory {
 
     private static final int LOTTO_TIPS_PER_PAGE = 6;
 
-    private static TipCollection<?> craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
+    private static TipCollection craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
 
-	List<LottoTip> tips = new ArrayList<>();
+	List<Tip> tips = new ArrayList<>();
 	List<LottoNumbers> numbers = new ArrayList<>();
 
 	for (int i = 1; i <= LOTTO_TIPS_PER_PAGE; i++) {
@@ -75,7 +75,7 @@ public class TipFactory {
 	    for (int i = 0; i < games; i++) 
 		tips.add(new LottoTip((LottoGame) g.get(i), num));
 
-	return new TipCollection<LottoTip>(tips, owner);
+	return new TipCollection(tips, owner);
     }
 
     /**

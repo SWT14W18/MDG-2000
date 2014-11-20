@@ -8,6 +8,7 @@ import java.util.Map;
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
+import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -65,9 +66,10 @@ public class LotterieDataInitializer implements DataInitializer{
 	
 	private void initializeUsers(UserAccountManager userAccountManager, CustomerRepository customerRepository, BankAccountRepository bankAccountRepository) {
 
-//		if (userAccountManager.get(new UserAccountIdentifier("boss")).isPresent()) {
-//			return;
-//		}
+	    	//damit wir nicht immer den db ordner löschen müssen
+		if (userAccountManager.get(new UserAccountIdentifier("hans")).isPresent()) {
+			return;
+		}
 //
 //		UserAccount bossAccount = userAccountManager.create("boss", "123", new Role("ROLE_BOSS"));
 //		userAccountManager.save(bossAccount);

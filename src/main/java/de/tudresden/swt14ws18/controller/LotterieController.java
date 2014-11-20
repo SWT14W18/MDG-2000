@@ -1,6 +1,9 @@
 package de.tudresden.swt14ws18.controller;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -21,6 +24,7 @@ import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.BankAccountRepository;
 import de.tudresden.swt14ws18.gamemanagement.GameManager;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
+import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.CommunityRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
@@ -30,6 +34,7 @@ import de.tudresden.swt14ws18.useraccountmanager.Status;
 @Controller
 public class LotterieController {
 
+    private Map<ConcreteCustomer, List<TipCollection>> tips = new HashMap<>();
     private final UserAccountManager userAccountManager;
     private final CustomerRepository customerRepository;
     private final CommunityRepository communityRepository;
@@ -64,10 +69,9 @@ public class LotterieController {
 	}
 
     }
-    
+
     @RequestMapping("/einzahlen")
-    public String einzahlen(@RequestParam("newMoney") double money, ModelMap map)
-    {
+    public String einzahlen(@RequestParam("newMoney") double money, ModelMap map) {
 	handleGeneralValues(map);
 
 	if (authenticationManager.getCurrentUser().isPresent()) {
@@ -88,6 +92,17 @@ public class LotterieController {
     public String gameoverview(ModelMap map) {
 
 	handleGeneralValues(map);
+
+	if (authenticationManager.getCurrentUser().isPresent()) {
+
+	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+	    if (!tips.containsKey(customer))
+		tips.put(customer, new ArrayList<TipCollection>());
+
+	    System.out.println(tips.get(customer).size());
+	    map.addAttribute("tips", tips.get(customer));
+
+	}
 	return "games/overview";
     }
 
@@ -110,8 +125,17 @@ public class LotterieController {
     public String createLottoTip(@RequestParam Map<String, String> params, ModelMap map) {
 
 	handleGeneralValues(map);
-	TipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()));
 
+	if (authenticationManager.getCurrentUser().isPresent()) {
+
+	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+	    if (!tips.containsKey(customer))
+		tips.put(customer, new ArrayList<TipCollection>());
+
+	    tips.get(customer).add(TipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
+
+	    System.out.println(tips.get(customer).size());
+	}
 	return "index";
     }
 
@@ -164,7 +188,7 @@ public class LotterieController {
 	return "logout";
     }
 
-    @RequestMapping({ "/reg"})
+    @RequestMapping({ "/reg" })
     public String reg(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap map) {
 
 	handleGeneralValues(map);
@@ -185,7 +209,7 @@ public class LotterieController {
 	customerRepository.save(c1);
 	return "index";
     }
-    
+
     @RequestMapping({ "/registration" })
     public String registration(ModelMap map) {
 

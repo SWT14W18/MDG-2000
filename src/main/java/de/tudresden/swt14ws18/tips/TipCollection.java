@@ -13,18 +13,18 @@ import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Customer;
 
-public class TipCollection<T extends Tip> implements Observer {
+public class TipCollection implements Observer {
 
     private Lotterie lotterie;
 
     private TipShare shares = new TipShare();
     private ConcreteCustomer owner;
-    private List<T> tips = new ArrayList<>();
+    private List<Tip> tips = new ArrayList<>();
 
-    public TipCollection(List<T> tips, ConcreteCustomer owner) {
+    public TipCollection(List<Tip> tips, ConcreteCustomer owner) {
 	this.tips = tips;
 	this.owner = owner;
-	for (T tip : tips)
+	for (Tip tip : tips)
 	    tip.addObserver(this);
     }
 
@@ -37,7 +37,7 @@ public class TipCollection<T extends Tip> implements Observer {
 	return lotterie;
     }
 
-    public List<T> getTips() {
+    public List<Tip> getTips() {
 	return tips;
     }
 
