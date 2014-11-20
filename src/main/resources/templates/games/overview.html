@@ -24,8 +24,8 @@ body {
 	<section>
 		<h1> Spiel &uuml;bersicht</h1>
 		
-		<ul th:each="item : ${tips}">
-			<li th:text="@{'Tippschein ('+${item.getTips().size()}+' Tipps)'}">Test</li>
+		<ul style="margin: 0 0 0 50px">
+			<li th:each="item : ${tips}" th:text="@{'Tippschein ('+${item.getTips().size()}+' Tipps)'}">Test</li>
 		</ul>
 	</section>
 	<!-- Footer include -->
