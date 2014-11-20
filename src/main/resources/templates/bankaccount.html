@@ -33,6 +33,13 @@ body {
 		<div align="center"><input type="submit" value="Einzahlen!"/></div>
 
 		</form>
+		
+		<form th:action="@{/auszahlen}">
+		
+		<div align="center"><input type="number" name="newMoney" /><br/></div>
+		<div align="center"><input type="submit" value="Auszahlen!"/></div>
+
+		</form>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>

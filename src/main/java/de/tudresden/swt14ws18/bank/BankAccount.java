@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 @Entity
 public class BankAccount {
     
@@ -32,7 +30,8 @@ public class BankAccount {
 	balance -= amount;
 	Transaction trans = new Transaction(this, to, amount);
 	transactions.add(trans);
-	to.incomingTransaction(trans);
+	if(to != null) 
+	    to.incomingTransaction(trans);
 	return true;
     }
 

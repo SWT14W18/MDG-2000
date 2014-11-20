@@ -86,6 +86,18 @@ public class LotterieController {
 	return "redirect:index";
     }
 
+    @RequestMapping("/auszahlen")
+    public String auszahlen(@RequestParam("newMoney") double money, ModelMap map) {
+	handleGeneralValues(map);
+
+	if (authenticationManager.getCurrentUser().isPresent() && money > 0) {
+	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+	    customer.getAccount().outgoingTransaction(null, money);
+	    bankAccountRepository.save(customer.getAccount());
+	}
+	return "redirect:index";
+    }
+    
     @RequestMapping({ "/", "/index" })
     public String Toindex(ModelMap map) {
 	handleGeneralValues(map);
