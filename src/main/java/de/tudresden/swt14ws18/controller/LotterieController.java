@@ -98,10 +98,8 @@ public class LotterieController {
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 	    if (!tips.containsKey(customer))
 		tips.put(customer, new ArrayList<TipCollection>());
-
-	    System.out.println(tips.get(customer).size());
+	    
 	    map.addAttribute("tips", tips.get(customer));
-
 	}
 	return "games/overview";
     }
@@ -133,8 +131,6 @@ public class LotterieController {
 		tips.put(customer, new ArrayList<TipCollection>());
 
 	    tips.get(customer).add(TipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
-
-	    System.out.println(tips.get(customer).size());
 	}
 	return "index";
     }

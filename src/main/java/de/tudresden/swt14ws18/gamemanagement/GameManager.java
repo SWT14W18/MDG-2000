@@ -19,7 +19,6 @@ public class GameManager {
     }
 
     public void addGame(Game game) {
-	System.out.println(game.getId() + " " + game.getType() + " " + game.isFinished());
 	games.put(game.getId(), game);
     }
 
@@ -37,12 +36,8 @@ public class GameManager {
 	List<Game> list = new ArrayList<>();
 
 	for (Game value : games.values())
-	{
-	    System.out.println(value.getType() + " " + value.isFinished());
 	    if (value.getType() == type && !value.isFinished())
 		list.add(value);
-	    
-	}
 
 	return list;
     }
