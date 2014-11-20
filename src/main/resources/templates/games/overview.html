@@ -25,7 +25,7 @@ body {
 		<h1> Spiel &uuml;bersicht</h1>
 		
 		<ul th:each="item : ${tips}">
-			<li>Test</li>
+			<li th:text="@{'Tippschein ('+${item.getTips().size()}+' Tipps)'}">Test</li>
 		</ul>
 	</section>
 	<!-- Footer include -->
