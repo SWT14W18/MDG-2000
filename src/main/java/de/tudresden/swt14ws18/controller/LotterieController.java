@@ -202,6 +202,7 @@ public class LotterieController {
 
 	ConcreteCustomer c1 = new ConcreteCustomer(vorname, passwort, Status.ACTIVE, ua, ba);
 
+	bankAccountRepository.save(ba);
 	customerRepository.save(c1);
 	return "index";
     }
