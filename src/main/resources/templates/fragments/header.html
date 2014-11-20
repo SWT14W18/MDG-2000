@@ -50,7 +50,7 @@
 								</ul>
                          </span>
 				   </li>
-                   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="profil.html"><label class="menuentry"><i class="fa fa-user"></i> Lars Beck</label></a>
+                   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="profil.html"><i class="fa fa-user"><label class="menuentry" sec:authentication="name"></label></i></a>
                          <span>
 								<ul id="navi_menu">
 									<li class="span_open">

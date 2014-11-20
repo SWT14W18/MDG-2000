@@ -1,4 +1,4 @@
-w<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Lotterie Mach dein Gl&uuml;ck!!!</title>
@@ -24,10 +24,12 @@ body {
 	<section>
 		<h1> Registrierung</h1>
 		
-		<form>
-			<input class="loginButton" type="submit" value="Login" tabindex="3" />
-			<input type="password" placeholder="Passwort" class="loginInput" name="password" tabindex="2" />
-			<input type="text" placeholder="Benutzername" class="loginInput" name="username" tabindex="1"/>
+		<form th:action="@{/reg}" method="post" >
+		<div align="center"><label>Benutzername:</label></div>
+		<div align="center"><input type="text" placeholder="Benutzername" class="loginInput" name="username" tabindex="1"/><br/></div>
+		<div align="center"><label>Passwort:</label></div>
+		<div align="center"><input type="password" placeholder="Passwort" class="loginInput" name="password" tabindex="2" /><br/></div>
+		<div align="center"><input class="loginButton" type="submit" value="Jetzt Registrieren" tabindex="3" /><br/></div>	
 		</form>
 			
 	</section>

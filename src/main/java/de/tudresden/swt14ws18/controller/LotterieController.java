@@ -75,7 +75,7 @@ public class LotterieController {
 	    customer.getAccount().payIn(money);
 	    bankAccountRepository.save(customer.getAccount());
 	}
-	return "index";
+	return "redirect:index";
     }
 
     @RequestMapping({ "/", "/index" })
@@ -164,8 +164,8 @@ public class LotterieController {
 	return "logout";
     }
 
-    @RequestMapping({ "/registration" })
-    public String register(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap map) {
+    @RequestMapping({ "/reg"})
+    public String reg(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap map) {
 
 	handleGeneralValues(map);
 	if (userAccountManager.contains(new UserAccountIdentifier(vorname))) {
@@ -184,6 +184,13 @@ public class LotterieController {
 
 	customerRepository.save(c1);
 	return "index";
+    }
+    
+    @RequestMapping({ "/registration" })
+    public String registration(ModelMap map) {
+
+	handleGeneralValues(map);
+	return "registration";
     }
 
     @RequestMapping({ "/input" })
