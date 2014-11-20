@@ -18,12 +18,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.BankAccountRepository;
+import de.tudresden.swt14ws18.gamemanagement.Game;
 import de.tudresden.swt14ws18.gamemanagement.GameManager;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
+import de.tudresden.swt14ws18.gamemanagement.TotoGame;
+import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.CommunityRepository;
@@ -112,6 +116,25 @@ public class LotterieController {
 	return "games/toto";
     }
 
+    @RequestMapping("/totoTipp")
+    public String totoTipp(@RequestParam("id") long id, ModelMap map) {
+	handleGeneralValues(map);
+	
+	Game game = gameManager.getGame(id);
+	if(game.getType() != GameType.TOTO)
+	    return "index";
+	
+	List<TotoMatch> matches = new ArrayList<>();
+	
+	for(TotoMatch m : ((TotoGame) game).getMatches())
+	    if(!m.isFinished())
+		matches.add(m);
+	
+	map.addAttribute("matches", matches);
+	
+	return "games/totoTipp";
+    }
+    
     @RequestMapping("/lotto")
     public String lotto(ModelMap map) {
 
@@ -134,6 +157,23 @@ public class LotterieController {
 	}
 	return "index";
     }
+
+    @RequestMapping(value = "/createTotoTip", method = RequestMethod.POST)
+    public String createTotoTip(@RequestParam Map<String, String> params, ModelMap map) {
+
+	handleGeneralValues(map);
+
+	if (authenticationManager.getCurrentUser().isPresent()) {
+
+	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+	    if (!tips.containsKey(customer))
+		tips.put(customer, new ArrayList<TipCollection>());
+
+	    tips.get(customer).add(TipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
+	}
+	return "index";
+    }
+
     
     @RequestMapping("/impressum")
     public String getImpressum(ModelMap map) {

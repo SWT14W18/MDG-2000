@@ -3,15 +3,13 @@ package de.tudresden.swt14ws18.gamemanagement;
 import java.util.Map;
 import java.util.Observable;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 import de.tudresden.swt14ws18.tips.Finishable;
 
 public class TotoMatch extends Observable implements Finishable {
-    @GeneratedValue
-    @Id
+    //@GeneratedValue
+    //@Id
     private long id;
+    private static long idCounter;
 
     private String teamHome;
     private String teamGuest;
@@ -22,6 +20,7 @@ public class TotoMatch extends Observable implements Finishable {
 	this.teamGuest = teamGuest;
 	this.teamHome = teamHome;
 	this.quotes = quotes;
+	this.id = idCounter++;
     }
 
     public String getTeamHome() {

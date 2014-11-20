@@ -25,7 +25,7 @@ body {
 		<h1>Toto Test</h1>
 		
 		<ul th:each="item : ${games}">
-			<li><a href="#" th:href="@{/game(id=${item.getId()})}" th:text="${item.getTitle()}">Game Name</a></li>
+			<li><a href="#" th:href="@{/totoTipp(id=${item.getId()})}" th:text="${item.getTitle()}">Game Name</a></li>
 		</ul>
 		
 	</section>

@@ -9,21 +9,46 @@ import de.tudresden.swt14ws18.gamemanagement.Game;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
+import de.tudresden.swt14ws18.gamemanagement.TotoGame;
+import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
+import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 public class TipFactory {
+    private static final int LOTTO_TIPS_PER_PAGE = 6;
 
     public static TipCollection craftTips(Map<String, String> map, ConcreteCustomer owner) {
 	switch (map.get("gameType")) {
 	case "lotto":
 	    return craftLottoTips(map, owner);
 	case "toto":
+	    return craftTotoTips(map, owner);
 	default:
 	    return null;
 	}
     }
 
-    private static final int LOTTO_TIPS_PER_PAGE = 6;
+    private static TipCollection craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
+
+	List<Tip> tips = new ArrayList<>();
+
+	for (Game game : Lotterie.getInstance().getGameManager().getUnfinishedGames(GameType.TOTO)) {
+	    TotoGame tGame = (TotoGame) game;
+
+	    for (TotoMatch match : tGame.getMatches()) {
+		if (match.isFinished())
+		    continue;
+
+		if (map.containsKey(String.valueOf(match.getId()))) {
+		    TotoResult result = TotoResult.parseString(map.get(String.valueOf(match.getId())));
+		    
+		    tips.add(new TotoTip(match, result, 1)); //TODO define input per user
+		}
+	    }
+	}
+
+	return new TipCollection(tips, owner);
+    }
 
     private static TipCollection craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
 
@@ -72,7 +97,7 @@ public class TipFactory {
 
 	List<Game> g = Lotterie.getInstance().getGameManager().getUnfinishedGames(GameType.LOTTO);
 	for (LottoNumbers num : numbers)
-	    for (int i = 0; i < games; i++) 
+	    for (int i = 0; i < games; i++)
 		tips.add(new LottoTip((LottoGame) g.get(i), num));
 
 	return new TipCollection(tips, owner);

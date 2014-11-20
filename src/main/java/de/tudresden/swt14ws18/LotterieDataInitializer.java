@@ -48,9 +48,63 @@ public class LotterieDataInitializer implements DataInitializer{
 		initializeUsers(userAccountManager, customerRepository, bankAccountRepository);
 		
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
-		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis() + 100)));
-		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis() + 200)));
-		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis() + 300)));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
+		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
@@ -60,8 +114,10 @@ public class LotterieDataInitializer implements DataInitializer{
 		quotes.put(TotoResult.WIN_GUEST, 2D);
 		quotes.put(TotoResult.WIN_HOME, 2D);
 		new TotoMatch("FC Blue", "Rot SC", quotes);
+		new TotoMatch("SV Grün", "Gelber FC", quotes);
 		
-		Lotterie.getInstance().getGameManager().addGame(new TotoGame(new Date(), 1, Arrays.asList(new TotoMatch[] {new TotoMatch("FC Blue", "Rot SC", quotes)})));
+		Lotterie.getInstance().getGameManager().addGame(new TotoGame(new Date(), 1, Arrays.asList(new TotoMatch[] {
+			new TotoMatch("SV Grün", "Gelber FC", quotes), new TotoMatch("FC Blue", "Rot SC", quotes)})));
 	}
 	
 	private void initializeUsers(UserAccountManager userAccountManager, CustomerRepository customerRepository, BankAccountRepository bankAccountRepository) {
