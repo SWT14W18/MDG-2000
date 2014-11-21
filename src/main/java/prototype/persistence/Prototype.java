@@ -1,6 +1,6 @@
 package prototype.persistence;
 
-import java.util.ArayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -18,18 +18,23 @@ public class Prototype{
 	
 	
     @OneToMany
-    private List<SafedEntity> prototypeList = new ArayList<>();
+    private List<Prototype> prototypeList = new ArrayList<>();
 
-    public void addingValue(SafedEntity count) {
+    public void addingValue(Prototype count) {
 	value += count.getCounter();
 	prototypeList.add(count);
     }
 
-    public void addTo(double counter) {
+    private double getCounter() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void addTo(double counter) {
 	if(counter < 0)
 	    return;
 	
-	SafedEntity count = new SafedEntity(null, this, counter);
+	Prototype count = new Prototype();
 	value += counter;
 	prototypeList.add(count);
     }
@@ -38,7 +43,7 @@ public class Prototype{
 	return value;
     }
 
-    public List<SafedEntity> getprototypeList() {
+    public List<Prototype> getprototypeList() {
 	return prototypeList;
     }
 
