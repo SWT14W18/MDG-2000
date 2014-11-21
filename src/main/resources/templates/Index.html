@@ -1,56 +1,30 @@
 <!Doctype html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8"/>    
-    <title>Mach dein Glulck!!</title>
-
-    <meta name="description" content="Die Lotterie Mach dein Glulck!!"/>
-    <meta name="author" content="RB"/>
-    <meta name="keywords" content="Lotterie"/>
-    
-    <link href="../resources/css/style.css" type="text/css" rel="stylesheet"/>
-
-</head>
-
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Prototyp Joe</title>
+		<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+	</head>
 <body>
-<!--div id="wrapper"-->
-  <header>
-    <p id="logotext">
-      <strong>Mach Dein Gluck!</strong>
-    </p>
-  </header>
-  
-<div id="wrapper">  
-  
-  <nav id="steuerungoben">
-    <ul>
-      <li><a href="Startseite.htm">Startseite</a></li>
-      <li><a href="Redistrieren.htm">Registrieren</a></li>
-      <li><a href="Login.htm">Login</a></li>
-    </ul>
-  </nav>
-  
-  <nav id="steuerunglinks">  
-    <ul>
-      <li><a href="Index.htm">Startseite</a></li>
-      <li><a href="Login.htm">Login</a></li>
-      <li><a href="Registrieren.htm">Registrieren</a></li>
-    </ul>
-  </nav>  
-  
-  <aside>  
-    <p><b>Spiele:</b></p>
-      <img src="../resources/img/Fussballtoto.png" width="200" height="200" alt="Fussballtoto"/>
-      <img src="../resources/img/Lottologo.jpeg" width="340" height="210" alt="6aus49 Zahlenlotto"/>     
-  </aside>
-  <section>
-    <h1>Registriere dich jetzt oder log dich ein, um sofort spielen zu k&ouml;nnen!</h1>
-  </section>  
-    
-  <footer>    
-    <p>Copyright: SWT-Gruppe 18  <a href="Kontakt.htm">Kontakt</a> <a href="Impressum.htm">Impressum</a></p>
-  </footer>
+	<div id="header">
+	<h1>Prototyp</h1>
+	</div>
+	
+	<div id="content">
+		<div id="right">
+			<div class="left">
+			<h1>Summe dazu addieren:</h1>
+			
+			<p>Summe dazu addieren:</p>
+			<form th:action="@{/addieren}">
+		
+			<input type="number" name="newValue" /><br/>
+			<input type="submit" value="Dazu addieren."/><br/>
+			
+			<div class="box" th:text="${value}"></div>
 
-</div>    
-</body>
+			</div>
+		</div>
+	</div>
+</body>	
 </html>
