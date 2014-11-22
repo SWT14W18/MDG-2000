@@ -1,7 +1,10 @@
 package prototype;
 
+import org.salespointframework.Salespoint;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.salespointframework.SalespointSecurityConfiguration;
 import org.salespointframework.SalespointWebConfiguration;
+import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,11 +12,27 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
+import prototype.persistence.Prototype;
+import prototype.persistence.PrototypeRepository;
+
 @Configuration
-@Import({ SalespointWebConfiguration.class })
+@Import({ SalespointWebConfiguration.class})
+@EntityScan(basePackageClasses = {Salespoint.class, Application.class})
 @ComponentScan
 public class Application {
+	private static Application instance;
+	private Prototype prototype;
+	
+	public Application() {
+		instance = this;
+	}
 
+	@Autowired
+	public void Prototype(Prototype prototype){
+		this.prototype = prototype;
+	}
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
