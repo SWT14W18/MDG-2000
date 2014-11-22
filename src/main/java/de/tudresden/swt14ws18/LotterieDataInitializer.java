@@ -1,5 +1,7 @@
 package de.tudresden.swt14ws18;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,7 +20,9 @@ import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.BankAccountRepository;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.TotoGame;
+import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
+import de.tudresden.swt14ws18.gamemanagement.TotoMatchRepository;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.CustomerRepository;
@@ -30,9 +34,10 @@ public class LotterieDataInitializer implements DataInitializer{
 	private final UserAccountManager userAccountManager;
 	private final CustomerRepository customerRepository;
 	private final BankAccountRepository bankAccountRepository;
-	
+	private final TotoMatchRepository totoMatchRepository;
 	@Autowired
-	public LotterieDataInitializer(CustomerRepository customerRepository, UserAccountManager userAccountManager, BankAccountRepository bankAccountRepository){
+	public LotterieDataInitializer(CustomerRepository customerRepository, UserAccountManager userAccountManager, BankAccountRepository bankAccountRepository,
+			TotoMatchRepository totoMatchRepository){
 		
 		Assert.notNull(customerRepository, "CustomerRepository must not be null!");
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
@@ -40,6 +45,7 @@ public class LotterieDataInitializer implements DataInitializer{
 		this.customerRepository = customerRepository;
 		this.userAccountManager = userAccountManager;
 		this.bankAccountRepository = bankAccountRepository;
+		this.totoMatchRepository = totoMatchRepository;
 	}
 	
 	@Override
@@ -109,15 +115,26 @@ public class LotterieDataInitializer implements DataInitializer{
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
 		
-		Map<TotoResult, Double> quotes = new HashMap<>();
-		quotes.put(TotoResult.DRAW, 2D);
-		quotes.put(TotoResult.WIN_GUEST, 2D);
-		quotes.put(TotoResult.WIN_HOME, 2D);
-		new TotoMatch("FC Blue", "Rot SC", quotes);
-		new TotoMatch("SV Grün", "Gelber FC", quotes);
+		Lotterie.getInstance().getGameManager().setTotoMatchRepository(totoMatchRepository);
+			
+		try {
+			new TotoDataInitializer(this.totoMatchRepository).totoInitialize();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		Lotterie.getInstance().getGameManager().addGame(new TotoGame(new Date(), 1, Arrays.asList(new TotoMatch[] {
-			new TotoMatch("SV Grün", "Gelber FC", quotes), new TotoMatch("FC Blue", "Rot SC", quotes)})));
+		
+//		Map<TotoResult, Double> quotes = new HashMap<>();
+//		quotes.put(TotoResult.DRAW, 2D);
+//		quotes.put(TotoResult.WIN_GUEST, 2D);
+//		quotes.put(TotoResult.WIN_HOME, 2D);
+//		
+//		Lotterie.getInstance().getGameManager().addGame(new TotoGame(new Date(), 1, Arrays.asList(new TotoMatch[] {
+//				new TotoMatch("FC Blue", "Rot SC", quotes, new Date(), TotoGameType.POKAL), new TotoMatch("SV Grün", "Gelber FC", quotes,new Date(), TotoGameType.POKAL)})));
 	}
 	
 	private void initializeUsers(UserAccountManager userAccountManager, CustomerRepository customerRepository, BankAccountRepository bankAccountRepository) {

@@ -1,26 +1,42 @@
 package de.tudresden.swt14ws18.gamemanagement;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Observable;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import de.tudresden.swt14ws18.tips.Finishable;
 
-public class TotoMatch extends Observable implements Finishable {
-    //@GeneratedValue
-    //@Id
-    private long id;
-    private static long idCounter;
+@Entity
+public class TotoMatch extends Game{
 
-    private String teamHome;
+    private String teamHome; 
     private String teamGuest;
+    @ElementCollection
     private Map<TotoResult, Double> quotes;
-    private TotoResult result = TotoResult.NOT_PLAYED;
+    @Enumerated
+    private TotoResult totoResult;
+    @Enumerated
+    private TotoGameType totoGameType;
+    
+    @Deprecated
+    protected TotoMatch(){    	
+    }
 
-    public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes) {
+    public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes, Date date, TotoGameType totoGameType) {
+    	super(date);
 	this.teamGuest = teamGuest;
 	this.teamHome = teamHome;
 	this.quotes = quotes;
-	this.id = idCounter++;
+	this.totoGameType = totoGameType;
+	this.totoResult = TotoResult.NOT_PLAYED;
     }
 
     public String getTeamHome() {
@@ -32,7 +48,11 @@ public class TotoMatch extends Observable implements Finishable {
     }
 
     public TotoResult getResult() {
-	return result;
+	return totoResult;
+    }
+    
+    public TotoGameType getTotoGameType(){
+    	return totoGameType;
     }
 
     public double getQuote(TotoResult result) {
@@ -40,6 +60,16 @@ public class TotoMatch extends Observable implements Finishable {
 	    return 1;
 
 	return quotes.get(result);
+    }
+    
+    @Override
+    public GameType getType() {
+	return GameType.TOTO;
+    }
+
+    @Override
+    public String getTitle() {
+	return String.format(teamHome + " : " + teamGuest, this.getDate());
     }
 
     public void setResult(TotoResult result) {
@@ -49,14 +79,12 @@ public class TotoMatch extends Observable implements Finishable {
 	if (getResult() != TotoResult.NOT_PLAYED)
 	    throw new IllegalArgumentException("You can't set the result of a game, that already has been set!");
 
-	this.result = result;
+	this.totoResult = result;
 	this.notifyObservers(true); // report that the game is finished in all
 				    // things
     }
 
-    public long getId() {
-	return id;
-    }
+
 
     public boolean isFinished() {
 	return getResult() != TotoResult.NOT_PLAYED;

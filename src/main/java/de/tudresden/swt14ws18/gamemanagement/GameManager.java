@@ -2,6 +2,7 @@ package de.tudresden.swt14ws18.gamemanagement;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,19 @@ public class GameManager {
     private static final double LOTTO_PRICE = 1.00D;
     private static final double INPUT_INTO_POT = 0.9D;
     private Map<Long, Game> games = new HashMap<>();
+    private TotoMatchRepository totoMatchRepository;
+    
+    public void setTotoMatchRepository(TotoMatchRepository totoMatchRepository){
+    	this.totoMatchRepository = totoMatchRepository;
+    }
+    
+    public List<TotoMatch> getTotoMatchByDate(Date date){
+    	return this.totoMatchRepository.findByDate(date);
+    }
+    
+    public List<TotoMatch> getTotoMatchByTeam(String team){
+    	return this.totoMatchRepository.findByTeamHomeOrTeamGuest(team, team);
+    }
 
     public Game getGame(long id) {
 	return games.get(id);
@@ -30,6 +44,10 @@ public class GameManager {
 		list.add(value);
 
 	return list;
+    }
+    
+    public List<TotoMatch> getUnfinishedTotoMatches(){
+    	return this.totoMatchRepository.findByTotoResult(TotoResult.NOT_PLAYED) ;	
     }
     
     public List<Game> getUnfinishedGames(GameType type) {

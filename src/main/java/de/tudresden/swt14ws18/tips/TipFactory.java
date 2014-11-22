@@ -32,19 +32,16 @@ public class TipFactory {
 
 	List<Tip> tips = new ArrayList<>();
 
-	for (Game game : Lotterie.getInstance().getGameManager().getUnfinishedGames(GameType.TOTO)) {
-	    TotoGame tGame = (TotoGame) game;
-
-	    for (TotoMatch match : tGame.getMatches()) {
-		if (match.isFinished())
+	    for (TotoMatch totoMatch : Lotterie.getInstance().getGameManager().getUnfinishedTotoMatches()) {
+		if (totoMatch.isFinished())
 		    continue;
 
-		if (map.containsKey(String.valueOf(match.getId()))) {
-		    TotoResult result = TotoResult.parseString(map.get(String.valueOf(match.getId())));
+		if (map.containsKey(String.valueOf(totoMatch.getId()))) {
+		    TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
 		    
-		    tips.add(new TotoTip(match, result, 1)); //TODO define input per user
+		    tips.add(new TotoTip(totoMatch, result, 1)); //TODO define input per user
 		}
-	    }
+	    
 	}
 
 	return new TipCollection(tips, owner);

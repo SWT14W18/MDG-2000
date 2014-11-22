@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.TotoGame;
+import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 
@@ -23,8 +24,8 @@ public class GameTests {
 	quotes.put(TotoResult.WIN_GUEST, 2D);
 	quotes.put(TotoResult.WIN_HOME, 2D);
 	
-	TotoGame game = new TotoGame(new Date(), 11, new TotoMatch("FC Blau", "Rot SC", quotes));
-	TotoGame game2 = new TotoGame(new Date(), 12, new TotoMatch("Rot SC", "FC Blau", quotes));
+	TotoGame game = new TotoGame(new Date(), 11, new TotoMatch("FC Blue", "Rot SC", quotes, new Date(), TotoGameType.POKAL));
+	TotoGame game2 = new TotoGame(new Date(), 12, new TotoMatch("Gelber FC ", "FC Grün", quotes, new Date(), TotoGameType.POKAL));
 
 	assertEquals(game.getTitle(), "11. Spieltag");
 	assertNotEquals(game2.getTitle(), "11. Spieltag");

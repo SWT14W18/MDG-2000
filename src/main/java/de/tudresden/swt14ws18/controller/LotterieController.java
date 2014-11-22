@@ -1,7 +1,11 @@
 package de.tudresden.swt14ws18.controller;
 
+import java.util.Date;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +49,7 @@ public class LotterieController {
     private final AuthenticationManager authenticationManager;
     private final BankAccountRepository bankAccountRepository;
     private final GameManager gameManager;
+	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
     @Autowired
     public LotterieController(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository,
@@ -121,29 +126,20 @@ public class LotterieController {
     }
 
     @RequestMapping("/toto")
-    public String toto(ModelMap map) {
-	map.addAttribute("games", gameManager.getUnfinishedGames(GameType.TOTO));
-
+    public String toto(ModelMap map){
+	List<String> dates = new ArrayList<>();
+	dates.add("22.11.2014");
+	dates.add("23.11.2014");
+    map.addAttribute("games", dates);    
 	handleGeneralValues(map);
 	return "games/toto";
     }
 
     @RequestMapping("/totoTipp")
-    public String totoTipp(@RequestParam("id") long id, ModelMap map) {
-	handleGeneralValues(map);
-	
-	Game game = gameManager.getGame(id);
-	if(game.getType() != GameType.TOTO)
-	    return "index";
-	
-	List<TotoMatch> matches = new ArrayList<>();
-	
-	for(TotoMatch m : ((TotoGame) game).getMatches())
-	    if(!m.isFinished())
-		matches.add(m);
-	
-	map.addAttribute("matches", matches);
-	
+    public String totoTipp(@RequestParam("id") String id, ModelMap map) throws ParseException {
+	handleGeneralValues(map);	
+    Date date = sdf.parse(id);
+	map.addAttribute("matches", gameManager.getTotoMatchByDate(date));	
 	return "games/totoTipp";
     }
     
