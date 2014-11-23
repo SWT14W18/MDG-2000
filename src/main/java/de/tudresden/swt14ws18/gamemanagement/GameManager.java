@@ -27,6 +27,10 @@ public class GameManager {
     public List<TotoMatch> getTotoMatchByTeam(String team){
     	return this.totoMatchRepository.findByTeamHomeOrTeamGuest(team, team);
     }
+    
+    public List<TotoMatch> getTotoMatchByMatchDay(int matchDay){
+    	return this.totoMatchRepository.findByMatchDay(matchDay);
+    }
 
     public Game getGame(long id) {
 	return games.get(id);

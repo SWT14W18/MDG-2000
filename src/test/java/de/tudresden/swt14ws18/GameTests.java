@@ -24,8 +24,8 @@ public class GameTests {
 	quotes.put(TotoResult.WIN_GUEST, 2D);
 	quotes.put(TotoResult.WIN_HOME, 2D);
 	
-	TotoGame game = new TotoGame(new Date(), 11, new TotoMatch("FC Blue", "Rot SC", quotes, new Date(), TotoGameType.POKAL));
-	TotoGame game2 = new TotoGame(new Date(), 12, new TotoMatch("Gelber FC ", "FC Grün", quotes, new Date(), TotoGameType.POKAL));
+	TotoGame game = new TotoGame(new Date(), 11, new TotoMatch("FC Blue", "Rot SC", quotes, new Date(), TotoGameType.POKAL, 1));
+	TotoGame game2 = new TotoGame(new Date(), 12, new TotoMatch("Gelber FC ", "FC Grün", quotes, new Date(), TotoGameType.POKAL, 1));
 
 	assertEquals(game.getTitle(), "11. Spieltag");
 	assertNotEquals(game2.getTitle(), "11. Spieltag");
