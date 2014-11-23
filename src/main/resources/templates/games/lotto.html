@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lotterie Mach dein Gl&uuml;ck!!!</title>
+<meta name="description" content="Swt Team 18 Lotterie" />
+<meta name="author" content=".Lars Beck, Reinhard *,Felix *, Joe *, Johannes *" />
+<meta name="keywords" content="." />
+
+<link href='css/html5reset-1.6.1.css' rel='stylesheet' type='text/css'/>
+<link href="css/header_dark_red.css" rel="stylesheet"/>
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'/>
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'/>
+
+<style type="text/css">
+body {
+   margin: 0 auto;
+}
+</style>
+</head>
+<body>
+	<!-- Header include -->
+	<div th:replace="fragments/header :: header"></div>
+	<section>
+		<h1> Lotto Tipperstellung</h1>
+		
+			<form action="/createLottoTip" method="post">
+			<fieldset class="tipp1" style="margin: 0 0 0 50px">
+				Zahl 1<input type="text" name="number1-1" /><br />
+				Zahl 2<input type="text" name="number1-2" /><br />
+				Zahl 3<input type="text" name="number1-3" /><br />
+				Zahl 4<input type="text" name="number1-4" /><br />
+				Zahl 5<input type="text" name="number1-5" /><br />
+				Zahl 6<input type="text" name="number1-6" /><br />
+				Superzahl<input type="text" name="number1-super" /><br />
+			</fieldset>
+			<!-- <fieldset class="tipp2">
+				Zahl 1<input type="text" name="number2-1" />
+				Zahl 2<input type="text" name="number2-2" />
+				Zahl 3<input type="text" name="number2-3" />
+				Zahl 4<input type="text" name="number2-4" />
+				Zahl 5<input type="text" name="number2-5" />
+				Zahl 6<input type="text" name="number2-6" />
+				Superzahl<input type="text" name="number2-super" />
+			</fieldset>
+			<fieldset class="tipp3">
+				Zahl 1<input type="text" name="number3-1" />
+				Zahl 2<input type="text" name="number3-2" />
+				Zahl 3<input type="text" name="number3-3" />
+				Zahl 4<input type="text" name="number3-4" />
+				Zahl 5<input type="text" name="number3-5" />
+				Zahl 6<input type="text" name="number3-6" />
+				Superzahl<input type="text" name="number3-super" />
+			</fieldset>
+			<fieldset class="tipp4">
+				Zahl 1<input type="text" name="number4-1" />
+				Zahl 2<input type="text" name="number4-2" />
+				Zahl 3<input type="text" name="number4-3" />
+				Zahl 4<input type="text" name="number4-4" />
+				Zahl 5<input type="text" name="number4-5" />
+				Zahl 6<input type="text" name="number4-6" />
+				Superzahl<input type="text" name="number4-super" />
+			</fieldset>
+			<fieldset class="tipp5">
+				Zahl 1<input type="text" name="number5-1" />
+				Zahl 2<input type="text" name="number5-2" />
+				Zahl 3<input type="text" name="number5-3" />
+				Zahl 4<input type="text" name="number5-4" />
+				Zahl 5<input type="text" name="number5-5" />
+				Zahl 6<input type="text" name="number5-6" />
+				Superzahl<input type="text" name="number5-super" />
+			</fieldset>
+			<fieldset class="tipp6">
+				Zahl 1<input type="text" name="number6-1" />
+				Zahl 2<input type="text" name="number6-2" />
+				Zahl 3<input type="text" name="number6-3" />
+				Zahl 4<input type="text" name="number6-4" />
+				Zahl 5<input type="text" name="number6-5" />
+				Zahl 6<input type="text" name="number6-6" />
+				Superzahl<input type="text" name="number6-super" />
+			</fieldset>-->
+			<select name="duration">
+				<option value="0">Einzelspiel</option>
+				<option value="1">1 Monat</option>
+				<option value="2">6 Monate</option>
+				<option value="3">1 Jahr</option>		
+			</select>
+			<input type="hidden" name="gameType" value="lotto" />
+			<input type="submit" />		
+		</form>
+	</section>
+	<!-- Footer include -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>	
+</html>

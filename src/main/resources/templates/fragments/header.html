@@ -1,0 +1,106 @@
+<header>
+         <nav>
+              <ul id="navigation"><!--Liste der Navigationselemente-->
+                   <!--Alle Navigationselemente die links ausgerichtet sind:-->
+                   <li class="lileft" ><a th:href="index.html"><label class="menuentry"  >Mach dein Gl&uuml;ck!!!</label></a></li>
+				   
+                   <li sec:authorize="hasRole('ROLE_USER')" class="lileft"><a th:href="gameoverview.html"><label class="menuentry" ><i class="fa fa-th-large"></i> Spiel</label></a>
+				         <span>
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="lotto"><label><i class="fa fa-pencil"></i> Lotto</label></a>
+										</div>
+									</li>
+								</ul>								
+								
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="toto.html"><label><i class="fa fa-futbol-o"></i> Toto</label></a>
+										</div>
+									</li>
+								</ul>
+                         </span>
+				   </li>
+				   
+                   <li sec:authorize="hasRole('ROLE_USER')" class="lileft" ><a th:href="groupoverview.html"><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></a>
+						 <span>
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="groupcreate.html"><label>Gruppe erstellen</label></a>
+										</div>
+									</li>
+								</ul>								
+								
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="groupjoin.html"><label>Gruppen beitreten</label></a>
+										</div>
+									</li>
+								</ul>								
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="groupmanage.html"><label>Gruppen verwalten</label></a>
+										</div>
+									</li>
+								</ul>
+                         </span>
+				   </li>
+                   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="profil.html"><i class="fa fa-user"><label class="menuentry" sec:authentication="name"></label></i></a>
+                         <span>
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="bankaccount.html"><label><i class="fa fa-credit-card"></i> Konto</label></a>
+										</div>
+									</li>
+								</ul>								
+								
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="profil.html"><label><i class="fa fa-user"></i> Profil</label></a>
+										</div>
+									</li>
+								</ul>								
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="@{/logout}" ><label>Ausloggen <i class="fa fa-sign-out"></i></label></a>
+										</div>
+									</li>
+								</ul>
+                         </span>
+                   </li>
+
+				   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="bankaccount.html"><label class="menuentry_money"> <i class="fa fa-eur" th:text="${balance}"></i></label></a></li>
+
+				   
+				   		<div class="fehler" th:if="${param.error}">
+							<p class="h">Fehler</p>
+							<p>Benutername oder Passwort stimmmen nicht &uuml;berein!</p>
+							<p>Versuchen sie es erneut.</p>
+						    <br/>
+							<form>
+							<input class="loginButton" type="button" value="ok" tabindex="3" onclick="location='index.html'" />
+							</form>
+							<br/>
+							<p>Wenn du noch keine Account hast:<br/> <a href="index.html">Registrieren!</a></p>
+						</div>
+                            
+
+				   <li sec:authorize="!isAuthenticated()" class="liright"><a th:href="registration.html"><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
+					
+					<form sec:authorize="!isAuthenticated()" th:action="@{/login}" method="post">
+						<li class="lilogin"><label class="menuentry_login"><input class="loginButton" type="submit" value="Login" tabindex="3" /></label></li>
+						<li class="lilogin"><label class="menuentry_login"><input type="password" placeholder="Passwort" class="loginInput" name="password" tabindex="2" /></label></li> 
+						<li class="lilogin"><label class="menuentry_login"><input type="text" placeholder="Benutzername" class="loginInput" name="username" tabindex="1"/></label></li>
+					</form>
+			
+              </ul>
+         </nav>
+    </header>
