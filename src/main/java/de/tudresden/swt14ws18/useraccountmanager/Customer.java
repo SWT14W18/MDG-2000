@@ -1,6 +1,8 @@
 package de.tudresden.swt14ws18.useraccountmanager;
 
+import javax.persistence.MappedSuperclass;
 
+@MappedSuperclass
 public class Customer {
 	
 	private String name;
