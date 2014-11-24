@@ -25,18 +25,20 @@ public class TotoMatch extends Game{
     private TotoResult totoResult;
     @Enumerated
     private TotoGameType totoGameType;
+    private int matchDay;
     
     @Deprecated
     protected TotoMatch(){    	
     }
 
-    public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes, Date date, TotoGameType totoGameType) {
+    public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes, Date date, TotoGameType totoGameType, int matchDay) {
     	super(date);
 	this.teamGuest = teamGuest;
 	this.teamHome = teamHome;
 	this.quotes = quotes;
 	this.totoGameType = totoGameType;
 	this.totoResult = TotoResult.NOT_PLAYED;
+	this.matchDay = matchDay;
     }
 
     public String getTeamHome() {
@@ -53,6 +55,10 @@ public class TotoMatch extends Game{
     
     public TotoGameType getTotoGameType(){
     	return totoGameType;
+    }
+    
+    public int getMatchDay(){
+    	return matchDay;
     }
 
     public double getQuote(TotoResult result) {

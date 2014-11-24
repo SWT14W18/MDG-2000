@@ -127,19 +127,18 @@ public class LotterieController {
 
     @RequestMapping("/toto")
     public String toto(ModelMap map){
-	List<String> dates = new ArrayList<>();
-	dates.add("22.11.2014");
-	dates.add("23.11.2014");
+	List<Integer> dates = new ArrayList<>();
+	dates.add(13);
+	dates.add(14);
     map.addAttribute("games", dates);    
 	handleGeneralValues(map);
 	return "games/toto";
     }
 
     @RequestMapping("/totoTipp")
-    public String totoTipp(@RequestParam("id") String id, ModelMap map) throws ParseException {
+    public String totoTipp(@RequestParam("id") int id, ModelMap map) throws ParseException {
 	handleGeneralValues(map);	
-    Date date = sdf.parse(id);
-	map.addAttribute("matches", gameManager.getTotoMatchByDate(date));	
+	map.addAttribute("matches", gameManager.getTotoMatchByMatchDay(id));	
 	return "games/totoTipp";
     }
     
