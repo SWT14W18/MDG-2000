@@ -9,6 +9,21 @@ import org.salespointframework.useraccount.UserAccount;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
 
+/**
+ * Wie schon aus dem Header zu entnehmen, ist diese Klasse von der Klasse "Customer" abgeleitet, welche
+ * den ConcreteCustomer mit einem Namen udn einem Passwort ausstattet.
+ * Der ConcreteCustomer ist die aktive, agierende Kundenklasse in unserer Lotterie, der als Entity
+ * von Spring gefunden und deshalb eine von Spring verwaltete ID besitzt.
+ * 
+ * Dem Kunden ist genau ein org.salespointframework.useraccount.UserAccount zugeordnet, über den er später
+ * in der Lotterie zu identifizieren ist.
+ * Um den Kunden allerdings in unserer Lotterie (persistent) zu speichern, ist ein CustomerRepository
+ * angelegt, in dem Jeder Kunde gespeichert ist.
+ * 
+ * @author Reinhard_2
+ *
+ */
+
 @Entity
 public class ConcreteCustomer extends Customer {
 
