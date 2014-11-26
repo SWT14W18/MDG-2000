@@ -103,5 +103,19 @@ public class Community extends Customer{
 		}
 		return false;
 	}
+	
+	/**
+	 * Ein Kunde tritt aus der Gruppe aus? Dann wird er aus der Memberslist gelöscht
+	 * 
+	 * @param leaver	-> Der Kunde, der aus der Gruppe austritt
+	 * @return
+	 */
+	
+	public boolean removeMember(ConcreteCustomer leaver){
+		if(isMember(leaver)){
+			members.remove(leaver);
+		}
+		return false;
+	}
 
   }
