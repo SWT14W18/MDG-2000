@@ -20,6 +20,14 @@ import de.tudresden.swt14ws18.bank.BankAccount;
  * Um den Kunden allerdings in unserer Lotterie (persistent) zu speichern, ist ein CustomerRepository
  * angelegt, in dem Jeder Kunde gespeichert ist.
  * 
+ * @param messages: Anzahl der MItteilungen, die der Kunde bekommen hat, weil er irgendwann nicht liquid war
+ * 					Bei 10 Mitteilungen wird der Kunde gesperrt.
+ * @param account:	Das Bankkonto des Kunden, auf dem sein Geld liegt. Er kann abheben und einzahlen
+ * 
+ * @param UserAccount: der eindeutig zugeordnete UserAccount des Kunden
+ * 
+ *
+ * 
  * @author Reinhard_2
  *
  */
