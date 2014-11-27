@@ -7,11 +7,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import de.tudresden.swt14ws18.Lotterie;
 
 public class LottoGame extends Game {
 
-    private GameManager manager;
 
     private static final String title = "Losung vom %1$s";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -23,11 +22,6 @@ public class LottoGame extends Game {
 
     public LottoGame(Date date) {
 	super(date);
-    }
-
-    @Autowired
-    public void setGameManager(GameManager manager) {
-	this.manager = manager;
     }
 
     public void setWinningPot(double winningPot) {
@@ -60,7 +54,7 @@ public class LottoGame extends Game {
 	this.notifyObservers(true); // report that the game now knows who won
 				    // how much
 
-	manager.setNextLottoPot(this);
+	Lotterie.getInstance().setNextLottoPot(this); //TODO noch nicht optimal
     }
 
     @Override

@@ -5,25 +5,29 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.LottoMatchRepository;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
+import de.tudresden.swt14ws18.gamemanagement.TotoMatchRepository;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
+@Component
 public class TipFactory {
     private static final int LOTTO_TIPS_PER_PAGE = 6;
 
     private LottoMatchRepository lottoMatchRepository;
-    
+    private TotoMatchRepository totoMatchRepository;
+
     @Autowired
-    public TipFactory(LottoMatchRepository lottoMatchRepository) {
+    public TipFactory(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository) {
 	this.lottoMatchRepository = lottoMatchRepository;
+	this.totoMatchRepository = totoMatchRepository;
     }
-    
+
     public TipCollection craftTips(Map<String, String> map, ConcreteCustomer owner) {
 	switch (map.get("gameType")) {
 	case "lotto":
@@ -39,16 +43,16 @@ public class TipFactory {
 
 	List<Tip> tips = new ArrayList<>();
 
-	    for (TotoMatch totoMatch : Lotterie.getInstance().getGameManager().getUnfinishedTotoMatches()) {
-		if (totoMatch.isFinished())
-		    continue;
+	for (TotoMatch totoMatch : totoMatchRepository.findByTotoResult(TotoResult.NOT_PLAYED)) {
+	    if (totoMatch.isFinished())
+		continue;
 
-		if (map.containsKey(String.valueOf(totoMatch.getId()))) {
-		    TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
-		    
-		    tips.add(new TotoTip(totoMatch, result, 1)); //TODO define input per user
-		}
-	    
+	    if (map.containsKey(String.valueOf(totoMatch.getId()))) {
+		TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
+
+		tips.add(new TotoTip(totoMatch, result, 1)); // TODO define input per user
+	    }
+
 	}
 
 	return new TipCollection(tips, owner);
@@ -98,7 +102,7 @@ public class TipFactory {
 	default:
 	    return null;
 	}
-	
+
 	List<LottoGame> g = lottoMatchRepository.findByResultOrderByDateAsc(null);
 	for (LottoNumbers num : numbers)
 	    for (int i = 0; i < games; i++)

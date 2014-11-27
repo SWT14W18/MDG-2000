@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.BankAccountRepository;
-import de.tudresden.swt14ws18.gamemanagement.GameManager;
+import de.tudresden.swt14ws18.gamemanagement.TotoMatchRepository;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.CommunityRepository;
@@ -41,22 +41,21 @@ public class LotterieController {
     private final CommunityRepository communityRepository;
     private final AuthenticationManager authenticationManager;
     private final BankAccountRepository bankAccountRepository;
-    private final GameManager gameManager;
+    private final TotoMatchRepository totoRepo;
     private final TipFactory tipFactory;
 	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
     @Autowired
     public LotterieController(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository,
-	    AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository, GameManager gameManager, TipFactory tipFactory) {
-	Assert.notNull(gameManager, "UserAccountManager must not be null!");
+	    AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository, TipFactory tipFactory, TotoMatchRepository totoRepo) {
 	Assert.notNull(authenticationManager, "UserAccountManager must not be null!");
 	Assert.notNull(bankAccountRepository, "UserAccountManager must not be null!");
 	Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
 	Assert.notNull(customerRepository, "CustomerRepository must not be null!");
 	Assert.notNull(communityRepository, "CommunityRepository must not be null");
 
+	this.totoRepo = totoRepo;
 	this.tipFactory = tipFactory;
-	this.gameManager = gameManager;
 	this.userAccountManager = userAccountManager;
 	this.customerRepository = customerRepository;
 	this.communityRepository = communityRepository;
@@ -133,7 +132,7 @@ public class LotterieController {
     @RequestMapping("/totoTipp")
     public String totoTipp(@RequestParam("id") int id, ModelMap map) {
 	handleGeneralValues(map);	
-	map.addAttribute("matches", gameManager.getTotoMatchByMatchDay(id));	
+	map.addAttribute("matches", totoRepo.findByMatchDay(id));	
 	return "games/totoTipp";
     }
     

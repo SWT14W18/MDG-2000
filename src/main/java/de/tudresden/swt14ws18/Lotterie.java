@@ -16,7 +16,8 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.TransactionRepository;
-import de.tudresden.swt14ws18.gamemanagement.GameManager;
+import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.gamemanagement.LottoMatchRepository;
 
 @Configuration
 @EnableAutoConfiguration
@@ -24,27 +25,27 @@ import de.tudresden.swt14ws18.gamemanagement.GameManager;
 @EnableJpaRepositories(basePackageClasses = { Salespoint.class, Lotterie.class })
 @ComponentScan
 public class Lotterie {
+
+    private static final double LOTTO_PRICE = 1.00D;
+    private static final double INPUT_INTO_POT = 0.9D;
+    
     private static Lotterie instance;
     private BankAccount account = new BankAccount();
     private TransactionRepository transactionRepo;
-    private GameManager gameManager;
+    private LottoMatchRepository lottoRepo;
 
     public Lotterie() {
 	instance = this;
     }
     
     @Autowired
-    public void setGameManager(GameManager gameManager) {
-	this.gameManager = gameManager;
+    public void setLottoMatchRepository(LottoMatchRepository lottoRepo) {
+	this.lottoRepo = lottoRepo;
     }
 
     @Autowired
     public void setTransactionRepository(TransactionRepository transactionRepo) {
 	this.transactionRepo = transactionRepo;
-    }
-
-    public GameManager getGameManager() {
-	return gameManager;
     }
 
     public static Lotterie getInstance() {
@@ -59,6 +60,14 @@ public class Lotterie {
 	return account;
     }
 
+
+    public void setNextLottoPot(LottoGame game) {
+	LottoGame result = lottoRepo.findByResultOrderByDateAsc(null).get(0);
+
+	if (result != null)
+	    result.setWinningPot(game.getRemainingPot() + game.countObservers() * LOTTO_PRICE * INPUT_INTO_POT);
+    }
+    
     @Configuration
     static class LotterieWebConfiguration extends SalespointWebConfiguration {
     	

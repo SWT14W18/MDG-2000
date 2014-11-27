@@ -107,7 +107,7 @@ public class LotterieDataInitializer implements DataInitializer{
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
 		*/
-		Lotterie.getInstance().getGameManager().setTotoMatchRepository(totoMatchRepository);
+		//Lotterie.getInstance().getGameManager().setTotoMatchRepository(totoMatchRepository);
 			
 		try {
 			new TotoDataInitializer(this.totoMatchRepository).totoInitialize();
