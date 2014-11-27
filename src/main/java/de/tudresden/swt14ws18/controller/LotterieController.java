@@ -110,6 +110,10 @@ public class LotterieController {
     @RequestMapping("/statisticsoverview" )
     public String statisticsoverview(ModelMap map) {
 	  handleGeneralValues(map);
+	  
+	  ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+	  map.addAttribute("transactions", customer.getAccount().getTransactions());
+	  
 	  return "statistics/overview";
     }
 
