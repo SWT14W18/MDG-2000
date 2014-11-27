@@ -153,6 +153,7 @@ public class LotterieController {
 	return tips;
     }
 
+    //TODO nach Datum sortieren
     @RequestMapping("/toto")
     public String toto(ModelMap map) {
 	handleGeneralValues(map);
