@@ -1,9 +1,13 @@
-package de.tudresden.swt14ws18.gamemanagement;
+package de.tudresden.swt14ws18.repositories;
 
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+
+import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
+import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
+import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 
 public interface TotoMatchRepository extends CrudRepository<TotoMatch, Long>{
 	public TotoMatch findById(long id);

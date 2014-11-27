@@ -18,8 +18,8 @@ import com.google.gson.JsonParser;
 
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
-import de.tudresden.swt14ws18.gamemanagement.TotoMatchRepository;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
+import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 
 
 public class TotoDataInitializer {

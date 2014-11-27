@@ -23,13 +23,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
-import de.tudresden.swt14ws18.bank.BankAccountRepository;
-import de.tudresden.swt14ws18.gamemanagement.TotoMatchRepository;
+import de.tudresden.swt14ws18.repositories.BankAccountRepository;
+import de.tudresden.swt14ws18.repositories.CommunityRepository;
+import de.tudresden.swt14ws18.repositories.CustomerRepository;
+import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
-import de.tudresden.swt14ws18.useraccountmanager.CommunityRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
-import de.tudresden.swt14ws18.useraccountmanager.CustomerRepository;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 
 @Controller

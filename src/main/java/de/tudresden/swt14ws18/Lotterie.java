@@ -16,9 +16,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
-import de.tudresden.swt14ws18.bank.TransactionRepository;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
-import de.tudresden.swt14ws18.gamemanagement.LottoMatchRepository;
+import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
+import de.tudresden.swt14ws18.repositories.TransactionRepository;
 
 @Configuration
 @EnableAutoConfiguration

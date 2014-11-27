@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
-import de.tudresden.swt14ws18.gamemanagement.LottoMatchRepository;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
-import de.tudresden.swt14ws18.gamemanagement.TotoMatchRepository;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
+import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
+import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 @Component

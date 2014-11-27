@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
-import de.tudresden.swt14ws18.bank.BankAccountRepository;
-import de.tudresden.swt14ws18.gamemanagement.TotoMatchRepository;
+import de.tudresden.swt14ws18.repositories.BankAccountRepository;
+import de.tudresden.swt14ws18.repositories.CustomerRepository;
+import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
-import de.tudresden.swt14ws18.useraccountmanager.CustomerRepository;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 
 @Component
