@@ -3,6 +3,7 @@ package de.tudresden.swt14ws18;
 import org.salespointframework.Salespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
 import org.salespointframework.SalespointWebConfiguration;
+import org.salespointframework.time.BusinessTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -28,8 +29,9 @@ public class Lotterie {
 
     private static final double LOTTO_PRICE = 1.00D;
     private static final double INPUT_INTO_POT = 0.9D;
-    
+
     private static Lotterie instance;
+    private BusinessTime time;
     private BankAccount account = new BankAccount();
     private TransactionRepository transactionRepo;
     private LottoMatchRepository lottoRepo;
@@ -37,7 +39,12 @@ public class Lotterie {
     public Lotterie() {
 	instance = this;
     }
-    
+
+    @Autowired
+    public void setTime(BusinessTime time) {
+	this.time = time;
+    }
+
     @Autowired
     public void setLottoMatchRepository(LottoMatchRepository lottoRepo) {
 	this.lottoRepo = lottoRepo;
@@ -46,6 +53,10 @@ public class Lotterie {
     @Autowired
     public void setTransactionRepository(TransactionRepository transactionRepo) {
 	this.transactionRepo = transactionRepo;
+    }
+
+    public BusinessTime getTime() {
+	return time;
     }
 
     public static Lotterie getInstance() {
@@ -60,21 +71,20 @@ public class Lotterie {
 	return account;
     }
 
-
     public void setNextLottoPot(LottoGame game) {
 	LottoGame result = lottoRepo.findByResultOrderByDateAsc(null).get(0);
 
 	if (result != null)
 	    result.setWinningPot(game.getRemainingPot() + game.countObservers() * LOTTO_PRICE * INPUT_INTO_POT);
     }
-    
+
     @Configuration
     static class LotterieWebConfiguration extends SalespointWebConfiguration {
-    	
-    	@Override
-		public void addViewControllers(ViewControllerRegistry registry) {
-			registry.addViewController("/login").setViewName("login");
-		}
+
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+	    registry.addViewController("/login").setViewName("login");
+	}
     }
 
     @Configuration
