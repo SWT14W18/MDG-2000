@@ -18,7 +18,7 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Customer;
 
 @MappedSuperclass
-public class TipCollection<T extends Tip> implements Observer {
+public abstract class TipCollection<T extends Tip> implements Observer {
 
     @GeneratedValue
     @Id
