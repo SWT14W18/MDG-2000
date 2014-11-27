@@ -52,6 +52,14 @@ public class Transaction {
     
     @Override
     public String toString(){
-        return "Datum: "+date.toString()+" Von: "+from.toString()+" Nach: "+to.toString();
+        String von;
+        String nach;
+        
+        if(from==null) von = "eingezahlt";
+        else von = from.toString();
+        if(to==null) nach = "ausgezahlt";
+        else nach = to.toString();
+        
+        return "Datum: "+date.toString()+" Von: "+von+" Nach: "+nach;
     }
 }
