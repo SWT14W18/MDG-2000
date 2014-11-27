@@ -22,7 +22,7 @@ import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 
 /**
- * Die Klasse TotoDataInitializer ist für das füllen der Totodatebank zuständig
+ * Die Klasse TotoDataInitializer ist für das Füllen der Totodatenbank zuständig
  * Die Funktion totoInitialize holt sich von der Seite http://openligadb-json.herokuapp.com/api die
  * Daten für alle Partien der 1. und 2. Bundesliga und des DFB-Pokals, erzeugt jeweils ein TotoMatch und speichert
  * es im TotoMatchRepository
