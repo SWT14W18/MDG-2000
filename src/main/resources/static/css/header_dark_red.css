@@ -439,15 +439,24 @@ section #divListMessages input{
          box-sizing: border-box;
 }
 
-section .lottoButton {
+
+section #divListMessages .lottoButton {
 		 height: 30px;
-         width: 30px;
+         width: 40px;
          border: 1px solid #F5B3B3;
          border-radius: 3px;
          background-color: #fafafa;
          margin: 3px 0px 10px 0px;
          padding: 0px 5px 0px 0px;
          box-sizing: border-box;
+}
+
+section #ListMessages fieldset {
+		background-color: #fafafa;
+		border-bottom: 1px dotted #C51919;
+}
+section #divListMessages fieldset:hover{
+		background-color: #FFF0F0;
 }
 
 div.fehler{

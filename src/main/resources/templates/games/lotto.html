@@ -22,73 +22,140 @@ body {
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1> Lotto Tipperstellung</h1>
+		<h1>Lotto Tipperstellung</h1>
 		<hr/>
 		<br/>
 		<br/>
 			<form action="/createLottoTip" method="post">
-			<fieldset class="tipp1" style="margin: 0 0 0 50px">
-				Zahl 1<input type="text" class="lottoButton" name="number1-1" /><br />
-				Zahl 2<input type="text" class="lottoButton" name="number1-2" /><br />
-				Zahl 3<input type="text" class="lottoButton" name="number1-3" /><br />
-				Zahl 4<input type="text" class="lottoButton" name="number1-4" /><br />
-				Zahl 5<input type="text" class="lottoButton" name="number1-5" /><br />
-				Zahl 6<input type="text" class="lottoButton" name="number1-6" /><br />
-				Superzahl<input type="text" name="number1-super" /><br />
+			<div align="center">
+			<div id="divListMessages">
+			<ol start="1" id="listMessages">
+			<fieldset align="center" class="tipp1">
+				<label> Tipp 1:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number1-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number1-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number1-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number1-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number1-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number1-6" />
 			</fieldset>
-			<!-- <fieldset class="tipp2">
-				Zahl 1<input type="text" name="number2-1" />
-				Zahl 2<input type="text" name="number2-2" />
-				Zahl 3<input type="text" name="number2-3" />
-				Zahl 4<input type="text" name="number2-4" />
-				Zahl 5<input type="text" name="number2-5" />
-				Zahl 6<input type="text" name="number2-6" />
-				Superzahl<input type="text" name="number2-super" />
+			<fieldset align="center" class="tipp2">
+				<label> Tipp 2:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number2-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number2-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number2-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number2-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number2-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number2-6" />
 			</fieldset>
-			<fieldset class="tipp3">
-				Zahl 1<input type="text" name="number3-1" />
-				Zahl 2<input type="text" name="number3-2" />
-				Zahl 3<input type="text" name="number3-3" />
-				Zahl 4<input type="text" name="number3-4" />
-				Zahl 5<input type="text" name="number3-5" />
-				Zahl 6<input type="text" name="number3-6" />
-				Superzahl<input type="text" name="number3-super" />
+			<fieldset align="center" class="tipp3">
+				<label> Tipp 3:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number3-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number3-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number3-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number3-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number3-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number3-6" />
 			</fieldset>
-			<fieldset class="tipp4">
-				Zahl 1<input type="text" name="number4-1" />
-				Zahl 2<input type="text" name="number4-2" />
-				Zahl 3<input type="text" name="number4-3" />
-				Zahl 4<input type="text" name="number4-4" />
-				Zahl 5<input type="text" name="number4-5" />
-				Zahl 6<input type="text" name="number4-6" />
-				Superzahl<input type="text" name="number4-super" />
+			<fieldset align="center" class="tipp4">
+				<label> Tipp 4:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number4-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number4-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number4-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number4-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number4-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number4-6" />
 			</fieldset>
-			<fieldset class="tipp5">
-				Zahl 1<input type="text" name="number5-1" />
-				Zahl 2<input type="text" name="number5-2" />
-				Zahl 3<input type="text" name="number5-3" />
-				Zahl 4<input type="text" name="number5-4" />
-				Zahl 5<input type="text" name="number5-5" />
-				Zahl 6<input type="text" name="number5-6" />
-				Superzahl<input type="text" name="number5-super" />
+			<fieldset align="center" class="tipp5">
+				<label> Tipp 5:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number5-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number5-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number5-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number5-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number5-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number5-6" />
 			</fieldset>
-			<fieldset class="tipp6">
-				Zahl 1<input type="text" name="number6-1" />
-				Zahl 2<input type="text" name="number6-2" />
-				Zahl 3<input type="text" name="number6-3" />
-				Zahl 4<input type="text" name="number6-4" />
-				Zahl 5<input type="text" name="number6-5" />
-				Zahl 6<input type="text" name="number6-6" />
-				Superzahl<input type="text" name="number6-super" />
-			</fieldset>-->
+			<fieldset align="center" class="tipp6">
+				<label> Tipp 6:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number6-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number6-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number6-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number6-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number6-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number6-6" />
+			</fieldset>
+			<fieldset align="center" class="tipp7">
+				<label> Tipp 7:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number7-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number7-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number7-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number7-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number7-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number7-6" />
+			</fieldset>
+			<fieldset align="center" class="tipp8">
+				<label> Tipp 8:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number8-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number8-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number8-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number8-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number8-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number8-6" />
+			</fieldset>
+			<fieldset align="center" class="tipp9">
+				<label> Tipp 9:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number9-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number9-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number9-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number9-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number9-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number9-6" />
+			</fieldset>
+			<fieldset align="center" class="tipp10">
+				<label> Tipp 10:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number10-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number10-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number10-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number10-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number10-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number10-6" />
+			</fieldset>
+			<fieldset align="center" class="tipp11">
+				<label> Tipp 11:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number11-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number11-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number11-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number11-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number11-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number11-6" />
+			</fieldset>
+			<fieldset align="center" class="tipp12">
+				<label> Tipp 12:  </label>
+				<input type="text" class="lottoButton" placeholder="1" name="number12-1" />
+				<input type="text" class="lottoButton" placeholder="2" name="number12-2" />
+				<input type="text" class="lottoButton" placeholder="3" name="number12-3" />
+				<input type="text" class="lottoButton" placeholder="4" name="number12-4" />
+				<input type="text" class="lottoButton" placeholder="5" name="number12-5" />
+				<input type="text" class="lottoButton" placeholder="6" name="number12-6" />
+			</fieldset>
+			<fieldset align="center">
+				<label>Superzahl des gesamten Tippscheins</label>
+				<input type="text" class="lottoButton" placeholder="0-9" name="super" />
+			</fieldset>
+			</ol>
+			</div>
+			</div>
+			<div align="center">
 			<select name="duration">
 				<option value="0">Einzelspiel</option>
 				<option value="1">1 Monat</option>
 				<option value="2">6 Monate</option>
 				<option value="3">1 Jahr</option>		
 			</select>
+
 			<input type="hidden" name="gameType" value="lotto" />
-			<input type="submit" />		
+			<input type="submit" value="Tipp abgeben" />	
+			</div>	
 		</form>
 	</section>
 	<!-- Footer include -->
