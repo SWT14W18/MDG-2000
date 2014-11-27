@@ -98,6 +98,10 @@ public class ConcreteCustomer extends Customer {
     		account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2);	
     	}
     }
+    
+    public List<Message> getMessages(){
+        return messages;
+    }
 
     
      public void joinGroup( Community community){
