@@ -417,6 +417,13 @@ section #divListMessages {
 	border: 1px solid #F5B3B3;
 }
 
+section #divListMessages small{
+		font-family: 'Ubuntu',sans-serif;
+	font-size: 12px;
+	list-style-type: none
+	padding-left: 2em;
+}
+
 section #divListMessages div:hover{
 		background-color: #FFF0F0;
 }
@@ -429,6 +436,17 @@ section #divListMessages input{
          background-color: #fafafa;
          margin: 3px 0px 10px 0px;
          padding: 0px 0px 0px 0px;
+         box-sizing: border-box;
+}
+
+section .lottoButton {
+		 height: 30px;
+         width: 30px;
+         border: 1px solid #F5B3B3;
+         border-radius: 3px;
+         background-color: #fafafa;
+         margin: 3px 0px 10px 0px;
+         padding: 0px 5px 0px 0px;
          box-sizing: border-box;
 }
 
