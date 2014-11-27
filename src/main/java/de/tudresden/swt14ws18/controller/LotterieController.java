@@ -238,6 +238,7 @@ public class LotterieController {
 	    map.addAttribute("name", customer.getName());
 	    map.addAttribute("messages",customer.getMessageCount());
 	    map.addAttribute("state", customer.getState());
+	    map.addAttribute("messageList", customer.getMessages());
 	}
 	return "profil";
     }
