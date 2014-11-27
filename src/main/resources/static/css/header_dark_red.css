@@ -344,8 +344,8 @@ section h2 {
 	font-style:400;
 	text-align:center;
 	color: #000;
-	line-height:140%;
-	padding: 30px 0 30px 0;
+	line-height:100%;
+	padding: 0px 0 0px 0;
 
 }
 
@@ -361,7 +361,7 @@ section hr {
 }
 section p {
 	font-family: 'Ubuntu',sans-serif;
-        font-size: 17px;
+     font-size: 17px;
         font-weight: 500;
         color: #222222;
         margin-top: 2px;
@@ -397,10 +397,40 @@ section ul{
 
 section li{
 	padding: 30px 0 30px 0;
-	
 }
 
+section #listMessages div{
+		background-color: #fafafa;
+		border-bottom: 1px dotted #C51919;
+}
+section #listMessages div label {
+		padding:5px;
+		margin-top:5px;
+}
 
+section #divListMessages {
+	width: 640px;
+    height: 400px;
+    overflow: auto;
+	box-sizing: border-box;
+	border-radius: 10px;
+	border: 1px solid #F5B3B3;
+}
+
+section #divListMessages div:hover{
+		background-color: #FFF0F0;
+}
+
+section #divListMessages input{
+         height: 30px;
+         width: 100px;
+         border: 1px solid #F5B3B3;
+         border-radius: 3px;
+         background-color: #fafafa;
+         margin: 3px 0px 10px 0px;
+         padding: 0px 0px 0px 0px;
+         box-sizing: border-box;
+}
 
 div.fehler{
 	width:26%;

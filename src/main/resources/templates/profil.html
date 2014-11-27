@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,11 +25,23 @@ body {
 	<div th:replace="fragments/header :: header"></div>
 	<section>
 		<h1> Profil</h1>
-		<ul style="margin 0 auto">
-		  <li th:text="@{'Name: '+${name}}">Name</li>
-		  <li th:text="@{'Du hast '+${messages}+' Mitteilungen, die bezahlt werden müssen!'}">Messages</li>
-		  <li th:text="@{'Dein Status: '+${state}}">Status</li>
-		</ul>
+		<hr/>
+		<h2 th:text="@{'Hallo, '+${name}}">NAME</h2>
+		<br/>
+		<p th:text="@{'Du hast '+${messages}+' Mitteilungen:'}">Anzahl Messages</p>
+		<br/>
+		<div align="center">
+		<div align="center"  id="divListMessages">
+		<ol start="1" id="listMessages">
+			<div><br/><label>Am 2.10.2014 hast du deine Rechnung nicht bezahlt.</label><br/><label>Du hast damals Lotto gespielt.</label><br/><br/><input class="messagesButton" type="submit" value="Bezahlen" tabindex="5" /></div>
+			<div><li>Am 2.10.2014 hast du deine Rechnung nicht bezahlt.</li><input class="messagesButton" type="submit" value="Bezahlen" tabindex="5" /></div>
+		</ol>
+		</div>
+		</div>
+		<br/>
+		<p th:text="@{'Dein Benuteraccount ist: '+${state}}">Status</p>
+		<br/>
+		<br/>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>
