@@ -3,7 +3,6 @@ package de.tudresden.swt14ws18;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
-import java.util.Date;
 
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Role;
@@ -56,7 +55,7 @@ public class LotterieDataInitializer implements DataInitializer {
 	initializeUsers(userAccountManager, customerRepository, bankAccountRepository);
 
 	for (int i = 0; i < 100; i++)
-	    lottoMatchRepository.save(new LottoGame(new Date(System.currentTimeMillis())));
+	    lottoMatchRepository.save(new LottoGame(Lotterie.getInstance().getTime().getTime()));
 
 	try {
 	    new TotoDataInitializer(this.totoMatchRepository).totoInitialize();

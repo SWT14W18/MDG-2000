@@ -3,7 +3,7 @@ package de.tudresden.swt14ws18.gamemanagement;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public class LottoGame extends Game {
 
     }
 
-    public LottoGame(Date date) {
+    public LottoGame(LocalDateTime date) {
 	super(date);
     }
 

@@ -1,6 +1,6 @@
 package de.tudresden.swt14ws18.gamemanagement;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import javax.persistence.ElementCollection;
@@ -24,7 +24,7 @@ public class TotoMatch extends Game {
     protected TotoMatch() {
     }
 
-    public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes, Date date, TotoGameType totoGameType, int matchDay) {
+    public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes, LocalDateTime date, TotoGameType totoGameType, int matchDay) {
 	super(date);
 	this.teamGuest = teamGuest;
 	this.teamHome = teamHome;

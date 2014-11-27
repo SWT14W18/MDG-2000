@@ -2,11 +2,16 @@ package de.tudresden.swt14ws18.controller;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
+import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.AuthenticationManager;
 import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
@@ -22,6 +27,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
+import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
+import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
+import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CommunityRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
@@ -45,17 +53,22 @@ public class LotterieController {
     private final LottoTipCollectionRepository lottoTipCollectionRepo;
     private final TotoTipCollectionRepository totoTipCollectionRepo;
     private final TipFactory tipFactory;
-	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    private final BusinessTime time;
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+    private static final long MINUTES_BEFORE_DATE = 5;
 
     @Autowired
     public LotterieController(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository,
-	    AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository, TipFactory tipFactory, TotoMatchRepository totoRepo, LottoTipCollectionRepository lottoTipCollectionRepo, TotoTipCollectionRepository totoTipCollectionRepo) {
+	    AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository, TipFactory tipFactory,
+	    TotoMatchRepository totoRepo, LottoTipCollectionRepository lottoTipCollectionRepo, TotoTipCollectionRepository totoTipCollectionRepo,
+	    BusinessTime time) {
 	Assert.notNull(authenticationManager, "UserAccountManager must not be null!");
 	Assert.notNull(bankAccountRepository, "UserAccountManager must not be null!");
 	Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
 	Assert.notNull(customerRepository, "CustomerRepository must not be null!");
 	Assert.notNull(communityRepository, "CommunityRepository must not be null");
 
+	this.time = time;
 	this.totoRepo = totoRepo;
 	this.tipFactory = tipFactory;
 	this.userAccountManager = userAccountManager;
@@ -100,21 +113,21 @@ public class LotterieController {
 	}
 	return "redirect:index";
     }
-    
+
     @RequestMapping({ "/", "/index" })
     public String Toindex(ModelMap map) {
 	handleGeneralValues(map);
 	return "index";
     }
-    
-    @RequestMapping("/statisticsoverview" )
+
+    @RequestMapping("/statisticsoverview")
     public String statisticsoverview(ModelMap map) {
-	  handleGeneralValues(map);
-	  
-	  ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-	  map.addAttribute("transactions", customer.getAccount().getTransactions());
-	  
-	  return "statistics/overview";
+	handleGeneralValues(map);
+
+	ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+	map.addAttribute("transactions", customer.getAccount().getTransactions());
+
+	return "statistics/overview";
     }
 
     @RequestMapping("/gameoverview")
@@ -125,38 +138,56 @@ public class LotterieController {
 	if (authenticationManager.getCurrentUser().isPresent()) {
 
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-	    
+
 	    map.addAttribute("tips", getTips(customer));
 	}
 	return "games/overview";
     }
-    
+
     private List<TipCollection<?>> getTips(ConcreteCustomer customer) {
 	List<TipCollection<?>> tips = new ArrayList<>();
-	
+
 	tips.addAll(lottoTipCollectionRepo.findByOwner(customer));
 	tips.addAll(totoTipCollectionRepo.findByOwner(customer));
-	
+
 	return tips;
     }
 
     @RequestMapping("/toto")
-    public String toto(ModelMap map){
-	List<Integer> dates = new ArrayList<>();
-	dates.add(13);
-	dates.add(14);
-    map.addAttribute("games", dates);    
+    public String toto(ModelMap map) {
 	handleGeneralValues(map);
+
+	Map<TotoGameType, Set<Integer>> dates = getRemainingMatchDates();
+	
+	map.addAttribute("games", dates.entrySet());
 	return "games/toto";
+    }
+
+    private Map<TotoGameType, Set<Integer>> getRemainingMatchDates() {
+	Map<TotoGameType, Set<Integer>> list = new HashMap<>();
+
+	for (TotoMatch match : totoRepo.findByTotoResult(TotoResult.NOT_PLAYED)) {
+
+	    LocalDateTime localTime = time.getTime();
+	    LocalDateTime date = match.getDate().minusMinutes(MINUTES_BEFORE_DATE);
+	    if (!localTime.isAfter(date)) {
+		if (!list.containsKey(match.getTotoGameType()))
+		    list.put(match.getTotoGameType(), new HashSet<Integer>());
+		
+		list.get(match.getTotoGameType()).add(match.getMatchDay());
+	    }
+	}
+
+	return list;
     }
 
     @RequestMapping("/totoTipp")
     public String totoTipp(@RequestParam("id") int id, ModelMap map) {
-	handleGeneralValues(map);	
-	map.addAttribute("matches", totoRepo.findByMatchDay(id));	
+	handleGeneralValues(map);
+	map.addAttribute("matches", totoRepo.findByMatchDay(id));
 	return "games/totoTipp";
     }
-    
+
     @RequestMapping("/lotto")
     public String lotto(ModelMap map) {
 
@@ -172,7 +203,7 @@ public class LotterieController {
 	if (authenticationManager.getCurrentUser().isPresent()) {
 
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-	    
+
 	    tipFactory.craftLottoTips(params, customer);
 	}
 	return "index";
@@ -186,13 +217,12 @@ public class LotterieController {
 	if (authenticationManager.getCurrentUser().isPresent()) {
 
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-	    
+
 	    tipFactory.craftTotoTips(params, customer);
 	}
 	return "index";
     }
 
-    
     @RequestMapping("/impressum")
     public String getImpressum(ModelMap map) {
 	handleGeneralValues(map);
@@ -229,14 +259,14 @@ public class LotterieController {
 
     @RequestMapping("/profil")
     public String profil(ModelMap map) {
-    	
+
 	handleGeneralValues(map);
-	
+
 	if (authenticationManager.getCurrentUser().isPresent()) {
 
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 	    map.addAttribute("name", customer.getName());
-	    map.addAttribute("messages",customer.getMessageCount());
+	    map.addAttribute("messages", customer.getMessageCount());
 	    map.addAttribute("state", customer.getState());
 	    map.addAttribute("messageList", customer.getMessages());
 	}

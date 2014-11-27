@@ -1,6 +1,6 @@
 package de.tudresden.swt14ws18.gamemanagement;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Observable;
 
 import javax.persistence.GeneratedValue;
@@ -16,13 +16,13 @@ public abstract class Game extends Observable {
     @Id
     private long id;
 
-    private Date date;
+    private LocalDateTime date;
 
     @Deprecated
     protected Game() {
     }
 
-    public Game(Date date) {
+    public Game(LocalDateTime date) {
 	this.date = date;
     }
 
@@ -54,7 +54,7 @@ public abstract class Game extends Observable {
      * 
      * @return das Datum als Date.
      */
-    public Date getDate() {
+    public LocalDateTime getDate() {
 	return date;
     }
 

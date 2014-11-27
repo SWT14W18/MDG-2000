@@ -7,7 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +34,7 @@ public class TotoDataInitializer {
 	private TotoMatchRepository totoMatchRepository;
 	
 	SimpleDateFormat inputSDF = new SimpleDateFormat("yyyy-MM-dd;HH:mm:ss");
+	DateTimeFormatter inputDTF = DateTimeFormatter.ofPattern("yyyy-MM-dd;HH:mm:ss");
 	
 	public TotoDataInitializer(TotoMatchRepository totoMatchRepository){
 		this.totoMatchRepository = totoMatchRepository;
@@ -61,7 +63,7 @@ public class TotoDataInitializer {
 	    String team1;
 	    String team2;
 	    String date;
-	    Date gameDate;
+	    LocalDateTime gameDate;
 	    int matchDay;
 	    for (int i=0;i<306;i++){
 
@@ -70,7 +72,7 @@ public class TotoDataInitializer {
 	    			team2 = match.get("name_team2").getAsString();
 	    			date = match.get("match_date_time").getAsString();
 	    			matchDay = match.get("group_order_id").getAsInt();
-	    			gameDate = inputSDF.parse(date.substring(0, 10)+";"+date.substring(11, 19));
+	    			gameDate = LocalDateTime.parse(date.substring(0, 10)+";"+date.substring(11, 19), inputDTF);
 	    			totoMatchRepository.save(new TotoMatch(team1, team2, quotes, gameDate, TotoGameType.BUNDESLIGA1, matchDay));
 
 	    }
