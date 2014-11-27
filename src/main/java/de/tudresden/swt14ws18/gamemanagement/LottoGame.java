@@ -26,6 +26,11 @@ public class LottoGame extends Game {
     @ElementCollection
     private Map<LottoResult, Double> winLevels = new HashMap<>();
 
+    @Deprecated
+    public LottoGame() {
+	
+    }
+    
     public LottoGame(Date date) {
 	super(date);
     }
