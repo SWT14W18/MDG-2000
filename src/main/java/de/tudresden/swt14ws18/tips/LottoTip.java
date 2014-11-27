@@ -2,16 +2,23 @@ package de.tudresden.swt14ws18.tips;
 
 import java.util.Observable;
 
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.LottoResult;
 
+@Entity
 public class LottoTip extends Tip {
 
     private static final double input = 1.00D;
 
+    @ManyToOne
     private LottoGame game;
     private LottoNumbers numbers;
+    @Enumerated
     private LottoResult result;
 
     public LottoTip(LottoGame game, LottoNumbers numbers) {

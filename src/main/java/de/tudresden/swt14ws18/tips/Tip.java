@@ -3,8 +3,17 @@ package de.tudresden.swt14ws18.tips;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Tip extends Observable implements Observer {
 
+    @GeneratedValue
+    @Id
+    public long id;
+    
     private boolean valid = true;
 
     public Tip() {

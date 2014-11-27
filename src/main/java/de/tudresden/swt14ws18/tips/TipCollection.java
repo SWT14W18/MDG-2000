@@ -6,38 +6,40 @@ import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.ElementCollection;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Customer;
 
-public class TipCollection implements Observer {
+@MappedSuperclass
+public class TipCollection<T extends Tip> implements Observer {
 
-    private Lotterie lotterie;
-
+    @GeneratedValue
+    @Id
+    private long id;
+    
     private TipShare shares = new TipShare();
+    
+    @ManyToOne
     private ConcreteCustomer owner;
-    private List<Tip> tips = new ArrayList<>();
+    
+    @ElementCollection
+    private List<T> tips = new ArrayList<>();
 
-    public TipCollection(List<Tip> tips, ConcreteCustomer owner) {
+    public TipCollection(List<T> tips, ConcreteCustomer owner) {
 	this.tips = tips;
 	this.owner = owner;
 	for (Tip tip : tips)
 	    tip.addObserver(this);
     }
 
-    @Autowired
-    protected void setLotterie(Lotterie lotterie) {
-	this.lotterie = lotterie;
-    }
-
-    public Lotterie getLotterie() {
-	return lotterie;
-    }
-
-    public List<Tip> getTips() {
+    public List<T> getTips() {
 	return tips;
     }
 
@@ -74,7 +76,7 @@ public class TipCollection implements Observer {
 	double win = tip.getWinAmount();
 	double ownerExtra = getShares().getShare(owner);
 
-	BankAccount lotterie = getLotterie().getBankAccount();
+	BankAccount lotterie = Lotterie.getInstance().getBankAccount();
 	if(ownerExtra + getShares().getRemainingShare() > 0)
 	    lotterie.outgoingTransaction(owner.getAccount(), win * (ownerExtra + getShares().getRemainingShare()));
 	
@@ -122,9 +124,9 @@ public class TipCollection implements Observer {
 	    if (customer == owner)
 		continue;
 
-	    customer.getAccount().outgoingTransaction(getLotterie().getBankAccount(), tip.getInput() * value);
+	    customer.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(), tip.getInput() * value);
 	}
 
-	owner.getAccount().outgoingTransaction(getLotterie().getBankAccount(), tip.getInput() * (getShares().getRemainingShare() + ownerExtra));
+	owner.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(), tip.getInput() * (getShares().getRemainingShare() + ownerExtra));
     }
 }

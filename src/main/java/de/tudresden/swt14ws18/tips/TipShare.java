@@ -1,5 +1,6 @@
 package de.tudresden.swt14ws18.tips;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -7,9 +8,11 @@ import java.util.Map.Entry;
 
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
-public class TipShare implements Iterable<Entry<ConcreteCustomer, Double>>{
-    Map<ConcreteCustomer, Double> share = new HashMap<>();
-    double remainingShare = 1;
+public class TipShare implements Iterable<Entry<ConcreteCustomer, Double>>, Serializable {
+
+    private static final long serialVersionUID = -4805968579498236694L;
+    private Map<ConcreteCustomer, Double> share = new HashMap<>();
+    private double remainingShare = 1;
 
     public TipShare() {
 

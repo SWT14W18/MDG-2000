@@ -2,12 +2,19 @@ package de.tudresden.swt14ws18.tips;
 
 import java.util.Observable;
 
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 
+@Entity
 public class TotoTip extends Tip {
 
-    private TotoResult result;
+    @Enumerated
+    private TotoResult result;    
+    @ManyToOne
     private TotoMatch game;
     private double input;
 
