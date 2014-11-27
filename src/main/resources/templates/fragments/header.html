@@ -3,6 +3,10 @@
               <ul id="navigation"><!--Liste der Navigationselemente-->
                    <!--Alle Navigationselemente die links ausgerichtet sind:-->
                    <li class="lileft" ><a th:href="index.html"><label class="menuentry"  >Mach dein Gl&uuml;ck!!!</label></a></li>
+                   
+                   <li sec:authorize="hasRole('ROLE_BOSS')" class="lileft"><a th:href="statisticsoverview.html"><label class="menuentry" ><i class="fa fa-th-large"></i> Spiel</label></a>
+				         
+				   </li>
 				   
                    <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="lileft"><a th:href="gameoverview.html"><label class="menuentry" ><i class="fa fa-th-large"></i> Spiel</label></a>
 				         <span>

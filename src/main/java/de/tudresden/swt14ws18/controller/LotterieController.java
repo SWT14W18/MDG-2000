@@ -99,6 +99,12 @@ public class LotterieController {
 	handleGeneralValues(map);
 	return "index";
     }
+    
+    @RequestMapping("/statisticsoverview" )
+    public String statisticsoverview(ModelMap map) {
+	  handleGeneralValues(map);
+	  return "statistics/overview";
+    }
 
     @RequestMapping("/gameoverview")
     public String gameoverview(ModelMap map) {
