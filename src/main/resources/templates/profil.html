@@ -26,20 +26,28 @@ body {
 	<section>
 		<h1> Profil</h1>
 		<hr/>
+		<br/>
+		<br/>
 		<h2 th:text="@{'Hallo, '+${name}}">NAME</h2>
 		<br/>
-		<p th:text="@{'Du hast '+${messages}+' Mitteilungen:'}">Anzahl Messages</p>
+		<p >Du hast <big th:text="@{${messages}}"></big> Mitteilungen</p>
 		<br/>
 		<div align="center">
 		<div align="center"  id="divListMessages">
 		<ol start="1" id="listMessages">
-			<div><br/><label>Am 2.10.2014 hast du deine Rechnung nicht bezahlt.</label><br/><label>Du hast damals Lotto gespielt.</label><br/><br/><input class="messagesButton" type="submit" value="Bezahlen" tabindex="5" /></div>
-			<div><li>Am 2.10.2014 hast du deine Rechnung nicht bezahlt.</li><input class="messagesButton" type="submit" value="Bezahlen" tabindex="5" /></div>
+			<div th:each="messageItem : ${messageList}">
+			<br/>
+			<label  th:text="@{'Du hast am: '+${messageItem.getMessageDate().toString()}+' deinen '+${messageItem.getWhichGameTypeItWas().toString()}+' Tipp  nicht bezahlen können.'}">message</label>
+			<br/>
+			<br/>
+			<small>Dir wurden 2 Euro Strafe auferlegt</small>
+			<input type="submit" name="messageButton" value="Bezahlen"/>
+			</div>
 		</ol>
 		</div>
 		</div>
 		<br/>
-		<p th:text="@{'Dein Benuteraccount ist: '+${state}}">Status</p>
+		<p >Dein Benuteraccount ist: <big th:text="@{${state}}"></big></p>
 		<br/>
 		<br/>
 	</section>
