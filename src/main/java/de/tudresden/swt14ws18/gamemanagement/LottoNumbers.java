@@ -14,8 +14,10 @@ public class LottoNumbers implements Serializable {
     private int numbers[];
 
     /**
-     * @param superNumber die Superzahl, muss zwischen 0 und 9 sein
-     * @param numbers die Lottozahlen, müssen genau 6 und zwischen 1 und 49 sein (inklusive)
+     * @param superNumber
+     *            die Superzahl, muss zwischen 0 und 9 sein
+     * @param numbers
+     *            die Lottozahlen, müssen genau 6 und zwischen 1 und 49 sein (inklusive)
      */
     public LottoNumbers(int superNumber, int... numbers) {
 	if (!Util.isBetween(superNumber, 0, 9))
