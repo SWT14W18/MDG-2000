@@ -42,7 +42,7 @@ public class TipFactory {
 	this.totoTipRepository = totoTipRepository;
     }
 
-    public TotoTipCollection craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
+    public void craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
 
 	List<TotoTip> tips = new ArrayList<>();
 
@@ -52,16 +52,16 @@ public class TipFactory {
 
 	    if (map.containsKey(String.valueOf(totoMatch.getId()))) {
 		TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
-		tips.add(new TotoTip(totoMatch, result, 1)); // TODO define input per user
+		tips.add(new TotoTip(totoMatch, result, 1)); // TODO define
+							     // input per user
 	    }
 
 	}
 	totoTipRepository.save(tips);
-
-	return new TotoTipCollection(tips, owner);
+	totoTipCollectionRepository.save(new TotoTipCollection(tips, owner));
     }
 
-    public LottoTipCollection craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
+    public void craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
 
 	List<LottoTip> tips = new ArrayList<>();
 	List<LottoNumbers> numbers = new ArrayList<>();
@@ -103,7 +103,7 @@ public class TipFactory {
 	    games = 48;
 	    break;
 	default:
-	    return null;
+	    return;
 	}
 
 	List<LottoGame> g = lottoMatchRepository.findByResultOrderByDateAsc(null);
@@ -111,7 +111,8 @@ public class TipFactory {
 	    for (int i = 0; i < games; i++)
 		tips.add(new LottoTip((LottoGame) g.get(i), num));
 
-	return new LottoTipCollection(tips, owner);
+	lottoTipRepository.save(tips);
+	lottoTipCollectionRepository.save(new LottoTipCollection(tips, owner));
     }
 
     /**

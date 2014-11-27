@@ -25,7 +25,10 @@ import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CommunityRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
+import de.tudresden.swt14ws18.repositories.LottoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
+import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
+import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
@@ -39,12 +42,14 @@ public class LotterieController {
     private final AuthenticationManager authenticationManager;
     private final BankAccountRepository bankAccountRepository;
     private final TotoMatchRepository totoRepo;
+    private final LottoTipCollectionRepository lottoTipCollectionRepo;
+    private final TotoTipCollectionRepository totoTipCollectionRepo;
     private final TipFactory tipFactory;
 	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
     @Autowired
     public LotterieController(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository,
-	    AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository, TipFactory tipFactory, TotoMatchRepository totoRepo) {
+	    AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository, TipFactory tipFactory, TotoMatchRepository totoRepo, LottoTipCollectionRepository lottoTipCollectionRepo, TotoTipCollectionRepository totoTipCollectionRepo) {
 	Assert.notNull(authenticationManager, "UserAccountManager must not be null!");
 	Assert.notNull(bankAccountRepository, "UserAccountManager must not be null!");
 	Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
@@ -58,6 +63,8 @@ public class LotterieController {
 	this.communityRepository = communityRepository;
 	this.bankAccountRepository = bankAccountRepository;
 	this.authenticationManager = authenticationManager;
+	this.lottoTipCollectionRepo = lottoTipCollectionRepo;
+	this.totoTipCollectionRepo = totoTipCollectionRepo;
     }
 
     public void handleGeneralValues(ModelMap map) {
@@ -109,9 +116,18 @@ public class LotterieController {
 
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 	    
-	    map.addAttribute("tips", customer.getTips());
+	    map.addAttribute("tips", getTips(customer));
 	}
 	return "games/overview";
+    }
+    
+    private List<TipCollection<?>> getTips(ConcreteCustomer customer) {
+	List<TipCollection<?>> tips = new ArrayList<>();
+	
+	tips.addAll(lottoTipCollectionRepo.findByOwner(customer));
+	tips.addAll(totoTipCollectionRepo.findByOwner(customer));
+	
+	return tips;
     }
 
     @RequestMapping("/toto")
@@ -147,7 +163,7 @@ public class LotterieController {
 
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 	    
-	    customer.addLottoTips(tipFactory.craftLottoTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
+	    tipFactory.craftLottoTips(params, customer);
 	}
 	return "index";
     }
@@ -161,7 +177,7 @@ public class LotterieController {
 
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 	    
-	    customer.addTotoTips(tipFactory.craftTotoTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
+	    tipFactory.craftTotoTips(params, customer);
 	}
 	return "index";
     }
