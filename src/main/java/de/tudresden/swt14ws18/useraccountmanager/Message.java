@@ -9,6 +9,16 @@ import javax.persistence.Id;
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 
+/**
+ * Die Message-KLasse repräsentiert eine Mitteilung, die an einen Kunden geschickt wird, sollte er bei einem
+ * Spiel seinen Einsatz nicht bezahlen können. Er wird von dem Spiel ausgeshlossen und bekommt eine Mitteilung, die
+ * ihn 2€ Strafe kostet. Bei 10 Mitteilungen wird der Kunde gesperrt.
+ * 
+ * 
+ * @author Reinhard_2
+ *
+ */
+
 @Entity
 public class Message {
     
@@ -24,14 +34,31 @@ public class Message {
         
     }
     
+    /**
+     * Der Konstruktor
+     * 
+     * @param type      -> gibt an, von welchem Typ das Spiel war, bei dem der Kunde nicht bezahlen konnte
+     */
     public Message(GameType type){
         this.whichGame = type;
         this.date = Lotterie.getInstance().getTime().getTime();
     }
     
+    /**
+     * 
+     * 
+     * @return          -> das Datum, an dem die Mitteilung erstellt wurde = das Datum, an dem nicht bezahlt werden 
+     *                     konnte
+     */
+    
     public LocalDateTime getMessageDate(){
         return date;
     }
+    
+    /**
+     * 
+     * @return          -> gibt den Typ des Spiel zurück, bei dem die Message ausgelöst wurde
+     */
     
     public GameType getWhichGameTypeItWas(){
         return whichGame;
