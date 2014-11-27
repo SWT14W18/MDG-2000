@@ -15,10 +15,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
+import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
+import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
@@ -31,14 +33,17 @@ public class LotterieDataInitializer implements DataInitializer {
     private final BankAccountRepository bankAccountRepository;
     private final TotoMatchRepository totoMatchRepository;
     private final LottoMatchRepository lottoMatchRepository;
+    private final MessageRepository messageRepository;
 
     @Autowired
     public LotterieDataInitializer(CustomerRepository customerRepository, UserAccountManager userAccountManager,
-	    BankAccountRepository bankAccountRepository, TotoMatchRepository totoMatchRepository, LottoMatchRepository lottoMatchRepository) {
+	    BankAccountRepository bankAccountRepository, TotoMatchRepository totoMatchRepository, LottoMatchRepository lottoMatchRepository,
+	    MessageRepository messageRepository) {
 
 	Assert.notNull(customerRepository, "CustomerRepository must not be null!");
 	Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
 
+	this.messageRepository = messageRepository;
 	this.customerRepository = customerRepository;
 	this.userAccountManager = userAccountManager;
 	this.bankAccountRepository = bankAccountRepository;
@@ -103,5 +108,16 @@ public class LotterieDataInitializer implements DataInitializer {
 
 	bankAccountRepository.save(Arrays.asList(ba1, ba2, ba3, ba4));
 	customerRepository.save(Arrays.asList(c1, c2, c3, c4));
+	
+	c1.addMessage(GameType.LOTTO);
+	c1.addMessage(GameType.TOTO);
+	c1.addMessage(GameType.LOTTO);
+	c1.addMessage(GameType.LOTTO);
+	c1.addMessage(GameType.LOTTO);
+	c1.addMessage(GameType.TOTO);
+	c1.addMessage(GameType.LOTTO);
+	c1.addMessage(GameType.LOTTO);
+	c1.addMessage(GameType.LOTTO);
+	
     }
 }

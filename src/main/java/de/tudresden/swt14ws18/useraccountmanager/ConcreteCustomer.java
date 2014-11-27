@@ -1,5 +1,9 @@
 package de.tudresden.swt14ws18.useraccountmanager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +13,7 @@ import org.salespointframework.useraccount.UserAccount;
 
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
+import de.tudresden.swt14ws18.gamemanagement.GameType;
 
 /**
  * Wie schon aus dem Header zu entnehmen, ist diese Klasse von der Klasse "Customer" abgeleitet, welche
@@ -40,9 +45,11 @@ public class ConcreteCustomer extends Customer {
     @GeneratedValue
     private long id;
 
-    private int messages = 0;
     public Status state;
 
+    @ElementCollection
+    private List<Message> messages = new ArrayList<>();
+    
     @OneToOne
     private UserAccount userAccount;
 
@@ -70,22 +77,24 @@ public class ConcreteCustomer extends Customer {
     }
 
     public int getMessageCount() {
-	return messages;
+	return messages.size();
     }
 
-    public void addMessage() {
-	messages++;
+    public void addMessage(GameType whichGame) {
+        Message temp = new Message(whichGame);
+        
+	messages.add(temp);
     }
 
-    public void payOneMessage() {
+    public void payOneMessage(Message message) {
     	account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2);
-    	messages--;
+    	messages.remove(message);
     }
     
     public void payAllMessages(){
     	int i=0;
     	
-    	for(i=0;i<=messages;i++){
+    	for(i=0;i<=messages.size();i++){
     		account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2);	
     	}
     }

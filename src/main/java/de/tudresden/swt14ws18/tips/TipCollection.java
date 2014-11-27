@@ -14,6 +14,7 @@ import javax.persistence.MappedSuperclass;
 
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
+import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Customer;
 
@@ -111,13 +112,13 @@ public abstract class TipCollection<T extends Tip> implements Observer {
 		continue;
 
 	    if (!customer.getAccount().hasBalance(value * tip.getInput())) {
-		customer.addMessage();
+		customer.addMessage(getGameType());
 		tip.invalidate(false);
 	    }
 	}
 
 	if (owner.getAccount().hasBalance(tip.getInput() * (getShares().getRemainingShare() + ownerExtra))) {
-	    owner.addMessage();
+	    owner.addMessage(getGameType());
 	    tip.invalidate(false);
 	}
 
@@ -134,4 +135,6 @@ public abstract class TipCollection<T extends Tip> implements Observer {
 
 	owner.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(), tip.getInput() * (getShares().getRemainingShare() + ownerExtra));
     }
+    
+    protected abstract GameType getGameType();
 }
