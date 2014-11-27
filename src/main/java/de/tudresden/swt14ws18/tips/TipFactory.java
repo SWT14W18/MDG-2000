@@ -78,7 +78,7 @@ public class TipFactory {
 		int n4 = Integer.parseInt(map.get("number" + i + "-4"));
 		int n5 = Integer.parseInt(map.get("number" + i + "-5"));
 		int n6 = Integer.parseInt(map.get("number" + i + "-6"));
-		int nsuper = Integer.parseInt(map.get("number" + i + "-super"));
+		int nsuper = Integer.parseInt(map.get("super"));
 
 		numbers.add(new LottoNumbers(nsuper, n1, n2, n3, n4, n5, n6));
 	    } catch (NumberFormatException e) {
