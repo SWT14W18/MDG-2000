@@ -132,12 +132,12 @@ public class LotterieDataInitializer implements DataInitializer{
 	private void initializeUsers(UserAccountManager userAccountManager, CustomerRepository customerRepository, BankAccountRepository bankAccountRepository) {
 
 	    	//damit wir nicht immer den db ordner löschen müssen
-		if (userAccountManager.get(new UserAccountIdentifier("hans")).isPresent()) {
+		if (userAccountManager.get(new UserAccountIdentifier("admin")).isPresent()) {
 			return;
 		}
-//
-//		UserAccount bossAccount = userAccountManager.create("boss", "123", new Role("ROLE_BOSS"));
-//		userAccountManager.save(bossAccount);
+
+		UserAccount bossAccount = userAccountManager.create("admin", "123", new Role("ROLE_BOSS"));
+		userAccountManager.save(bossAccount);
 
 		final Role customerRole = new Role("ROLE_USER");
 
