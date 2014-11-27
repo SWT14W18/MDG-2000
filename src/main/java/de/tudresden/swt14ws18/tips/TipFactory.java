@@ -9,7 +9,6 @@ import de.tudresden.swt14ws18.gamemanagement.Game;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
-import de.tudresden.swt14ws18.gamemanagement.TotoGame;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;

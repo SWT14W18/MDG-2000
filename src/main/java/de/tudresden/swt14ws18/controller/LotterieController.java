@@ -1,11 +1,8 @@
 package de.tudresden.swt14ws18.controller;
 
-import java.util.Date;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,11 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.BankAccountRepository;
-import de.tudresden.swt14ws18.gamemanagement.Game;
 import de.tudresden.swt14ws18.gamemanagement.GameManager;
-import de.tudresden.swt14ws18.gamemanagement.GameType;
-import de.tudresden.swt14ws18.gamemanagement.TotoGame;
-import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.CommunityRepository;
@@ -136,7 +129,7 @@ public class LotterieController {
     }
 
     @RequestMapping("/totoTipp")
-    public String totoTipp(@RequestParam("id") int id, ModelMap map) throws ParseException {
+    public String totoTipp(@RequestParam("id") int id, ModelMap map) {
 	handleGeneralValues(map);	
 	map.addAttribute("matches", gameManager.getTotoMatchByMatchDay(id));	
 	return "games/totoTipp";

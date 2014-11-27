@@ -14,6 +14,7 @@ public class GameManager {
     private static final double LOTTO_PRICE = 1.00D;
     private static final double INPUT_INTO_POT = 0.9D;
     private Map<Long, Game> games = new HashMap<>();
+    private LottoMatchRepository lottoMatchRepository;
     private TotoMatchRepository totoMatchRepository;
     
     public void setTotoMatchRepository(TotoMatchRepository totoMatchRepository){

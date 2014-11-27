@@ -2,17 +2,10 @@ package de.tudresden.swt14ws18.gamemanagement;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.Observable;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
-import de.tudresden.swt14ws18.tips.Finishable;
 
 @Entity
 public class TotoMatch extends Game{
