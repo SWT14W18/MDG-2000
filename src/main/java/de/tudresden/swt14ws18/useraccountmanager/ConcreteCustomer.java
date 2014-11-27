@@ -68,7 +68,7 @@ public class ConcreteCustomer extends Customer {
 	return state;
     }
 
-    public int countMessages() {
+    public int getMessageCount() {
 	return messages;
     }
 

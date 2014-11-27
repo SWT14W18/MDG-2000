@@ -23,6 +23,10 @@ body {
 	<div th:replace="fragments/header :: header"></div>
 	<section>
 		<h1> Profil</h1>
+		<ul style="margin 0 0 0 50px">
+		  <li th:text"@{'Name: '+${name}}"/>
+		  <li th:text"@{'Du hast '+${messages}+' Mitteilungen, die bezahlt werden müssen!}"/>
+		</ul>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>

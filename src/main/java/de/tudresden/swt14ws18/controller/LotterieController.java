@@ -211,8 +211,15 @@ public class LotterieController {
 
     @RequestMapping("/profil")
     public String profil(ModelMap map) {
-
+    	
 	handleGeneralValues(map);
+	
+	if (authenticationManager.getCurrentUser().isPresent()) {
+
+	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+	    map.addAttribute("name", customer.getName());
+	    map.addAttribute("messages",customer.getMessageCount());
+	}
 	return "profil";
     }
 
