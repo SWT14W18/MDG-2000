@@ -18,6 +18,11 @@ public class TotoTip extends Tip {
     private TotoMatch game;
     private double input;
 
+    @Deprecated
+    public TotoTip() {
+	
+    }
+    
     public TotoTip(TotoMatch game, TotoResult result, double input) {
 	game.addObserver(this);
 	this.game = game;

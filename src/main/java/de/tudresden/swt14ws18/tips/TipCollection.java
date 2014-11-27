@@ -32,6 +32,11 @@ public class TipCollection<T extends Tip> implements Observer {
     @ElementCollection
     private List<T> tips = new ArrayList<>();
 
+    @Deprecated
+    public TipCollection() {
+	
+    }
+    
     public TipCollection(List<T> tips, ConcreteCustomer owner) {
 	this.tips = tips;
 	this.owner = owner;

@@ -21,6 +21,11 @@ public class LottoTip extends Tip {
     @Enumerated
     private LottoResult result;
 
+    @Deprecated
+    public LottoTip() {
+	
+    }
+    
     public LottoTip(LottoGame game, LottoNumbers numbers) {
 	game.addObserver(this);
 	this.numbers = numbers;
