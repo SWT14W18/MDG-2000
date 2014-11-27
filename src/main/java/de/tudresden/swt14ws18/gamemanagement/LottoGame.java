@@ -12,9 +12,11 @@ import javax.persistence.Entity;
 
 import de.tudresden.swt14ws18.Lotterie;
 
+/**
+ * Repräsentiert eine Lotto Ziehung
+ */
 @Entity
 public class LottoGame extends Game {
-
 
     private static final String title = "Losung vom %1$s";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -28,13 +30,20 @@ public class LottoGame extends Game {
 
     @Deprecated
     public LottoGame() {
-	
+
     }
-    
+
     public LottoGame(Date date) {
 	super(date);
     }
 
+    /**
+     * Setze den Gewinnpot basierend auf einen Inputwert. Die Gewinnklasse NONE erhält 0% des Pots, die Gewinnklasse SIX_SUPER (Jackpot) erhält 20%
+     * des Pots. Der rest wird gleichmäßig zwischen den übrigen Gewinnklassen aufgeteilt. (10% pro Klasse)
+     * 
+     * @param winningPot
+     *            der Geldbetrag der in dieser Lottoziehung ausgeschütet wird.
+     */
     public void setWinningPot(double winningPot) {
 	winLevels.put(LottoResult.NONE, 0 * winningPot);
 	winLevels.put(LottoResult.TWO_SUPER, 0.1 * winningPot);
@@ -48,10 +57,25 @@ public class LottoGame extends Game {
 	winLevels.put(LottoResult.SIX_SUPER, 0.2 * winningPot);
     }
 
+    /**
+     * Hole die gezogenen Zahlen, null fall noch nicht gezogen.
+     * 
+     * @return die Zahlen als LottoNumbers
+     */
     public LottoNumbers getResult() {
 	return result;
     }
 
+    /**
+     * Setze die gezogenen Zahlen des Spiel. Funktioniert nur, falls das Spiel noch kein Ergebnis gesetzt hat.
+     * 
+     * Wenn das Ergebnis gesetzt wird, findet automatisch die Gewinnausschüttung statt. Außerdem wird der Pot für das nächste Lotto Spiel gesetzt.
+     * 
+     * @param result
+     *            die gezogenen Zahlen, die eingesetzt werden sollen.
+     * @throws IllegalArgumentException
+     *             falls result == null oder das Ergebnis schon gesetzt wurde.
+     */
     public void setResult(LottoNumbers result) {
 	if (result == null)
 	    throw new IllegalArgumentException("You can't set the result of a game to NOT PLAYED!");
@@ -65,7 +89,7 @@ public class LottoGame extends Game {
 	this.notifyObservers(true); // report that the game now knows who won
 				    // how much
 
-	Lotterie.getInstance().setNextLottoPot(this); //TODO noch nicht optimal
+	Lotterie.getInstance().setNextLottoPot(this); // TODO noch nicht optimal
     }
 
     @Override
@@ -78,6 +102,12 @@ public class LottoGame extends Game {
 	return GameType.LOTTO;
     }
 
+    /**
+     * Registriere das Ergebnis eines Tipps für die Gewinnberechnung.
+     * 
+     * @param result2
+     *            das zu registrierende Ergebnis
+     */
     public void registerResult(LottoResult result2) {
 	if (!resultMap.containsKey(result2))
 	    resultMap.put(result2, 0);
@@ -85,6 +115,13 @@ public class LottoGame extends Game {
 	resultMap.put(result2, resultMap.get(result2) + 1);
     }
 
+    /**
+     * Berechne den Gewinn der gegebenen Gewinnklasse. Das Ergbnis wird auf 2 Nachkommastellen abgerundet.
+     * 
+     * @param r
+     *            die Gewinnklasse für die der Gewinn zu berechnen ist.
+     * @return der Gewinn als double, abgerundet auf 2 Nachkommestellen.
+     */
     public double getWinAmount(LottoResult r) {
 	double win = winLevels.get(r);
 	int number = resultMap.get(r);
@@ -92,6 +129,11 @@ public class LottoGame extends Game {
 	return new BigDecimal(win / number).setScale(2, RoundingMode.FLOOR).doubleValue();
     }
 
+    /**
+     * Berechne wieviel Geld dieser Ziehung nicht ausgezahlt wurde, d.h. in welche Klasse es keinen Gewinner gab.
+     * 
+     * @return Der verbleibende Pot als double.
+     */
     public double getRemainingPot() {
 	double result = 0;
 

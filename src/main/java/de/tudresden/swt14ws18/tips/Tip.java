@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import de.tudresden.swt14ws18.gamemanagement.Game;
+
 @MappedSuperclass
 public abstract class Tip extends Observable implements Observer {
 
@@ -27,7 +29,7 @@ public abstract class Tip extends Observable implements Observer {
 	this.valid = valid;
     }
     
-    public abstract Finishable getGame();
+    public abstract Game getGame();
     
     public abstract double getInput();
     
