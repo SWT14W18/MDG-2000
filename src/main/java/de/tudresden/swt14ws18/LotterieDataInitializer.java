@@ -3,7 +3,6 @@ package de.tudresden.swt14ws18;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
-import java.util.Date;
 
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Role;
@@ -16,7 +15,6 @@ import org.springframework.util.Assert;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.BankAccountRepository;
-import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatchRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.CustomerRepository;
@@ -46,7 +44,7 @@ public class LotterieDataInitializer implements DataInitializer{
 	public void initialize() {
 
 		initializeUsers(userAccountManager, customerRepository, bankAccountRepository);
-		
+		/*
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
@@ -108,7 +106,7 @@ public class LotterieDataInitializer implements DataInitializer{
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
 		Lotterie.getInstance().getGameManager().addGame(new LottoGame(new Date(System.currentTimeMillis())));
-		
+		*/
 		Lotterie.getInstance().getGameManager().setTotoMatchRepository(totoMatchRepository);
 			
 		try {

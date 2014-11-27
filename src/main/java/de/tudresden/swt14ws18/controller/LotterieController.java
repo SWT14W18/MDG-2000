@@ -42,11 +42,12 @@ public class LotterieController {
     private final AuthenticationManager authenticationManager;
     private final BankAccountRepository bankAccountRepository;
     private final GameManager gameManager;
+    private final TipFactory tipFactory;
 	SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 
     @Autowired
     public LotterieController(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository,
-	    AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository, GameManager gameManager) {
+	    AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository, GameManager gameManager, TipFactory tipFactory) {
 	Assert.notNull(gameManager, "UserAccountManager must not be null!");
 	Assert.notNull(authenticationManager, "UserAccountManager must not be null!");
 	Assert.notNull(bankAccountRepository, "UserAccountManager must not be null!");
@@ -54,6 +55,7 @@ public class LotterieController {
 	Assert.notNull(customerRepository, "CustomerRepository must not be null!");
 	Assert.notNull(communityRepository, "CommunityRepository must not be null");
 
+	this.tipFactory = tipFactory;
 	this.gameManager = gameManager;
 	this.userAccountManager = userAccountManager;
 	this.customerRepository = customerRepository;
@@ -153,7 +155,7 @@ public class LotterieController {
 	    if (!tips.containsKey(customer))
 		tips.put(customer, new ArrayList<TipCollection>());
 
-	    tips.get(customer).add(TipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
+	    tips.get(customer).add(tipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
 	}
 	return "index";
     }
@@ -169,7 +171,7 @@ public class LotterieController {
 	    if (!tips.containsKey(customer))
 		tips.put(customer, new ArrayList<TipCollection>());
 
-	    tips.get(customer).add(TipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
+	    tips.get(customer).add(tipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
 	}
 	return "index";
     }

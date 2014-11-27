@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import de.tudresden.swt14ws18.Lotterie;
-import de.tudresden.swt14ws18.gamemanagement.Game;
-import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.gamemanagement.LottoMatchRepository;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
@@ -16,7 +17,14 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 public class TipFactory {
     private static final int LOTTO_TIPS_PER_PAGE = 6;
 
-    public static TipCollection craftTips(Map<String, String> map, ConcreteCustomer owner) {
+    private LottoMatchRepository lottoMatchRepository;
+    
+    @Autowired
+    public TipFactory(LottoMatchRepository lottoMatchRepository) {
+	this.lottoMatchRepository = lottoMatchRepository;
+    }
+    
+    public TipCollection craftTips(Map<String, String> map, ConcreteCustomer owner) {
 	switch (map.get("gameType")) {
 	case "lotto":
 	    return craftLottoTips(map, owner);
@@ -27,7 +35,7 @@ public class TipFactory {
 	}
     }
 
-    private static TipCollection craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
+    private TipCollection craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
 
 	List<Tip> tips = new ArrayList<>();
 
@@ -46,7 +54,7 @@ public class TipFactory {
 	return new TipCollection(tips, owner);
     }
 
-    private static TipCollection craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
+    private TipCollection craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
 
 	List<Tip> tips = new ArrayList<>();
 	List<LottoNumbers> numbers = new ArrayList<>();
@@ -90,8 +98,8 @@ public class TipFactory {
 	default:
 	    return null;
 	}
-
-	List<Game> g = Lotterie.getInstance().getGameManager().getUnfinishedGames(GameType.LOTTO);
+	
+	List<LottoGame> g = lottoMatchRepository.findByResultOrderByDateAsc(null);
 	for (LottoNumbers num : numbers)
 	    for (int i = 0; i < games; i++)
 		tips.add(new LottoTip((LottoGame) g.get(i), num));
@@ -108,7 +116,7 @@ public class TipFactory {
      *            der i-te Tip in dem Formular
      * @return true wenn der Tipp geht, false wenn nicht
      */
-    private static boolean isValidLottoTip(Map<String, String> map, int i) {
+    private boolean isValidLottoTip(Map<String, String> map, int i) {
 	if (!map.containsKey("number" + i + "-1"))
 	    return false;
 
