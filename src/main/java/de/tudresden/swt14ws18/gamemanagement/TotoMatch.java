@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 
 @Entity
-public class TotoMatch extends Game{
+public class TotoMatch extends Game {
 
-    private String teamHome; 
+    private String teamHome;
     private String teamGuest;
     @ElementCollection
     private Map<TotoResult, Double> quotes;
@@ -19,13 +19,13 @@ public class TotoMatch extends Game{
     @Enumerated
     private TotoGameType totoGameType;
     private int matchDay;
-    
+
     @Deprecated
-    protected TotoMatch(){    	
+    protected TotoMatch() {
     }
 
     public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes, Date date, TotoGameType totoGameType, int matchDay) {
-    	super(date);
+	super(date);
 	this.teamGuest = teamGuest;
 	this.teamHome = teamHome;
 	this.quotes = quotes;
@@ -34,33 +34,65 @@ public class TotoMatch extends Game{
 	this.matchDay = matchDay;
     }
 
+    /**
+     * Hole den Namen des Heim Teams.
+     * 
+     * @return der Name des Heim Teams
+     */
     public String getTeamHome() {
 	return teamHome;
     }
 
+    /**
+     * Hole den Namen des Gast Teams.
+     * 
+     * @return der Name des Gast Teams
+     */
     public String getTeamGuest() {
 	return teamGuest;
     }
 
+    /**
+     * Hole das Ergebnis dieser Partie, NOT_PLAYED wenn noch nicht gespielt.
+     * 
+     * @return das Ergebnis der Partie
+     */
     public TotoResult getResult() {
 	return totoResult;
     }
-    
-    public TotoGameType getTotoGameType(){
-    	return totoGameType;
-    }
-    
-    public int getMatchDay(){
-    	return matchDay;
+
+    /**
+     * Hole den Typ der TotoGames (Liga).
+     * 
+     * @return die Liga des Spiels
+     */
+    public TotoGameType getTotoGameType() {
+	return totoGameType;
     }
 
+    /**
+     * Hole den Spieltag in der jeweiligen Liga
+     * 
+     * @return der Spieltag als int
+     */
+    public int getMatchDay() {
+	return matchDay;
+    }
+
+    /**
+     * Hole die Quote für ein gewisses Ergebnis.
+     * Falls das Ergebnis nicht definiert ist, geb diese Method 1 zurück.
+     * 
+     * @param result das mögliche Ergebnis
+     * @return die Quote, 1 falls nicht definiert.
+     */
     public double getQuote(TotoResult result) {
 	if (!quotes.containsKey(result))
 	    return 1;
 
 	return quotes.get(result);
     }
-    
+
     @Override
     public GameType getType() {
 	return GameType.TOTO;
@@ -71,6 +103,13 @@ public class TotoMatch extends Game{
 	return String.format(teamHome + " : " + teamGuest, this.getDate());
     }
 
+    /**
+     * Setze das Ergebnis des Matches.
+     * Wenn das Ergebnis gesetzt wird, setzt automatisch die Gewinnberechnung und Ausschüttung in Kraft.
+     * 
+     * @param result das Ergebnis der Partie
+     * @throws IllegalArgumentException falls result == NOT_PLAYED oder result schon gesetzt wurde.
+     */
     public void setResult(TotoResult result) {
 	if (result == TotoResult.NOT_PLAYED)
 	    throw new IllegalArgumentException("You can't set the result of a game to NOT PLAYED!");
@@ -79,12 +118,10 @@ public class TotoMatch extends Game{
 	    throw new IllegalArgumentException("You can't set the result of a game, that already has been set!");
 
 	this.totoResult = result;
-	this.notifyObservers(true); // report that the game is finished in all
-				    // things
+	this.notifyObservers(true); // report that the game is finished in all things
     }
 
-
-
+    @Override
     public boolean isFinished() {
 	return getResult() != TotoResult.NOT_PLAYED;
     }

@@ -12,6 +12,13 @@ public enum LottoResult {
     SIX,
     SIX_SUPER;
 
+    /**
+     * Hole das LottoResult basiernd auf der Anzahl von gleichen Zahlen und ob die Superzahl gleich ist.
+     * 
+     * @param matches die Anzahl der passenden Zahlen
+     * @param matchedSuperNumber true wenn die Superzahl passt, false wenn nicht
+     * @return die Gewinnklasse
+     */
     public static LottoResult valueOf(int matches, boolean matchedSuperNumber) {
 	switch (matches) {
 	case 2:
