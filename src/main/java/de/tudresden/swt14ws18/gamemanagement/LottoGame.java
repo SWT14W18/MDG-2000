@@ -7,8 +7,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+
 import de.tudresden.swt14ws18.Lotterie;
 
+@Entity
 public class LottoGame extends Game {
 
 
@@ -17,7 +21,9 @@ public class LottoGame extends Game {
 
     private LottoNumbers result = null;
 
+    @ElementCollection
     private Map<LottoResult, Integer> resultMap = new HashMap<>();
+    @ElementCollection
     private Map<LottoResult, Double> winLevels = new HashMap<>();
 
     public LottoGame(Date date) {

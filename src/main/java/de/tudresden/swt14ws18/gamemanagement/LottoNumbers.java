@@ -1,8 +1,12 @@
 package de.tudresden.swt14ws18.gamemanagement;
 
+import java.io.Serializable;
+
 import de.tudresden.swt14ws18.util.Util;
 
-public class LottoNumbers {
+public class LottoNumbers implements Serializable{
+    private static final long serialVersionUID = -2668471664465713112L;
+    
     private int superNumber;
     private int numbers[];
 
