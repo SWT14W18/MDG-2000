@@ -108,6 +108,9 @@ public class Transaction {
     public String toString() {
 	String von;
 	String nach;
+	String betrag;
+	
+	betrag = String.valueOf(amount);
 
 	if (from == null)
 	    von = "eingezahlt";
@@ -118,6 +121,6 @@ public class Transaction {
 	else
 	    nach = to.toString();
 
-	return "Datum: " + date.toString() + " Von: " + von + " Nach: " + nach;
+	return "Datum: " + date.toString() + " Von: " + von + " Nach: " + nach+" Geldbetrag: "+betrag+"€";
     }
 }

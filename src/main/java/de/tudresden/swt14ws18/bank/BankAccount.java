@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import de.tudresden.swt14ws18.Lotterie;
+
 /**
  * Repräsentiert einen Bankaccount
  */
@@ -96,5 +98,9 @@ public class BankAccount {
      */
     public boolean hasBalance(double value) {
 	return balance >= value;
+    }
+    
+    public String getOwnerName(){
+        return Lotterie.getInstance().getCustomerRepository().findByAccount(this).getName();
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
 
@@ -35,9 +36,15 @@ public class Lotterie {
     private BankAccount account = new BankAccount();
     private TransactionRepository transactionRepo;
     private LottoMatchRepository lottoRepo;
+    private CustomerRepository customerRepository;
 
     public Lotterie() {
 	instance = this;
+    }
+    
+    @Autowired
+    public void setCustomerRepository(CustomerRepository customerRepository){
+        this.customerRepository = customerRepository;
     }
 
     @Autowired
@@ -100,5 +107,9 @@ public class Lotterie {
 
     public TransactionRepository getTransactionRepo() {
 	return transactionRepo;
+    }
+    
+    public CustomerRepository getCustomerRepository(){
+        return customerRepository;
     }
 }

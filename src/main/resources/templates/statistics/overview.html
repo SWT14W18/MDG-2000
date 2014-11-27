@@ -23,10 +23,24 @@ body {
 	<div th:replace="fragments/header :: header"></div>
 	<section>
 		<h1> Lotteriestatistik</h1>
+		<hr/>
+		<br/>
+		<br/>
 		<div align="center">
-		   <div>
-		   		<li th:each="item : ${transactions}" th:text="${item.toString()}">Test</li>
-		   </div>	
+		<div align="center"  id="divListMessages">
+		<ol start="1" id="listMessages">
+			<div th:each="transactionItem : ${transactions}">
+			<br/>
+			<label  th:text="@{'Von: '+${transactionItem.getFrom()}}">Von</label>
+			<br/>
+			<label  th:text="@{'Nach: '+${transactionItem.getTo().getOwnerName()}}">Von</label>
+			<br/>
+			<label  th:text="@{'Geldbetrag: '+${transactionItem.getAmount()}}">Von</label>
+			<br/>
+			<br/>		
+			</div>
+		</ol>
+		</div>
 		</div>
 	</section>
 	<!-- Footer include -->
