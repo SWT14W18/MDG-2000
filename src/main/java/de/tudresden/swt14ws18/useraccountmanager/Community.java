@@ -93,7 +93,7 @@ public class Community extends Customer{
 	/**
 	 * Ist ein Kunde bereits Mitglied?
 	 * 
-	 * @param concreteCustomer		-> für diesen Kudnen prüfen
+	 * @param concreteCustomer		-> für diesen Kuden prüfen
 	 * @return
 	 */
 	

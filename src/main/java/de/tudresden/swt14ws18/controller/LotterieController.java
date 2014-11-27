@@ -220,6 +220,7 @@ public class LotterieController {
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 	    map.addAttribute("name", customer.getName());
 	    map.addAttribute("messages",customer.getMessageCount());
+	    map.addAttribute("state", customer.getState());
 	}
 	return "profil";
     }
