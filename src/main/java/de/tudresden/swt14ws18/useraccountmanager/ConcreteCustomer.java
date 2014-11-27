@@ -90,11 +90,11 @@ public class ConcreteCustomer extends Customer {
     	}
     }
 
-    /*
-     * public void joinGroup( Community community){
-     * 
-     * }
-     */
+    
+     public void joinGroup( Community community){
+     //TODO
+     }
+    
 
     public void leaveGroup(Community community) {
 	// TODO:
