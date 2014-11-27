@@ -7,6 +7,7 @@ import javax.persistence.OneToOne;
 
 import org.salespointframework.useraccount.UserAccount;
 
+import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
 
 /**
@@ -76,9 +77,17 @@ public class ConcreteCustomer extends Customer {
 	messages++;
     }
 
-    public void payMessage() {
-    	//account.
-	// TODO:
+    public void payOneMessage() {
+    	account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2);
+    	messages--;
+    }
+    
+    public void payAllMessages(){
+    	int i=0;
+    	
+    	for(i=0;i<=messages;i++){
+    		account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2);	
+    	}
     }
 
     /*

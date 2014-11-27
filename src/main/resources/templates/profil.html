@@ -23,9 +23,9 @@ body {
 	<div th:replace="fragments/header :: header"></div>
 	<section>
 		<h1> Profil</h1>
-		<ul style="margin 0 0 0 50px"/>
-		  <li th:text"@{'Name: '+${name}}"/>
-		  <li th:text"@{'Du hast '+${messages}+' Mitteilungen, die bezahlt werden müssen!}"/>
+		<ul style="margin 0 auto">
+		  <li th:text="@{'Name: '+${name}}">Name</li>
+		  <li th:text="@{'Du hast '+${messages}+' Mitteilungen, die bezahlt werden müssen!'}">Messages</li>
 		</ul>
 	</section>
 	<!-- Footer include -->
