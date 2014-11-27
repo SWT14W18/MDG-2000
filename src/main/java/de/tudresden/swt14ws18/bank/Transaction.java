@@ -1,9 +1,14 @@
 package de.tudresden.swt14ws18.bank;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
+import org.salespointframework.time.BusinessTime;
 
 import de.tudresden.swt14ws18.Lotterie;
 
@@ -12,6 +17,8 @@ public class Transaction {
     @Id
     @GeneratedValue
     private long id;
+    
+    private LocalDateTime date;
 
     @OneToOne
     private BankAccount to;
@@ -26,6 +33,7 @@ public class Transaction {
 	this.to = to;
 	this.from = from;
 	this.amount = amount;
+	this.date = Lotterie.getInstance().getTime().getTime();
 
 	Lotterie.getInstance().getTransactionRepo().save(this);
     }
@@ -40,5 +48,10 @@ public class Transaction {
 
     public BankAccount getTo() {
 	return to;
+    }
+    
+    @Override
+    public String toString(){
+        return "Datum: "+date.toString()+" Von: "+from.toString()+" Nach: "+to.toString();
     }
 }
