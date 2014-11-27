@@ -83,7 +83,8 @@ public class Transaction {
      * @return der Account von dem die Transaktion ausgeht
      */
     public BankAccount getFrom() {
-	return from;
+       return from;
+        
     }
 
     /**

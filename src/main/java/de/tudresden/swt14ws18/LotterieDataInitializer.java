@@ -82,6 +82,30 @@ public class LotterieDataInitializer implements DataInitializer {
 
 	bankAccountRepository.save(adminAccount);
 	customerRepository.save(adminCustomer);
+	
+	/**
+	 * ein Dummy, der lediglich da ist, damit man das Einzahlen "schön" auf der Website ausgeben kann
+	 */
+	
+	UserAccount dummyEinzahlenUserAccount = userAccountManager.create("Einzahlen", "kloethe", new Role("ROLE_DUMMY"));
+        userAccountManager.save(dummyEinzahlenUserAccount);
+        BankAccount dummyEinzahlenAccount = new BankAccount();
+        ConcreteCustomer dummyEinzahlenCustomer = new ConcreteCustomer("Einzahlen", "kloethe", Status.ACTIVE,dummyEinzahlenUserAccount, dummyEinzahlenAccount);
+        
+        bankAccountRepository.save(dummyEinzahlenAccount);
+        customerRepository.save(dummyEinzahlenCustomer);
+        
+        /**
+         * ein Dummy, der dasselbe für das Auszahlen tut .... hach, so viel Aufwand für die Schönheit ^^
+         */
+        
+        UserAccount dummyAuszahlenUserAccount = userAccountManager.create("Auszahlen", "kloethe", new Role("ROLE_DUMMY"));
+        userAccountManager.save(dummyAuszahlenUserAccount);
+        BankAccount dummyAuszahlenAccount = new BankAccount();
+        ConcreteCustomer dummyAuszahlenCustomer = new ConcreteCustomer("Auszahlen", "kloethe", Status.ACTIVE,dummyEinzahlenUserAccount, dummyEinzahlenAccount);
+        
+        bankAccountRepository.save(dummyAuszahlenAccount);
+        customerRepository.save(dummyAuszahlenCustomer);
 
 	final Role customerRole = new Role("ROLE_USER");
 
