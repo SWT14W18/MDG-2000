@@ -158,7 +158,7 @@ public class LotterieController {
 	handleGeneralValues(map);
 
 	Map<TotoGameType, Set<Integer>> dates = getRemainingMatchDates();
-	
+
 	map.addAttribute("games", dates.entrySet());
 	return "games/toto";
     }
@@ -173,7 +173,7 @@ public class LotterieController {
 	    if (!localTime.isAfter(date)) {
 		if (!list.containsKey(match.getTotoGameType()))
 		    list.put(match.getTotoGameType(), new HashSet<Integer>());
-		
+
 		list.get(match.getTotoGameType()).add(match.getMatchDay());
 	    }
 	}
@@ -184,7 +184,22 @@ public class LotterieController {
     @RequestMapping("/totoTipp")
     public String totoTipp(@RequestParam("id") int id, ModelMap map) {
 	handleGeneralValues(map);
-	map.addAttribute("matches", totoRepo.findByMatchDay(id));
+
+	List<TotoMatch> list = new ArrayList<>();
+
+	for (TotoMatch match : totoRepo.findByMatchDay(id)) {
+	    if (match.isFinished())
+		continue;
+
+	    LocalDateTime localTime = time.getTime();
+	    LocalDateTime date = match.getDate().minusMinutes(MINUTES_BEFORE_DATE);
+
+	    if (!localTime.isAfter(date)) {
+		list.add(match);
+	    }
+	}
+
+	map.addAttribute("matches", list);
 	return "games/totoTipp";
     }
 
