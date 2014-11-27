@@ -26,6 +26,8 @@ public class Transaction {
     private BankAccount from;
     private double amount;
 
+    private String reason;
+
     @Deprecated
     public Transaction() {
     }
@@ -41,10 +43,27 @@ public class Transaction {
      *            der Betrag der überwiesen wird
      */
     public Transaction(BankAccount from, BankAccount to, double amount) {
+	this(from, to, amount, "");
+    }
+
+    /**
+     * Erstellt eine Transaktion und speichert diese.
+     * 
+     * @param from
+     *            der Account von dem die Transaktion ausgeht
+     * @param to
+     *            der Account an dem die Transaktion geht
+     * @param amount
+     *            der Betrag der überwiesen wird
+     * @param reason
+     *            der Grund für die Überweisung
+     */
+    public Transaction(BankAccount from, BankAccount to, double amount, String reason) {
 	this.to = to;
 	this.from = from;
 	this.amount = amount;
 	this.date = Lotterie.getInstance().getTime().getTime();
+	this.reason = reason;
 
 	Lotterie.getInstance().getTransactionRepo().save(this);
     }
@@ -74,6 +93,15 @@ public class Transaction {
      */
     public BankAccount getTo() {
 	return to;
+    }
+
+    /**
+     * Get the reason for this Transaction. Can be an empty String ("") or null.
+     * 
+     * @return the reason String
+     */
+    public String getReason() {
+	return reason;
     }
 
     @Override
