@@ -3,7 +3,6 @@ package de.tudresden.swt14ws18.controller;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,7 +26,6 @@ import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CommunityRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
-import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
@@ -35,7 +33,6 @@ import de.tudresden.swt14ws18.useraccountmanager.Status;
 @Controller
 public class LotterieController {
 
-    private Map<ConcreteCustomer, List<TipCollection>> tips = new HashMap<>();
     private final UserAccountManager userAccountManager;
     private final CustomerRepository customerRepository;
     private final CommunityRepository communityRepository;
@@ -111,10 +108,8 @@ public class LotterieController {
 	if (authenticationManager.getCurrentUser().isPresent()) {
 
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-	    if (!tips.containsKey(customer))
-		tips.put(customer, new ArrayList<TipCollection>());
 	    
-	    map.addAttribute("tips", tips.get(customer));
+	    map.addAttribute("tips", customer.getTips());
 	}
 	return "games/overview";
     }
@@ -151,10 +146,8 @@ public class LotterieController {
 	if (authenticationManager.getCurrentUser().isPresent()) {
 
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-	    if (!tips.containsKey(customer))
-		tips.put(customer, new ArrayList<TipCollection>());
-
-	    tips.get(customer).add(tipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
+	    
+	    customer.addLottoTips(tipFactory.craftLottoTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
 	}
 	return "index";
     }
@@ -167,10 +160,8 @@ public class LotterieController {
 	if (authenticationManager.getCurrentUser().isPresent()) {
 
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-	    if (!tips.containsKey(customer))
-		tips.put(customer, new ArrayList<TipCollection>());
-
-	    tips.get(customer).add(tipFactory.craftTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
+	    
+	    customer.addTotoTips(tipFactory.craftTotoTips(params, customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get())));
 	}
 	return "index";
     }

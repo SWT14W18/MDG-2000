@@ -1,5 +1,9 @@
 package de.tudresden.swt14ws18.useraccountmanager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +13,9 @@ import org.salespointframework.useraccount.UserAccount;
 
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
+import de.tudresden.swt14ws18.tips.LottoTipCollection;
+import de.tudresden.swt14ws18.tips.TipCollection;
+import de.tudresden.swt14ws18.tips.TotoTipCollection;
 
 /**
  * Wie schon aus dem Header zu entnehmen, ist diese Klasse von der Klasse "Customer" abgeleitet, welche
@@ -48,6 +55,11 @@ public class ConcreteCustomer extends Customer {
 
     @OneToOne
     private BankAccount account;
+    
+    @ElementCollection
+    private List<LottoTipCollection> lottoTips = new ArrayList<>();
+    @ElementCollection
+    private List<TotoTipCollection> totoTips = new ArrayList<>();
 
     @Deprecated
     protected ConcreteCustomer() {
@@ -124,5 +136,20 @@ public class ConcreteCustomer extends Customer {
 	if (id != other.id)
 	    return false;
 	return true;
+    }
+
+    public List<TipCollection<?>> getTips() {
+	List<TipCollection<?>> tips = new ArrayList<>();
+	tips.addAll(lottoTips);
+	tips.addAll(totoTips);
+	return tips;
+    }
+
+    public void addLottoTips(LottoTipCollection craftLottoTips) {
+	lottoTips.add(craftLottoTips);
+    }
+
+    public void addTotoTips(TotoTipCollection craftTotoTips) {
+	totoTips.add(craftTotoTips);
     }
 }

@@ -12,36 +12,39 @@ import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
+import de.tudresden.swt14ws18.repositories.LottoTipCollectionRepository;
+import de.tudresden.swt14ws18.repositories.LottoTipRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
+import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
+import de.tudresden.swt14ws18.repositories.TotoTipRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 @Component
 public class TipFactory {
     private static final int LOTTO_TIPS_PER_PAGE = 6;
 
-    private LottoMatchRepository lottoMatchRepository;
-    private TotoMatchRepository totoMatchRepository;
+    private final LottoMatchRepository lottoMatchRepository;
+    private final TotoMatchRepository totoMatchRepository;
+    private final LottoTipRepository lottoTipRepository;
+    private final TotoTipRepository totoTipRepository;
+    private final LottoTipCollectionRepository lottoTipCollectionRepository;
+    private final TotoTipCollectionRepository totoTipCollectionRepository;
 
     @Autowired
-    public TipFactory(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository) {
+    public TipFactory(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository, LottoTipRepository lottoTipRepository,
+	    TotoTipRepository totoTipRepository, LottoTipCollectionRepository lottoTipCollectionRepository,
+	    TotoTipCollectionRepository totoTipCollectionRepository) {
 	this.lottoMatchRepository = lottoMatchRepository;
 	this.totoMatchRepository = totoMatchRepository;
+	this.lottoTipCollectionRepository = lottoTipCollectionRepository;
+	this.lottoTipRepository = lottoTipRepository;
+	this.totoTipCollectionRepository = totoTipCollectionRepository;
+	this.totoTipRepository = totoTipRepository;
     }
 
-    public TipCollection craftTips(Map<String, String> map, ConcreteCustomer owner) {
-	switch (map.get("gameType")) {
-	case "lotto":
-	    return craftLottoTips(map, owner);
-	case "toto":
-	    return craftTotoTips(map, owner);
-	default:
-	    return null;
-	}
-    }
+    public TotoTipCollection craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
 
-    private TipCollection craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
-
-	List<Tip> tips = new ArrayList<>();
+	List<TotoTip> tips = new ArrayList<>();
 
 	for (TotoMatch totoMatch : totoMatchRepository.findByTotoResult(TotoResult.NOT_PLAYED)) {
 	    if (totoMatch.isFinished())
@@ -49,18 +52,18 @@ public class TipFactory {
 
 	    if (map.containsKey(String.valueOf(totoMatch.getId()))) {
 		TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
-
 		tips.add(new TotoTip(totoMatch, result, 1)); // TODO define input per user
 	    }
 
 	}
+	totoTipRepository.save(tips);
 
-	return new TipCollection(tips, owner);
+	return new TotoTipCollection(tips, owner);
     }
 
-    private TipCollection craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
+    public LottoTipCollection craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
 
-	List<Tip> tips = new ArrayList<>();
+	List<LottoTip> tips = new ArrayList<>();
 	List<LottoNumbers> numbers = new ArrayList<>();
 
 	for (int i = 1; i <= LOTTO_TIPS_PER_PAGE; i++) {
@@ -108,7 +111,7 @@ public class TipFactory {
 	    for (int i = 0; i < games; i++)
 		tips.add(new LottoTip((LottoGame) g.get(i), num));
 
-	return new TipCollection(tips, owner);
+	return new LottoTipCollection(tips, owner);
     }
 
     /**
