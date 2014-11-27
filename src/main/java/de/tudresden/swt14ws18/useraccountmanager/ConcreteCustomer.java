@@ -26,7 +26,7 @@ import de.tudresden.swt14ws18.bank.BankAccount;
  * 
  * @param UserAccount: der eindeutig zugeordnete UserAccount des Kunden
  * 
- *@param state:		Der Status des Kunden (ACTIVE, CLOSED, ANONYM)
+ * @param state:		Der Status des Kunden (ACTIVE, CLOSED, ANONYM)
  * 
  * @author Reinhard_2
  *
@@ -77,6 +77,7 @@ public class ConcreteCustomer extends Customer {
     }
 
     public void payMessage() {
+    	//account.
 	// TODO:
     }
 
