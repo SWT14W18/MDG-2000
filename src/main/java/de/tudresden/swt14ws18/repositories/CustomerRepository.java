@@ -10,6 +10,5 @@ public interface CustomerRepository extends CrudRepository<ConcreteCustomer, Lon
 	
 	public ConcreteCustomer findByUserAccount(UserAccount userAccount);
 	public ConcreteCustomer findByAccount(BankAccount bankAccount);
-	public ConcreteCustomer findByname(String name);
 
 }

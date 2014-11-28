@@ -31,11 +31,11 @@ body {
 		<ol start="1" id="listMessages">
 			<div th:each="transactionItem : ${transactions}">
 			<br/>
-			<label  th:text="@{'Von: '+${transactionItem.getFrom().getOwnerName()}}">Von</label>
+			<label  th:text="@{'Von: '+${transactionItem.getNameFrom()}}">Von</label>
 			<br/>
-			<label  th:text="@{'Nach: '+${transactionItem.getTo().getOwnerName()}}">Von</label>
+			<label  th:text="@{'Nach: '+${transactionItem.getNameTo()}}">Von</label>
 			<br/>
-			<label  th:text="@{'Geldbetrag: '+${transactionItem.getAmount()}}">Von</label>
+			<label  th:text="@{'Geldbetrag: '+${transactionItem.getAmount()}}+' €'">Von</label>
 			<br/>
 			<br/>		
 			</div>

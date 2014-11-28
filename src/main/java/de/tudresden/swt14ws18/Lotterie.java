@@ -30,7 +30,7 @@ public class Lotterie {
 
     private static final double LOTTO_PRICE = 1.00D;
     private static final double INPUT_INTO_POT = 0.9D;
-
+    
     private static Lotterie instance;
     private BusinessTime time;
     private BankAccount account = new BankAccount();
