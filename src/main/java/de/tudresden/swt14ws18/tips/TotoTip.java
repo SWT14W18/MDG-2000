@@ -5,6 +5,7 @@ import java.util.Observable;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
@@ -14,8 +15,8 @@ public class TotoTip extends Tip {
 
     @Enumerated
     private TotoResult result;    
-    @ManyToOne
-    private TotoMatch game;
+    @OneToOne
+    private TotoMatch totoMatch;
     private double input;
 
     @Deprecated
@@ -23,15 +24,15 @@ public class TotoTip extends Tip {
 	
     }
     
-    public TotoTip(TotoMatch game, TotoResult result, double input) {
-	game.addObserver(this);
-	this.game = game;
+    public TotoTip(TotoMatch totoMatch, TotoResult result, double input) {
+	totoMatch.addObserver(this);
+	this.totoMatch = totoMatch;
 	this.result = result;
 	this.input = input;
     }
 
     public TotoMatch getGame() {
-	return game;
+	return totoMatch;
     }
 
     public TotoResult getResult() {
@@ -43,7 +44,7 @@ public class TotoTip extends Tip {
     }
 
     public double getWinAmount() {
-	return game.getResult() == getResult() ? input * game.getQuote(getResult()) : 0;
+	return totoMatch.getResult() == getResult() ? input * totoMatch.getQuote(getResult()) : 0;
     }
 
     @Override

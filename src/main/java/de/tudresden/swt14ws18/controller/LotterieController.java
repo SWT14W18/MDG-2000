@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.AuthenticationManager;
@@ -153,9 +154,10 @@ public class LotterieController {
 	return tips;
     }
 
-    //TODO nach Datum sortieren
+
+    
     @RequestMapping("/toto")
-    public String toto(ModelMap map) {
+    public String totoMatchDays(ModelMap map) {
 	handleGeneralValues(map);
 
 	Map<TotoGameType, Set<Integer>> dates = getRemainingMatchDates();
@@ -173,10 +175,11 @@ public class LotterieController {
 	    LocalDateTime date = match.getDate().minusMinutes(MINUTES_BEFORE_DATE);
 	    if (!localTime.isAfter(date)) {
 		if (!list.containsKey(match.getTotoGameType()))
-		    list.put(match.getTotoGameType(), new HashSet<Integer>());
+		    list.put(match.getTotoGameType(), new TreeSet<Integer>());
 
 		list.get(match.getTotoGameType()).add(match.getMatchDay());
 	    }
+
 	}
 
 	return list;

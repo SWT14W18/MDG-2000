@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
@@ -53,12 +54,23 @@ public class LotterieDataInitializer implements DataInitializer {
     @Override
     public void initialize() {
 	initializeUsers(userAccountManager, customerRepository, bankAccountRepository);
+	initializeData(lottoMatchRepository, totoMatchRepository);
+    }
+	
+	private void initializeData(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository){
+		
 
 	for (int i = 0; i < 100; i++)
 	    lottoMatchRepository.save(new LottoGame(Lotterie.getInstance().getTime().getTime()));
-
+	
+	if (totoMatchRepository.findAll().iterator().hasNext()) {
+		return;
+	}
+	
 	try {
-	    new TotoDataInitializer(this.totoMatchRepository).totoInitialize();
+	    new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.BUNDESLIGA1);
+	    new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.BUNDESLIGA2);
+//	    new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.POKAL);
 	} catch (IOException e) {
 	    e.printStackTrace();
 	} catch (ParseException e) {

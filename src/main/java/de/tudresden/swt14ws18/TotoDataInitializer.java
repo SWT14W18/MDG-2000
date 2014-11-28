@@ -31,28 +31,37 @@ import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 
 public class TotoDataInitializer {
 	
+	
 	private TotoMatchRepository totoMatchRepository;
+	private Map<TotoResult, Double> quotes;
+	private String bl1 = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=bl1";
+	private String bl2 = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=bl2";
+	private String pokal = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=dfb2014nf";
 	
 	SimpleDateFormat inputSDF = new SimpleDateFormat("yyyy-MM-dd;HH:mm:ss");
 	DateTimeFormatter inputDTF = DateTimeFormatter.ofPattern("yyyy-MM-dd;HH:mm:ss");
 	
 	public TotoDataInitializer(TotoMatchRepository totoMatchRepository){
 		this.totoMatchRepository = totoMatchRepository;
-	}
-		
-
-	public void totoInitialize() throws IOException, ParseException{
-		
-//		if (totoMatchRepository.findAll().iterator().hasNext()) {
-//			return;
-//		}
-		
 		Map<TotoResult, Double> quotes = new HashMap<>();
 		quotes.put(TotoResult.DRAW, 2D);
 		quotes.put(TotoResult.WIN_GUEST, 2D);
 		quotes.put(TotoResult.WIN_HOME, 2D);
+	}
 		
-	    URL url = new URL("http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=bl1");
+
+	public void totoInitialize(TotoGameType totoGameType) throws IOException, ParseException{
+		String urlString ="";
+		
+
+		
+		switch (totoGameType){
+		case BUNDESLIGA1: urlString=bl1;break;
+		case BUNDESLIGA2: urlString=bl2;break;
+		case POKAL: urlString=pokal;break;
+		}
+		
+	    URL url = new URL(urlString);
 	    HttpURLConnection request = (HttpURLConnection) url.openConnection();
 	    request.connect();
 
@@ -73,7 +82,7 @@ public class TotoDataInitializer {
 	    			date = match.get("match_date_time").getAsString();
 	    			matchDay = match.get("group_order_id").getAsInt();
 	    			gameDate = LocalDateTime.parse(date.substring(0, 10)+";"+date.substring(11, 19), inputDTF);
-	    			totoMatchRepository.save(new TotoMatch(team1, team2, quotes, gameDate, TotoGameType.BUNDESLIGA1, matchDay));
+	    			totoMatchRepository.save(new TotoMatch(team1, team2, quotes, gameDate, totoGameType, matchDay));
 
 	    }
 	    

@@ -80,8 +80,8 @@
 
 				   <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright"><a th:href="bankaccount.html"><label class="menuentry_money"> <i class="fa fa-eur" th:text="${balance}"></i></label></a></li>
 
-                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></a>
-				         
+                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></a></li>
+				   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="placedtotobets.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></a>      
 				   </li>
 					   
 				   		<div class="fehler" th:if="${param.error}">
