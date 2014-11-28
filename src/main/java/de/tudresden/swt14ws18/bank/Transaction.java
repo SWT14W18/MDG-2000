@@ -83,8 +83,8 @@ public class Transaction {
      * @return der Account von dem die Transaktion ausgeht
      */
     public BankAccount getFrom() {
-       return from;
-        
+       if(from==null) return from; 
+       else return Lotterie.getInstance().getCustomerRepository().findByname("einzahlung").getAccount();     
     }
 
     /**
@@ -93,7 +93,8 @@ public class Transaction {
      * @return der Account an dem die Transaktion geht
      */
     public BankAccount getTo() {
-	return to;
+        if(to!=null) return to;
+        else return Lotterie.getInstance().getCustomerRepository().findByname("auszahlung").getAccount();
     }
 
     /**
