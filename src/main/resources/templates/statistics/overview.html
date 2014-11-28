@@ -37,7 +37,9 @@ body {
 			<br/>
 			<label  th:text="@{'Geldbetrag: '+${transactionItem.getAmount()}}+' €'">Von</label>
 			<br/>
-			<br/>		
+			<label  th:text="@{'Datum: '+${transactionItem.getDateString()}}">Von</label>
+			<br/>
+			<br/>				
 			</div>
 		</ol>
 		</div>

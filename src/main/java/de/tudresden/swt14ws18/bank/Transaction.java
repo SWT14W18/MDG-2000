@@ -1,5 +1,6 @@
 package de.tudresden.swt14ws18.bank;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ public class Transaction {
     private long id;
 
     private LocalDateTime date;
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     @OneToOne
     private BankAccount to;
@@ -128,6 +130,10 @@ public class Transaction {
      */
     public String getReason() {
 	return reason;
+    }
+    
+    public String getDateString(){
+        return date.toString();
     }
 
     @Override
