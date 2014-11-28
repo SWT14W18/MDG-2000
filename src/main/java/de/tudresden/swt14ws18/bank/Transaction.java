@@ -20,7 +20,6 @@ public class Transaction {
     private long id;
 
     private LocalDateTime date;
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     @OneToOne
     private BankAccount to;
