@@ -1,5 +1,6 @@
 package de.tudresden.swt14ws18.bank;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ public class Transaction {
     private long id;
 
     private LocalDateTime date;
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     @OneToOne
     private BankAccount to;
@@ -82,9 +84,21 @@ public class Transaction {
      * 
      * @return der Account von dem die Transaktion ausgeht
      */
-    public BankAccount getFrom() {
-       if(from==null) return from; 
-       else return Lotterie.getInstance().getCustomerRepository().findByname("einzahlung").getAccount();     
+    public BankAccount getFrom() {  
+        return from;
+    }
+    
+    /**
+     * Hilfsmethode, um direkt den Namen des Kontoinhabers zu finden. Die Methode dient lediglich der Anzeige im
+     * GUI, wenn der Nutzer seine Transaktionen aufgelistet bekommt.
+     * 
+     * 
+     * @return  -> Name des Kontoinhabers
+     */
+    
+    public String getNameFrom(){
+        if(from==null) return "Einzahlung";
+        else return from.getOwnerName();
     }
 
     /**
@@ -93,8 +107,20 @@ public class Transaction {
      * @return der Account an dem die Transaktion geht
      */
     public BankAccount getTo() {
-        if(to!=null) return to;
-        else return Lotterie.getInstance().getCustomerRepository().findByname("auszahlung").getAccount();
+        return to;
+    }
+    
+    /**
+     * Hilfsmethode, um direkt den Namen des Kontoinhabers zu finden. Die Methode dient lediglich der Anzeige im
+     * GUI, wenn der Nutzer seine Transaktionen aufgelistet bekommt.
+     * 
+     * 
+     * @return  -> Name des Kontoinhabers
+     */
+    
+    public String getNameTo(){
+        if(to==null) return "Auszahlung";
+        else return to.getOwnerName();
     }
 
     /**
@@ -104,6 +130,10 @@ public class Transaction {
      */
     public String getReason() {
 	return reason;
+    }
+    
+    public String getDateString(){
+        return date.toString();
     }
 
     @Override
