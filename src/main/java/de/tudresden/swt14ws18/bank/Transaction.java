@@ -86,6 +86,14 @@ public class Transaction {
         return from;
     }
     
+    /**
+     * Hilfsmethode, um direkt den Namen des Kontoinhabers zu finden. Die Methode dient lediglich der Anzeige im
+     * GUI, wenn der Nutzer seine Transaktionen aufgelistet bekommt.
+     * 
+     * 
+     * @return  -> Name des Kontoinhabers
+     */
+    
     public String getNameFrom(){
         if(from==null) return "Einzahlung";
         else return from.getOwnerName();
@@ -99,6 +107,14 @@ public class Transaction {
     public BankAccount getTo() {
         return to;
     }
+    
+    /**
+     * Hilfsmethode, um direkt den Namen des Kontoinhabers zu finden. Die Methode dient lediglich der Anzeige im
+     * GUI, wenn der Nutzer seine Transaktionen aufgelistet bekommt.
+     * 
+     * 
+     * @return  -> Name des Kontoinhabers
+     */
     
     public String getNameTo(){
         if(to==null) return "Auszahlung";
