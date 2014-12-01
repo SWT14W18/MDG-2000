@@ -1,5 +1,7 @@
 package de.tudresden.swt14ws18;
 
+import java.time.format.DateTimeFormatter;
+
 import org.salespointframework.Salespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
 import org.salespointframework.SalespointWebConfiguration;
@@ -28,10 +30,8 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
  * TODO Zeitanzeige + Zeitmanipulationsbuttons
  * TODO Tippscheine müssen anklickbar und anzeigbar sein
  *      
- * TODO DateTimeFormatter global definieren (in Lotterie.java)
  * TODO Lottotippabgabe hübsch gestalten (optional)
  * TODO Admin sollte keine Tipps abgeben dürfen
- * TODO Kontostandsanzeige beim Admin verschwindet, wenn "Wettübersicht" angewählt wird
  * TODO 
  *      
  *      
@@ -45,6 +45,10 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
 @EnableJpaRepositories(basePackageClasses = { Salespoint.class, Lotterie.class })
 @ComponentScan
 public class Lotterie {
+    /**
+     * Standard Datumsformat für die allgemeine Zeitausgabe.
+     */
+    public static final DateTimeFormatter OUTPUT_DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     private static final double LOTTO_PRICE = 1.00D;
     private static final double INPUT_INTO_POT = 0.9D;
