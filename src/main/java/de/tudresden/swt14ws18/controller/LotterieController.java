@@ -157,12 +157,14 @@ public class LotterieController {
 
     
     @RequestMapping("/toto")
-    public String totoMatchDays(ModelMap map) {
-	handleGeneralValues(map);
-
-	Map<TotoGameType, Set<Integer>> dates = getRemainingMatchDates();
-
-	map.addAttribute("games", dates.entrySet());
+    public String toto(ModelMap map) {
+    	
+    	map.addAttribute("totoGameTypes", TotoGameType.values());
+//	handleGeneralValues(map);
+//
+//	Map<TotoGameType, Set<Integer>> dates = getRemainingMatchDates();
+//
+//	map.addAttribute("games", dates.entrySet());
 	return "games/toto";
     }
 
@@ -183,6 +185,28 @@ public class LotterieController {
 	}
 
 	return list;
+    }
+    
+    @RequestMapping("/totoMatchDays")
+    public String totoMatchDays(@RequestParam("id") String totoGameTypeString, ModelMap modelMap){
+    	
+    	TotoGameType totoGameType = null;
+    	switch(totoGameTypeString){
+    	case "DFB Pokal":totoGameType = TotoGameType.POKAL;
+    	case "1. Bundesliga":totoGameType = TotoGameType.BUNDESLIGA1;
+    	case "2. Bundesliga":totoGameType = TotoGameType.BUNDESLIGA2;
+    	}
+    	Set<Integer> set = new TreeSet<>();
+    	for (TotoMatch match : totoRepo.findByTotoResultAndTotoGameType(TotoResult.NOT_PLAYED, totoGameType)) {
+    	    LocalDateTime localTime = time.getTime();
+    	    LocalDateTime date = match.getDate().minusMinutes(MINUTES_BEFORE_DATE);
+    	    if (!localTime.isAfter(date)) {
+    	    	set.add(match.getMatchDay());
+    	    }
+    	}
+    	modelMap.addAttribute("matchDays", set);
+    	modelMap.addAttribute("totoGameType", totoGameType);
+    	return "games/totoMatchDays";
     }
 
     @RequestMapping("/totoTipp")
