@@ -189,12 +189,8 @@ public class LotterieController {
     @RequestMapping("/totoMatchDays")
     public String totoMatchDays(@RequestParam("id") String totoGameTypeString, ModelMap modelMap){
     	
-    	TotoGameType totoGameType = null;
-    	switch(totoGameTypeString){
-    	case "DFB Pokal":totoGameType = TotoGameType.POKAL;
-    	case "1. Bundesliga":totoGameType = TotoGameType.BUNDESLIGA1;
-    	case "2. Bundesliga":totoGameType = TotoGameType.BUNDESLIGA2;
-    	}
+    	TotoGameType totoGameType = TotoGameType.valueOf(totoGameTypeString);
+
     	Set<Integer> set = new TreeSet<>();
     	for (TotoMatch match : totoRepo.findByTotoResultAndTotoGameType(TotoResult.NOT_PLAYED, totoGameType)) {
     	    LocalDateTime localTime = time.getTime();
@@ -204,17 +200,18 @@ public class LotterieController {
     	    }
     	}
     	modelMap.addAttribute("matchDays", set);
-    	modelMap.addAttribute("totoGameType", totoGameType);
+    	modelMap.addAttribute("liga", totoGameType.name());
     	return "games/totoMatchDays";
     }
 
     @RequestMapping("/totoTipp")
-    public String totoTipp(@RequestParam("id") int id, ModelMap map) {
+    public String totoTipp(@RequestParam("liga") String liga, @RequestParam("id") int id, ModelMap map) {
 	handleGeneralValues(map);
 
+    	TotoGameType totoGameType = TotoGameType.valueOf(liga);	
 	List<TotoMatch> list = new ArrayList<>();
 
-	for (TotoMatch match : totoRepo.findByMatchDay(id)) {
+	for (TotoMatch match : totoRepo.findByMatchDayAndTotoGameType(id, totoGameType)) {
 	    if (match.isFinished())
 		continue;
 
