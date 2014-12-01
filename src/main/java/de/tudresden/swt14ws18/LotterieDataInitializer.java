@@ -1,7 +1,6 @@
 package de.tudresden.swt14ws18;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.Arrays;
 
 import org.salespointframework.core.DataInitializer;
@@ -56,24 +55,21 @@ public class LotterieDataInitializer implements DataInitializer {
 	initializeUsers(userAccountManager, customerRepository, bankAccountRepository);
 	initializeData(lottoMatchRepository, totoMatchRepository);
     }
-	
-	private void initializeData(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository){
-		
+
+    private void initializeData(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository) {
 
 	for (int i = 0; i < 100; i++)
 	    lottoMatchRepository.save(new LottoGame(Lotterie.getInstance().getTime().getTime()));
-	
+
 	if (totoMatchRepository.findAll().iterator().hasNext()) {
-		return;
+	    return;
 	}
-	
+
 	try {
 	    new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.BUNDESLIGA1);
 	    new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.BUNDESLIGA2);
-//	    new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.POKAL);
+	    // new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.POKAL);
 	} catch (IOException e) {
-	    e.printStackTrace();
-	} catch (ParseException e) {
 	    e.printStackTrace();
 	}
     }
@@ -89,12 +85,11 @@ public class LotterieDataInitializer implements DataInitializer {
 	UserAccount admin = userAccountManager.create("admin", "123", new Role("ROLE_BOSS"));
 	userAccountManager.save(admin);
 
-	BankAccount adminAccount = Lotterie.getInstance().getBankAccount(); //new BankAccount();
+	BankAccount adminAccount = Lotterie.getInstance().getBankAccount(); // new BankAccount();
 	ConcreteCustomer adminCustomer = new ConcreteCustomer("admin", "123", Status.ACTIVE, admin, adminAccount);
 
 	bankAccountRepository.save(adminAccount);
 	customerRepository.save(adminCustomer);
-	
 
 	final Role customerRole = new Role("ROLE_USER");
 
@@ -120,7 +115,7 @@ public class LotterieDataInitializer implements DataInitializer {
 
 	bankAccountRepository.save(Arrays.asList(ba1, ba2, ba3, ba4));
 	customerRepository.save(Arrays.asList(c1, c2, c3, c4));
-	
+
 	c1.addMessage(GameType.LOTTO);
 	c1.addMessage(GameType.TOTO);
 	c1.addMessage(GameType.LOTTO);
@@ -130,8 +125,8 @@ public class LotterieDataInitializer implements DataInitializer {
 	c1.addMessage(GameType.LOTTO);
 	c1.addMessage(GameType.LOTTO);
 	c1.addMessage(GameType.LOTTO);
-	
+
 	messageRepository.save(c1.getMessages());
-	
+
     }
 }
