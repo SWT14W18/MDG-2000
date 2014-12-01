@@ -1,6 +1,5 @@
 package de.tudresden.swt14ws18.bank;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -83,21 +82,23 @@ public class Transaction {
      * 
      * @return der Account von dem die Transaktion ausgeht
      */
-    public BankAccount getFrom() {  
-        return from;
+    public BankAccount getFrom() {
+	return from;
     }
-    
+
     /**
-     * Hilfsmethode, um direkt den Namen des Kontoinhabers zu finden. Die Methode dient lediglich der Anzeige im
-     * GUI, wenn der Nutzer seine Transaktionen aufgelistet bekommt.
+     * Hilfsmethode, um direkt den Namen des Kontoinhabers zu finden. Die Methode dient lediglich der Anzeige im GUI, wenn der Nutzer seine
+     * Transaktionen aufgelistet bekommt.
      * 
      * 
-     * @return  -> Name des Kontoinhabers
+     * @return -> Name des Kontoinhabers
      */
-    
-    public String getNameFrom(){
-        if(from==null) return "Einzahlung";
-        else return from.getOwnerName();
+
+    public String getNameFrom() {
+	if (from == null)
+	    return "Einzahlung";
+	else
+	    return from.getOwnerName();
     }
 
     /**
@@ -106,20 +107,22 @@ public class Transaction {
      * @return der Account an dem die Transaktion geht
      */
     public BankAccount getTo() {
-        return to;
+	return to;
     }
-    
+
     /**
-     * Hilfsmethode, um direkt den Namen des Kontoinhabers zu finden. Die Methode dient lediglich der Anzeige im
-     * GUI, wenn der Nutzer seine Transaktionen aufgelistet bekommt.
+     * Hilfsmethode, um direkt den Namen des Kontoinhabers zu finden. Die Methode dient lediglich der Anzeige im GUI, wenn der Nutzer seine
+     * Transaktionen aufgelistet bekommt.
      * 
      * 
-     * @return  -> Name des Kontoinhabers
+     * @return -> Name des Kontoinhabers
      */
-    
-    public String getNameTo(){
-        if(to==null) return "Auszahlung";
-        else return to.getOwnerName();
+
+    public String getNameTo() {
+	if (to == null)
+	    return "Auszahlung";
+	else
+	    return to.getOwnerName();
     }
 
     /**
@@ -130,9 +133,9 @@ public class Transaction {
     public String getReason() {
 	return reason;
     }
-    
-    public String getDateString(){
-        return date.toString();
+
+    public String getDateString() {
+	return date.toString();
     }
 
     @Override
@@ -140,7 +143,7 @@ public class Transaction {
 	String von;
 	String nach;
 	String betrag;
-	
+
 	betrag = String.valueOf(amount);
 
 	if (from == null)
@@ -152,6 +155,6 @@ public class Transaction {
 	else
 	    nach = to.toString();
 
-	return "Datum: " + date.toString() + " Von: " + von + " Nach: " + nach+" Geldbetrag: "+betrag+"€";
+	return "Datum: " + date.format(Lotterie.OUTPUT_DTF) + " Von: " + von + " Nach: " + nach + " Geldbetrag: " + betrag + "€";
     }
 }
