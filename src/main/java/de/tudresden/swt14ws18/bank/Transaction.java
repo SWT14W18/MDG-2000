@@ -135,7 +135,7 @@ public class Transaction {
     }
 
     public String getDateString() {
-	return date.toString();
+	return date.format(Lotterie.OUTPUT_DTF);
     }
 
     @Override
@@ -155,6 +155,6 @@ public class Transaction {
 	else
 	    nach = to.toString();
 
-	return "Datum: " + date.format(Lotterie.OUTPUT_DTF) + " Von: " + von + " Nach: " + nach + " Geldbetrag: " + betrag + "€";
+	return "Datum: " + getDateString() + " Von: " + von + " Nach: " + nach + " Geldbetrag: " + betrag + "€";
     }
 }
