@@ -21,6 +21,20 @@ import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
 
+/*
+ * TODO Gruppenfunktionalität
+ * TODO Wettübersicht des Admins muss funktionieren + schön aussehen
+ * TODO Statisik des Admins ausbauen (Transaktionen zusammensuchen und auswerten)
+ * TODO Zeitanzeige + Zeitmanipulationsbuttons
+ *      
+ * TODO DateTimeFormatter global definieren (in Lotterie.java)
+ * TODO Lottotippabgabe hübsch gestalten (optional)
+ *      
+ *      
+ * @author Reinhard_2
+ *
+ */
+
 @Configuration
 @EnableAutoConfiguration
 @EntityScan(basePackageClasses = { Salespoint.class, Lotterie.class })
