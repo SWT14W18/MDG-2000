@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -238,7 +237,7 @@ public class LotterieController {
 	return "games/lotto";
     }
 
-    @RequestMapping("/createLottoTip")
+    @RequestMapping(value = "/createLottoTip", method = RequestMethod.POST)
     public String createLottoTip(@RequestParam Map<String, String> params, ModelMap map) {
 
 	handleGeneralValues(map);

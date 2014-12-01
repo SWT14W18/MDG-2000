@@ -143,7 +143,7 @@ public class TipFactory {
 	if (!map.containsKey("number" + i + "-6"))
 	    return false;
 
-	if (!map.containsKey("number" + i + "-super"))
+	if (!map.containsKey("super"))
 	    return false;
 
 	return true;
