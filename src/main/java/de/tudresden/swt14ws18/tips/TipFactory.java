@@ -52,6 +52,10 @@ public class TipFactory {
 
 	    if (map.containsKey(String.valueOf(totoMatch.getId()))) {
 		TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
+		
+		if(result == TotoResult.NOT_PLAYED)
+		    continue;
+		
 		tips.add(new TotoTip(totoMatch, result, 1)); // TODO define
 							     // input per user
 	    }
