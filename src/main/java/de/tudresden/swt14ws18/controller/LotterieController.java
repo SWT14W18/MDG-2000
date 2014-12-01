@@ -19,6 +19,7 @@ import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
@@ -298,6 +299,7 @@ public class LotterieController {
     }
 
     @RequestMapping("/profil")
+    @PreAuthorize("isAuthenticated()")
     public String profil(ModelMap map) {
 
 	handleGeneralValues(map);

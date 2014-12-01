@@ -52,15 +52,18 @@ public class TipFactory {
 
 	    if (map.containsKey(String.valueOf(totoMatch.getId()))) {
 		TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
-		
-		if(result == TotoResult.NOT_PLAYED)
+
+		if (result == TotoResult.NOT_PLAYED)
 		    continue;
-		
+
 		tips.add(new TotoTip(totoMatch, result, 1)); // TODO define
 							     // input per user
 	    }
-
 	}
+
+	if (tips.size() == 0)
+	    return;
+
 	totoTipRepository.save(tips);
 	totoTipCollectionRepository.save(new TotoTipCollection(tips, owner));
     }
@@ -114,6 +117,9 @@ public class TipFactory {
 	for (LottoNumbers num : numbers)
 	    for (int i = 0; i < games; i++)
 		tips.add(new LottoTip((LottoGame) g.get(i), num));
+
+	if (tips.size() == 0)
+	    return;
 
 	lottoTipRepository.save(tips);
 	lottoTipCollectionRepository.save(new LottoTipCollection(tips, owner));
