@@ -26,9 +26,13 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
  * TODO Wettübersicht des Admins muss funktionieren + schön aussehen
  * TODO Statisik des Admins ausbauen (Transaktionen zusammensuchen und auswerten)
  * TODO Zeitanzeige + Zeitmanipulationsbuttons
+ * TODO Tippscheine müssen anklickbar und anzeigbar sein
  *      
  * TODO DateTimeFormatter global definieren (in Lotterie.java)
  * TODO Lottotippabgabe hübsch gestalten (optional)
+ * TODO Admin sollte keine Tipps abgeben dürfen
+ * TODO Kontostandsanzeige beim Admin verschwindet, wenn "Wettübersicht" angewählt wird
+ * TODO 
  *      
  *      
  * @author Reinhard_2
