@@ -34,6 +34,8 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
  * TODO Admin sollte keine Tipps abgeben dürfen
  * TODO Mitteilungsbildschirm überarbeiten (Mitteilungen bezahlbar)
  * TODO Statusmeldungen
+ * TODO Uhrzeiten bei Fußballspielen anzeigen
+ * TODO bei Spielen Datumsanzeige: Wann findet die nächste Ziehung/das nächste Spiel statt?
  *      
  *      
  * @author Reinhard_2
