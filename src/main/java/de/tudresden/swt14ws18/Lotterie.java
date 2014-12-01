@@ -32,7 +32,7 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
  *      
  * TODO Lottotippabgabe hübsch gestalten (optional)
  * TODO Admin sollte keine Tipps abgeben dürfen
- * TODO 
+ * TODO Mitteilungsbildschirm überarbeiten (Mitteilungen bezahlbar)
  *      
  *      
  * @author Reinhard_2
