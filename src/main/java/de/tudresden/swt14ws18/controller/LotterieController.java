@@ -157,9 +157,9 @@ public class LotterieController {
     
     @RequestMapping("/toto")
     public String toto(ModelMap map) {
+	handleGeneralValues(map);
     	
     	map.addAttribute("totoGameTypes", TotoGameType.values());
-//	handleGeneralValues(map);
 //
 //	Map<TotoGameType, Set<Integer>> dates = getRemainingMatchDates();
 //
@@ -187,8 +187,9 @@ public class LotterieController {
     }
     
     @RequestMapping("/totoMatchDays")
-    public String totoMatchDays(@RequestParam("id") String totoGameTypeString, ModelMap modelMap){
-    	
+    public String totoMatchDays(@RequestParam("id") String totoGameTypeString, ModelMap map){
+
+	handleGeneralValues(map);
     	TotoGameType totoGameType = TotoGameType.valueOf(totoGameTypeString);
 
     	Set<Integer> set = new TreeSet<>();
@@ -199,8 +200,8 @@ public class LotterieController {
     	    	set.add(match.getMatchDay());
     	    }
     	}
-    	modelMap.addAttribute("matchDays", set);
-    	modelMap.addAttribute("liga", totoGameType.name());
+    	map.addAttribute("matchDays", set);
+    	map.addAttribute("liga", totoGameType.name());
     	return "games/totoMatchDays";
     }
 

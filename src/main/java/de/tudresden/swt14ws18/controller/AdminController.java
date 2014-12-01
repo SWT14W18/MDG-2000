@@ -1,12 +1,7 @@
 package de.tudresden.swt14ws18.controller;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.AuthenticationManager;
@@ -17,9 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
-import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
-import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CommunityRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
@@ -28,13 +20,11 @@ import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipRepository;
 import de.tudresden.swt14ws18.tips.TipFactory;
-import de.tudresden.swt14ws18.tips.TotoTip;
-
+import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 @Controller
 public class AdminController {
-	
-	
+
     private final UserAccountManager userAccountManager;
     private final CustomerRepository customerRepository;
     private final CommunityRepository communityRepository;
@@ -71,26 +61,37 @@ public class AdminController {
 	this.lottoTipCollectionRepo = lottoTipCollectionRepo;
 	this.totoTipCollectionRepo = totoTipCollectionRepo;
 	this.totoTipRepository = totoTipRepository;
-	
+
     }
-	
-	
-	@RequestMapping("/placedtotobets")
+
+    @RequestMapping("/placedtotobets")
     public String placedtotobets(ModelMap map) {
-//		
-//	Map<TotoMatch, Integer> anzahltipps= new HashMap<>();
-//	for(TotoTip totoTip : totoTipRepository.findAll()){
-//		if(anzahltipps.containsKey(totoTip.getGame())){
-//			int i = anzahltipps.get(totoTip.getGame());
-//			i++;
-//			anzahltipps.put(totoTip.getGame(), i);
-//		}
-//		else{anzahltipps.put(totoTip.getGame(), 1);}
-//	}
-//	
+
+	handleGeneralValues(map);
+	//
+	// Map<TotoMatch, Integer> anzahltipps= new HashMap<>();
+	// for(TotoTip totoTip : totoTipRepository.findAll()){
+	// if(anzahltipps.containsKey(totoTip.getGame())){
+	// int i = anzahltipps.get(totoTip.getGame());
+	// i++;
+	// anzahltipps.put(totoTip.getGame(), i);
+	// }
+	// else{anzahltipps.put(totoTip.getGame(), 1);}
+	// }
+	//
 	map.addAttribute("tips", totoTipRepository.findAll());
-		
-    return "statistics/placedtotobets";
+
+	return "statistics/placedtotobets";
+    }
+
+    public void handleGeneralValues(ModelMap map) {
+	if (authenticationManager.getCurrentUser().isPresent()) {
+	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+
+	    map.addAttribute("balance", new DecimalFormat("#0.00").format(customer.getAccount().getBalance()));
+
 	}
+
+    }
 
 }
