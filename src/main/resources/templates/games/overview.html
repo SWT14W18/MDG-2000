@@ -30,6 +30,7 @@ body {
 		<div align="center"  id="divListMessages">
 		<ol start="1" id="listMessages">
 			<div th:each="item : ${tips}">
+			<br/>
 		    <br/>
 			<label th:text="@{'Tippschein ('+${item.getTips().size()}+' Tipp(s) )'}">Test</label>
 		    <br/>
