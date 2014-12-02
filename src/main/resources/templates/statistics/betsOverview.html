@@ -29,11 +29,11 @@ body {
 		<div align="center">
 		<div align="center"  id="divListMessages">
 		<ol start="1" id="listMessages">
- 			<div th:each="tip : ${tips}">
+ 			<div th:each="lottoGame : ${lottoTipsMap}">
 			<br/>
-			<label  th:text="${tip.getGame().getTitle()}">Match</label>
 			<br/>
-			<label  th:text="${tip.getResult()}">Result</label>
+			<label  th:text="@{${lottoGame.getKey().getDateString()}+' - '+${lottoGame.getValue()}+' Input'}">Match</label>
+			<br/>
 			<br/>	
 			</div>
 		</ol>

@@ -1,7 +1,10 @@
 package de.tudresden.swt14ws18;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.Role;
@@ -15,12 +18,16 @@ import org.springframework.util.Assert;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
+import de.tudresden.swt14ws18.repositories.LottoTipCollectionRepository;
+import de.tudresden.swt14ws18.repositories.LottoTipRepository;
 import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
+import de.tudresden.swt14ws18.tips.LottoTip;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 
@@ -33,11 +40,13 @@ public class LotterieDataInitializer implements DataInitializer {
     private final TotoMatchRepository totoMatchRepository;
     private final LottoMatchRepository lottoMatchRepository;
     private final MessageRepository messageRepository;
+    private final LottoTipRepository lottoTipRepository;
+    private final LottoTipCollectionRepository lottoTipCollectionRepository;
 
     @Autowired
     public LotterieDataInitializer(CustomerRepository customerRepository, UserAccountManager userAccountManager,
 	    BankAccountRepository bankAccountRepository, TotoMatchRepository totoMatchRepository, LottoMatchRepository lottoMatchRepository,
-	    MessageRepository messageRepository) {
+	    MessageRepository messageRepository, LottoTipRepository lottoTipRepository, LottoTipCollectionRepository lottoTipCollectionRepository) {
 
 	Assert.notNull(customerRepository, "CustomerRepository must not be null!");
 	Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
@@ -48,18 +57,45 @@ public class LotterieDataInitializer implements DataInitializer {
 	this.bankAccountRepository = bankAccountRepository;
 	this.totoMatchRepository = totoMatchRepository;
 	this.lottoMatchRepository = lottoMatchRepository;
+	this.lottoTipRepository = lottoTipRepository;
+	this.lottoTipCollectionRepository = lottoTipCollectionRepository;
     }
 
     @Override
     public void initialize() {
 	initializeUsers(userAccountManager, customerRepository, bankAccountRepository);
-	initializeData(lottoMatchRepository, totoMatchRepository);
+	initializeData(lottoMatchRepository, totoMatchRepository, lottoTipRepository, lottoTipCollectionRepository);
     }
 
-    private void initializeData(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository) {
+    private void initializeData(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository, 
+    		LottoTipRepository lottoTipRepository, LottoTipCollectionRepository lottoTipCollectionRepository) {
+    	
+//    	lottoMatchRepository.deleteAll();
+//    	lottoTipRepository.deleteAll();
+//    	lottoTipCollectionRepository.deleteAll();
+//    	totoMatchRepository.deleteAll();
 
-	for (int i = 0; i < 100; i++)
-	    lottoMatchRepository.save(new LottoGame(Lotterie.getInstance().getTime().getTime()));
+    if(!lottoMatchRepository.findAll().iterator().hasNext()){
+    	LocalDateTime ldt = LocalDateTime.of(2014, 12, 7, 12, 0);	
+    	for (int i = 0; i < 50; i++){
+    		lottoMatchRepository.save(new LottoGame(ldt));
+    		ldt=ldt.plusDays(7);
+    	}
+    }
+	
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1,1,1,1,1,1,1)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1,1,1,1,1,1,1)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1,1,1,1,1,1,1)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1,1,1,1,1,1,1)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1,1,1,1,1,1,1)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 14, 12, 0)), new LottoNumbers(1,1,1,1,1,1,1)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 14, 12, 0)), new LottoNumbers(1,1,1,1,1,1,1)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 28, 12, 0)), new LottoNumbers(1,1,1,1,1,1,1)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 28, 12, 0)), new LottoNumbers(1,1,1,1,1,1,1)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 28, 12, 0)), new LottoNumbers(1,1,1,1,1,1,1)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 28, 12, 0)), new LottoNumbers(1,1,1,1,1,1,1)));
+
+
 
 	if (totoMatchRepository.findAll().iterator().hasNext()) {
 	    return;
