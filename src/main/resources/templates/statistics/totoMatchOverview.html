@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lotterie Mach dein Gl&uuml;ck!!!</title>
+<meta name="description" content="Swt Team 18 Lotterie" />
+<meta name="author" content=".Lars Beck, Reinhard *,Felix *, Joe *, Johannes *" />
+<meta name="keywords" content="." />
+
+<link href='css/html5reset-1.6.1.css' rel='stylesheet' type='text/css'/>
+<link href="css/header_dark_red.css" rel="stylesheet"/>
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'/>
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'/>
+
+<style type="text/css">
+body {
+   margin: 0 auto;
+}
+</style>
+</head>
+<body>
+	<!-- Header include -->
+	<div th:replace="fragments/header :: header"></div>
+	<section>
+
+
+		<h1> Wettübersicht</h1>
+			<hr/>
+			<br/>
+			<br/>
+			<div align="center">
+			<div align="center"  id="divListMessages">
+			<ol start="1" id="listMessages">
+ 				<div th:each="match : ${totoMatches}">
+ 				<br/>
+ 				<table>
+ 					<tr>
+ 						<td>
+ 						</td>
+ 						<td>
+ 							<p th:text="@{${match.getTeamHome()}+' - '+${match.getTeamGuest()}}">FC Beispiel - KeinPlan SC</p>
+ 						</td>
+ 						<td>
+ 						</td> 						
+ 					</tr>
+  					<tr>
+ 						<td>
+ 						<p th:text="@{'Heimsieg : '+${match.getResultInput().get(WIN_HOME)}}"></p>
+ 						</td>
+ 						<td>
+ 						<p th:text="@{'Auswärtssieg : '+${match.getResultInput().get(WIN_GUEST)}}"></p>
+ 						</td>
+ 						<td>
+ 						<p th:text="@{'Unentschieden : '+${match.getResultInput().get(DRAW)}}"></p>
+ 						</td> 					
+ 					</tr>
+ 				</table>
+				<br/>
+				</div>
+			</ol>
+			</div>
+			</div>
+	</section>
+	<!-- Footer include -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

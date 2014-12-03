@@ -27,17 +27,34 @@ body {
 		<br/>
 		<br/>
 		<div align="center">
-		<div align="center"  id="divListMessages">
-		<ol start="1" id="listMessages">
- 			<div th:each="lottoGame : ${lottoTipsMap}">
-			<br/>
-			<br/>
-			<label  th:text="@{${lottoGame.getKey().getDateString()}+' - '+${lottoGame.getValue()}+' Input'}">Match</label>
-			<br/>
-			<br/>	
-			</div>
-		</ol>
-		</div>
+		<table>
+			<tr>
+				<td><p>Lottoübersicht</p>
+					<br/>
+					<br/>
+					<p th:text="@{'Nächste Ziehung ist am '+${lottoTipsMap.firstKey().getDateString()}}">Nächste Ziehung</p>
+					<br/>
+					<p th:text="@{'Gesamtvolumen der Tipps : '+${lottoTipsMap.get(nextLottoGame)}+' Euro'}">Input</p>
+					<br/>
+					<br/>
+					<br/>
+					<a th:href="lottoOverview.html"><label>Liste aller Ziehungen</label></a>
+				</td>
+				<td><p>Totoübersicht</p>
+					<br/>
+					<br/>
+					<p th:text="@{${liga1MatchDayInput.firstKey()}+'.Spieltag'}">Spieltag</p>
+					<br/>
+					<br/>
+					<p th:text="@{'1.Bundesliga - Gesamtvolumen : '+${liga1MatchDayInput.get(liga1MatchDayInput.firstKey())}}">1.Bundesliga</p>
+					<br/>
+					<p th:text="@{'2.Bundesliga - Gesamtvolumen : '+${liga2MatchDayInput.get(liga2MatchDayInput.firstKey())}}">2.Bundesliga</p>
+					<br/>
+					<br/>
+					<a th:href="totoOverview.html"><label>Mehr Daten ...</label></a>
+				</td>
+			</tr>
+		</table>
 		</div>
 	</section>
 	<!-- Footer include -->
