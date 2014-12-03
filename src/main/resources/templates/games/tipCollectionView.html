@@ -22,25 +22,19 @@ body {
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1> Spiel &uuml;bersicht</h1>
+		<h1> Tippscheinuuml;bersicht</h1>
 		<hr/>
 		<br/>
 		<br/>
-		<div align="center">
-		<div align="center"  id="divListMessages">
 		<ol start="1" id="listMessages">
 			<div th:each="item : ${tips}">
-			<a th:href="@{'/tipCollectionView?id='+${item.getTips()}}" >
 			<br/>
 		    <br/>
-			<label th:text="@{'Tippschein ('+${item.getTips().size()}+' Tipp(s) )'}">Test</label>
+			<label th:text="@{'Tipp: '+${item}}">Test</label>
 		    <br/>
 		    <br/>
-		    </a>
 			</div>
 		</ol>
-		</div>
-		</div>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>

@@ -187,6 +187,15 @@ public class LotterieController {
 	return list;
     }
     
+    @RequestMapping("/tipCollectionView")
+    public String tipCollectionView(ModelMap map){
+        handleGeneralValues(map);
+        
+        
+        
+        return "tipCollectionView";
+    }
+    
     @RequestMapping("/totoMatchDays")
     public String totoMatchDays(@RequestParam("id") String totoGameTypeString, ModelMap map){
 
