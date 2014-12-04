@@ -140,5 +140,5 @@ public abstract class TipCollection<T extends Tip> implements Observer {
 	owner.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(), tip.getInput() * (getShares().getRemainingShare() + ownerExtra));
     }
     
-    protected abstract GameType getGameType();
+    public abstract GameType getGameType();
 }
