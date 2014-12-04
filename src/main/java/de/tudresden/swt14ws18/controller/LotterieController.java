@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
@@ -82,6 +83,8 @@ public class LotterieController {
     }
 
     public void handleGeneralValues(ModelMap map) {
+	map.addAttribute("time", Lotterie.getInstance().getTime().getTime().format(Lotterie.OUTPUT_DTF));
+	
 	if (authenticationManager.getCurrentUser().isPresent()) {
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 
