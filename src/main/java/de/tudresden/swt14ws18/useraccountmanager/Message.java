@@ -26,6 +26,7 @@ public class Message {
     @GeneratedValue
     private long id;
     
+    
     private LocalDateTime date;
     private GameType whichGame;
     
@@ -42,6 +43,7 @@ public class Message {
     public Message(GameType type){
         this.whichGame = type;
         this.date = Lotterie.getInstance().getTime().getTime();
+        Lotterie.getInstance().getMessagesRepository().save(this);
     }
     
     /**

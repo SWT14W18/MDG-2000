@@ -85,7 +85,8 @@ public class ConcreteCustomer extends Customer {
     }
 
     public void addMessage(GameType whichGame) {
-        messages.add(new Message(whichGame));
+        Message tmp = new Message(whichGame);
+        messages.add(tmp);
         
         //if(getMessageCount() >= MAX_MESSAGE_COUNT)
             
