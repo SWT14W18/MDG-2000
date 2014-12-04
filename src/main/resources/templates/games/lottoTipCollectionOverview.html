@@ -13,8 +13,12 @@
 			<div th:each="item : ${tips}">
 			<br/>
 		    <br/>
-			<label th:text="${item.toCustomString()}">Test</label>
+		    <label th:text="${item.getLottoGameTitleAsString()}">Datum</label>
 		    <br/>
+		    <br/>
+			<label th:text="${item.getNumbersAsString()}">Zahlen</label>
+		    <br/>
+		    <label th:text="${item.getSuperNumberAsString()}">Superzahel</label>
 		    <br/>
 			</div>
 		</ol>

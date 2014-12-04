@@ -5,9 +5,17 @@
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1> Gruppe erstellen</h1>
+		<h1>Gruppe erstellen</h1>
+		
+		<form action="/groupcreate" method="post">
+			Name<input type="text" name="cName" /><br />
+			Passwort<input type="text" name="cPassword" /><br />
+			<input type="hidden"name="groups" value="create" />
+			<input type="submit" />
+		</form>
+
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>
-</body>	
+</body>
 </html>

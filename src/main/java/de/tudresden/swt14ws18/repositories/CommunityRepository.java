@@ -1,10 +1,12 @@
 package de.tudresden.swt14ws18.repositories;
 
-import org.salespointframework.useraccount.UserAccount;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import de.tudresden.swt14ws18.useraccountmanager.Community;
+import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
-public interface CommunityRepository extends CrudRepository<Community, Long> {
-	public Community findByUserAccount(UserAccount userAccount);
+public interface CommunityRepository extends CrudRepository<Community, Long> {	
+	public List<Community> findByMembers(ConcreteCustomer member);
 }

@@ -19,6 +19,7 @@ import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
+import de.tudresden.swt14ws18.repositories.CommunityRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
 import de.tudresden.swt14ws18.repositories.LottoTipCollectionRepository;
@@ -26,6 +27,7 @@ import de.tudresden.swt14ws18.repositories.LottoTipRepository;
 import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.tips.LottoTip;
+import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 
@@ -38,17 +40,19 @@ public class LotterieDataInitializer implements DataInitializer {
     private final TotoMatchRepository totoMatchRepository;
     private final LottoMatchRepository lottoMatchRepository;
     private final MessageRepository messageRepository;
+    private final CommunityRepository communityRepository;
     private final LottoTipRepository lottoTipRepository;
     private final LottoTipCollectionRepository lottoTipCollectionRepository;
 
     @Autowired
-    public LotterieDataInitializer(CustomerRepository customerRepository, UserAccountManager userAccountManager,
+    public LotterieDataInitializer(CommunityRepository communityRepository, CustomerRepository customerRepository, UserAccountManager userAccountManager,
             BankAccountRepository bankAccountRepository, TotoMatchRepository totoMatchRepository, LottoMatchRepository lottoMatchRepository,
             MessageRepository messageRepository, LottoTipRepository lottoTipRepository, LottoTipCollectionRepository lottoTipCollectionRepository) {
 
         Assert.notNull(customerRepository, "CustomerRepository must not be null!");
         Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
 
+        this.communityRepository = communityRepository;
         this.messageRepository = messageRepository;
         this.customerRepository = customerRepository;
         this.userAccountManager = userAccountManager;
@@ -159,6 +163,9 @@ public class LotterieDataInitializer implements DataInitializer {
         bankAccountRepository.save(Arrays.asList(ba1, ba2, ba3, ba4));
         customerRepository.save(Arrays.asList(c1, c2, c3, c4));
 
+        Community com = new Community("Test", "test", c1);
+        communityRepository.save(com);
+        
         c1.addMessage(GameType.LOTTO);
         c1.addMessage(GameType.TOTO);
         c1.addMessage(GameType.LOTTO);

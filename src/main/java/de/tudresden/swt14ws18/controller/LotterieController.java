@@ -45,6 +45,7 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
 import de.tudresden.swt14ws18.tips.Tip;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
+import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Message;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
@@ -113,7 +114,7 @@ public class LotterieController {
     @RequestMapping("time")
     public String vorspulen(ModelMap map) {
         handleGeneralValues(map);
-        return "time";
+        return "admin/time";
     }
 
     @RequestMapping("/einzahlen")
@@ -146,7 +147,7 @@ public class LotterieController {
         if (customer.hasMessage(message))
             customer.payOneMessage(message);
 
-        return "redirect:index";
+        return "redirect:profil";
     }
 
     @RequestMapping({ "/", "/index" })
@@ -234,7 +235,10 @@ public class LotterieController {
             }
             map.addAttribute("tips", set);
         }
-        return "games/tipCollectionView";
+        
+        if(spielType == GameType.LOTTO) return "games/lottoTipCollectionOverview";
+        if(spielType == GameType.TOTO) return "games/totoTipCollectionOverview";
+        else return "games/tipCollectionView";
     }
 
     @RequestMapping("/totoMatchDays")
@@ -330,29 +334,40 @@ public class LotterieController {
     @RequestMapping("/groupoverview")
     public String groupoverview(ModelMap map) {
 
-        handleGeneralValues(map);
-        return "groups/overview";
+	handleGeneralValues(map);
+	ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+        List<Community> community = communityRepository.findByMembers(customer);
+        map.addAttribute("groupoverview", community);
+	return "groups/overview";
     }
 
     @RequestMapping("/groupcreate")
     public String groupcreate(ModelMap map) {
 
-        handleGeneralValues(map);
-        return "groups/create";
+	handleGeneralValues(map);
+//      Community community = CommunityRepository.(name, password, userAccount, admin);
+//      map.addAttribute("cName", community.getCommunityName());
+//      map.addAttribute("cPassword", community.getCommunityPassword());
+	return "groups/create";
     }
 
     @RequestMapping("/groupjoin")
     public String groupjoin(ModelMap map) {
 
-        handleGeneralValues(map);
-        return "groups/join";
+	handleGeneralValues(map);
+//      Community community = CommunityRepository.();
+//      map.addAttribute("cName", community.getCommunityName());
+//      map.addAttribute("cPassword", community.getCommunityPassword());
+	return "groups/join";
     }
 
     @RequestMapping("/groupmanage")
     public String groupmanage(ModelMap map) {
 
-        handleGeneralValues(map);
-        return "groups/manage";
+	handleGeneralValues(map);
+//      Community community = CommunityRepository.();
+//      map.addAttribute("", community.getCommunityName());
+	return "groups/manage";
     }
 
     @RequestMapping("/profil")

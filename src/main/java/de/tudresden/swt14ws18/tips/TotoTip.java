@@ -59,10 +59,40 @@ public class TotoTip extends Tip {
 
 	notifyObservers(false);
     }
+    
+    public String getMatchDateAsString(){
+        return totoMatch.getDateString();
+    }
 
+    public String getMatchTitleAsString(){
+        return totoMatch.getTitle();
+    }
+    
+    public String getInputAsString(){
+        return String.valueOf(input);
+    }
+    
+    public String getQuoteAsString(){
+        return String.valueOf(totoMatch.getQuote(result));
+    }
+    
     @Override
     public String toCustomString() {
-        // TODO Hier müsste noch eine toString geschrieben sein 
-        return "Das ist ein Tototipp";
+        StringBuilder temp = new StringBuilder();
+        
+        temp.append("Datum: ");
+        temp.append(totoMatch.getDateString());
+        temp.append("<br/>Spiel:  ");
+        temp.append(totoMatch.getTitle());
+        temp.append("<br/>  Einsatz:  ");
+        temp.append(input);
+        temp.append("€");
+        temp.append("<br/>  Quote:   ");
+        temp.append(totoMatch.getQuote(result));
+        
+        
+        
+        
+        return temp.toString();
     }
 }

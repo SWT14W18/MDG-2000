@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.salespointframework.useraccount.UserAccount;
-
 
 /**
  * die Klasse "Community" leitet sich wie auch der ConcreteCustomer vom Customer ab und besitzt
@@ -50,21 +48,25 @@ public class Community extends Customer{
 	@OneToOne
 	private ConcreteCustomer admin;
 	
-	@OneToOne
-	private UserAccount userAccount;
+	private String communityName;
+	private String communityPassword;
+	
+	@Deprecated
+	public Community() {};
 	
 	/**
 	 * Konstruktor!
 	 * 
-	 * @param name			-> Name der Gemeinschaft (frei wählbar)
-	 * @param password		-> Das Passwort, mit dem man in die Gruppe gelangt (vom Admin(ersteller) festgelegt)
-	 * @param userAccount	-> der eindeutig zugeordnete UserAccount (wird beim erstellen neu angelegt)
-	 * @param admin			-> der Kunde, der der Admin der Gruppe sein soll (im Normalfall der Ersteller)
+	 * @param name                 -> Name der Gemeinschaft (frei wählbar)
+	 * @param password             -> Das Passwort, mit dem man in die Gruppe gelangt (vom Admin(ersteller) festgelegt)
+	 * @param userAccount          -> der eindeutig zugeordnete UserAccount (wird beim erstellen neu angelegt)
+	 * @param admin                -> der Kunde, der der Admin der Gruppe sein soll (im Normalfall der Ersteller)
 	 */
 	
-	public Community(String name, String password, UserAccount userAccount, ConcreteCustomer admin) {
-		super(name, password);
-		this.userAccount = userAccount;
+	public Community(String name, String password, ConcreteCustomer admin) {
+	        super(name, password);
+		this.communityName = name;
+		this.communityPassword = password;
 		this.admin = admin;
 		addMember(admin);
 	}
@@ -115,7 +117,50 @@ public class Community extends Customer{
 		if(isMember(leaver)){
 			members.remove(leaver);
 		}
-		return false;
+		return true;
 	}
+	
+	/**
+	 * Gibt den Namen der Gruppe aus
+	 * @return
+	 */
+	public String getCommunityName() {
+	    return communityName;
+	}
+	
+        public String getCommunityPassword() {
+            return communityPassword;
+        }
+	
+//	/**
+//	 * Gruppenname wird geändert
+//	 * @return
+//	 */
+//        public boolean changeCommunityName(Community name){
+//           if(changeName(newName)){
+//                communityName.change(newName);
+//                return true;
+//           }
+//          return false;
+//        }
+//
+//	/**
+//	 * Gruppenpasswort wird geändert
+//	 * @return
+//	 */
+//      private boolean changeCommunityPassword(String communityPassword){
+//            if(changePassword(newPassword)){
+//                communityPassword = newPassword;
+//                return true;
+//            }
+//        return false;
+//      }        
+        /**
+         * Gibt die Mitglieder einer Gruppe aus
+         * @return
+         */
+        public Set<ConcreteCustomer> getMemberList(){
+            return members;
+        }
 
   }

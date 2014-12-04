@@ -87,9 +87,37 @@ public class LottoTip extends Tip {
     public double getInput() {
 	return input;
     }
+    
+    public String getNumbersAsString(){
+        StringBuilder numbers_temp = new StringBuilder();
+        
+        numbers_temp.append("  Getippte Zahlen: ");
+        
+        for(int i: numbers.getNumbers()){
+            numbers_temp.append(i);
+            numbers_temp.append(" ");
+        }
+        
+        return numbers_temp.toString();
+    }
+    
+    public String getSuperNumberAsString(){
+        StringBuilder temp = new StringBuilder();
+        
+        temp.append("Getippte Superzahl: ");
+        temp.append(numbers.getSuperNumber());
+        
+        return temp.toString();
+    }
+    
+    public String getLottoGameTitleAsString(){
+        return lottoGame.getTitle();
+    }
 
     @Override
     public String toCustomString() {
-        return "Ein Lottotipp!";
+       
+        
+        return lottoGame.getTitle()+ getNumbersAsString();
     }
 }
