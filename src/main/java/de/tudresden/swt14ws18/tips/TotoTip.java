@@ -59,7 +59,23 @@ public class TotoTip extends Tip {
 
 	notifyObservers(false);
     }
+    
+    public String getMatchDateAsString(){
+        return totoMatch.getDateString();
+    }
 
+    public String getMatchTitleAsString(){
+        return totoMatch.getTitle();
+    }
+    
+    public String getInputAsString(){
+        return String.valueOf(input);
+    }
+    
+    public String getQuoteAsString(){
+        return String.valueOf(totoMatch.getQuote(result));
+    }
+    
     @Override
     public String toCustomString() {
         StringBuilder temp = new StringBuilder();

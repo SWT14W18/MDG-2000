@@ -98,10 +98,20 @@ public class LottoTip extends Tip {
             numbers_temp.append(" ");
         }
         
-        numbers_temp.append(" Getippte Superzahl: ");
-        numbers_temp.append(numbers.getSuperNumber());
-        
         return numbers_temp.toString();
+    }
+    
+    public String getSuperNumbersAsString(){
+        StringBuilder temp = new StringBuilder();
+        
+        temp.append("Getippte Superzahl: ");
+        temp.append(numbers.getSuperNumber());
+        
+        return temp.toString();
+    }
+    
+    public String getLottoGameTitleAsString(){
+        return lottoGame.getTitle();
     }
 
     @Override
