@@ -94,7 +94,7 @@ public class LottoGame extends Game {
 
     @Override
     public String getTitle() {
-	return String.format(title, dateFormat.format(getDate()));
+	return String.format(title, Lotterie.OUTPUT_DTF.format(getDate()));
     }
 
     @Override
