@@ -84,7 +84,7 @@
 				         
 				   </li>
 					   
-				   		<div class="fehler" th:if="${param.error}">
+				   		<div class="loginFehler" th:if="${param.error}">
 							<p class="h">Fehler</p>
 							<p>Benutername oder Passwort stimmmen nicht &uuml;berein!</p>
 							<p>Versuchen sie es erneut.</p>
@@ -94,6 +94,18 @@
 							</form>
 							<br/>
 							<p>Wenn du noch keine Account hast:<br/> <a href="index.html">Registrieren!</a></p>
+						</div>
+						
+						<div class="tippFehler" th:if="${asdf}">
+							<p class="h">Fehler</p>
+							<p>Einer oder mehrer Tipps im Tippschein sind unvollständig!</p>
+							<p>Bitte füllen sie alle benötigten Felder korrekt aus.</p>
+						    <br/>
+							<form>
+							<input class="loginButton" type="button" value="ok" tabindex="3" onclick="location='index.html'" />
+							</form>
+							<br/>
+							<p>Info: nicht jeder Tipp des Tippscheines muss ausgefüllt werden</p>
 						</div>
                             
 

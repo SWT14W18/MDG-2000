@@ -210,6 +210,13 @@ public class LotterieController {
 	handleGeneralValues(map);
 	return "games/lotto";
     }
+    
+    @RequestMapping("/login")
+    public String login(ModelMap map) {
+
+        handleGeneralValues(map);
+        return "index";
+    }
 
     @RequestMapping("/createLottoTip")
     public String createLottoTip(@RequestParam Map<String, String> params, ModelMap map) {
@@ -348,7 +355,7 @@ public class LotterieController {
 
 	}
 
-	map.addAttribute("loginError", true);
+	map.addAttribute("loginFehler", true);
 	return "index";
     }
 

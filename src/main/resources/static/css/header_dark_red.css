@@ -459,7 +459,7 @@ section #divListMessages fieldset:hover{
 		background-color: #FFF0F0;
 }
 
-div.fehler{
+div.loginFehler{
 	width:26%;
 	height:auto;
 	min-height:20%;
@@ -476,7 +476,7 @@ div.fehler{
 	z-index:1;
 }
 
-div.fehler p {
+div.loginFehler p {
 		line-height:125%;
 		font-family: 'Ubuntu',sans-serif;
         font-weight: 500;
@@ -484,7 +484,7 @@ div.fehler p {
 		color:#760107;
 		
 }
-div.fehler p.h{
+div.loginFehler p.h{
 		padding-left:0px;
 		padding-right:0px;
 		line-height:150%;
