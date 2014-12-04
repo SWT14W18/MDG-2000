@@ -40,6 +40,7 @@ import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
+import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 
@@ -293,6 +294,9 @@ public class LotterieController {
     public String groupoverview(ModelMap map) {
 
 	handleGeneralValues(map);
+          Community community = communityRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+          community.getCommunityName();
+          map.addAttribute("groupoverview", community);
 	return "groups/overview";
     }
 
@@ -300,6 +304,9 @@ public class LotterieController {
     public String groupcreate(ModelMap map) {
 
 	handleGeneralValues(map);
+//      Community community = CommunityRepository.(name, password, userAccount, admin);
+//      map.addAttribute("cName", community.getCommunityName());
+//      map.addAttribute("cPassword", community.getCommunityPassword());
 	return "groups/create";
     }
 
@@ -307,6 +314,9 @@ public class LotterieController {
     public String groupjoin(ModelMap map) {
 
 	handleGeneralValues(map);
+//      Community community = CommunityRepository.();
+//      map.addAttribute("cName", community.getCommunityName());
+//      map.addAttribute("cPassword", community.getCommunityPassword());
 	return "groups/join";
     }
 
@@ -314,6 +324,8 @@ public class LotterieController {
     public String groupmanage(ModelMap map) {
 
 	handleGeneralValues(map);
+//      Community community = CommunityRepository.();
+//      map.addAttribute("", community.getCommunityName());
 	return "groups/manage";
     }
 
