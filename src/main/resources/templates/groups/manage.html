@@ -6,6 +6,29 @@
 	<div th:replace="fragments/header :: header"></div>
 	<section>
 		<h1> Gruppe verwalten</h1>
+		
+		<!-- usertable -->
+			<hr/>
+			<br/>
+			<br/>
+			<div align="center">
+			<div align="center"  id="divListMessages">
+			<ol start="1" id="listMessages">
+ 				<div th:each="Community : ${groupmanage}">
+				<br/>
+				<br/>
+				<label  th:text="@{${Community.getMemberList()}}">Member</label>
+				<br/>
+				<br/>	
+				</div>
+			</ol>
+			</div>
+			</div>
+			<!-- kick User -->
+		<!-- add new user -->
+		<!-- change Password -->
+		<!-- change information? -->
+		
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>
