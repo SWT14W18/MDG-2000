@@ -10,7 +10,8 @@ import de.tudresden.swt14ws18.bank.Transaction;
 public interface TransactionRepository extends CrudRepository<Transaction, Long> {
 
     public List<Transaction> findByFromOrToOrderByDateDesc(BankAccount customer, BankAccount customer2);
-	
+    public List<Transaction> findByFrom(BankAccount customer);
+    public List<Transaction> findByTo(BankAccount bankAccount);
 	
 
 }

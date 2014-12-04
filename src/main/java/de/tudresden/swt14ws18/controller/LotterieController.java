@@ -175,12 +175,12 @@ public class LotterieController {
         double abfluesse = 0;
         
         
-        if(transactionRepo.findAll() != null){
+        for(Transaction trans: transactionRepo.findByFrom(Lotterie.getInstance().getBankAccount())){
+            abfluesse = abfluesse + trans.getAmount();
+        }
         
-            for(Transaction trans: transactionRepo.findAll()){
-                if(trans.getTo() == Lotterie.getInstance().getBankAccount()) zufluesse = zufluesse + trans.getAmount();
-                else abfluesse = trans.getAmount();
-            }
+        for(Transaction trans: transactionRepo.findByTo(Lotterie.getInstance().getBankAccount())){
+            zufluesse = zufluesse + trans.getAmount();
         }
         
         map.addAttribute("zufluesse", zufluesse);
