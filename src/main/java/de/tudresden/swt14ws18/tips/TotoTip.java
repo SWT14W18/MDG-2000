@@ -28,6 +28,7 @@ public class TotoTip extends Tip {
 	this.totoMatch = totoMatch;
 	this.result = result;
 	this.input = input;
+	totoMatch.addInput(result, input);
     }
 
     public TotoMatch getGame() {

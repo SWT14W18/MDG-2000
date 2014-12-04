@@ -22,25 +22,22 @@ body {
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1> Spiel &uuml;bersicht</h1>
-		<hr/>
-		<br/>
-		<br/>
-		<div align="center">
-		<div align="center"  id="divListMessages">
-		<ol start="1" id="listMessages">
-			<div th:each="item : ${tips}">
-			<a th:href="@{'/tipCollectionView?id='+${item.getTips()}}" >
+		<h1> Wettübersicht</h1>
+			<hr/>
 			<br/>
-		    <br/>
-			<label th:text="@{'Tippschein ('+${item.getTips().size()}+' Tipp(s) )'}">Test</label>
-		    <br/>
-		    <br/>
-		    </a>
+			<br/>
+			<div align="center">
+			<div align="center"  id="divListMessages">
+			<ol start="1" id="listMessages">
+ 				<div th:each="matchDay : ${liga1MatchDayInput}">
+ 					<p th:text="@{${matchDay.getKey()}+'.Spieltag'}">Spieltag</p>
+ 					<br/>
+					<a th:href="@{/totoMatchOverview(matchDay=${matchDay.getKey()},liga='BUNDESLIGA1')}"><span th:text="@{'1.Bundesliga - '+${matchDay.getValue()}}">1.Bundesliga</span></a>
+					<a th:href="@{/totoMatchOverview(matchDay=${matchDay.getKey()},liga='BUNDESLIGA2')}"><span th:text="@{'2.Bundesliga - '+${liga2MatchDayInput.get(matchDay.getKey())}}">2.Bundesliga</span></a>
+				</div>
+			</ol>
 			</div>
-		</ol>
-		</div>
-		</div>
+			</div>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>

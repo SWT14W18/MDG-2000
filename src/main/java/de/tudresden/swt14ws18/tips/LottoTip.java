@@ -16,7 +16,7 @@ public class LottoTip extends Tip {
     private static final double input = 1.00D;
 
     @ManyToOne
-    private LottoGame game;
+    private LottoGame lottoGame;
     private LottoNumbers numbers;
     @Enumerated
     private LottoResult result;
@@ -29,11 +29,11 @@ public class LottoTip extends Tip {
     public LottoTip(LottoGame game, LottoNumbers numbers) {
 	game.addObserver(this);
 	this.numbers = numbers;
-	this.game = game;
+	this.lottoGame = game;
     }
 
     public LottoGame getGame() {
-	return game;
+	return lottoGame;
     }
 
     public LottoNumbers getNumbers() {

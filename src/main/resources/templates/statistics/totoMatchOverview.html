@@ -22,27 +22,46 @@ body {
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1> Spiel &uuml;bersicht</h1>
-		<hr/>
-		<br/>
-		<br/>
-		<div align="center">
-		<div align="center"  id="divListMessages">
-		<ol start="1" id="listMessages">
-			<div th:each="item : ${tips}">
-			<a th:href="@{'/tipCollectionView?id='+${item.getTips()}}" >
+
+
+		<h1> Wettübersicht</h1>
+			<hr/>
 			<br/>
-		    <br/>
-			<label th:text="@{'Tippschein ('+${item.getTips().size()}+' Tipp(s) )'}">Test</label>
-		    <br/>
-		    <br/>
-		    </a>
+			<br/>
+			<div align="center">
+			<div align="center"  id="divListMessages">
+			<ol start="1" id="listMessages">
+ 				<div th:each="match : ${totoMatches}">
+ 				<br/>
+ 				<table>
+ 					<tr>
+ 						<td>
+ 						</td>
+ 						<td>
+ 							<p th:text="@{${match.getTeamHome()}+' - '+${match.getTeamGuest()}}">FC Beispiel - KeinPlan SC</p>
+ 						</td>
+ 						<td>
+ 						</td> 						
+ 					</tr>
+  					<tr>
+ 						<td>
+ 						<p th:text="@{'Heimsieg : '+${match.getResultInput().get(WIN_HOME)}}"></p>
+ 						</td>
+ 						<td>
+ 						<p th:text="@{'Auswärtssieg : '+${match.getResultInput().get(WIN_GUEST)}}"></p>
+ 						</td>
+ 						<td>
+ 						<p th:text="@{'Unentschieden : '+${match.getResultInput().get(DRAW)}}"></p>
+ 						</td> 					
+ 					</tr>
+ 				</table>
+				<br/>
+				</div>
+			</ol>
 			</div>
-		</ol>
-		</div>
-		</div>
+			</div>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>
-</body>	
+</body>
 </html>

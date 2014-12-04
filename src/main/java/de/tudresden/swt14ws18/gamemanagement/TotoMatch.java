@@ -1,6 +1,7 @@
 package de.tudresden.swt14ws18.gamemanagement;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.ElementCollection;
@@ -14,11 +15,14 @@ public class TotoMatch extends Game {
     private String teamGuest;
     @ElementCollection
     private Map<TotoResult, Double> quotes;
+    @ElementCollection
+    private Map<TotoResult, Double> resultInput;
     @Enumerated
     private TotoResult totoResult;
     @Enumerated
     private TotoGameType totoGameType;
     private int matchDay;
+    private Double totalInput = 0.0D;
 
     @Deprecated
     protected TotoMatch() {
@@ -32,6 +36,10 @@ public class TotoMatch extends Game {
 	this.totoGameType = totoGameType;
 	this.totoResult = TotoResult.NOT_PLAYED;
 	this.matchDay = matchDay;
+	resultInput = new HashMap<>();
+	resultInput.put(TotoResult.WIN_HOME, 0.0D);
+	resultInput.put(TotoResult.WIN_GUEST, 0.0D);
+	resultInput.put(TotoResult.DRAW, 0.0D);
     }
 
     /**
@@ -69,6 +77,14 @@ public class TotoMatch extends Game {
     public TotoGameType getTotoGameType() {
 	return totoGameType;
     }
+    
+    public Map<TotoResult, Double> getResultInput(){
+    	return resultInput;
+    }
+    
+    public Double getTotalInput(){
+    	return totalInput;
+    }
 
     /**
      * Hole den Spieltag in der jeweiligen Liga
@@ -91,6 +107,11 @@ public class TotoMatch extends Game {
 	    return 1;
 
 	return quotes.get(result);
+    }
+    
+    public void addInput(TotoResult totoResult, Double input){
+    	resultInput.put(totoResult, resultInput.get(totoResult)+input);
+    	totalInput=+input;
     }
 
     @Override
