@@ -67,7 +67,16 @@
 											<a th:href="profil.html"><label><i class="fa fa-user"></i> Profil</label></a>
 										</div>
 									</li>
-								</ul>								
+								</ul>	
+								
+								<ul id="navi_menu" sec:authorize="hasRole('ROLE_BOSS')">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="/time"><label><i class="fa fa-clock-o"></i> Zeit</label></a>
+										</div>
+									</li>
+								</ul>	
+														
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
