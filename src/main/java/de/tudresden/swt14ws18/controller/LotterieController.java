@@ -226,7 +226,8 @@ public class LotterieController {
             map.addAttribute("tips", set);
         }
         
-        return "games/tipCollectionView";
+        if(spielType == GameType.LOTTO) return "games/lottoTipCollectionOverview";
+        else return "games/totoTipCollectionOverview";
     }
     
     @RequestMapping("/totoMatchDays")
