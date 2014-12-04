@@ -1,6 +1,5 @@
 package de.tudresden.swt14ws18.useraccountmanager;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;

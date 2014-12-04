@@ -1,5 +1,7 @@
 package de.tudresden.swt14ws18;
 
+import java.time.format.DateTimeFormatter;
+
 import org.salespointframework.Salespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
 import org.salespointframework.SalespointWebConfiguration;
@@ -21,16 +23,39 @@ import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
 
+/*
+ * TODO Gruppenfunktionalität
+ * TODO Wettübersicht des Admins muss funktionieren + schön aussehen
+ * TODO Statisik des Admins ausbauen (Transaktionen zusammensuchen und auswerten)
+ * TODO Zeitanzeige + Zeitmanipulationsbuttons
+ * TODO Tippscheine müssen anklickbar und anzeigbar sein
+ *      
+ * TODO Lottotippabgabe hübsch gestalten (optional)
+ * TODO Admin sollte keine Tipps abgeben dürfen
+ * TODO Mitteilungsbildschirm überarbeiten (Mitteilungen bezahlbar)
+ * TODO Statusmeldungen
+ * TODO Uhrzeiten bei Fußballspielen anzeigen
+ * TODO bei Spielen Datumsanzeige: Wann findet die nächste Ziehung/das nächste Spiel statt?
+ *      
+ *      
+ * @author Reinhard_2
+ *
+ */
+
 @Configuration
 @EnableAutoConfiguration
 @EntityScan(basePackageClasses = { Salespoint.class, Lotterie.class })
 @EnableJpaRepositories(basePackageClasses = { Salespoint.class, Lotterie.class })
 @ComponentScan
 public class Lotterie {
+    /**
+     * Standard Datumsformat für die allgemeine Zeitausgabe.
+     */
+    public static final DateTimeFormatter OUTPUT_DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     private static final double LOTTO_PRICE = 1.00D;
     private static final double INPUT_INTO_POT = 0.9D;
-
+    
     private static Lotterie instance;
     private BusinessTime time;
     private BankAccount account = new BankAccount();

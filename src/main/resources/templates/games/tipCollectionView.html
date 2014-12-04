@@ -19,41 +19,22 @@ body {
 </style>
 </head>
 <body>
-	<!-- Header include
+	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1>Toto Ligen</h1>
-		
-		<ul th:each="item : ${games}">
-			<li th:each="match : ${item.getValue()}"><a href="#" th:href="@{'/totoTipp?id='+${match}}" th:text="@{${item.getKey().toString()}+' '+${match}+'.Spieltag'}">Game Name</a></li>
-		</ul>
-		
-	</section>-->
-	
-		<div th:replace="fragments/header :: header"></div>
-	<section>
-		<h1> Toto Partien</h1>
+		<h1> Tippscheinuuml;bersicht</h1>
 		<hr/>
 		<br/>
 		<br/>
-		<div align="center">
-		<div align="center"  id="divListMessages">
 		<ol start="1" id="listMessages">
-		
-			<div th:each="item : ${totoGameTypes}">
-			<a th:href="@{'/totoMatchDays?id='+${item.name()}}" >
+			<div th:each="item : ${tips}">
 			<br/>
-			<br/>
-			<br/>
-			<label  th:text="@{${item.toString()}}">TotoGameType</label>
-			<br/>
-			<br/>
-			<br/>
-			</a>				
+		    <br/>
+			<label th:text="@{'Tipp: '+${item}}">Test</label>
+		    <br/>
+		    <br/>
 			</div>
 		</ol>
-		</div>
-		</div>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>

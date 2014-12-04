@@ -6,8 +6,7 @@ public class Util {
     }
 
     public static int matches(int[] arr1, int[] arr2) {
-	if (arr1 == null || arr1.length == 0 || arr2 == null
-		|| arr2.length == 0)
+	if (arr1 == null || arr1.length == 0 || arr2 == null || arr2.length == 0)
 	    return 0;
 
 	int matches = 0;
@@ -18,7 +17,7 @@ public class Util {
 		    break;
 		}
 	    }
-	
+
 	return matches;
     }
 
@@ -33,6 +32,19 @@ public class Util {
 		return false;
 	}
 
+	return true;
+    }
+
+    public static boolean isUnique(int[] numbers) {
+
+	for (int i = 0; i < numbers.length; i++)
+	    for (int j = 0; j < numbers.length; j++) {
+		if (i == j)
+		    continue;
+
+		if (numbers[i] == numbers[j])
+		    return false;
+	    }
 	return true;
     }
 }

@@ -32,7 +32,7 @@ header { /* Weißes border oben und schwarzer unten , verlauf im header */
    background-image: linear-gradient(#EFEFEF 0%, #D1D1D1 100%);*/
 }
 header nav {/*Zentriert die Bedienelemente in der Mitte des Bildschirms und legt die Größe der Navigation fest.*/
-   width: 1280px;
+   width: 1170px;
    margin: 0 auto;
 }
 header ul#navigation {/*Zentriert die Liste der Navigationselemente vertikal.*/
@@ -279,7 +279,7 @@ header .loginButton {
 section {
 /* jo */
 		box-shadow: 5px 5px 5px 3px #888;
-		width:1280px;
+		width:1170px;
 		margin: 0 auto;
 		text-align:left;
 		border-width: 1px;
@@ -296,7 +296,7 @@ section {
 }
 footer {
 box-shadow: 5px 5px 5px 3px #888;
-		width:1280px;
+		width:1170px;
 		margin: 0 auto;
 		text-align:left;
 		border-top:2px solid #C51919;

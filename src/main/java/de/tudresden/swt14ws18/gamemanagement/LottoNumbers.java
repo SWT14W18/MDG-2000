@@ -26,6 +26,9 @@ public class LottoNumbers implements Serializable {
 	if (numbers.length != 6)
 	    throw new IllegalArgumentException("LottoNumbers requires exactly 6 values!");
 
+	if (!Util.isUnique(numbers))
+	    throw new IllegalArgumentException("LottoNumbers must be unique");
+
 	for (int number : numbers)
 	    if (!Util.isBetween(number, 1, 49))
 		throw new IllegalArgumentException("LottoNumbers must be between 1 and 49!");

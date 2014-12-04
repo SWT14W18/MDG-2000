@@ -22,27 +22,39 @@ body {
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1> Lotteriestatistik</h1>
+		<h1> Wettübersicht</h1>
 		<hr/>
 		<br/>
 		<br/>
 		<div align="center">
-		<div align="center"  id="divListMessages">
-		<ol start="1" id="listMessages">
-			<div th:each="transactionItem : ${transactions}">
-			<br/>
-			<label  th:text="@{'Von: '+${transactionItem.getNameFrom()}}">Von</label>
-			<br/>
-			<label  th:text="@{'Nach: '+${transactionItem.getNameTo()}}">Von</label>
-			<br/>
-			<label  th:text="@{'Geldbetrag: '+${transactionItem.getAmount()}}+' €'">Von</label>
-			<br/>
-			<label  th:text="@{'Datum: '+${transactionItem.getDateString()}}">Von</label>
-			<br/>
-			<br/>				
-			</div>
-		</ol>
-		</div>
+		<table>
+			<tr>
+				<td><p>Lottoübersicht</p>
+					<br/>
+					<br/>
+					<p th:text="@{'Nächste Ziehung ist am '+${lottoTipsMap.firstKey().getDateString()}}">Nächste Ziehung</p>
+					<br/>
+					<p th:text="@{'Gesamtvolumen der Tipps : '+${lottoTipsMap.get(nextLottoGame)}+' Euro'}">Input</p>
+					<br/>
+					<br/>
+					<br/>
+					<a th:href="lottoOverview.html"><label>Liste aller Ziehungen</label></a>
+				</td>
+				<td><p>Totoübersicht</p>
+					<br/>
+					<br/>
+					<p th:text="@{${liga1MatchDayInput.firstKey()}+'.Spieltag'}">Spieltag</p>
+					<br/>
+					<br/>
+					<p th:text="@{'1.Bundesliga - Gesamtvolumen : '+${liga1MatchDayInput.get(liga1MatchDayInput.firstKey())}}">1.Bundesliga</p>
+					<br/>
+					<p th:text="@{'2.Bundesliga - Gesamtvolumen : '+${liga2MatchDayInput.get(liga2MatchDayInput.firstKey())}}">2.Bundesliga</p>
+					<br/>
+					<br/>
+					<a th:href="totoOverview.html"><label>Mehr Daten ...</label></a>
+				</td>
+			</tr>
+		</table>
 		</div>
 	</section>
 	<!-- Footer include -->

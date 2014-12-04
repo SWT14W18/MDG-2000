@@ -1,7 +1,7 @@
 package de.tudresden.swt14ws18;
 
 import java.io.IOException;
-import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.salespointframework.core.DataInitializer;
@@ -16,11 +16,16 @@ import org.springframework.util.Assert;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
+import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
+import de.tudresden.swt14ws18.repositories.LottoTipCollectionRepository;
+import de.tudresden.swt14ws18.repositories.LottoTipRepository;
 import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
+import de.tudresden.swt14ws18.tips.LottoTip;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 
@@ -33,11 +38,13 @@ public class LotterieDataInitializer implements DataInitializer {
     private final TotoMatchRepository totoMatchRepository;
     private final LottoMatchRepository lottoMatchRepository;
     private final MessageRepository messageRepository;
+    private final LottoTipRepository lottoTipRepository;
+    private final LottoTipCollectionRepository lottoTipCollectionRepository;
 
     @Autowired
     public LotterieDataInitializer(CustomerRepository customerRepository, UserAccountManager userAccountManager,
 	    BankAccountRepository bankAccountRepository, TotoMatchRepository totoMatchRepository, LottoMatchRepository lottoMatchRepository,
-	    MessageRepository messageRepository) {
+	    MessageRepository messageRepository, LottoTipRepository lottoTipRepository, LottoTipCollectionRepository lottoTipCollectionRepository) {
 
 	Assert.notNull(customerRepository, "CustomerRepository must not be null!");
 	Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
@@ -48,20 +55,55 @@ public class LotterieDataInitializer implements DataInitializer {
 	this.bankAccountRepository = bankAccountRepository;
 	this.totoMatchRepository = totoMatchRepository;
 	this.lottoMatchRepository = lottoMatchRepository;
+	this.lottoTipRepository = lottoTipRepository;
+	this.lottoTipCollectionRepository = lottoTipCollectionRepository;
     }
 
     @Override
     public void initialize() {
 	initializeUsers(userAccountManager, customerRepository, bankAccountRepository);
+	initializeData(lottoMatchRepository, totoMatchRepository, lottoTipRepository, lottoTipCollectionRepository);
+    }
 
-	for (int i = 0; i < 100; i++)
-	    lottoMatchRepository.save(new LottoGame(Lotterie.getInstance().getTime().getTime()));
+    private void initializeData(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository, 
+    		LottoTipRepository lottoTipRepository, LottoTipCollectionRepository lottoTipCollectionRepository) {
+    	
+//    	lottoMatchRepository.deleteAll();
+//    	lottoTipRepository.deleteAll();
+//    	lottoTipCollectionRepository.deleteAll();
+//    	totoMatchRepository.deleteAll();
+
+    if(!lottoMatchRepository.findAll().iterator().hasNext()){
+    	LocalDateTime ldt = LocalDateTime.of(2014, 12, 7, 12, 0);	
+    	for (int i = 0; i < 50; i++){
+    		lottoMatchRepository.save(new LottoGame(ldt));
+    		ldt=ldt.plusDays(7);
+    	}
+    }
+	
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1,2,3,4,5,6,7)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1,2,3,4,5,6,7)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1,2,3,4,5,6,7)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1,2,3,4,5,6,7)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1,2,3,4,5,6,7)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 14, 12, 0)), new LottoNumbers(1,2,3,4,5,6,7)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 14, 12, 0)), new LottoNumbers(1,2,3,4,5,6,7)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 28, 12, 0)), new LottoNumbers(1,2,3,4,5,6,7)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 28, 12, 0)), new LottoNumbers(1,2,3,4,5,6,7)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 28, 12, 0)), new LottoNumbers(1,2,3,4,5,6,7)));
+	lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 28, 12, 0)), new LottoNumbers(1,2,3,4,5,6,7)));
+
+
+
+	if (totoMatchRepository.findAll().iterator().hasNext()) {
+	    return;
+	}
 
 	try {
-	    new TotoDataInitializer(this.totoMatchRepository).totoInitialize();
+	    new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.BUNDESLIGA1);
+	    new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.BUNDESLIGA2);
+	    // new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.POKAL);
 	} catch (IOException e) {
-	    e.printStackTrace();
-	} catch (ParseException e) {
 	    e.printStackTrace();
 	}
     }
@@ -77,7 +119,7 @@ public class LotterieDataInitializer implements DataInitializer {
 	UserAccount admin = userAccountManager.create("admin", "123", new Role("ROLE_BOSS"));
 	userAccountManager.save(admin);
 
-	BankAccount adminAccount = new BankAccount();
+	BankAccount adminAccount = Lotterie.getInstance().getBankAccount(); // new BankAccount();
 	ConcreteCustomer adminCustomer = new ConcreteCustomer("admin", "123", Status.ACTIVE, admin, adminAccount);
 
 	bankAccountRepository.save(adminAccount);
@@ -107,7 +149,7 @@ public class LotterieDataInitializer implements DataInitializer {
 
 	bankAccountRepository.save(Arrays.asList(ba1, ba2, ba3, ba4));
 	customerRepository.save(Arrays.asList(c1, c2, c3, c4));
-	
+
 	c1.addMessage(GameType.LOTTO);
 	c1.addMessage(GameType.TOTO);
 	c1.addMessage(GameType.LOTTO);
@@ -117,8 +159,8 @@ public class LotterieDataInitializer implements DataInitializer {
 	c1.addMessage(GameType.LOTTO);
 	c1.addMessage(GameType.LOTTO);
 	c1.addMessage(GameType.LOTTO);
-	
+
 	messageRepository.save(c1.getMessages());
-	
+
     }
 }

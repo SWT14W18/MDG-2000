@@ -23,10 +23,24 @@ body {
 	<div th:replace="fragments/header :: header"></div>
 	<section>
 		<h1> Spiel &uuml;bersicht</h1>
-		
-		<ul style="margin: 0 0 0 50px">
-			<li th:each="item : ${tips}" th:text="@{'Tippschein ('+${item.getTips().size()}+' Tipps)'}">Test</li>
-		</ul>
+		<hr/>
+		<br/>
+		<br/>
+		<div align="center">
+		<div align="center"  id="divListMessages">
+		<ol start="1" id="listMessages">
+			<div th:each="item : ${tips}">
+			<a th:href="@{'/tipCollectionView?id='+${item.getTips()}}" >
+			<br/>
+		    <br/>
+			<label th:text="@{'Tippschein ('+${item.getTips().size()}+' Tipp(s) )'}">Test</label>
+		    <br/>
+		    <br/>
+		    </a>
+			</div>
+		</ol>
+		</div>
+		</div>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>

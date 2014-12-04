@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import de.tudresden.swt14ws18.Lotterie;
+
 /**
  * Repräsentiert ein Spiel
  */
@@ -56,6 +58,10 @@ public abstract class Game extends Observable {
      */
     public LocalDateTime getDate() {
 	return date;
+    }
+    
+    public String getDateString(){
+    	return date.format(Lotterie.OUTPUT_DTF);
     }
 
     /**

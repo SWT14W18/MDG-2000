@@ -5,11 +5,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.AuthenticationManager;
@@ -19,6 +19,7 @@ import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
@@ -81,6 +83,8 @@ public class LotterieController {
     }
 
     public void handleGeneralValues(ModelMap map) {
+	map.addAttribute("time", Lotterie.getInstance().getTime().getTime().format(Lotterie.OUTPUT_DTF));
+	
 	if (authenticationManager.getCurrentUser().isPresent()) {
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 
@@ -153,14 +157,17 @@ public class LotterieController {
 	return tips;
     }
 
-    //TODO nach Datum sortieren
+
+    
     @RequestMapping("/toto")
     public String toto(ModelMap map) {
 	handleGeneralValues(map);
-
-	Map<TotoGameType, Set<Integer>> dates = getRemainingMatchDates();
-
-	map.addAttribute("games", dates.entrySet());
+    	
+    	map.addAttribute("totoGameTypes", TotoGameType.values());
+//
+//	Map<TotoGameType, Set<Integer>> dates = getRemainingMatchDates();
+//
+//	map.addAttribute("games", dates.entrySet());
 	return "games/toto";
     }
 
@@ -173,22 +180,52 @@ public class LotterieController {
 	    LocalDateTime date = match.getDate().minusMinutes(MINUTES_BEFORE_DATE);
 	    if (!localTime.isAfter(date)) {
 		if (!list.containsKey(match.getTotoGameType()))
-		    list.put(match.getTotoGameType(), new HashSet<Integer>());
+		    list.put(match.getTotoGameType(), new TreeSet<Integer>());
 
 		list.get(match.getTotoGameType()).add(match.getMatchDay());
 	    }
+
 	}
 
 	return list;
     }
+    
+    @RequestMapping("/tipCollectionView")
+    public String tipCollectionView(ModelMap map){
+        handleGeneralValues(map);
+        
+        
+        
+        return "tipCollectionView";
+    }
+    
+    @RequestMapping("/totoMatchDays")
+    public String totoMatchDays(@RequestParam("id") String totoGameTypeString, ModelMap map){
+
+	handleGeneralValues(map);
+    	TotoGameType totoGameType = TotoGameType.valueOf(totoGameTypeString);
+
+    	Set<Integer> set = new TreeSet<>();
+    	for (TotoMatch match : totoRepo.findByTotoResultAndTotoGameType(TotoResult.NOT_PLAYED, totoGameType)) {
+    	    LocalDateTime localTime = time.getTime();
+    	    LocalDateTime date = match.getDate().minusMinutes(MINUTES_BEFORE_DATE);
+    	    if (!localTime.isAfter(date)) {
+    	    	set.add(match.getMatchDay());
+    	    }
+    	}
+    	map.addAttribute("matchDays", set);
+    	map.addAttribute("liga", totoGameType.name());
+    	return "games/totoMatchDays";
+    }
 
     @RequestMapping("/totoTipp")
-    public String totoTipp(@RequestParam("id") int id, ModelMap map) {
+    public String totoTipp(@RequestParam("liga") String liga, @RequestParam("id") int id, ModelMap map) {
 	handleGeneralValues(map);
 
+    	TotoGameType totoGameType = TotoGameType.valueOf(liga);	
 	List<TotoMatch> list = new ArrayList<>();
 
-	for (TotoMatch match : totoRepo.findByMatchDay(id)) {
+	for (TotoMatch match : totoRepo.findByMatchDayAndTotoGameType(id, totoGameType)) {
 	    if (match.isFinished())
 		continue;
 
@@ -218,7 +255,7 @@ public class LotterieController {
         return "index";
     }
 
-    @RequestMapping("/createLottoTip")
+    @RequestMapping(value = "/createLottoTip", method = RequestMethod.POST)
     public String createLottoTip(@RequestParam Map<String, String> params, ModelMap map) {
 
 	handleGeneralValues(map);
@@ -281,6 +318,7 @@ public class LotterieController {
     }
 
     @RequestMapping("/profil")
+    @PreAuthorize("isAuthenticated()")
     public String profil(ModelMap map) {
 
 	handleGeneralValues(map);
