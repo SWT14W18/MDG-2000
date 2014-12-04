@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<!-- Header include -->
+	<div th:replace="fragments/header :: header"></div>
+	<section>
+		<h1>Zeitmanagement</h1>
+		<hr/>
+		<br/>
+		<br/>
+		<p>Geld einzahlen:</p>
+		<form th:action="@{/vorspulen}" method="post">
+		
+		Ändere die Zeit in Minuten. Zurückspulen mit negativen Werten!
+		
+		<div align="center"><input type="value" name="time" placeholder="Minuten"/><br/></div>
+		<div align="center"><input type="submit" value="Spulen!"/></div>
+
+		</form>
+				
+		<br/>
+		<br/>
+		<br/>
+	</section>
+	<!-- Footer include -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>	
+</html>

@@ -6,6 +6,8 @@ import org.salespointframework.Salespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
 import org.salespointframework.SalespointWebConfiguration;
 import org.salespointframework.time.BusinessTime;
+import org.salespointframework.useraccount.UserAccountIdentifier;
+import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,8 +21,10 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
+import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
 
 /*
@@ -52,24 +56,42 @@ public class Lotterie {
      * Standard Datumsformat für die allgemeine Zeitausgabe.
      */
     public static final DateTimeFormatter OUTPUT_DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+    public static final DateTimeFormatter OUTPUT_DTF_LARS = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
     private static final double LOTTO_PRICE = 1.00D;
     private static final double INPUT_INTO_POT = 0.9D;
     
     private static Lotterie instance;
     private BusinessTime time;
-    private BankAccount account = new BankAccount();
     private TransactionRepository transactionRepo;
     private LottoMatchRepository lottoRepo;
     private CustomerRepository customerRepository;
+    private MessageRepository messageRepo;
+    private UserAccountManager userAccountManager;
+    private BankAccountRepository bankAccountRepo;
 
     public Lotterie() {
 	instance = this;
     }
     
     @Autowired
+    public void setUserAccountManager(UserAccountManager userAccountManager) {
+        this.userAccountManager = userAccountManager;
+    }
+    
+    @Autowired
+    public void setBankAccountRepository(BankAccountRepository bankAccountRepository) {
+        this.bankAccountRepo = bankAccountRepository;
+    }
+    
+    @Autowired
     public void setCustomerRepository(CustomerRepository customerRepository){
         this.customerRepository = customerRepository;
+    }
+    
+    @Autowired
+    public void setMessageRepository(MessageRepository messageRepo) {
+        this.messageRepo = messageRepo;
     }
 
     @Autowired
@@ -100,7 +122,7 @@ public class Lotterie {
     }
 
     public BankAccount getBankAccount() {
-	return account;
+	return customerRepository.findByUserAccount(userAccountManager.get(new UserAccountIdentifier("admin")).get()).getAccount();
     }
 
     public void setNextLottoPot(LottoGame game) {
@@ -136,5 +158,13 @@ public class Lotterie {
     
     public CustomerRepository getCustomerRepository(){
         return customerRepository;
+    }
+
+    public MessageRepository getMessagesRepository() {
+        return messageRepo;
+    }
+    
+    public BankAccountRepository getBankAccountRepository() {
+        return bankAccountRepo;
     }
 }

@@ -38,6 +38,10 @@ public abstract class TipCollection<T extends Tip> implements Observer {
 	
     }
     
+    public long getId(){
+        return id;
+    }
+    
     public TipCollection(List<T> tips, ConcreteCustomer owner) {
 	this.tips = tips;
 	this.owner = owner;
@@ -136,5 +140,5 @@ public abstract class TipCollection<T extends Tip> implements Observer {
 	owner.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(), tip.getInput() * (getShares().getRemainingShare() + ownerExtra));
     }
     
-    protected abstract GameType getGameType();
+    public abstract GameType getGameType();
 }

@@ -6,4 +6,6 @@ import de.tudresden.swt14ws18.useraccountmanager.Message;
 
 public interface MessageRepository extends CrudRepository<Message, Long> {
 
+    Message findById(long id);
+
 }

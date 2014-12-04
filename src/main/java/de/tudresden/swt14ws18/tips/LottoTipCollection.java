@@ -20,7 +20,7 @@ public class LottoTipCollection extends TipCollection<LottoTip> {
     }
 
     @Override
-    protected GameType getGameType(){
+    public GameType getGameType(){
         return GameType.LOTTO;
     }
 }
