@@ -55,9 +55,16 @@ Wochentag = new Array("Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Fre
 
 // Funktionen für Anzeigen Tag Datum + dynamische Uhrzeit
 
+var SystemDatum;
+
+function CreateTime()
+{
+  SystemDatum = new Date(document.getElementById("ZeitAnzeige").innerHTML);
+}
+
 function DisplayTime()
 {
- var SystemDatum = new Date();
+
  var CounterTag = SystemDatum.getDate();
  var CounterMonat = SystemDatum.getMonth() + 1;
  var CounterJahr = SystemDatum.getFullYear();
@@ -73,7 +80,7 @@ function DisplayTime()
  var CounterMin2  = ((CounterMin < 10) ? ":0" : ":");
  var CounterSek2  = ((CounterSek < 10) ? ":0" : ":");
 
-
+	SystemDatum.setSeconds( SystemDatum.getSeconds() +1);
  // Die 3 Fragmente für die Anzeige Wochentag Datum Zeit
 
  // aktuelles Datum
@@ -109,7 +116,9 @@ document.getElementById("ZeitAnzeige").innerHTML = DispString;
 setTimeout("DisplayTime()", 1000);
 }
 
+window.setTimeout('CreateTime()',0);
 window.setTimeout('DisplayTime()',0);
+
 
 // -->
 </script>
