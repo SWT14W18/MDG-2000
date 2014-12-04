@@ -52,16 +52,7 @@ public class Community extends Customer{
 	@OneToOne
 	private ConcreteCustomer admin;
 	
-	@OneToOne
-	private UserAccount userAccount;
-	
-	@OneToOne
-	private Community memberCount;
-	
-	@OneToOne
 	private String communityName;
-	
-	@OneToOne
 	private String communityPassword;
 	
 	/**
@@ -74,9 +65,9 @@ public class Community extends Customer{
 	 */
 	
 	public Community(String name, String password, UserAccount userAccount, ConcreteCustomer admin) {
+	        super(name, password);
 		this.communityName = name;
 		this.communityPassword = password;
-		this.userAccount = userAccount;
 		this.admin = admin;
 		addMember(admin);
 	}
@@ -164,16 +155,7 @@ public class Community extends Customer{
 //                return true;
 //            }
 //        return false;
-//      }
-	
-	/**
-	 * Gibt die Anzahl der Gruppenmitglieder aus
-	 * @return
-	 */
-        public Community getMemberCount(){
-            return memberCount;
-        }
-        
+//      }        
         /**
          * Gibt die Mitglieder einer Gruppe aus
          * @return
