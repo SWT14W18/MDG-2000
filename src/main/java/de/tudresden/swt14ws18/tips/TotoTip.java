@@ -62,7 +62,21 @@ public class TotoTip extends Tip {
 
     @Override
     public String toCustomString() {
-        // TODO Hier müsste noch eine toString geschrieben sein 
-        return "Das ist ein Tototipp";
+        StringBuilder temp = new StringBuilder();
+        
+        temp.append("Datum: ");
+        temp.append(totoMatch.getDateString());
+        temp.append("<br/>Spiel:  ");
+        temp.append(totoMatch.getTitle());
+        temp.append("<br/>  Einsatz:  ");
+        temp.append(input);
+        temp.append("€");
+        temp.append("<br/>  Quote:   ");
+        temp.append(totoMatch.getQuote(result));
+        
+        
+        
+        
+        return temp.toString();
     }
 }
