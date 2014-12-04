@@ -174,9 +174,13 @@ public class LotterieController {
         double zufluesse = 0;
         double abfluesse = 0;
         
-        for(Transaction trans: transactionRepo.findAll()){
-            if(trans.getTo() == Lotterie.getInstance().getBankAccount()) zufluesse = zufluesse + trans.getAmount();
-            else abfluesse = trans.getAmount();
+        
+        if(transactionRepo.findAll() != null){
+        
+            for(Transaction trans: transactionRepo.findAll()){
+                if(trans.getTo() == Lotterie.getInstance().getBankAccount()) zufluesse = zufluesse + trans.getAmount();
+                else abfluesse = trans.getAmount();
+            }
         }
         
         map.addAttribute("zufluesse", zufluesse);
