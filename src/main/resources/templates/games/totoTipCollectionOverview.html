@@ -18,9 +18,9 @@
 		    <label th:text="${item.getMatchTitleAsString()}">Titel</label>
 		    <br/>
 		    <br/>
-			<label th:text="${item.getInputAsString()}">Einsatz</label>
+			<label th:text="@{'Einsatz: '+${item.getInputAsString()}+'€'}">Einsatz</label>
 		    <br/>
-		    <laber th:text"${item.getQuoteAsString()}">Quote</label>
+		    <label th:text="@{'Quote: '+${item.getQuoteAsString()}}">Quote</label>
 		    <br/>
 			</div>
 		</ol>
