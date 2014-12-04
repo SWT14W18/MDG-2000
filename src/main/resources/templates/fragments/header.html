@@ -78,11 +78,12 @@
                          </span>
                    </li>
 
-				   <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright"><a th:href="bankaccount.html"><label class="menuentry_money"> <i class="fa fa-eur" th:text="${balance}"></i></label></a></li>
-
+				   
+		
                    <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></a></li>
-				   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></a>      
-				   </li>
+                  <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright"><a th:href="bankaccount.html"><label class="menuentry_money"> <i class="fa fa-eur" th:text="${balance}"></i></label></a></li>
+				   
+				  
 					   <!-- Login Fehler -->
 				   		<div class="Fehler" th:if="${asdasfa}">
 							<p class="h">Fehler</p>
@@ -132,7 +133,7 @@
 							<p>Info: Es dürfen nicht mehr als zwei Nachkommastellen angegeben werden.</p>
 						</div>
 
-
+				
 				   <li sec:authorize="!isAuthenticated()" class="liright"><a th:href="registration.html"><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
 					
 					<form sec:authorize="!isAuthenticated()" th:action="@{/login}" method="post">
