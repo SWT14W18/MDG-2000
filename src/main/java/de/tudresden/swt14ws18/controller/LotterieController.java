@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
+import de.tudresden.swt14ws18.bank.Transaction;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
@@ -164,6 +165,24 @@ public class LotterieController {
         map.addAttribute("transactions", transactionRepo.findByFromOrToOrderByDateDesc(customer, customer));// customer.getAccount().getTransactions());
 
         return "statistics/overview";
+    }
+    
+    @RequestMapping("inOutOverview")
+    public String inoutoverview(ModelMap map){
+        handleGeneralValues(map);
+        
+        double zufluesse = 0;
+        double abfluesse = 0;
+        
+        for(Transaction trans: transactionRepo.findAll()){
+            if(trans.getTo() == Lotterie.getInstance().getBankAccount()) zufluesse = zufluesse + trans.getAmount();
+            else abfluesse = trans.getAmount();
+        }
+        
+        map.addAttribute("zufluesse", zufluesse);
+        map.addAttribute("ausgaben", abfluesse);
+        
+        return "statistics/inOutOverview";
     }
 
     @RequestMapping("/gameoverview")
