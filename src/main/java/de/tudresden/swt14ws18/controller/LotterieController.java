@@ -36,11 +36,13 @@ import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CommunityRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoTipCollectionRepository;
+import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
+import de.tudresden.swt14ws18.useraccountmanager.Message;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 
 @Controller
@@ -54,6 +56,7 @@ public class LotterieController {
     private final TotoMatchRepository totoRepo;
     private final LottoTipCollectionRepository lottoTipCollectionRepo;
     private final TotoTipCollectionRepository totoTipCollectionRepo;
+    private final MessageRepository messageRepo;
     private final TipFactory tipFactory;
     private final BusinessTime time;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -63,7 +66,7 @@ public class LotterieController {
     public LotterieController(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository,
 	    AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository, TipFactory tipFactory,
 	    TotoMatchRepository totoRepo, LottoTipCollectionRepository lottoTipCollectionRepo, TotoTipCollectionRepository totoTipCollectionRepo,
-	    BusinessTime time) {
+	    BusinessTime time, MessageRepository messageRepo) {
 	Assert.notNull(authenticationManager, "UserAccountManager must not be null!");
 	Assert.notNull(bankAccountRepository, "UserAccountManager must not be null!");
 	Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
@@ -80,6 +83,7 @@ public class LotterieController {
 	this.authenticationManager = authenticationManager;
 	this.lottoTipCollectionRepo = lottoTipCollectionRepo;
 	this.totoTipCollectionRepo = totoTipCollectionRepo;
+	this.messageRepo = messageRepo;
     }
 
     public void handleGeneralValues(ModelMap map) {
@@ -118,6 +122,17 @@ public class LotterieController {
 	return "redirect:index";
     }
 
+    @RequestMapping("/payMessage")
+    public String payMessage(@RequestParam("id") long id, ModelMap map) {
+	Message message = messageRepo.findById(id);
+	ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+
+	if(customer.hasMessage(message))
+	    customer.payOneMessage(message);
+		
+	return "redirect:index";
+    }
+    
     @RequestMapping({ "/", "/index" })
     public String Toindex(ModelMap map) {
 	handleGeneralValues(map);

@@ -6,6 +6,7 @@ import org.salespointframework.Salespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
 import org.salespointframework.SalespointWebConfiguration;
 import org.salespointframework.time.BusinessTime;
+import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -21,6 +22,7 @@ import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
+import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
 
 /*
@@ -62,14 +64,30 @@ public class Lotterie {
     private TransactionRepository transactionRepo;
     private LottoMatchRepository lottoRepo;
     private CustomerRepository customerRepository;
+    private MessageRepository messageRepo;
+    private UserAccountManager userAccountManager;
 
     public Lotterie() {
 	instance = this;
     }
     
+    protected void setAccount(BankAccount account) {
+        this.account = account;
+    }
+    
+    @Autowired
+    public void setUserAccountManager(UserAccountManager userAccountManager) {
+        this.userAccountManager = userAccountManager;
+    }
+    
     @Autowired
     public void setCustomerRepository(CustomerRepository customerRepository){
         this.customerRepository = customerRepository;
+    }
+    
+    @Autowired
+    public void setMessageRepository(MessageRepository messageRepo) {
+        this.messageRepo = messageRepo;
     }
 
     @Autowired
@@ -136,5 +154,9 @@ public class Lotterie {
     
     public CustomerRepository getCustomerRepository(){
         return customerRepository;
+    }
+
+    public MessageRepository getMessagesRepository() {
+        return messageRepo;
     }
 }

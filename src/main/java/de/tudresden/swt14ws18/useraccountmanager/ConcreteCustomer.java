@@ -85,18 +85,20 @@ public class ConcreteCustomer extends Customer {
         
 	messages.add(temp);
     }
+    
+    public boolean hasMessage(Message message) {
+	return messages.contains(message);
+    }
 
     public void payOneMessage(Message message) {
     	account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2);
     	messages.remove(message);
+    	Lotterie.getInstance().getMessagesRepository().delete(message);
     }
     
     public void payAllMessages(){
-    	int i=0;
-    	
-    	for(i=0;i<=messages.size();i++){
-    		account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2);	
-    	}
+        for(Message message : messages)
+            payOneMessage(message);
     }
     
     public List<Message> getMessages(){
