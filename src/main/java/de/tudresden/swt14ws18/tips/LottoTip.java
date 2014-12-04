@@ -101,7 +101,7 @@ public class LottoTip extends Tip {
         return numbers_temp.toString();
     }
     
-    public String getSuperNumbersAsString(){
+    public String getSuperNumberAsString(){
         StringBuilder temp = new StringBuilder();
         
         temp.append("Getippte Superzahl: ");
