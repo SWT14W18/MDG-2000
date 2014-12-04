@@ -59,4 +59,10 @@ public class TotoTip extends Tip {
 
 	notifyObservers(false);
     }
+
+    @Override
+    public String toCustomString() {
+        // TODO Hier müsste noch eine toString geschrieben sein 
+        return "Das ist ein Tototipp";
+    }
 }

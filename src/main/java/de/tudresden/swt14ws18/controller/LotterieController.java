@@ -38,6 +38,7 @@ import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
+import de.tudresden.swt14ws18.tips.Tip;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
@@ -191,12 +192,23 @@ public class LotterieController {
     }
     
     @RequestMapping("/tipCollectionView")
-    public String tipCollectionView(ModelMap map){
+    public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId){
         handleGeneralValues(map);
         
-        
-        
-        return "tipCollectionView";
+        if (authenticationManager.getCurrentUser().isPresent()) {
+            
+            ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+            
+            List<Tip> set = new ArrayList<>();
+            if(lottoTipCollectionRepo.findOne(tippscheinId) != null){
+                set.addAll(lottoTipCollectionRepo.findOne(tippscheinId).getTips());
+            }
+            if(totoTipCollectionRepo.findOne(tippscheinId) != null){
+                set.addAll(totoTipCollectionRepo.findOne(tippscheinId).getTips());
+            }
+            map.addAttribute("tips", set);
+        }
+        return "games/tipCollectionView";
     }
     
     @RequestMapping("/totoMatchDays")

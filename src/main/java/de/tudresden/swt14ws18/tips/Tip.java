@@ -25,6 +25,8 @@ public abstract class Tip extends Observable implements Observer {
 	return valid;
     }
     
+    public abstract String toCustomString();
+    
     public void invalidate(boolean valid) {
 	this.valid = valid;
     }

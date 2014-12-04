@@ -38,6 +38,10 @@ public abstract class TipCollection<T extends Tip> implements Observer {
 	
     }
     
+    public long getId(){
+        return id;
+    }
+    
     public TipCollection(List<T> tips, ConcreteCustomer owner) {
 	this.tips = tips;
 	this.owner = owner;

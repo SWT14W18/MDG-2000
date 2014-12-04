@@ -30,7 +30,7 @@ body {
 			<div th:each="item : ${tips}">
 			<br/>
 		    <br/>
-			<label th:text="@{'Tipp: '+${item}}">Test</label>
+			<label th:text="@{'Tipp: '+${item.toCustomString()}}">Test</label>
 		    <br/>
 		    <br/>
 			</div>

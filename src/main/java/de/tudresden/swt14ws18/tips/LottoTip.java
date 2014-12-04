@@ -87,4 +87,9 @@ public class LottoTip extends Tip {
     public double getInput() {
 	return input;
     }
+
+    @Override
+    public String toCustomString() {
+        return "Ein Lottotipp!";
+    }
 }
