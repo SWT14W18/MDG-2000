@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
+import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
@@ -40,6 +41,7 @@ import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
+import de.tudresden.swt14ws18.tips.Tip;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
@@ -207,12 +209,21 @@ public class LotterieController {
     }
     
     @RequestMapping("/tipCollectionView")
-    public String tipCollectionView(ModelMap map){
+    public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType spielType){
         handleGeneralValues(map);
         
-        
-        
-        return "tipCollectionView";
+        if (authenticationManager.getCurrentUser().isPresent()) {            
+            
+            List<Tip> set = new ArrayList<>();
+            if(spielType == GameType.LOTTO){                     
+                set.addAll(lottoTipCollectionRepo.findOne(tippscheinId).getTips());
+            }
+            if(spielType == GameType.TOTO){
+                set.addAll(totoTipCollectionRepo.findOne(tippscheinId).getTips());
+            }
+            map.addAttribute("tips", set);
+        }
+        return "games/tipCollectionView";
     }
     
     @RequestMapping("/totoMatchDays")
