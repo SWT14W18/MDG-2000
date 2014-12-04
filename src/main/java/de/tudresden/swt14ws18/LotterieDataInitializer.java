@@ -122,8 +122,6 @@ public class LotterieDataInitializer implements DataInitializer {
 
         // damit wir nicht immer den db ordner löschen müssen
         if (userAccountManager.get(new UserAccountIdentifier("admin")).isPresent()) {
-            ConcreteCustomer customer = customerRepository.findByUserAccount(userAccountManager.get(new UserAccountIdentifier("admin")).get());
-            Lotterie.getInstance().setAccount(customer.getAccount());
             return;
         }
 
@@ -131,7 +129,6 @@ public class LotterieDataInitializer implements DataInitializer {
         userAccountManager.save(admin);
 
         BankAccount adminAccount = new BankAccount();
-        Lotterie.getInstance().setAccount(adminAccount);
         ConcreteCustomer adminCustomer = new ConcreteCustomer("admin", "123", Status.ACTIVE, admin, adminAccount);
 
         bankAccountRepository.save(adminAccount);

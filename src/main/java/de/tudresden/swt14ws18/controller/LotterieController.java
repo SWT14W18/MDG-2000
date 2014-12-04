@@ -39,6 +39,7 @@ import de.tudresden.swt14ws18.repositories.LottoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
+import de.tudresden.swt14ws18.repositories.TransactionRepository;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
@@ -57,6 +58,7 @@ public class LotterieController {
     private final LottoTipCollectionRepository lottoTipCollectionRepo;
     private final TotoTipCollectionRepository totoTipCollectionRepo;
     private final MessageRepository messageRepo;
+    private final TransactionRepository transactionRepo;
     private final TipFactory tipFactory;
     private final BusinessTime time;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -66,7 +68,7 @@ public class LotterieController {
     public LotterieController(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository,
 	    AuthenticationManager authenticationManager, BankAccountRepository bankAccountRepository, TipFactory tipFactory,
 	    TotoMatchRepository totoRepo, LottoTipCollectionRepository lottoTipCollectionRepo, TotoTipCollectionRepository totoTipCollectionRepo,
-	    BusinessTime time, MessageRepository messageRepo) {
+	    BusinessTime time, MessageRepository messageRepo, TransactionRepository transactionRepo) {
 	Assert.notNull(authenticationManager, "UserAccountManager must not be null!");
 	Assert.notNull(bankAccountRepository, "UserAccountManager must not be null!");
 	Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
@@ -84,6 +86,7 @@ public class LotterieController {
 	this.lottoTipCollectionRepo = lottoTipCollectionRepo;
 	this.totoTipCollectionRepo = totoTipCollectionRepo;
 	this.messageRepo = messageRepo;
+	this.transactionRepo = transactionRepo;
     }
 
     public void handleGeneralValues(ModelMap map) {
@@ -105,7 +108,6 @@ public class LotterieController {
 	if (authenticationManager.getCurrentUser().isPresent() && money > 0) {
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 	    customer.getAccount().payIn(money);
-	    bankAccountRepository.save(customer.getAccount());
 	}
 	return "redirect:index";
     }
@@ -117,7 +119,6 @@ public class LotterieController {
 	if (authenticationManager.getCurrentUser().isPresent() && money > 0) {
 	    ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 	    customer.getAccount().outgoingTransaction(null, money);
-	    bankAccountRepository.save(customer.getAccount());
 	}
 	return "redirect:index";
     }
@@ -143,8 +144,8 @@ public class LotterieController {
     public String statisticsoverview(ModelMap map) {
 	handleGeneralValues(map);
 
-	ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-	map.addAttribute("transactions", customer.getAccount().getTransactions());
+	BankAccount customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount();
+	map.addAttribute("transactions", transactionRepo.findByFromOrToOrderByDateDesc(customer, customer));//customer.getAccount().getTransactions());
 
 	return "statistics/overview";
     }

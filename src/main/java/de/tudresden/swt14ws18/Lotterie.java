@@ -6,6 +6,7 @@ import org.salespointframework.Salespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
 import org.salespointframework.SalespointWebConfiguration;
 import org.salespointframework.time.BusinessTime;
+import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
 import de.tudresden.swt14ws18.repositories.MessageRepository;
@@ -60,24 +62,25 @@ public class Lotterie {
     
     private static Lotterie instance;
     private BusinessTime time;
-    private BankAccount account = new BankAccount();
     private TransactionRepository transactionRepo;
     private LottoMatchRepository lottoRepo;
     private CustomerRepository customerRepository;
     private MessageRepository messageRepo;
     private UserAccountManager userAccountManager;
+    private BankAccountRepository bankAccountRepo;
 
     public Lotterie() {
 	instance = this;
     }
     
-    protected void setAccount(BankAccount account) {
-        this.account = account;
-    }
-    
     @Autowired
     public void setUserAccountManager(UserAccountManager userAccountManager) {
         this.userAccountManager = userAccountManager;
+    }
+    
+    @Autowired
+    public void setBankAccountRepository(BankAccountRepository bankAccountRepository) {
+        this.bankAccountRepo = bankAccountRepository;
     }
     
     @Autowired
@@ -118,7 +121,7 @@ public class Lotterie {
     }
 
     public BankAccount getBankAccount() {
-	return account;
+	return customerRepository.findByUserAccount(userAccountManager.get(new UserAccountIdentifier("admin")).get()).getAccount();
     }
 
     public void setNextLottoPot(LottoGame game) {
@@ -158,5 +161,9 @@ public class Lotterie {
 
     public MessageRepository getMessagesRepository() {
         return messageRepo;
+    }
+    
+    public BankAccountRepository getBankAccountRepository() {
+        return bankAccountRepo;
     }
 }

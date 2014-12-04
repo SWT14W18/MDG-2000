@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import de.tudresden.swt14ws18.Lotterie;
 
@@ -20,9 +20,9 @@ public class Transaction {
 
     private LocalDateTime date;
 
-    @OneToOne
+    @ManyToOne
     private BankAccount to;
-    @OneToOne
+    @ManyToOne
     private BankAccount from;
     private double amount;
 
