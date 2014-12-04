@@ -114,7 +114,7 @@ public class LotterieController {
     @RequestMapping("time")
     public String vorspulen(ModelMap map) {
         handleGeneralValues(map);
-        return "time";
+        return "admin/time";
     }
 
     @RequestMapping("/einzahlen")
@@ -147,7 +147,7 @@ public class LotterieController {
         if (customer.hasMessage(message))
             customer.payOneMessage(message);
 
-        return "redirect:index";
+        return "redirect:profil";
     }
 
     @RequestMapping({ "/", "/index" })
