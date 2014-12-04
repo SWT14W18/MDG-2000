@@ -41,7 +41,10 @@ body {
 			<br/>
 			<br/>
 			<small>Dir wurden 2 Euro Strafe auferlegt</small>
-			<input type="submit" name="messageButton" value="Bezahlen"/>
+			<form action="/payMessage">
+				<input type="submit" value="Bezahlen"/>
+				<input type="hidden" name="id" th:value="${messageItem.getId()}"/>
+			</form>
 			</div>
 		</ol>
 		</div>
