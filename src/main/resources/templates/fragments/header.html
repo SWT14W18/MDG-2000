@@ -83,8 +83,8 @@
                    <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></a></li>
 				   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></a>      
 				   </li>
-					   
-				   		<div class="loginFehler" th:if="${param.error}">
+					   <!-- Login Fehler -->
+				   		<div class="Fehler" th:if="${asdasfa}">
 							<p class="h">Fehler</p>
 							<p>Benutername oder Passwort stimmmen nicht &uuml;berein!</p>
 							<p>Versuchen sie es erneut.</p>
@@ -95,8 +95,8 @@
 							<br/>
 							<p>Wenn du noch keine Account hast:<br/> <a href="/registration">Registrieren!</a></p>
 						</div>
-						
-						<div class="tippFehler" th:if="${irgendwas}">
+						 <!-- Tipp Fehler -->
+						<div class="Fehler" th:if="${param.error}">
 							<p class="h">Fehler</p>
 							<p>Einer oder mehrer Tipps im Tippschein sind unvollständig!</p>
 							<p>Bitte füllen sie alle benötigten Felder korrekt aus.</p>
@@ -107,7 +107,31 @@
 							<br/>
 							<p>Info: nicht jeder Tipp des Tippscheines muss ausgefüllt werden</p>
 						</div>
-                            
+						 <!-- Registrieren Fehler -->
+						<div class="Fehler" th:if="${param.error}">
+							<p class="h">Fehler</p>
+							<p>Die Registrierung ist Fehlgeschlagen.</p>
+							<p>Bitte füllen sie alle benötigten Felder korrekt aus.</p>
+						    <br/>
+							<form>
+							<input class="loginButton" type="button" value="ok" tabindex="3" onclick="location='index.html'" />
+							</form>
+							<br/>
+							<p>Info: Der Benutzername darf nicht verwendet sein!</p>
+						</div>
+                         <!-- Einzahlen/Auszahlen Fehler -->
+						<div class="Fehler" th:if="${param.error}">
+							<p class="h">Fehler</p>
+							<p>Das Ein-/Auszahlen war fehlerhaft.</p>
+							<p>Das Format lautet: Euro.cc</p>
+						    <br/>
+							<form>
+							<input class="loginButton" type="button" value="ok" tabindex="3" onclick="location='index.html'" />
+							</form>
+							<br/>
+							<p>Info: Es dürfen nicht mehr als zwei Nachkommastellen angegeben werden.</p>
+						</div>
+
 
 				   <li sec:authorize="!isAuthenticated()" class="liright"><a th:href="registration.html"><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
 					
