@@ -9,10 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.salespointframework.useraccount.UserAccount;
-
-import de.tudresden.swt14ws18.gamemanagement.LottoResult;
-
 
 /**
  * die Klasse "Community" leitet sich wie auch der ConcreteCustomer vom Customer ab und besitzt
@@ -55,6 +51,9 @@ public class Community extends Customer{
 	private String communityName;
 	private String communityPassword;
 	
+	@Deprecated
+	public Community() {};
+	
 	/**
 	 * Konstruktor!
 	 * 
@@ -64,7 +63,7 @@ public class Community extends Customer{
 	 * @param admin                -> der Kunde, der der Admin der Gruppe sein soll (im Normalfall der Ersteller)
 	 */
 	
-	public Community(String name, String password, UserAccount userAccount, ConcreteCustomer admin) {
+	public Community(String name, String password, ConcreteCustomer admin) {
 	        super(name, password);
 		this.communityName = name;
 		this.communityPassword = password;

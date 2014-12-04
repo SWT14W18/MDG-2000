@@ -336,7 +336,7 @@ public class LotterieController {
 
 	handleGeneralValues(map);
 	ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-        List<Community> community = communityRepository.findByMembersContains(customer);
+        List<Community> community = communityRepository.findByMembers(customer);
         map.addAttribute("groupoverview", community);
 	return "groups/overview";
     }

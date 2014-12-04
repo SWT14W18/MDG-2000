@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 
 import de.tudresden.swt14ws18.Lotterie;
@@ -41,6 +42,9 @@ import de.tudresden.swt14ws18.gamemanagement.GameType;
 @Entity
 public class ConcreteCustomer extends Customer {
 
+    private static final int MAX_MESSAGE_COUNT = 10;
+    private static final Role BLOCK_ROLE = new Role("ROLE_TIPPER"); //TODO wir brauchen noch ein klareres Rollensystem
+    
     @Id
     @GeneratedValue
     private long id;
@@ -81,9 +85,11 @@ public class ConcreteCustomer extends Customer {
     }
 
     public void addMessage(GameType whichGame) {
-        Message temp = new Message(whichGame);
-
-        messages.add(temp);
+        messages.add(new Message(whichGame));
+        
+        //if(getMessageCount() >= MAX_MESSAGE_COUNT)
+            
+        
         Lotterie.getInstance().getCustomerRepository().save(this);
     }
 

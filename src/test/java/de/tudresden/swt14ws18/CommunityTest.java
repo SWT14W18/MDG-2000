@@ -24,7 +24,7 @@ public class CommunityTest {
 		ConcreteCustomer Customer1 = new ConcreteCustomer("Dieter","234", Status.ACTIVE, userAccount1, bankAccount1);
 		ConcreteCustomer Customer2 = new ConcreteCustomer("Paul","567", Status.ANONYM, userAccount2, bankAccount2);
 		
-		Community comm1 = new Community("Lottogruppe","passt", userAccount3, Customer1);
+		Community comm1 = new Community("Lottogruppe","passt", Customer1);
 		comm1.addMember(Customer2);
 		
 		assertEquals(comm1.getName(),"Lottogruppe");
