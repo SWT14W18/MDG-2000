@@ -163,6 +163,7 @@ public class LotterieController {
 
         BankAccount customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount();
         map.addAttribute("transactions", transactionRepo.findByFromOrToOrderByDateDesc(customer, customer));// customer.getAccount().getTransactions());
+        map.addAttribute("customers", customerRepository.count()); 
 
         return "statistics/overview";
     }
