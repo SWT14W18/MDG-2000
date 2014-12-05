@@ -48,16 +48,20 @@ public class TotoDataInitializer {
 
     public void totoInitialize(TotoGameType totoGameType) throws IOException {
 	String urlString = "";
+	int a = 0;
 
 	switch (totoGameType) {
 	case BUNDESLIGA1:
 	    urlString = bl1;
+	    a = 306;
 	    break;
 	case BUNDESLIGA2:
 	    urlString = bl2;
+	    a = 306;
 	    break;
 	case POKAL:
 	    urlString = pokal;
+	    a = 56;
 	    break;
 	}
 
@@ -74,7 +78,7 @@ public class TotoDataInitializer {
 	String date;
 	LocalDateTime gameDate;
 	int matchDay;
-	for (int i = 0; i < 306; i++) {
+	for (int i = 0; i < a; i++) {
 
 	    JsonObject match = (JsonObject) matches.get(i);
 	    team1 = match.get("name_team1").getAsString();

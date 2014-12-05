@@ -109,6 +109,7 @@ public class AdminController {
     	map.addAttribute("liga1MatchDayInput", liga1MatchDayInput);
     	map.addAttribute("liga2MatchDayInput", liga2MatchDayInput);
     	map.addAttribute("totoGameTypeInput", totoGameTypeInput);
+    	map.addAttribute("pokalMatchDayInput", pokalMatchDayInput);
 
     	
 
@@ -165,7 +166,7 @@ public class AdminController {
     private void createTotoOverview(){
     	liga1MatchDayInput = totoMatchDayOverview(TotoGameType.BUNDESLIGA1);
     	liga2MatchDayInput = totoMatchDayOverview(TotoGameType.BUNDESLIGA2);
-//    	pokalMatchDayInput = totoMatchDayOverview(TotoGameType.POKAL);
+    	pokalMatchDayInput = totoMatchDayOverview(TotoGameType.POKAL);
     	
     }
     
