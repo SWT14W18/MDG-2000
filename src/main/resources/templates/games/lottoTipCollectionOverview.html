@@ -13,7 +13,7 @@
 			<div th:each="item : ${tips}">
 			<br/>
 		    <br/>
-		    <label th:text="${item.getLottoGameTitleAsString()}">Datum</label>
+		    <label th:text="${item.getLottoGameTitleAsString()}+' Uhr'">Datum</label>
 		    <br/>
 		    <br/>
 			<label th:text="${item.getNumbersAsString()}">Zahlen</label>

@@ -13,10 +13,12 @@
 			<div th:each="item : ${tips}">
 			<br/>
 		    <br/>
-		    <label th:text="${item.getMatchDateAsString()}">Datum</label>
+		    <label th:text="${item.getMatchDateAsString()}+'Uhr'">Datum</label>
 		    <br/>
 		    <label th:text="${item.getMatchTitleAsString()}">Titel</label>
 		    <br/>
+		    <br/>
+		    <label th:text="@{'Getippt auf: '+${item.getResultAsString()}}">Tipp</label>
 		    <br/>
 			<label th:text="@{'Einsatz: '+${item.getInputAsString()}+'€'}">Einsatz</label>
 		    <br/>

@@ -76,6 +76,14 @@ public class TotoTip extends Tip {
         return String.valueOf(totoMatch.getQuote(result));
     }
     
+    public String getResultAsString(){
+        StringBuilder temp = new StringBuilder();
+        
+        temp.append(result);
+        
+        return temp.toString();
+    }
+    
     @Override
     public String toCustomString() {
         StringBuilder temp = new StringBuilder();
