@@ -421,7 +421,7 @@ section #divListMessages small{
 }
 
 section #divListMessages div:hover{
-		background-color: #FFF0F0;
+		background-color: #F0D8D8;
 }
 
 section #divListMessages input{
@@ -452,7 +452,7 @@ section #ListMessages fieldset {
 		border-bottom: 1px dotted #C51919;
 }
 section #divListMessages fieldset:hover{
-		background-color: #FFF0F0;
+		background-color: #F0D8D8;
 }
 
 div.Fehler{
