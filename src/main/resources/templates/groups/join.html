@@ -6,15 +6,18 @@
 	<div th:replace="fragments/header :: header"></div>
 	<section>
 		<h1> Gruppe beitreten</h1>
-		<hr/>		
-			<form action="/groupjoin" method="post">
-				Name<input type="text" name="cName" /><br />
-				Passwort<input type="text" name="cPassword" /><br />
-				<input type="hidden" name="groups" value="join" />
-				<input type="submit" />
-			</form>
+		<hr/>
+		<br/>		
+		<form action="/groupjoin" method="post">
+			<p>Geben sie das Passwort ihrer Gruppe ein um beizutreten</p>	<br/>
+			<div align="center"><input type="text" name="cPassword" placeholder="Gruppenpasswort" /><br/></div>
+			<div align="center"><input type="hidden" name="groups" value="create" /><br/></div>
+			<div align="center"><input type="submit" value="Beitreten"/><br/></div>
 			
-			<br/>
+		</form>
+		<br/>
+		<p>Das Gruppenpasswort erhält man von einem Mitglied der Gruppe. Beachten sie das jeder der das Gruppenpasswort kennt sich anschließen kann. Daher sollten sie beim verbreiten der Gruppenpasswörter acht geben.  8   LOL :D</p>
+		<br/>
 		<br/>
 		<br/>
 	</section>

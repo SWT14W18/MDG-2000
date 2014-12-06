@@ -6,13 +6,21 @@
 	<div th:replace="fragments/header :: header"></div>
 	<section>
 		<h1>Gruppe erstellen</h1>
-		<hr/>		
+		<hr/>
+		<br/>
+	
 		<form action="/groupcreate" method="post">
-			Name<input type="text" name="cName" /><br />
-			Passwort<input type="text" name="cPassword" /><br />
-			<input type="hidden" name="groups" value="create" />
-			<input type="submit" />
+			<p>Zum erstellen einer Gruppe geben sie bitte ein Gruppennamen und ein Gruppenpasswort ein</p>	
+			<div align="center"><input type="text" name="cName" placeholder="Gruppenname"/><br/></div>
+			<div align="center"><input type="text" name="cPassword" placeholder="Gruppenpasswort" /><br/></div>
+			<div align="center"><input type="hidden" name="groups" value="create" /><br/></div>
+			<div align="center"><input type="submit" value="Erstellen"/><br/></div>
 		</form>
+		<p>
+		Sie können beliebig viele Gruppen erstellen. 
+		Denken sie aber an die Übersichtlichkeit und den erhöhten Aufwand bei der Verwaltung von mehr als 5 Gruppen.
+		Zur Spielübersicht aller Spiele aus allen Gruppen klicken sie auf 'Spiel' im Header oder auf den <a th:href="overview.html">Link</a>.
+		</p>
 		<br/>
 		<br/>
 		<br/>

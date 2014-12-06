@@ -291,8 +291,10 @@ header .loginButton {
 section {
 /* jo */
 		box-shadow: 5px 5px 5px 3px #888;
-		width:1170px;
+		width:1070px;
 		margin: 0 auto;
+		padding-left:50px;
+		padding-right:50px;
 		text-align:left;
 		border-width: 1px;
 		border-style: solid;
@@ -421,6 +423,7 @@ section #listMessages div label {
 		margin-top:5px;
 }
 
+
 section #divListMessages {
 	width: 640px;
     height: 400px;
@@ -470,6 +473,23 @@ section #ListMessages fieldset {
 }
 section #divListMessages fieldset:hover{
 		background-color: #F0D8D8;
+}
+
+section #easyList {
+	width: 640px;
+    height: 400px;
+    overflow: auto;
+}
+
+section #easyList li {
+	font-family: 'Ubuntu',sans-serif;
+    font-size: 17px;
+	font-weight: 500;
+    color: #222222;
+	margin-top: 2px;
+	text-align:left;
+	padding:5px;
+	margin-left:20px;
 }
 
 div.Fehler{
