@@ -56,22 +56,59 @@ Wochentag = new Array("Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Fre
 // Funktionen für Anzeigen Tag Datum + dynamische Uhrzeit
 
 var SystemDatum;
+var tag;
+var monat;
+var jahr;
+var stunden;
+var minuten;
+var sekunden;
 
 function CreateTime()
 {
-  SystemDatum = new Date(document.getElementById("ZeitAnzeige").innerHTML);
+	var datum = document.getElementById("ZeitAnzeige").innerHTML;
+	SystemDatum = new Date();
+	if(datum[0] == "0"){tag = datum[1];}else{tag = datum[0]+datum[1];}
+	SystemDatum.setDate(tag);
+	
+	if(datum[3] == "0"){monat = datum[4];}else{monat = datum[3]+datum[4];}
+	var a = monat.parseInt(monat);
+	a-=1;
+	monat = a.toString();
+	SystemDatum.setMonth(monat);
+	
+	SystemDatum.setFullYear(datum[6]+datum[7]+datum[8]+datum[9]);
+	
+	if(datum[11] == "0"){stunden = datum[12];}else{stunden = datum[11]+datum[12];}
+	SystemDatum.setHours(stunden);
+	
+	if(datum[14] == "0"){minuten = datum[15];}else{minuten = datum[14]+datum[15];}
+	SystemDatum.setMinutes(minuten);
+	
+	if(datum[17] == "0"){sekunden = datum[18];}else{sekunden = datum[17]+datum[18];}
+	SystemDatum.setSeconds(sekunden);
+	
+	
+	console.log(SystemDatum.getDate());
+	
 }
 
 function DisplayTime()
 {
 
  var CounterTag = SystemDatum.getDate();
+ console.log(CounterTag);
  var CounterMonat = SystemDatum.getMonth()+1;
+ console.log(CounterMonat);
  var CounterJahr = SystemDatum.getFullYear();
+ console.log(CounterJahr);
  var CounterStd = SystemDatum.getHours();
+ console.log(CounterStd);
  var CounterMin = SystemDatum.getMinutes();
+ console.log(CounterMin);
  var CounterSek = SystemDatum.getSeconds();
+ console.log(CounterSek);
  var TagDerWoche = SystemDatum.getDay();
+ console.log(TagDerWoche);
 
  //  für zweistellige Anzeige
  var CounterTag2  = ((CounterTag < 10) ? "0" : "");

@@ -1,6 +1,7 @@
 package de.tudresden.swt14ws18;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import org.salespointframework.Salespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
@@ -54,8 +55,7 @@ public class Lotterie {
     /**
      * Standard Datumsformat für die allgemeine Zeitausgabe.
      */
-    public static final DateTimeFormatter OUTPUT_DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-    public static final DateTimeFormatter OUTPUT_DTF_LARS = DateTimeFormatter.ofPattern("MM.dd.yyyy HH:mm:ss");
+    public static final DateTimeFormatter OUTPUT_DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss",Locale.GERMAN);
 
     private static final double LOTTO_PRICE = 1.00D;
     private static final double INPUT_INTO_POT = 0.9D;

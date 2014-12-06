@@ -95,7 +95,7 @@ public class LotterieController {
     }
 
     public void handleGeneralValues(ModelMap map) {
-        map.addAttribute("time", Lotterie.getInstance().getTime().getTime().format(Lotterie.OUTPUT_DTF_LARS));
+        map.addAttribute("time", Lotterie.getInstance().getTime().getTime().format(Lotterie.OUTPUT_DTF));
 
         if (authenticationManager.getCurrentUser().isPresent()) {
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
