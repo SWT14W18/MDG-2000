@@ -129,13 +129,21 @@
 			</div>
 			</div>
 			<div align="center">
+			<label>Einzel-/Dauertippschein</label><br/>
 			<select name="duration">
 				<option value="0">Einzelspiel</option>
 				<option value="1">1 Monat</option>
 				<option value="2">6 Monate</option>
 				<option value="3">1 Jahr</option>		
-			</select>
-
+			</select><br/>
+			<label>Einzel-/Gruppentippschein</label><br/>
+			<select name="whichGroup">
+				<option value="0">Alleine Spielen</option>
+				<option value="1">Gruppe1</option>
+				<option value="2">Gruppe0</option>
+				<option value="3">Gruppe </option>		
+			</select><br/>
+			<label>Überprüfen sie vor dem Absenden alle Tipps auf Fehler. Falls ihnen ein Fehler beim Eintragen einer Zahl unterlaufen ist, können sie ihren Tipp bis 5 Minuten vor Ziehung (Jeden Sonntag 12:00 Uhr) ändern. Falsch eingetragene Tipps werden hingegen ignoriert und sie müssen einen Extra Tippschein erstellen.</label><br/>
 			<input type="hidden" name="gameType" value="lotto" />
 			<input type="submit" value="Tipp abgeben" />	
 			</div>	
