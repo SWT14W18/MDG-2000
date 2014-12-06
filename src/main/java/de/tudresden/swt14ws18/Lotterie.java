@@ -54,6 +54,8 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
 public class Lotterie {
     /**
      * Standard Datumsformat für die allgemeine Zeitausgabe.
+     * 
+     * TODO Eventuell noch Millisekunde übergeben, muss aber nicht.
      */
     public static final DateTimeFormatter OUTPUT_DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss",Locale.GERMAN);
 
