@@ -6,7 +6,7 @@
 	<div th:replace="fragments/header :: header"></div>
 	<section>
 		<h1>Toto Ligen</h1>
-		
+		<hr/>		
 		<ul th:each="item : ${games}">
 			<li th:each="match : ${item.getValue()}"><a href="#" th:href="@{'/totoTipp?id='+${match}}" th:text="@{${item.getKey().toString()}+' '+${match}+'.Spieltag'}">Game Name</a></li>
 		</ul>
