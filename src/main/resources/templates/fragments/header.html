@@ -51,7 +51,7 @@
 								</ul>
                          </span>
 				   </li>
-                   <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright"><a th:href="profil.html"><i class="fa fa-user"><label class="menuentry" sec:authentication="name"></label></i></a>
+                   <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright"><a th:href="profil.html"><label class="menuentry"><i class="fa fa-user"><label class="menuentry_inner" sec:authentication="name"></label></i></label></a>
                          <span>
 								<ul id="navi_menu">
 									<li class="span_open">
@@ -91,7 +91,7 @@
 		
                    <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></a></li>
                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></a></li>
-                  <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright"><a th:href="bankaccount.html"><label class="menuentry_money"> <i class="fa fa-eur" th:text="${balance}"></i></label></a></li>
+                  <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright" id="Geld"><a th:href="bankaccount.html"><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></a></li>
 				   
 				  
 					   <!-- Login Fehler -->

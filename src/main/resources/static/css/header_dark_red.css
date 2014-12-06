@@ -48,13 +48,30 @@ header .menuentry {/*Legt Schriftart und Schriftfarbe fest und blendet die Liste
         padding: 20px 20px 20px 20px;
         display:inline-block;
 }
+header .menuentry_inner{/*Legt Schriftart und Schriftfarbe fest und blendet die Listenpunkte am Anfang eines Eintrags aus.*/
+        font-family: 'Ubuntu', sans-serif;
+        color:#333333;
+        font-size:16px;
+        text-decoration:none;
+		padding: 0px 0px 0px 3px;
+        display:inline-block;
+}
 header .menuentry_money {/*Legt Schriftart und Schriftfarbe fest und blendet die Listenpunkte am Anfang eines Eintrags aus.*/
         font-family: 'Ubuntu', sans-serif;
         color:#333333;
         font-size:14px;
         text-decoration:underline;
-		font-weight:600;
+		font-weight:normal;
         padding: 20px 20px 20px 20px;
+        display:inline-block;
+}
+header .menuentry_money_inner {/*Legt Schriftart und Schriftfarbe fest und blendet die Listenpunkte am Anfang eines Eintrags aus.*/
+        font-family: 'Ubuntu', sans-serif;
+        color:#333333;
+        font-size:14px;
+        text-decoration:underline;
+		font-weight:normal;
+		padding: 0px 0px 0px 3px;
         display:inline-block;
 }
 header ul#navigation li{/*Das Design der Navigationselemente*/
@@ -79,7 +96,7 @@ header ul#navigation > li:not(:first-child){/*Alle Navigationselemente außer da
 		max-width:400px;
 		width:auto;
 }
-header ul#navigation > li:nth-child(5){ /* Das Geld ist das 5. Child und hat eine kleine größe */
+header ul#navigation > li#Geld{ /* Das Geld hat eine kleine größe */
         border-right:1px;
         border-left:1px;
 		border-style: solid;
