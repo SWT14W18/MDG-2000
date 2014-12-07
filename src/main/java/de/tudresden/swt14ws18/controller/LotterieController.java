@@ -119,14 +119,23 @@ public class LotterieController {
     }
 
     @RequestMapping("/einzahlen")
-    public String einzahlen(@RequestParam("newMoney") double money, ModelMap map) {
+    public String einzahlen(@RequestParam("newMoney") String moneyString, ModelMap map) {
         handleGeneralValues(map);
 
-        if (authenticationManager.getCurrentUser().isPresent() && money > 0) {
-            ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-            customer.getAccount().payIn(money);
+        try{
+            double money = Double.parseDouble(moneyString);
+            if (authenticationManager.getCurrentUser().isPresent() && money > 0) {
+                ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+                customer.getAccount().payIn(money);
+            }
         }
-        return "redirect:index";
+        catch(Exception e){
+            map.addAttribute("paymentError", true);
+            return "redirect:index";
+        }
+        
+
+        return "redirect:bankaccount";
     }
 
     @RequestMapping("/auszahlen")

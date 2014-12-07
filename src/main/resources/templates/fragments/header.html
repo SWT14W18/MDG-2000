@@ -131,7 +131,7 @@
 							<p>Info: Der Benutzername darf nicht verwendet sein!</p>
 						</div>
                          <!-- Einzahlen/Auszahlen Fehler -->
-						<div class="Fehler" th:if="${param.error}">
+						<div class="Fehler" th:if="${paymentError}">
 							<p class="h">Fehler</p>
 							<p>Das Ein-/Auszahlen war fehlerhaft.</p>
 							<p>Das Format lautet: Euro.cc</p>
