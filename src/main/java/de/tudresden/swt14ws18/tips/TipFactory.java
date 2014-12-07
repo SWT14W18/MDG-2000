@@ -70,16 +70,18 @@ public class TipFactory {
 
     /**
      * Erstellt und trägt die Tipps in das System ein.
-     * 
+     * Gibt true zurück wenn erfolgreich, false wenn nicht.
      * 
      * @param map Die eingetragen Tipps auf der Website
      * @param owner Der Customer der den Tipp abgibt
      */
-    public void craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
+    public boolean craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
 
 	List<LottoTip> tips = new ArrayList<>();
 	List<LottoNumbers> numbers = new ArrayList<>();
-
+	
+	if(map.isEmpty())return false;
+	
 	for (int i = 1; i <= LOTTO_TIPS_PER_PAGE; i++) {
 	    if (!isValidLottoTip(map, i))
 		continue;
@@ -117,7 +119,7 @@ public class TipFactory {
 	    games = 48;
 	    break;
 	default:
-	    return;
+	    return false;
 	}
 
 	List<LottoGame> g = lottoMatchRepository.findByResultOrderByDateAsc(null);
@@ -126,10 +128,11 @@ public class TipFactory {
 		tips.add(new LottoTip((LottoGame) g.get(i), num));
 
 	if (tips.size() == 0)
-	    return;
+	    return false;
 
 	lottoTipRepository.save(tips);
 	lottoTipCollectionRepository.save(new LottoTipCollection(tips, owner));
+	return true;
     }
 
     /**

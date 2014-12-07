@@ -277,12 +277,19 @@ public class LotterieController extends ControllerBase {
     public String createLottoTip(@RequestParam Map<String, String> params, ModelMap map) {
 
         handleGeneralValues(map);
-
+        if(params.isEmpty()){
+            map.addAttribute("lottoError", true);
+            return "forward:/lotto";
+        }
+        
         if (authenticationManager.getCurrentUser().isPresent()) {
 
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 
-            tipFactory.craftLottoTips(params, customer);
+            if(!tipFactory.craftLottoTips(params, customer)){
+                map.addAttribute("lottoError", true);
+                return "forward:/lotto";
+            }
             map.addAttribute("lottoSuccess", true);
         }
         return "forward:gameoverview";
