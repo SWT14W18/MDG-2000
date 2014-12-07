@@ -285,7 +285,7 @@ public class LotterieController extends ControllerBase {
             tipFactory.craftLottoTips(params, customer);
             map.addAttribute("lottoSuccess", true);
         }
-        return "overview";
+        return "games/overview";
     }
 
     @RequestMapping(value = "/createTotoTip", method = RequestMethod.POST)
@@ -300,7 +300,7 @@ public class LotterieController extends ControllerBase {
             tipFactory.craftTotoTips(params, customer);
             map.addAttribute("totoSuccess", true);
         }
-        return "overview";
+        return "games/overview";
     }
 
     @RequestMapping("/groupoverview")
