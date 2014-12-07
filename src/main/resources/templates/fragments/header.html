@@ -8,12 +8,12 @@
                    <li class="lileft" ><a th:href="index.html"><label class="menuentry"  >Mach dein Gl&uuml;ck!!!</label></a></li>
                    
 			   
-                   <li sec:authorize="hasRole('ROLE_USER')" class="lileft"><a th:href="gameoverview.html"><label class="menuentry" ><i class="fa fa-th-large"></i> Spiel</label></a>
+                   <li sec:authorize="hasRole('ROLE_USER')" class="lileft"><a th:href="gameoverview.html"><div><label class="menuentry" ><i class="fa fa-th-large"></i> Spiel</label></div></a>
 				         <span>
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="lotto"><label><i class="fa fa-pencil"></i> Lotto</label></a>
+											<a th:href="lotto" ><div class="fill-div"><label class="l_fill-div"><i class="fa fa-pencil"></i> Lotto</label></div></a>
 										</div>
 									</li>
 								</ul>								
@@ -21,19 +21,19 @@
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="toto.html"><label><i class="fa fa-futbol-o"></i> Toto</label></a>
+											<a th:href="toto.html"><div class="fill-div"><label class="l_fill-div"><i class="fa fa-futbol-o"></i> Toto</label></div></a>
 										</div>
 									</li>
 								</ul>
                          </span>
 				   </li>
-				   <li sec:authorize="hasRole('ROLE_BOSS')" class="lileft" ><a th:href="groupoverview.html"><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></a></li>
-                   <li sec:authorize="hasRole('ROLE_USER')" class="lileft" ><a th:href="groupoverview.html"><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></a>
+				   <li sec:authorize="hasRole('ROLE_BOSS')" class="lileft" ><a th:href="groupoverview.html"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a></li>
+                   <li sec:authorize="hasRole('ROLE_USER')" class="lileft" ><a th:href="groupoverview.html"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a>
 						 <span>
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="groupcreate.html"><label>Gruppe erstellen</label></a>
+											<a th:href="groupcreate.html"><div class="fill-div"><label class="l_fill-div">Gruppe erstellen</label></div></a>
 										</div>
 									</li>
 								</ul>								
@@ -41,25 +41,25 @@
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="groupjoin.html"><label>Gruppen beitreten</label></a>
+											<a th:href="groupjoin.html"><div class="fill-div"><label class="l_fill-div">Gruppen beitreten</label></div></a>
 										</div>
 									</li>
 								</ul>								
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="groupmanage.html"><label>Gruppen verwalten</label></a>
+											<a th:href="groupmanage.html"><div class="fill-div"><label class="l_fill-div">Gruppen verwalten</label></div></a>
 										</div>
 									</li>
 								</ul>
                          </span>
 				   </li>
-                   <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright"><a th:href="profil.html"><label class="menuentry"><i class="fa fa-user"><label class="menuentry_inner" sec:authentication="name"></label></i></label></a>
+                   <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright"><a th:href="profil.html"><div><label class="menuentry"><i class="fa fa-user"><label class="menuentry_inner" sec:authentication="name"></label></i></label></div></a>
                          <span>
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="bankaccount.html"><label><i class="fa fa-credit-card"></i> Konto</label></a>
+											<a th:href="bankaccount.html"><div class="fill-div"><label class="l_fill-div"><i class="fa fa-credit-card"></i> Konto</label></div></a>
 										</div>
 									</li>
 								</ul>								
@@ -67,7 +67,7 @@
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="profil.html"><label><i class="fa fa-user"></i> Profil</label></a>
+											<a th:href="profil.html"><div class="fill-div"><label class="l_fill-div"><i class="fa fa-user"></i> Profil</label></div></a>
 										</div>
 									</li>
 								</ul>	
@@ -75,7 +75,7 @@
 								<ul id="navi_menu" sec:authorize="hasRole('ROLE_BOSS')">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="@{'/time'}"><label><i class="fa fa-clock-o"></i> Zeit</label></a>
+											<a th:href="@{'/time'}"><div class="fill-div"><label class="l_fill-div"><i class="fa fa-clock-o"></i> Zeit</label></div></a>
 										</div>
 									</li>
 								</ul>	
@@ -83,7 +83,7 @@
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="@{/logout}" ><label>Ausloggen <i class="fa fa-sign-out"></i></label></a>
+											<a th:href="@{/logout}" ><div class="fill-div"><label class="l_fill-div">Ausloggen <i class="fa fa-sign-out"></i></label></div></a>
 										</div>
 									</li>
 								</ul>
@@ -92,13 +92,13 @@
 
 				   
 		
-                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></a></li>
-                  <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></a></li>
-                  <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright" id="Geld"><a th:href="bankaccount.html"><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></a></li>
+                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></div></a></li>
+                  <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></div></a></li>
+                  <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright" id="Geld"><a th:href="bankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
 				   			
 				
 				
-				   <li sec:authorize="!isAuthenticated()" class="liright"><a th:href="registration.html"><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
+				   <li sec:authorize="!isAuthenticated()" class="liright"><a th:href="registration.html"><div><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></div></a></li>
 					
 					<form sec:authorize="!isAuthenticated()" th:action="@{/login}" method="post">
 						<li class="lilogin"><label class="menuentry_login"><input class="loginButton" type="submit" value="Login" tabindex="3" /></label></li>

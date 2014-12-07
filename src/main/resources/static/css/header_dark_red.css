@@ -201,21 +201,6 @@ header ul#navigation > li span > ul#navi_menu:last-child  > li.span_open > #navi
          border-bottom-right-radius: 5px;
 }
 
-header ul#navigation > li span > ul#navi_menu:nth-child(5)> li.span_open > #navi_button{ /*runde untere ecken */ 
-
-	padding-top:20px;
-	text-align:center;
-	width:160px;
-	min-width:120px;
-	max-width:400px;
-	height:29px;
-	border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    background: #EFEFEF;
-	cursor:pointer;
-	
-}
-
 header ul#navigation > li span > ul#navi_menu > li.span_open > #navi_button{ /* Fingersymbol beim hovern und design des nicht ausgewählten unterpunktes */
 	padding-top:20px;
 	text-align:center;
@@ -262,6 +247,17 @@ header ul#navigation > li span > ul#navi_menu > li.span_open > #navi_button > a 
 header ul#navigation > li span > ul#navi_menu > li.span_open > #navi_button:hover > a label{ /* design der schrift für angewählte objekte der untermenus der navileiste */
 	color:#111111;
 }
+
+div.fill-div {
+	height: 49px;
+	margin-top:-20px;
+}
+
+label.l_fill-div{
+	position:relative;
+	top:16px;
+}
+
 
 header a{ /* links haben keine unterstrich */
 	text-decoration:none;
