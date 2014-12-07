@@ -36,7 +36,17 @@ public class BankAccount {
         if (balance < amount)
             return false;
 
+        if(balance == amount)
+        {
+            balance = 0;
+            Transaction trans = new Transaction(this, to, amount);
+            Lotterie.getInstance().getBankAccountRepository().save(this);
+            if (to != null)
+                to.incomingTransaction(trans);
+            return true;
+        }
         balance -= amount;
+        
         
         Transaction trans = new Transaction(this, to, amount);
         
