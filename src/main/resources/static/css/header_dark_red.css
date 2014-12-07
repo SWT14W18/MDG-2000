@@ -237,8 +237,8 @@ header ul#navigation > li:first-child label { /* schrift von 'MACH DEIN GLÜCK' 
          color: #333333;
          font-size: 20px;
 		 margin-top:-3px;
-         font-weight: bold;
-		 	cursor:pointer;
+         font-weight: normal;
+		 cursor:pointer;
 }
 
 
@@ -525,4 +525,30 @@ div.Fehler p.h{
         font-size:30px;
         font-weight: 600;
         color: #D8000C;
+}
+
+#ZeitBox01 {
+position: relative;
+top: 0px;
+left: 385px;
+width: 400px;
+height: 26px;
+margin: 0px;
+padding: 0px;
+border: none;
+background-color: #cccccc;
+}
+
+#ZeitAnzeige {
+position: absolute;
+top: 0px;
+left: 0px;
+background: transparent;
+width: 400px;
+line-height: 26px;
+text-align: center;
+color: #111111;
+font-family: 'ubuntu',sans-serif;
+font-size: 16px;
+font-weight: normal;
 }

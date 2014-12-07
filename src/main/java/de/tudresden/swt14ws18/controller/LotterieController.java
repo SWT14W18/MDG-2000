@@ -71,7 +71,14 @@ public class LotterieController extends ControllerBase {
         handleGeneralValues(map);
         return "index";
     }
-
+    
+    /* TODO bitte hier die Überprüfung obs korrekt ist oder nicht (Tutor fragen ? )
+    @RequestMapping(value = "/trylogin", method = RequestMethod.POST)
+    public String trylogin(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap map) {
+        
+        return "index";
+    }
+    */
     @RequestMapping("/impressum")
     public String getImpressum(ModelMap map) {
         handleGeneralValues(map);
@@ -91,7 +98,7 @@ public class LotterieController extends ControllerBase {
         handleGeneralValues(map);
         if (userAccountManager.contains(new UserAccountIdentifier(vorname))) {
             map.addAttribute("registrationError", true);
-            return "registration";
+            return "forward:registration";
         }
 
         final Role customerRole = new Role("ROLE_USER");
@@ -105,7 +112,8 @@ public class LotterieController extends ControllerBase {
 
         bankAccountRepository.save(ba);
         customerRepository.save(c1);
-        return "index";
+        map.addAttribute("registrationSuccess", true);
+        return "forward:index";
     }
 
     @RequestMapping("/registration")
@@ -125,7 +133,7 @@ public class LotterieController extends ControllerBase {
         if (customer.hasMessage(message))
             customer.payOneMessage(message);
 
-        return "redirect:profil";
+        return "forward:profil";
     }
 
     @RequestMapping("/gameoverview")
@@ -265,8 +273,9 @@ public class LotterieController extends ControllerBase {
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 
             tipFactory.craftLottoTips(params, customer);
+            map.addAttribute("lottoSuccess", true);
         }
-        return "index";
+        return "overview";
     }
 
     @RequestMapping(value = "/createTotoTip", method = RequestMethod.POST)
@@ -279,8 +288,9 @@ public class LotterieController extends ControllerBase {
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 
             tipFactory.craftTotoTips(params, customer);
+            map.addAttribute("totoSuccess", true);
         }
-        return "index";
+        return "overview";
     }
 
     @RequestMapping("/groupoverview")

@@ -1,4 +1,7 @@
 <header>
+<script src="javascript/jquery-1.11.1.min.js"></script>
+<script src="javascript/bootstrap.min.js"></script>
+<script src="javascript/bootbox.min.js"></script>
          <nav>
               <ul id="navigation"><!--Liste der Navigationselemente-->
                    <!--Alle Navigationselemente die links ausgerichtet sind:-->
@@ -92,57 +95,8 @@
                    <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></a></li>
                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></a></li>
                   <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright" id="Geld"><a th:href="bankaccount.html"><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></a></li>
-				   
-				  
-					   <!-- Login Fehler -->
-				   		<div class="Fehler" th:if="${asdasfa}">
-							<p class="h">Fehler</p>
-							<p>Benutername oder Passwort stimmmen nicht &uuml;berein!</p>
-							<p>Versuchen sie es erneut.</p>
-						    <br/>
-							<form>
-							<input class="loginButton" type="button" value="ok" tabindex="3" onclick="location='index.html'" />
-							</form>
-							<br/>
-							<p>Wenn du noch keine Account hast:<br/> <a href="/registration">Registrieren!</a></p>
-						</div>
-						 <!-- Tipp Fehler -->
-						<div class="Fehler" th:if="${param.error}">
-							<p class="h">Fehler</p>
-							<p>Einer oder mehrer Tipps im Tippschein sind unvollständig!</p>
-							<p>Bitte füllen sie alle benötigten Felder korrekt aus.</p>
-						    <br/>
-							<form>
-							<input class="loginButton" type="button" value="ok" tabindex="3" onclick="location='index.html'" />
-							</form>
-							<br/>
-							<p>Info: nicht jeder Tipp des Tippscheines muss ausgefüllt werden</p>
-						</div>
-						 <!-- Registrieren Fehler -->
-						<div class="Fehler" th:if="${param.error}">
-							<p class="h">Fehler</p>
-							<p>Die Registrierung ist Fehlgeschlagen.</p>
-							<p>Bitte füllen sie alle benötigten Felder korrekt aus.</p>
-						    <br/>
-							<form>
-							<input class="loginButton" type="button" value="ok" tabindex="3" onclick="location='index.html'" />
-							</form>
-							<br/>
-							<p>Info: Der Benutzername darf nicht verwendet sein!</p>
-						</div>
-                         <!-- Einzahlen/Auszahlen Fehler -->
-						<div class="Fehler" th:if="${paymentError}">
-							<p class="h">Fehler</p>
-							<p>Das Ein-/Auszahlen war fehlerhaft.</p>
-							<p>Das Format lautet: Euro.cc</p>
-						    <br/>
-							<form>
-							<input class="loginButton" type="button" value="ok" tabindex="3" onclick="location='index.html'" />
-							</form>
-							<br/>
-							<p>Info: Es dürfen nicht mehr als zwei Nachkommastellen angegeben werden.</p>
-						</div>
-
+				   			
+				
 				
 				   <li sec:authorize="!isAuthenticated()" class="liright"><a th:href="registration.html"><label class="menuentry"><i class="fa fa-user"></i> Registrieren</label></a></li>
 					
@@ -152,6 +106,257 @@
 						<li class="lilogin"><label class="menuentry_login"><input type="text" placeholder="Benutzername" class="loginInput" name="username" tabindex="1"/></label></li>
 					</form>
 			
+			
+			
+			
+			
+				<!-- #################################################### 
+					 ###########   FEHLER MELDUNGEN BOXEN  ##############
+					 #######   Nichts mehr drunter schreiben  ###########
+					 #################################################### -->
+			
+					<!-- EINZAHLUNG Fehler BOX -->		
+					<script th:if="${paymentInError}">
+						bootbox.dialog({
+						  title: "Einzahlung Fehlgeschlagen!",
+						  message: "Der angegebene Betrag konnte ihrem Konto nicht gutgeschrieben werden. Bitte &Uuml;berpr&uuml;fen sie die Eingabe und versuchen sie es erneut.",
+						  buttons: {
+							danger: {
+							  label: "Verstanden!",
+							  className: "btn-danger",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- EINZAHLUNG Erfolg BOX -->		
+					<script th:if="${paymentInSuccess}">
+						bootbox.dialog({
+						  title: "Einzahlung Erfolgreich!",
+						  message: "Der angegebene Betrag wurde ihrem Lotto Konto hinzugef&uuml;gt.",
+						  buttons: {
+							success: {
+							  label: "Ok!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- AUSZAHLUNG Fehler BOX -->
+					<script th:if="${paymentOutError}">
+						bootbox.dialog({
+						  title: "Auszahlung Fehlgeschlagen!",
+						  message: "Der angegebene Betrag konnte nicht von ihrem Konto abgebucht werden. Bitte &Uuml;berpr&uuml;fen sie die Eingabe und versuchen sie es erneut.",
+						  buttons: {
+							danger: {
+							  label: "Verstanden!",
+							  className: "btn-danger",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- AUSZAHLUNG Erfolg BOX -->
+					<script th:if="${paymentOutSuccess}">
+						bootbox.dialog({
+						  title: "Auszahlung Erfolgreich!",
+						  message: "Der angegebene Betrag wurde von ihrem Lotto Konto abgebucht.",
+						  buttons: {
+							success: {
+							  label: "Weiter!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+											
+					<!-- REGISTRIERUNGS Fehler BOX -->		
+					<script th:if="${registrationError}">
+						bootbox.dialog({
+						  title: "Registrierung Fehlgeschlagen!",
+						  message: "Der gew&auml;hlte Benutzername wird bereits verwendet oder ist fehlerhaft.",
+						  buttons: {
+							danger: {
+							  label: "Verstanden!",
+							  className: "btn-danger",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- REGISTRIERUNGS Erfolg BOX -->		
+					<script th:if="${registrationSuccess}">
+						bootbox.dialog({
+						  title: "Registrierung Erfolgreich!",
+						  message: "Sie haben sich erfolgreich registriert. Sie k&ouml;nnen sich jederzeit mit den angegebene Benutzerdaten anmelden.",
+						  buttons: {
+							success: {
+							  label: "Weiter!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- LOGIN Fehler BOX -->		
+					<script th:if="${param.error}">
+						bootbox.dialog({
+						  title: "Login Fehlgeschlagen!",
+						  message: "Der Benutzername oder das Passwort sind falsch. Bitte &Uuml;berpr&uuml;fen sie die Eingabe und versuchen sie es erneut.",
+						  buttons: {
+							danger: {
+							  label: "Verstanden!",
+							  className: "btn-danger",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>	
+					
+					<!-- LOTTO TIPPABGABE Fehler BOX -->		
+					<script th:if="${lottoError}">
+						bootbox.dialog({
+						  title: "Lotto Tippabgabe Fehlgeschlagen!",
+						  message: "Einer oder mehrere Tipps auf ihrem Tippschein sind fehlerhaft. Bitte &Uuml;berpr&uuml;fen sie die Eingabe und versuchen sie es erneut.",
+						  buttons: {
+							danger: {
+							  label: "Verstanden!",
+							  className: "btn-danger",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+						
+					<!-- LOTTO TIPPABGABE Erfolg BOX -->		
+					<script th:if="${lottoSuccess}">
+						bootbox.dialog({
+						  title: "Lotto Tippabgabe Erfolgreich!",
+						  message: "Sie haben ihren Lotto Tippschein erfolgreich abgegeben. Auf der &Uuml;bersichtsseite k&ouml;nnen sie alle Tippscheine verwalten. Die Ziehung erfolgt immer Sonntags um 12 Uhr.",
+						  buttons: {
+							success: {
+							  label: "Weiter!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- TOTO TIPPABGABE Fehler BOX -->		
+					<script th:if="${totoError}">
+						bootbox.dialog({
+						  title: "TOTO Tippabgabe Fehlgeschlagen!",
+						  message: "Einer oder mehrere Tipps auf ihrem Tippschein sind fehlerhaft. Bitte &Uuml;berpr&uuml;fen sie die Eingabe und versuchen sie es erneut.",
+						  buttons: {
+							danger: {
+							  label: "Verstanden!",
+							  className: "btn-danger",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- TOTO TIPPABGABE Erfolg BOX -->		
+					<script th:if="${totoSuccess}">
+						bootbox.dialog({
+						  title: "TOTO Tippabgabe Erfolgreich!",
+						  message: "Sie haben ihren Toto Tippschein erfolgreich abgegeben. Auf der &Uuml;bersichtsseite k&ouml;nnen sie alle Tippscheine verwalten.",
+						  buttons: {
+							success: {
+							  label: "Weiter!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- GRUPPE ERSTELLEN Fehler BOX -->		
+					<script th:if="${groupCreateError}">
+						bootbox.dialog({
+						  title: "Gruppe erstellen Fehlgeschlagen!",
+						  message: "Die Gruppe konnte nicht erstellt werden. Entweder wird der Gruppenname bereits verwendet oder die Eingabe war fehlerhaft. Bitte versuchen sie es erneut.",
+						  buttons: {
+							danger: {
+							  label: "Verstanden!",
+							  className: "btn-danger",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- GRUPPE ERSTELLEN Erfolg BOX -->		
+					<script th:if="${groupCreateError}">
+						bootbox.dialog({
+						  title: "Gruppe erstellen Erfolgreich!",
+						  message: "Die Gruppe wurde erfolgreich erstellt.",
+						  buttons: {
+							success: {
+							  label: "Weiter!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- GRUPPE BEITRETEN Fehler BOX -->		
+					<script th:if="${groupJoinError}">
+						bootbox.dialog({
+						  title: "Gruppe beitreten Fehlgeschlagen!",
+						  message: "Das angegeben Gruppenpasswort war falsch. Bitte &Uuml;berpr&uuml;fen sie die Eingabe und versuchen sie es erneut.",
+						  buttons: {
+							danger: {
+							  label: "Verstanden!",
+							  className: "btn-danger",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+			<!--  ###########################################
+				  ###############	 ENDE   #################
+				  ###########################################  -->
+					
               </ul>
          </nav>
     </header>

@@ -50,11 +50,11 @@ public class UserController extends ControllerBase {
                 customer.getAccount().payIn(money);
             }
         } catch (Exception e) {
-            map.addAttribute("paymentError", true);
-            return "bankaccount";
+            map.addAttribute("paymentInError", true);
+            return "forward:bankaccount";
         }
-
-        return "redirect:bankaccount";
+        map.addAttribute("paymentInSuccess", true);
+        return "forward:bankaccount";
     }
 
     @RequestMapping("/auszahlen")
@@ -65,13 +65,16 @@ public class UserController extends ControllerBase {
             double money = Double.parseDouble(moneyString);
             if (authenticationManager.getCurrentUser().isPresent() && money > 0) {
                 ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-                customer.getAccount().outgoingTransaction(null, money);
+                if(!customer.getAccount().outgoingTransaction(null, money)){
+                    map.addAttribute("paymentOutError", true);
+                    return "forward:bankaccount";
+                }
             }
         } catch (Exception e) {
-            map.addAttribute("paymentError", true);
-            return "bankaccount";
+            map.addAttribute("paymentOutError", true);
+            return "forward:bankaccount";
         }
-
-        return "redirect:bankaccount";
+        map.addAttribute("paymentOutSuccess", true);
+        return "forward:bankaccount";
     }
 }
