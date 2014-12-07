@@ -129,7 +129,8 @@ public class LotterieDataInitializer implements DataInitializer {
             return;
         }
 
-        UserAccount admin = userAccountManager.create("admin", "123", new Role("ROLE_BOSS"));
+        final Role customerRole = new Role("ROLE_USER");
+        UserAccount admin = userAccountManager.create("admin", "123", new Role("ROLE_BOSS"), customerRole);
         userAccountManager.save(admin);
 
         BankAccount adminAccount = new BankAccount();
@@ -138,7 +139,6 @@ public class LotterieDataInitializer implements DataInitializer {
         bankAccountRepository.save(adminAccount);
         customerRepository.save(adminCustomer);
 
-        final Role customerRole = new Role("ROLE_USER");
 
         UserAccount ua1 = userAccountManager.create("hans", "123", customerRole);
         userAccountManager.save(ua1);

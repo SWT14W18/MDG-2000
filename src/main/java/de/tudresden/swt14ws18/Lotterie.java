@@ -41,9 +41,15 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
  * TODO Uhrzeiten bei Fußballspielen anzeigen
  * TODO bei Spielen Datumsanzeige: Wann findet die nächste Ziehung/das nächste Spiel statt?
  * TODO Rollensystem definieren (z.B. Admin Rolle, aufteilung und sperrbare und nicht sperrbare Rechte beim User)
- *      
- * @author Reinhard_2
- *
+ */
+
+/*
+ * Entwurf Rollensystem:
+ * Gast - keine Rolle, unangemeldeter Nutzer (login, register, impressum usw.)
+ * USER - registrierter Benutzer (logout, einzahlen, etc.)
+ * BOSS - Admin Funktionen
+ * CUSTOMER - Kunden Funktionen die immer vorhanden sind (Messages bezahlen, Einzahlen, Auszahlen, etc.)
+ * CUSTOMER_BLOCKABLE - Kunden funktionen die gesperrt werden können
  */
 
 @Configuration

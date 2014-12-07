@@ -15,9 +15,9 @@
 				<td><p>Lottoübersicht</p>
 					<br/>
 					<br/>
-					<p th:text="@{'Nächste Ziehung ist am '+${lottoTipsMap.firstKey().getDateString()}}">Nächste Ziehung</p>
+					<p th:text="@{'Nächste Ziehung ist am '+${nextLottoDate}}">Nächste Ziehung</p>
 					<br/>
-					<p th:text="@{'Gesamtvolumen der Tipps : '+${lottoTipsMap.get(nextLottoGame)}+' Euro'}">Input</p>
+					<p th:text="@{'Gesamtvolumen der Tipps : '+${nextLottoInput}+' Euro'}">Input</p>
 					<br/>
 					<br/>
 					<br/>

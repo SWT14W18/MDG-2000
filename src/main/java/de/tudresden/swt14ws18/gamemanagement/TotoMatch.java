@@ -22,7 +22,7 @@ public class TotoMatch extends Game {
     @Enumerated
     private TotoGameType totoGameType;
     private int matchDay;
-    private Double totalInput = 0.0D;
+    private Double totalInput = 0.0D; //TODO entfernen, sollte über repository abgefragt werden!
 
     @Deprecated
     protected TotoMatch() {
