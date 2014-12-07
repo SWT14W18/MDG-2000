@@ -131,7 +131,7 @@ public class LotterieController {
         }
         catch(Exception e){
             map.addAttribute("paymentError", true);
-            return "redirect:index";
+            return "bankaccount";
         }
         
 
@@ -139,14 +139,22 @@ public class LotterieController {
     }
 
     @RequestMapping("/auszahlen")
-    public String auszahlen(@RequestParam("newMoney") double money, ModelMap map) {
+    public String auszahlen(@RequestParam("newMoney") String moneyString, ModelMap map) {
         handleGeneralValues(map);
 
-        if (authenticationManager.getCurrentUser().isPresent() && money > 0) {
-            ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-            customer.getAccount().outgoingTransaction(null, money);
+        try{
+            double money = Double.parseDouble(moneyString);
+            if (authenticationManager.getCurrentUser().isPresent() && money > 0) {
+                ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+                customer.getAccount().outgoingTransaction(null, money);
+            }
         }
-        return "redirect:index";
+        catch(Exception e){
+            map.addAttribute("paymentError", true);
+            return "bankaccount";
+        }
+        
+        return "redirect:bankaccount";
     }
 
     @RequestMapping("/payMessage")
