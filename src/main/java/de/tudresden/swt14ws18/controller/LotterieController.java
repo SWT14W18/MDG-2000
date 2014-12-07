@@ -72,7 +72,7 @@ public class LotterieController extends ControllerBase {
         return "index";
     }
     
-    /* TODO bitte hier die Überprüfung obs korrekt ist oder nicht (Tutor fragen ? )
+    /* TODO bitte hier die Überprüfung obs korrekt ist oder nicht (Tutor fragen ? ) 
     @RequestMapping(value = "/trylogin", method = RequestMethod.POST)
     public String trylogin(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap map) {
         
@@ -96,6 +96,16 @@ public class LotterieController extends ControllerBase {
     public String reg(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap map) {
 
         handleGeneralValues(map);
+        
+        if(vorname.isEmpty()){
+            map.addAttribute("registrationError", true);
+            return "forward:registration";
+        }
+        if(passwort.isEmpty()){
+                map.addAttribute("registrationError", true);
+                return "forward:registration";
+        }
+        
         if (userAccountManager.contains(new UserAccountIdentifier(vorname))) {
             map.addAttribute("registrationError", true);
             return "forward:registration";

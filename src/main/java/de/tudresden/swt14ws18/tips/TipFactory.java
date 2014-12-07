@@ -68,6 +68,13 @@ public class TipFactory {
 	totoTipCollectionRepository.save(new TotoTipCollection(tips, owner));
     }
 
+    /**
+     * Erstellt und trägt die Tipps in das System ein.
+     * 
+     * 
+     * @param map Die eingetragen Tipps auf der Website
+     * @param owner Der Customer der den Tipp abgibt
+     */
     public void craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
 
 	List<LottoTip> tips = new ArrayList<>();
