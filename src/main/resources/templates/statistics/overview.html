@@ -5,34 +5,19 @@
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1>Liste der Transaktionen</h1>
+		<h1>Lotteriestatistiken</h1>
 		<hr/>
 		<br/>
 		<br/>
 		<h2><a th:href="inOutOverview.html">Geldflussübersicht</a> </h2>
 		<br/>
+		<br/>
+		<h2><a th:href="transactionOverview.html">Transaktionsliste</a></h2>
+		<br/>
+		<br/>
 		<h2 th:text="@{'Zahl der angemeldeten Kunden: '+${customers}}">Kundenanzahl</h2>
 		<br/>
 		<br/>
-		<div align="center">
-		<div align="center"  id="divListMessages">
-		<ol start="1" id="listMessages">
-			<div th:each="transactionItem : ${transactions}">
-			<br/>
-			<label  th:text="@{'Von: '+${transactionItem.getNameFrom()}}">Von</label>
-			<br/>
-			<label  th:text="@{'Nach: '+${transactionItem.getNameTo()}}">Von</label>
-			<br/>
-			<label  th:text="@{'Geldbetrag: '+${transactionItem.getAmount()}}+' €'">Von</label>
-			<br/>
-			<label  th:text="@{'Datum: '+${transactionItem.getDateString()}}">Von</label>
-			<br/>
-			<br/>				
-			</div>
-		</ol>
-		</div>
-		</div>
-		
 		<br/>
 		<br/>
 		<br/>

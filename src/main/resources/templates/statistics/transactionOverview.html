@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<!-- Header include -->
+	<div th:replace="fragments/header :: header"></div>
+	<section>
+		<h1>Liste der Transaktionen</h1>
+		<hr/>
+		<br/>
+		<br/>
+		<div align="center">
+		<div align="center"  id="divListMessages">
+		<ol start="1" id="listMessages">
+			<div th:each="transactionItem : ${transactions}">
+			<br/>
+			<label  th:text="@{'Von: '+${transactionItem.getNameFrom()}}">Von</label>
+			<br/>
+			<label  th:text="@{'Nach: '+${transactionItem.getNameTo()}}">Von</label>
+			<br/>
+			<label  th:text="@{'Geldbetrag: '+${transactionItem.getAmount()}}+' €'">Von</label>
+			<br/>
+			<label  th:text="@{'Datum: '+${transactionItem.getDateString()}}">Von</label>
+			<br/>
+			<br/>				
+			</div>
+		</ol>
+		</div>
+		</div>
+		
+		<br/>
+		<br/>
+		<br/>
+	</section>
+	<!-- Footer include -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>	
+</html>

@@ -147,11 +147,20 @@ public class AdminController extends ControllerBase {
     public String statisticsoverview(ModelMap map) {
         handleGeneralValues(map);
 
-        BankAccount customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount();
-        map.addAttribute("transactions", transactionRepo.findByFromOrToOrderByDateDesc(customer, customer));// customer.getAccount().getTransactions());
         map.addAttribute("customers", customerRepository.count());
 
         return "statistics/overview";
+    }
+    
+    @RequestMapping("/transactionOverview")
+    public String transactionOverview(ModelMap map){
+        handleGeneralValues(map);
+        
+        BankAccount customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount();
+        map.addAttribute("transactions", transactionRepo.findByFromOrToOrderByDateDesc(customer, customer));
+        
+        
+        return "statistics/transactionOverview";
     }
 
     private TreeMap<LottoGame, Double> createLottoOverview() {
