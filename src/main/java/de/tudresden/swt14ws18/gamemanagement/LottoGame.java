@@ -11,6 +11,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
 import de.tudresden.swt14ws18.Lotterie;
+import de.tudresden.swt14ws18.tips.LottoTip;
 
 /**
  * Repräsentiert eine Lotto Ziehung
@@ -33,7 +34,7 @@ public class LottoGame extends Game {
     }
 
     public LottoGame(LocalDateTime date) {
-	super(date);
+        super(date);
     }
 
     /**
@@ -44,16 +45,16 @@ public class LottoGame extends Game {
      *            der Geldbetrag der in dieser Lottoziehung ausgeschütet wird.
      */
     public void setWinningPot(double winningPot) {
-	winLevels.put(LottoResult.NONE, 0 * winningPot);
-	winLevels.put(LottoResult.TWO_SUPER, 0.1 * winningPot);
-	winLevels.put(LottoResult.THREE, 0.1 * winningPot);
-	winLevels.put(LottoResult.THREE_SUPER, 0.1 * winningPot);
-	winLevels.put(LottoResult.FOUR, 0.1 * winningPot);
-	winLevels.put(LottoResult.FOUR_SUPER, 0.1 * winningPot);
-	winLevels.put(LottoResult.FIVE, 0.1 * winningPot);
-	winLevels.put(LottoResult.FIVE_SUPER, 0.1 * winningPot);
-	winLevels.put(LottoResult.SIX, 0.1 * winningPot);
-	winLevels.put(LottoResult.SIX_SUPER, 0.2 * winningPot);
+        winLevels.put(LottoResult.NONE, 0 * winningPot);
+        winLevels.put(LottoResult.TWO_SUPER, 0.1 * winningPot);
+        winLevels.put(LottoResult.THREE, 0.1 * winningPot);
+        winLevels.put(LottoResult.THREE_SUPER, 0.1 * winningPot);
+        winLevels.put(LottoResult.FOUR, 0.1 * winningPot);
+        winLevels.put(LottoResult.FOUR_SUPER, 0.1 * winningPot);
+        winLevels.put(LottoResult.FIVE, 0.1 * winningPot);
+        winLevels.put(LottoResult.FIVE_SUPER, 0.1 * winningPot);
+        winLevels.put(LottoResult.SIX, 0.1 * winningPot);
+        winLevels.put(LottoResult.SIX_SUPER, 0.2 * winningPot);
     }
 
     /**
@@ -62,7 +63,7 @@ public class LottoGame extends Game {
      * @return die Zahlen als LottoNumbers
      */
     public LottoNumbers getResult() {
-	return result;
+        return result;
     }
 
     /**
@@ -76,29 +77,31 @@ public class LottoGame extends Game {
      *             falls result == null oder das Ergebnis schon gesetzt wurde.
      */
     public void setResult(LottoNumbers result) {
-	if (result == null)
-	    throw new IllegalArgumentException("You can't set the result of a game to NOT PLAYED!");
+        if (result == null)
+            throw new IllegalArgumentException("You can't set the result of a game to NOT PLAYED!");
 
-	if (getResult() != null)
-	    throw new IllegalArgumentException("You can't set the result of a game, that already has been set!");
+        if (getResult() != null)
+            throw new IllegalArgumentException("You can't set the result of a game, that already has been set!");
 
-	this.result = result;
-	this.notifyObservers(false); // report that game is ready and that tips
-				     // please report their result
-	this.notifyObservers(true); // report that the game now knows who won
-				    // how much
+        this.result = result;
 
-	Lotterie.getInstance().setNextLottoPot(this); // TODO noch nicht optimal
+        for (LottoTip tip : Lotterie.getInstance().getLottoTipRepository().findByLottoGame(this)) {
+            tip.update(this, false); // report that game is ready and that tips please report their result
+            tip.update(this, true); // report that the game now knows who won how much
+        }
+
+        
+        Lotterie.getInstance().setNextLottoPot(this); // TODO noch nicht optimal
     }
 
     @Override
     public String getTitle() {
-	return String.format(title, Lotterie.OUTPUT_DTF.format(getDate()));
+        return String.format(title, Lotterie.OUTPUT_DTF.format(getDate()));
     }
 
     @Override
     public GameType getType() {
-	return GameType.LOTTO;
+        return GameType.LOTTO;
     }
 
     /**
@@ -108,10 +111,10 @@ public class LottoGame extends Game {
      *            das zu registrierende Ergebnis
      */
     public void registerResult(LottoResult result2) {
-	if (!resultMap.containsKey(result2))
-	    resultMap.put(result2, 0);
+        if (!resultMap.containsKey(result2))
+            resultMap.put(result2, 0);
 
-	resultMap.put(result2, resultMap.get(result2) + 1);
+        resultMap.put(result2, resultMap.get(result2) + 1);
     }
 
     /**
@@ -122,10 +125,10 @@ public class LottoGame extends Game {
      * @return der Gewinn als double, abgerundet auf 2 Nachkommestellen.
      */
     public double getWinAmount(LottoResult r) {
-	double win = winLevels.get(r);
-	int number = resultMap.get(r);
+        double win = winLevels.get(r);
+        int number = resultMap.get(r);
 
-	return new BigDecimal(win / number).setScale(2, RoundingMode.FLOOR).doubleValue();
+        return new BigDecimal(win / number).setScale(2, RoundingMode.FLOOR).doubleValue();
     }
 
     /**
@@ -134,18 +137,18 @@ public class LottoGame extends Game {
      * @return Der verbleibende Pot als double.
      */
     public double getRemainingPot() {
-	double result = 0;
+        double result = 0;
 
-	for (LottoResult r : LottoResult.values())
-	    if (!resultMap.containsKey(r) || resultMap.get(r) == 0)
-		result += winLevels.get(r);
+        for (LottoResult r : LottoResult.values())
+            if (!resultMap.containsKey(r) || resultMap.get(r) == 0)
+                result += winLevels.get(r);
 
-	return result;
+        return result;
     }
 
     @Override
     public boolean isFinished() {
-	return getResult() != null;
+        return getResult() != null;
     }
 
 }

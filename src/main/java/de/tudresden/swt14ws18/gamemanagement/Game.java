@@ -13,7 +13,7 @@ import de.tudresden.swt14ws18.Lotterie;
  * Repräsentiert ein Spiel
  */
 @MappedSuperclass
-public abstract class Game extends Observable {
+public abstract class Game {
     @GeneratedValue
     @Id
     private long id;

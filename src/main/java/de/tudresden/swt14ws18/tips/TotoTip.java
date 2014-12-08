@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
 
+import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.util.Constants;
@@ -25,7 +26,6 @@ public class TotoTip extends Tip {
     }
 
     public TotoTip(TotoMatch totoMatch, TotoResult result, double input) {
-	totoMatch.addObserver(this);
 	this.totoMatch = totoMatch;
 	this.result = result;
 	this.input = input;
@@ -47,18 +47,18 @@ public class TotoTip extends Tip {
     public double getWinAmount() {
 	return totoMatch.getResult() == getResult() ? input * totoMatch.getQuote(getResult()) : 0;
     }
-
-    @Override
-    public void update(Observable o, Object arg) {
+    
+    public void update(TotoMatch o, Object arg) {
 	if (getGame().getResult() == TotoResult.NOT_PLAYED)
 	    return;
 
-	notifyObservers(true);
+
+        Lotterie.getInstance().getTotoTipCollectionRepository().findByTips(this).update(this, true);
 
 	if (!isValid())
 	    return;
 
-	notifyObservers(false);
+        Lotterie.getInstance().getTotoTipCollectionRepository().findByTips(this).update(this, false);
     }
     
     public String getMatchDateAsString(){

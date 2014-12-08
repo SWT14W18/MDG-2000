@@ -8,6 +8,10 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 
+import de.tudresden.swt14ws18.Lotterie;
+import de.tudresden.swt14ws18.tips.LottoTip;
+import de.tudresden.swt14ws18.tips.TotoTip;
+
 @Entity
 public class TotoMatch extends Game {
 
@@ -22,24 +26,24 @@ public class TotoMatch extends Game {
     @Enumerated
     private TotoGameType totoGameType;
     private int matchDay;
-    private Double totalInput = 0.0D; //TODO entfernen, sollte über repository abgefragt werden!
+    private Double totalInput = 0.0D; // TODO entfernen, sollte über repository abgefragt werden!
 
     @Deprecated
     protected TotoMatch() {
     }
 
     public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes, LocalDateTime date, TotoGameType totoGameType, int matchDay) {
-	super(date);
-	this.teamGuest = teamGuest;
-	this.teamHome = teamHome;
-	this.quotes = quotes;
-	this.totoGameType = totoGameType;
-	this.totoResult = TotoResult.NOT_PLAYED;
-	this.matchDay = matchDay;
-	resultInput = new HashMap<>();
-	resultInput.put(TotoResult.WIN_HOME, 0.0D);
-	resultInput.put(TotoResult.WIN_GUEST, 0.0D);
-	resultInput.put(TotoResult.DRAW, 0.0D);
+        super(date);
+        this.teamGuest = teamGuest;
+        this.teamHome = teamHome;
+        this.quotes = quotes;
+        this.totoGameType = totoGameType;
+        this.totoResult = TotoResult.NOT_PLAYED;
+        this.matchDay = matchDay;
+        resultInput = new HashMap<>();
+        resultInput.put(TotoResult.WIN_HOME, 0.0D);
+        resultInput.put(TotoResult.WIN_GUEST, 0.0D);
+        resultInput.put(TotoResult.DRAW, 0.0D);
     }
 
     /**
@@ -48,7 +52,7 @@ public class TotoMatch extends Game {
      * @return der Name des Heim Teams
      */
     public String getTeamHome() {
-	return teamHome;
+        return teamHome;
     }
 
     /**
@@ -57,7 +61,7 @@ public class TotoMatch extends Game {
      * @return der Name des Gast Teams
      */
     public String getTeamGuest() {
-	return teamGuest;
+        return teamGuest;
     }
 
     /**
@@ -66,7 +70,7 @@ public class TotoMatch extends Game {
      * @return das Ergebnis der Partie
      */
     public TotoResult getResult() {
-	return totoResult;
+        return totoResult;
     }
 
     /**
@@ -75,15 +79,15 @@ public class TotoMatch extends Game {
      * @return die Liga des Spiels
      */
     public TotoGameType getTotoGameType() {
-	return totoGameType;
+        return totoGameType;
     }
-    
-    public Map<TotoResult, Double> getResultInput(){
-    	return resultInput;
+
+    public Map<TotoResult, Double> getResultInput() {
+        return resultInput;
     }
-    
-    public Double getTotalInput(){
-    	return totalInput;
+
+    public Double getTotalInput() {
+        return totalInput;
     }
 
     /**
@@ -92,58 +96,62 @@ public class TotoMatch extends Game {
      * @return der Spieltag als int
      */
     public int getMatchDay() {
-	return matchDay;
+        return matchDay;
     }
 
     /**
-     * Hole die Quote für ein gewisses Ergebnis.
-     * Falls das Ergebnis nicht definiert ist, geb diese Method 1 zurück.
+     * Hole die Quote für ein gewisses Ergebnis. Falls das Ergebnis nicht definiert ist, geb diese Method 1 zurück.
      * 
-     * @param result das mögliche Ergebnis
+     * @param result
+     *            das mögliche Ergebnis
      * @return die Quote, 1 falls nicht definiert.
      */
     public double getQuote(TotoResult result) {
-	if (!quotes.containsKey(result))
-	    return 1;
+        if (!quotes.containsKey(result))
+            return 1;
 
-	return quotes.get(result);
+        return quotes.get(result);
     }
-    
-    public void addInput(TotoResult totoResult, Double input){
-    	resultInput.put(totoResult, resultInput.get(totoResult)+input);
-    	totalInput=+input;
+
+    public void addInput(TotoResult totoResult, Double input) {
+        resultInput.put(totoResult, resultInput.get(totoResult) + input);
+        totalInput = +input;
     }
 
     @Override
     public GameType getType() {
-	return GameType.TOTO;
+        return GameType.TOTO;
     }
 
     @Override
     public String getTitle() {
-	return String.format(teamHome + " : " + teamGuest, this.getDate());
+        return String.format(teamHome + " : " + teamGuest, this.getDate());
     }
 
     /**
-     * Setze das Ergebnis des Matches.
-     * Wenn das Ergebnis gesetzt wird, setzt automatisch die Gewinnberechnung und Ausschüttung in Kraft.
+     * Setze das Ergebnis des Matches. Wenn das Ergebnis gesetzt wird, setzt automatisch die Gewinnberechnung und Ausschüttung in Kraft.
      * 
-     * @param result das Ergebnis der Partie
-     * @throws IllegalArgumentException falls result == NOT_PLAYED oder result schon gesetzt wurde.
+     * @param result
+     *            das Ergebnis der Partie
+     * @throws IllegalArgumentException
+     *             falls result == NOT_PLAYED oder result schon gesetzt wurde.
      */
     public void setResult(TotoResult result) {
-	if (result == TotoResult.NOT_PLAYED)
-	    throw new IllegalArgumentException("You can't set the result of a game to NOT PLAYED!");
+        if (result == TotoResult.NOT_PLAYED)
+            throw new IllegalArgumentException("You can't set the result of a game to NOT PLAYED!");
 
-	if (getResult() != TotoResult.NOT_PLAYED)
-	    throw new IllegalArgumentException("You can't set the result of a game, that already has been set!");
+        if (getResult() != TotoResult.NOT_PLAYED)
+            throw new IllegalArgumentException("You can't set the result of a game, that already has been set!");
 
-	this.totoResult = result;
-	this.notifyObservers(true); // report that the game is finished in all things
+        this.totoResult = result;
+
+        for (TotoTip tip : Lotterie.getInstance().getTotoTipRepository().findByTotoMatch(this)) {
+            tip.update(this, true); // report that the game is finished in all things
+        }
     }
 
     @Override
     public boolean isFinished() {
-	return getResult() != TotoResult.NOT_PLAYED;
+        return getResult() != TotoResult.NOT_PLAYED;
     }
 }

@@ -1,6 +1,7 @@
 package de.tudresden.swt14ws18;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 
 import org.salespointframework.Salespoint;
@@ -25,8 +26,13 @@ import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
+import de.tudresden.swt14ws18.repositories.LottoTipCollectionRepository;
+import de.tudresden.swt14ws18.repositories.LottoTipRepository;
 import de.tudresden.swt14ws18.repositories.MessageRepository;
+import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
+import de.tudresden.swt14ws18.repositories.TotoTipRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
+import de.tudresden.swt14ws18.tips.LottoTip;
 
 /*
  * TODO TESTS!!!
@@ -63,11 +69,11 @@ public class Lotterie {
      * 
      * TODO Eventuell noch Millisekunde übergeben, muss aber nicht.
      */
-    public static final DateTimeFormatter OUTPUT_DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss",Locale.GERMAN);
+    public static final DateTimeFormatter OUTPUT_DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);
 
     private static final double LOTTO_PRICE = 1.00D;
     private static final double INPUT_INTO_POT = 0.9D;
-    
+
     private static Lotterie instance;
     private BusinessTime time;
     private TransactionRepository transactionRepo;
@@ -76,26 +82,50 @@ public class Lotterie {
     private MessageRepository messageRepo;
     private UserAccountManager userAccountManager;
     private BankAccountRepository bankAccountRepo;
+    private LottoTipRepository lottoTipRepo;
+    private TotoTipRepository totoTipRepo;
+    private LottoTipCollectionRepository lottoTipColRepo;
+    private TotoTipCollectionRepository totoTipColRepo;
 
     public Lotterie() {
-	instance = this;
+        instance = this;
     }
-    
+
     @Autowired
     public void setUserAccountManager(UserAccountManager userAccountManager) {
         this.userAccountManager = userAccountManager;
     }
-    
+
     @Autowired
     public void setBankAccountRepository(BankAccountRepository bankAccountRepository) {
         this.bankAccountRepo = bankAccountRepository;
     }
-    
+
     @Autowired
-    public void setCustomerRepository(CustomerRepository customerRepository){
+    public void setCustomerRepository(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
-    
+
+    @Autowired
+    public void setTotoTipRepository(TotoTipRepository totoTipRepo) {
+        this.totoTipRepo = totoTipRepo;
+    }
+
+    @Autowired
+    public void setLottoTipRepository(LottoTipRepository lottoTipRepo) {
+        this.lottoTipRepo = lottoTipRepo;
+    }
+
+    @Autowired
+    public void setTotoTipCollectionRepository(TotoTipCollectionRepository totoTipColRepo) {
+        this.totoTipColRepo = totoTipColRepo;
+    }
+
+    @Autowired
+    public void setLottoTipColectionRepository(LottoTipCollectionRepository lottoTipColRepo) {
+        this.lottoTipColRepo = lottoTipColRepo;
+    }
+
     @Autowired
     public void setMessageRepository(MessageRepository messageRepo) {
         this.messageRepo = messageRepo;
@@ -103,75 +133,97 @@ public class Lotterie {
 
     @Autowired
     public void setTime(BusinessTime time) {
-	this.time = time;
+        this.time = time;
     }
 
     @Autowired
     public void setLottoMatchRepository(LottoMatchRepository lottoRepo) {
-	this.lottoRepo = lottoRepo;
+        this.lottoRepo = lottoRepo;
     }
 
     @Autowired
     public void setTransactionRepository(TransactionRepository transactionRepo) {
-	this.transactionRepo = transactionRepo;
+        this.transactionRepo = transactionRepo;
     }
 
     public BusinessTime getTime() {
-	return time;
+        return time;
     }
 
     public static Lotterie getInstance() {
-	return instance;
+        return instance;
     }
 
     public static void main(String[] args) {
-	SpringApplication.run(Lotterie.class, args);
+        SpringApplication.run(Lotterie.class, args);
     }
 
     public BankAccount getBankAccount() {
-	return customerRepository.findByUserAccount(userAccountManager.get(new UserAccountIdentifier("admin")).get()).getAccount();
+        return customerRepository.findByUserAccount(userAccountManager.get(new UserAccountIdentifier("admin")).get()).getAccount();
     }
 
     public void setNextLottoPot(LottoGame game) {
-	LottoGame result = lottoRepo.findByResultOrderByDateAsc(null).get(0);
+        List<LottoGame> l = lottoRepo.findByResultOrderByDateAsc(null);
+        LottoGame result = l.get(0).equals(game) ? l.get(1) : l.get(0);
 
-	if (result != null)
-	    result.setWinningPot(game.getRemainingPot() + game.countObservers() * LOTTO_PRICE * INPUT_INTO_POT);
+        int count = 0;
+        for (LottoTip tip : getLottoTipRepository().findByLottoGame(game))
+            if (tip.isValid())
+                count++;
+
+        result.setWinningPot((game.getRemainingPot() + (count * LOTTO_PRICE)) * INPUT_INTO_POT);
     }
 
     @Configuration
     static class LotterieWebConfiguration extends SalespointWebConfiguration {
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-	    registry.addViewController("/login").setViewName("login");
-	}
+        @Override
+        public void addViewControllers(ViewControllerRegistry registry) {
+            registry.addViewController("/login").setViewName("login");
+        }
     }
 
     @Configuration
     @EnableGlobalMethodSecurity(prePostEnabled = true)
     static class WebSecurityConfiguration extends SalespointSecurityConfiguration {
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-	    http.csrf().disable();
-	    http.authorizeRequests().antMatchers("/**").permitAll().and().formLogin().loginPage("/login").loginProcessingUrl("/login").and().logout()
-		    .logoutUrl("/logout").logoutSuccessUrl("/");
-	}
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.csrf().disable();
+            http.authorizeRequests().antMatchers("/**").permitAll().and().formLogin().loginPage("/login").loginProcessingUrl("/login").and().logout()
+                    .logoutUrl("/logout").logoutSuccessUrl("/");
+        }
     }
 
     public TransactionRepository getTransactionRepo() {
-	return transactionRepo;
+        return transactionRepo;
     }
-    
-    public CustomerRepository getCustomerRepository(){
+
+    public CustomerRepository getCustomerRepository() {
         return customerRepository;
     }
 
     public MessageRepository getMessagesRepository() {
         return messageRepo;
     }
-    
+
     public BankAccountRepository getBankAccountRepository() {
         return bankAccountRepo;
+    }
+
+    public LottoTipRepository getLottoTipRepository() {
+        return lottoTipRepo;
+    }
+
+    public TotoTipRepository getTotoTipRepository() {
+        return totoTipRepo;
+    }
+    
+
+    public LottoTipCollectionRepository getLottoTipCollectionRepository() {
+        return lottoTipColRepo;
+    }
+
+    public TotoTipCollectionRepository getTotoTipCollectionRepository() {
+        return totoTipColRepo;
     }
 }

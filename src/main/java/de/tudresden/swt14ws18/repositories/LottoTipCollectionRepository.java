@@ -4,11 +4,13 @@ import java.util.Collection;
 
 import org.springframework.data.repository.CrudRepository;
 
+import de.tudresden.swt14ws18.tips.LottoTip;
 import de.tudresden.swt14ws18.tips.LottoTipCollection;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 public interface LottoTipCollectionRepository extends CrudRepository<LottoTipCollection, Long> {
 
     public Collection<LottoTipCollection> findByOwner(ConcreteCustomer customer);
+    public LottoTipCollection findByTips(LottoTip tip);
 
 }

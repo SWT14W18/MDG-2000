@@ -80,12 +80,17 @@ public class LotterieDataInitializer implements DataInitializer {
         if (!lottoMatchRepository.findAll().iterator().hasNext()) {
             LocalDateTime ldt = LocalDateTime.of(2014, 12, 7, 12, 0);
             for (int i = 0; i < 50; i++) {
-                lottoMatchRepository.save(new LottoGame(ldt));
+                LottoGame game = new LottoGame(ldt);
+                
+                if(i == 0)
+                    game.setWinningPot(100000);
+                
+                lottoMatchRepository.save(game);
                 ldt = ldt.plusDays(7);
             }
         }
 
-        lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1, 2, 3, 4, 5,
+        /*lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1, 2, 3, 4, 5,
                 6, 7)));
         lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 7, 12, 0)), new LottoNumbers(1, 2, 3, 4, 5,
                 6, 7)));
@@ -106,7 +111,7 @@ public class LotterieDataInitializer implements DataInitializer {
         lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 28, 12, 0)), new LottoNumbers(1, 2, 3, 4, 5,
                 6, 7)));
         lottoTipRepository.save(new LottoTip(lottoMatchRepository.findByDate(LocalDateTime.of(2014, 12, 28, 12, 0)), new LottoNumbers(1, 2, 3, 4, 5,
-                6, 7)));
+                6, 7)));*/
 
         if (totoMatchRepository.findAll().iterator().hasNext()) {
             return;

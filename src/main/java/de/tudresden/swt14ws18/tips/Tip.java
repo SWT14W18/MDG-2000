@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 import de.tudresden.swt14ws18.gamemanagement.Game;
 
 @MappedSuperclass
-public abstract class Tip extends Observable implements Observer {
+public abstract class Tip/* extends Observable*/ {
 
     @GeneratedValue
     @Id

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.Transaction;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
@@ -152,16 +153,73 @@ public class AdminController extends ControllerBase {
         return "statistics/overview";
     }
 
+    @RequestMapping("/setLottoNumbers")
+    public String insertLottoNumbers(@RequestParam Map<String, String> params, ModelMap map) {
+
+        LottoNumbers numbers = parseInput(params);
+        
+        if (numbers == null)
+            return "index";
+
+        LottoGame result = null;
+        for (LottoGame match : lottoMatchRepository.findByResultOrderByDateAsc(null)) {
+            if (!match.getDate().isBefore(time.getTime()))
+                continue;
+
+            result = match;
+            break;
+        }
+
+        if (result != null)
+        {
+            result.setResult(numbers);
+            lottoMatchRepository.save(result);
+        }
+
+        return "index";
+    }
+
+    private LottoNumbers parseInput(Map<String, String> input) {
+        if (!input.containsKey("number1"))
+            return null;
+        if (!input.containsKey("number2"))
+            return null;
+        if (!input.containsKey("number3"))
+            return null;
+        if (!input.containsKey("number4"))
+            return null;
+        if (!input.containsKey("number5"))
+            return null;
+        if (!input.containsKey("number6"))
+            return null;
+        if (!input.containsKey("super"))
+            return null;
+
+        try {
+            int n1 = Integer.parseInt(input.get("number1"));
+            int n2 = Integer.parseInt(input.get("number2"));
+            int n3 = Integer.parseInt(input.get("number3"));
+            int n4 = Integer.parseInt(input.get("number4"));
+            int n5 = Integer.parseInt(input.get("number5"));
+            int n6 = Integer.parseInt(input.get("number6"));
+            int nsuper = Integer.parseInt(input.get("super"));
+
+            return new LottoNumbers(nsuper, n1, n2, n3, n4, n5, n6);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
     private TreeMap<LottoGame, Double> createLottoOverview() {
         TreeMap<LottoGame, Double> lottoTipsMap = new TreeMap<LottoGame, Double>(comp);
-        //TODO mit richtiger Zeit arbeiten lassen
-        for (LottoGame lottoGame : lottoMatchRepository.findAll()/*AfterOrderByDateAsc()*/) {
-            if(lottoGame.isFinished() || lottoGame.getDate().isBefore(time.getTime()))
-                continue;            
-            
+        // TODO mit richtiger Zeit arbeiten lassen
+        for (LottoGame lottoGame : lottoMatchRepository.findAll()/* AfterOrderByDateAsc() */) {
+            if (lottoGame.isFinished() || lottoGame.getDate().isBefore(time.getTime()))
+                continue;
+
             if (!lottoTipsMap.containsKey(lottoGame))
                 lottoTipsMap.put(lottoGame, 0.0D);
-            
+
             for (LottoTip lottoTip : lottoTipRepository.findByLottoGame(lottoGame))
                 lottoTipsMap.put(lottoGame, lottoTipsMap.get(lottoGame) + lottoTip.getInput());
         }

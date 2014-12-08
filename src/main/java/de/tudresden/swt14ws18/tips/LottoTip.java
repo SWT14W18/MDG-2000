@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
+import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.LottoResult;
@@ -27,7 +28,7 @@ public class LottoTip extends Tip {
     }
     
     public LottoTip(LottoGame game, LottoNumbers numbers) {
-	game.addObserver(this);
+	//game.addObserver(this);
 	this.numbers = numbers;
 	this.lottoGame = game;
     }
@@ -44,22 +45,23 @@ public class LottoTip extends Tip {
 	return result;
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
+    public void update(LottoGame o, Object arg) {
 	if ((Boolean) arg)
 	    handleResult();
 	else
 	    calculateResult();
+	
+	Lotterie.getInstance().getLottoTipRepository().save(this);
     }
 
     private void handleResult() {
 	if (result == null)
 	    throw new IllegalStateException("Tried to resolve a tip, which has not be processed yet!");
 
-	if (result == LottoResult.NONE || isValid())
+	if (result == LottoResult.NONE || !isValid())
 	    return;
 
-	notifyObservers(false);
+	Lotterie.getInstance().getLottoTipCollectionRepository().findByTips(this).update(this, false);
     }
 
     @Override
@@ -70,12 +72,12 @@ public class LottoTip extends Tip {
     private void calculateResult() {
 	if (getGame().getResult() == null)
 	    return;
-
-	notifyObservers(true);
+	
+        Lotterie.getInstance().getLottoTipCollectionRepository().findByTips(this).update(this, true);
 
 	if (!isValid())
 	{
-	    getGame().deleteObserver(this);
+	    //TODO getGame().deleteObserver(this);
 	    return;
 	}
 
