@@ -38,6 +38,7 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
  * TODO Statusmeldungen
  * TODO Uhrzeiten bei Fußballspielen anzeigen
  * TODO bei Spielen Datumsanzeige: Wann findet die nächste Ziehung/das nächste Spiel statt?
+ * TODO Anonymen User
  */
 
 /*
