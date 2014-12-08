@@ -69,7 +69,7 @@ public class LotterieController extends ControllerBase {
     }
 
     @RequestMapping(value = "/reg", method = RequestMethod.POST)
-    public String reg(@RequestParam("username") String vorname, @RequestParam("password") String passwort, ModelMap map) {
+    public String reg(@RequestParam("username") String vorname, @RequestParam("password") String passwort, @RequestParam("anonym") boolean anonym,ModelMap map) {
 
         handleGeneralValues(map);
 
@@ -86,10 +86,26 @@ public class LotterieController extends ControllerBase {
             map.addAttribute("registrationError", true);
             return "forward:registration";
         }
-
+        if(anonym){
+           createAnonymUser(vorname,passwort); 
+           map.addAttribute("registrationAnonymSuccess", true);
+        }else{
         createUser(vorname, passwort);
         map.addAttribute("registrationSuccess", true);
+        }
         return "forward:index";
+    }
+
+    private void createAnonymUser(String vorname, String passwort) {
+        UserAccount ua = userAccountManager.create(vorname, passwort, Constants.ANONYM,Constants.CUSTOMER);
+        userAccountManager.save(ua);
+
+        BankAccount ba = new BankAccount();
+
+        ConcreteCustomer c1 = new ConcreteCustomer(vorname, Status.ANONYM, ua, ba);
+
+        bankAccountRepository.save(ba);
+        customerRepository.save(c1);
     }
 
     private void createUser(String name, String password) {

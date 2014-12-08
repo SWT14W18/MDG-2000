@@ -148,6 +148,7 @@ public class LotterieDataInitializer implements DataInitializer {
         UserAccount ua4 = userAccountManager.create("mclovinfogell", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
         userAccountManager.save(ua4);
 
+        
         BankAccount ba1 = new BankAccount();
         BankAccount ba2 = new BankAccount();
         BankAccount ba3 = new BankAccount();

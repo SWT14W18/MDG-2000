@@ -5,11 +5,22 @@
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1> Schüss</h1>
-		<hr/>	
-		<form  th:action="@{/logout}">	
-		<div align="center" ><input type="submit" value="Logout!"/></div>
+		<h1> Konto</h1>
+		<hr/>
+		<br/>
+		<br/>
+		<p>Hier kannst du deinen Gewinn auszahlen lassen.</p>
+
+		<form th:action="@{/anonymAuszahlen}" >
+
+		<div align="center" ><input type="submit" value="Alles Auszahlen!"/></div>
+
 		</form>
+		<br/>
+		<br/>
+		<br/>
+		<p>Alle Angaben sind in &euro;</p>
+		
 		<br/>
 		<br/>
 		<br/>

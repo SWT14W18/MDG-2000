@@ -103,6 +103,7 @@
                    <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_USER')" class="liright" id="Geld"><a th:href="bankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
+                  <li sec:authorize="hasRole('ROLE_ANONYM')" class="liright" id="Geld"><a th:href="anonymbankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
 				   			
 				
 				
@@ -190,6 +191,40 @@
 						  }
 						});
 					</script>
+					
+					<!-- AUSZAHLUNG ANONYM Fehler BOX -->
+					<script th:if="${paymentOutAnonymError}">
+						bootbox.dialog({
+						  title: "Auszahlung Fehlgeschlagen!",
+						  message: "Der angegebene Betrag konnte nicht ausgezahlt werden. Stellen sie sicher das sich Geld auf ihrem Lotto konto befindet und versuchen sie es erneut.",
+						  buttons: {
+							danger: {
+							  label: "Verstanden!",
+							  className: "btn-danger",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+				    <!-- AUSZAHLUNG ANONYM Erfolg BOX -->
+					<script th:if="${paymentOutAnonymSuccess}">
+						bootbox.dialog({
+						  title: "Auszahlung Erfolgreich!",
+						  message: "Der Betrag wurde erfolgreich ausgezahlt! Sie werden automatisch weitergeleitet und das Konto wird nun gel&ouml;scht.",
+						  buttons: {
+							success: {
+							  label: "Fertig!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
 											
 					<!-- REGISTRIERUNGS Fehler BOX -->		
 					<script th:if="${registrationError}">
@@ -213,6 +248,23 @@
 						bootbox.dialog({
 						  title: "Registrierung Erfolgreich!",
 						  message: "Sie haben sich erfolgreich registriert. Sie k&ouml;nnen sich jederzeit mit den angegebene Benutzerdaten anmelden.",
+						  buttons: {
+							success: {
+							  label: "Weiter!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- REGISTRIERUNGS ANONYM Erfolg BOX -->		
+					<script th:if="${registrationAnonymSuccess}">
+						bootbox.dialog({
+						  title: "Registrierung Erfolgreich!",
+						  message: "Sie haben sich erfolgreich registriert. Ihr Konto ist ein Anonymes Konto mit dem sie genau <b>einen</b> Tippschein erstllen k&ouml;nnen. Danach k&ouml;nnen sie ihren Gewinn auszahlen und das Konto wird deaktiviert und gel&ouml;scht.",
 						  buttons: {
 							success: {
 							  label: "Weiter!",

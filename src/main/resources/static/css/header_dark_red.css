@@ -548,3 +548,11 @@ font-family: 'ubuntu',sans-serif;
 font-size: 16px;
 font-weight: normal;
 }
+
+
+input[type="checkbox"]{
+	padding-top:0px;
+	margin: 2px;
+	width: 20px;
+	height: 20px;
+}
