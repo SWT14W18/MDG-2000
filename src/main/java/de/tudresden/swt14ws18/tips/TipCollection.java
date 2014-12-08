@@ -16,7 +16,6 @@ import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
-import de.tudresden.swt14ws18.useraccountmanager.Customer;
 
 @MappedSuperclass
 public abstract class TipCollection<T extends Tip> implements Observer {
@@ -53,7 +52,7 @@ public abstract class TipCollection<T extends Tip> implements Observer {
 	return tips;
     }
 
-    public Customer getOwner() {
+    public ConcreteCustomer getOwner() {
 	return owner;
     }
 

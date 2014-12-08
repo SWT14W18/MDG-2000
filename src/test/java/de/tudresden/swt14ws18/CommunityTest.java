@@ -21,8 +21,8 @@ public class CommunityTest {
 
 	@Test
 	public void test() {
-		ConcreteCustomer Customer1 = new ConcreteCustomer("Dieter","234", Status.ACTIVE, userAccount1, bankAccount1);
-		ConcreteCustomer Customer2 = new ConcreteCustomer("Paul","567", Status.ANONYM, userAccount2, bankAccount2);
+		ConcreteCustomer Customer1 = new ConcreteCustomer("Dieter",Status.ACTIVE, userAccount1, bankAccount1);
+		ConcreteCustomer Customer2 = new ConcreteCustomer("Paul", Status.ANONYM, userAccount2, bankAccount2);
 		
 		Community comm1 = new Community("Lottogruppe","passt", Customer1);
 		comm1.addMember(Customer2);

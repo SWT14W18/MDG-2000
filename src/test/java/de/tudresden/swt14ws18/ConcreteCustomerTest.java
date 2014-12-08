@@ -16,8 +16,8 @@ public class ConcreteCustomerTest {
 	
 	@Test
 	public void testConcreteCustomer() {
-		ConcreteCustomer Customer1 = new ConcreteCustomer("Dieter","234", Status.ACTIVE, userAccount, bankAccount);
-		ConcreteCustomer Customer2 = new ConcreteCustomer("Paul","567", Status.ANONYM, userAccount, bankAccount);
+		ConcreteCustomer Customer1 = new ConcreteCustomer("Dieter", Status.ACTIVE, userAccount, bankAccount);
+		ConcreteCustomer Customer2 = new ConcreteCustomer("Paul", Status.ANONYM, userAccount, bankAccount);
 		
 		assertEquals(Customer1.getName(),"Dieter"); 
 		assertEquals(Customer2.getName(), "Paul");

@@ -19,7 +19,6 @@ import de.tudresden.swt14ws18.Lotterie;
 public class LottoGame extends Game {
 
     private static final String title = "Losung vom %1$s";
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     private LottoNumbers result = null;
 

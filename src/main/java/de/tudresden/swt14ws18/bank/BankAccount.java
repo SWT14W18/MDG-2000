@@ -79,7 +79,7 @@ public class BankAccount {
         if (amount < 0)
             return;
 
-        Transaction trans = new Transaction(null, this, amount);
+        new Transaction(null, this, amount);
         balance += amount;
         Lotterie.getInstance().getBankAccountRepository().save(this);
     }

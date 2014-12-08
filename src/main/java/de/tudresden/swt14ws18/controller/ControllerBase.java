@@ -7,7 +7,6 @@ import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.AuthenticationManager;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
 
@@ -26,7 +25,7 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
-public class ControllerBase {
+public abstract class ControllerBase {
     protected final UserAccountManager userAccountManager;
     protected final CustomerRepository customerRepository;
     protected final CommunityRepository communityRepository;
