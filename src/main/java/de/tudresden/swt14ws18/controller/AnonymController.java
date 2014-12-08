@@ -2,7 +2,6 @@ package de.tudresden.swt14ws18.controller;
 
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.AuthenticationManager;
-import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,10 +46,10 @@ public class AnonymController extends ControllerBase {
 
         if (authenticationManager.getCurrentUser().isPresent()) {
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-            if (!customer.getAccount().outgoingTransaction(null, customer.getAccount().getBalance())  && !(customer.getAccount().getBalance() > 0)) {
-                 map.addAttribute("paymentOutAnonymError", true);
-                 return "forward:bankaccount";
-             }
+            if (!customer.getAccount().outgoingTransaction(null, customer.getAccount().getBalance()) && !(customer.getAccount().getBalance() > 0)) {
+                map.addAttribute("paymentOutAnonymError", true);
+                return "forward:bankaccount";
+            }
         }
         map.addAttribute("paymentOutAnonymSuccess", true);
         ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
@@ -61,7 +60,7 @@ public class AnonymController extends ControllerBase {
         // TODO Meldung wird bei logout nicht übermittelt, Funktion nicht hier ausführen.
         return "redirect:logout";
     }
-    
+
     @RequestMapping("/anonymbankaccount")
     public String bankaccount(ModelMap map) {
 

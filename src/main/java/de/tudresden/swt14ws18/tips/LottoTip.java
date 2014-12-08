@@ -1,7 +1,5 @@
 package de.tudresden.swt14ws18.tips;
 
-import java.util.Observable;
-
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
@@ -24,102 +22,100 @@ public class LottoTip extends Tip {
 
     @Deprecated
     public LottoTip() {
-	
+
     }
-    
+
     public LottoTip(LottoGame game, LottoNumbers numbers) {
-	//game.addObserver(this);
-	this.numbers = numbers;
-	this.lottoGame = game;
+        // game.addObserver(this);
+        this.numbers = numbers;
+        this.lottoGame = game;
     }
 
     public LottoGame getGame() {
-	return lottoGame;
+        return lottoGame;
     }
 
     public LottoNumbers getNumbers() {
-	return numbers;
+        return numbers;
     }
 
     public LottoResult getResult() {
-	return result;
+        return result;
     }
 
     public void update(LottoGame o, Object arg) {
-	if ((Boolean) arg)
-	    handleResult();
-	else
-	    calculateResult();
-	
-	Lotterie.getInstance().getLottoTipRepository().save(this);
+        if ((Boolean) arg)
+            handleResult();
+        else
+            calculateResult();
+
+        Lotterie.getInstance().getLottoTipRepository().save(this);
     }
 
     private void handleResult() {
-	if (result == null)
-	    throw new IllegalStateException("Tried to resolve a tip, which has not be processed yet!");
+        if (result == null)
+            throw new IllegalStateException("Tried to resolve a tip, which has not be processed yet!");
 
-	if (result == LottoResult.NONE || !isValid())
-	    return;
+        if (result == LottoResult.NONE || !isValid())
+            return;
 
-	Lotterie.getInstance().getLottoTipCollectionRepository().findByTips(this).update(this, false);
+        Lotterie.getInstance().getLottoTipCollectionRepository().findByTips(this).update(this, false);
     }
 
     @Override
     public double getWinAmount() {
-	return getGame().getWinAmount(getResult());
+        return getGame().getWinAmount(getResult());
     }
 
     private void calculateResult() {
-	if (getGame().getResult() == null)
-	    return;
-	
+        if (getGame().getResult() == null)
+            return;
+
         Lotterie.getInstance().getLottoTipCollectionRepository().findByTips(this).update(this, true);
 
-	if (!isValid())
-	{
-	    //TODO getGame().deleteObserver(this);
-	    return;
-	}
+        if (!isValid()) {
+            // TODO getGame().deleteObserver(this);
+            return;
+        }
 
-	result = getGame().getResult().compare(getNumbers());
-	getGame().registerResult(result);
+        result = getGame().getResult().compare(getNumbers());
+        getGame().registerResult(result);
     }
-    
+
     @Override
     public double getInput() {
-	return input;
+        return input;
     }
-    
-    public String getNumbersAsString(){
+
+    public String getNumbersAsString() {
         StringBuilder numbers_temp = new StringBuilder();
-        
+
         numbers_temp.append("  Getippte Zahlen: ");
-        
-        for(int i: numbers.getNumbers()){
+
+        for (int i : numbers.getNumbers()) {
             numbers_temp.append(i);
             numbers_temp.append(" ");
         }
-        
+
         return numbers_temp.toString();
     }
-    
-    public String getSuperNumberAsString(){
+
+    public String getSuperNumberAsString() {
         StringBuilder temp = new StringBuilder();
-        
+
         temp.append("Getippte Superzahl: ");
         temp.append(numbers.getSuperNumber());
-        
+
         return temp.toString();
     }
-    
-    public String getLottoGameTitleAsString(){
+
+    public String getLottoGameTitleAsString() {
         return lottoGame.getTitle();
     }
 
     @Override
     public String toCustomString() {
-       
-        
-        return lottoGame.getTitle()+ getNumbersAsString();
+
+        return lottoGame.getTitle() + getNumbersAsString();
     }
 }
