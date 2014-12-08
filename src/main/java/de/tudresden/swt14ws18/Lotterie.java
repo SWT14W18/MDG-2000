@@ -29,13 +29,13 @@ import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
 
 /*
+ * TODO TESTS!!!
+ * TODO bei Tototippagabe das "NONE" RAUS!!!
+ * TODO Bei Tototippabgabe muss man seinen Einsatz geben können!!
+ * TODO Tippverarbeitung (Ergebnisse eintragen
+ * TODO Blocked User darf nichts anderes machen können, als seine Mitteilung bezahlen
  * TODO Gruppenfunktionalität
- * TODO Wettübersicht des Admins muss funktionieren + schön aussehen
  * TODO Statisik des Admins ausbauen (Transaktionen zusammensuchen und auswerten)
- *      
- * TODO Lottotippabgabe hübsch gestalten (optional)
- * TODO Mitteilungsbildschirm überarbeiten (Mitteilungen bezahlbar)
- * TODO Statusmeldungen
  * TODO Uhrzeiten bei Fußballspielen anzeigen
  * TODO bei Spielen Datumsanzeige: Wann findet die nächste Ziehung/das nächste Spiel statt?
  * TODO Anonymen User
