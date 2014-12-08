@@ -59,6 +59,9 @@ public class TipFactory {
                     if (result == TotoResult.NOT_PLAYED)
                         continue;
                     double d = Double.parseDouble(money);
+                    if(d < 0){
+                        continue;
+                    }
                     System.out.println(money);
                     tips.add(new TotoTip(totoMatch, result, d));
                 }catch(Exception e)
