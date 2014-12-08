@@ -1,7 +1,6 @@
 package de.tudresden.swt14ws18.gamemanagement;
 
 import java.time.LocalDateTime;
-import java.util.Observable;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,7 +24,7 @@ public abstract class Game {
     }
 
     public Game(LocalDateTime date) {
-	this.date = date;
+        this.date = date;
     }
 
     /**
@@ -34,7 +33,7 @@ public abstract class Game {
      * @return die ID des Spiels
      */
     public long getId() {
-	return id;
+        return id;
     }
 
     /**
@@ -57,11 +56,11 @@ public abstract class Game {
      * @return das Datum als Date.
      */
     public LocalDateTime getDate() {
-	return date;
+        return date;
     }
-    
-    public String getDateString(){
-    	return date.format(Lotterie.OUTPUT_DTF);
+
+    public String getDateString() {
+        return date.format(Lotterie.OUTPUT_DTF);
     }
 
     /**

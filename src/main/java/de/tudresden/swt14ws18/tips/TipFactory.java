@@ -44,30 +44,35 @@ public class TipFactory {
         this.totoTipRepository = totoTipRepository;
     }
 
-    public void craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
-
+    public boolean craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
+        
         List<TotoTip> tips = new ArrayList<>();
 
         for (TotoMatch totoMatch : totoMatchRepository.findByTotoResult(TotoResult.NOT_PLAYED)) {
-            if (totoMatch.isFinished())
+            if (totoMatch.isFinished()){
                 continue;
-
+            }
             if (map.containsKey(String.valueOf(totoMatch.getId()))) {
                 TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
-
-                if (result == TotoResult.NOT_PLAYED)
+                String money = map.get("input"+totoMatch.getId());
+                try{
+                    if (result == TotoResult.NOT_PLAYED)
+                        continue;
+                    double d = Double.parseDouble(money);
+                    System.out.println(money);
+                    tips.add(new TotoTip(totoMatch, result, d));
+                }catch(Exception e)
+                {
                     continue;
-
-                tips.add(new TotoTip(totoMatch, result, 1)); // TODO define
-                // input per user
+                }
             }
         }
-
         if (tips.size() == 0)
-            return;
+            return false;
 
         totoTipRepository.save(tips);
         totoTipCollectionRepository.save(new TotoTipCollection(tips, owner));
+        return true;
     }
 
     /**

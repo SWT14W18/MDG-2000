@@ -4,52 +4,50 @@
 <body>
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
+	<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+</style>
 	<section>
 		<h1> Toto Tipperstellung</h1>
 		<hr/>		
 			<form action="/createTotoTip" method="post">
 				<div class="tipp">
-				
-<p th:each="match : ${matches}">
-<span th:text="@{${match.getTeamHome()}+' - '+${match.getTeamGuest()}}">FC Beispiel - KeinPlan SC</span>
-<input style="width: auto" type="radio" th:name="${match.getId()}" value="0">Sieg Heim</input>
-<input style="width: auto" type="radio" th:name="${match.getId()}" value="1">Unendschieden</input>
-<input style="width: auto" type="radio" th:name="${match.getId()}" value="2">Sieg Auswärts</input>
-<input style="width: auto" type="radio" th:name="${match.getId()}" value="3" checked="checked">None</input>
-</p>
-			
-				<!-- 
- 					<p>
-   						<select name="teamA" size="7">
-							<option value="0">Mannschaft1</option>
-							<option value="1">Mannschaft2</option>
-							<option value="2">Mannschaft3</option>
-							<option value="3">Mannschaft4</option>
-							<option value="4">Mannschaft5</option>
- 						 </select>
- 					</p>
- 					<p>
-   						 <select name="teamB" size="7">
-							<option value="0">Mannschaft1</option>
-							<option value="1">Mannschaft2</option>
-							<option value="2">Mannschaft3</option>
-							<option value="3">Mannschaft4</option>
-							<option value="4">Mannschaft5</option>
- 						 </select>
- 					</p>
-					<select name="outcome">
-						<option value="0">Sieg</option>
-						<option value="1">Niederlage</option>
-						<option value="2">Unentschieden</option>	
-					</select>-->
+				<div align="center">
+				<a href="javascript:void();" onClick="resetTotoSelection()"><div style="width:300px; height:50px; vertical-align:middle;" >Alle Felder zurücksetzen!</div></a>
+				<table style="width:100%; border:1px solid red; border-collapse: collapse;">
+				  <tr th:each="match : ${matches}">
+				    <td th:text="@{${match.getTeamHome()}}">Team A</td>
+				    <td><input style="width: auto" type="radio" th:name="${match.getId()}" value="0">Sieg Heim</input></td>
+				    <td><input style="width: auto" type="radio" th:name="${match.getId()}" value="1">Unendschieden</input></td>
+				    <td>Sieg Auswärts<input style="width: auto" type="radio" th:name="${match.getId()}" value="2"></input></td>
+				    <td th:text="@{${match.getTeamGuest()}}">Team B</td>	
+				    <td style="display:none; float:right;" ><input style="display:none;" class="Radio" type="radio" th:name="${match.getId()}" value="3" checked="checked"></input></td>
+				    <td >&euro;<input class="input" style="width:100px;" type="input" th:name="${'input'+match.getId()}" ></input></td>
+				  </tr>
+				</table>
+				<script type="text/javascript">
+					function resetTotoSelection(){
+						var list= document.getElementsByClassName('Radio');
+						for (key in list){
+						    list[key].checked = 'checked';
+						}
+					}
+				</script>
 				</div>
-			<input type="hidden" name="gameType" value="toto" />
-			<input type="submit" />
+				</div>
+				<input type="hidden" name="gameType" value="toto" />
+				<input type="submit" />
 			</form>
 			
 			<br/>
-		<br/>
-		<br/>
+			<br/>
+			<br/>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>

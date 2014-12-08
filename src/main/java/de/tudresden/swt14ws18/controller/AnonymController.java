@@ -43,13 +43,13 @@ public class AnonymController extends ControllerBase {
     @RequestMapping("/anonymAuszahlen")
     public String auszahlen(ModelMap map) {
         handleGeneralValues(map);
-
+        
         if (authenticationManager.getCurrentUser().isPresent()) {
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-            if (!customer.getAccount().outgoingTransaction(null, customer.getAccount().getBalance())  && !(customer.getAccount().getBalance() > 0)) {
-                 map.addAttribute("paymentOutAnonymError", true);
-                 return "forward:bankaccount";
-             }
+            if (!customer.getAccount().outgoingTransaction(null, customer.getAccount().getBalance()) && !(customer.getAccount().getBalance() > 0)) {
+                map.addAttribute("paymentOutAnonymError", true);
+                return "forward:bankaccount";
+            }
         }
         map.addAttribute("paymentOutAnonymSuccess", true);
         ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
@@ -60,7 +60,7 @@ public class AnonymController extends ControllerBase {
         // TODO Meldung wird bei logout nicht übermittelt, Funktion nicht hier ausführen.
         return "redirect:logout";
     }
-    
+
     @RequestMapping("/anonymbankaccount")
     public String bankaccount(ModelMap map) {
 

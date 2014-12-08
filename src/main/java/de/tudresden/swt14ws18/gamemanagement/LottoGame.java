@@ -2,7 +2,6 @@ package de.tudresden.swt14ws18.gamemanagement;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -90,7 +89,6 @@ public class LottoGame extends Game {
             tip.update(this, true); // report that the game now knows who won how much
         }
 
-        
         Lotterie.getInstance().setNextLottoPot(this); // TODO noch nicht optimal
     }
 

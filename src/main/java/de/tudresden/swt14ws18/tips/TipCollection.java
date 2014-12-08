@@ -3,8 +3,6 @@ package de.tudresden.swt14ws18.tips;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.GeneratedValue;

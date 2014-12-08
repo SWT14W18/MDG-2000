@@ -1,7 +1,5 @@
 package de.tudresden.swt14ws18.tips;
 
-import java.util.Observable;
-
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
@@ -26,69 +24,68 @@ public class TotoTip extends Tip {
     }
 
     public TotoTip(TotoMatch totoMatch, TotoResult result, double input) {
-	this.totoMatch = totoMatch;
-	this.result = result;
-	this.input = input;
-	totoMatch.addInput(result, input);
+        this.totoMatch = totoMatch;
+        this.result = result;
+        this.input = input;
+        totoMatch.addInput(result, input);
     }
 
     public TotoMatch getGame() {
-	return totoMatch;
+        return totoMatch;
     }
 
     public TotoResult getResult() {
-	return result;
+        return result;
     }
 
     public double getInput() {
-	return input;
+        return input;
     }
 
     public double getWinAmount() {
-	return totoMatch.getResult() == getResult() ? input * totoMatch.getQuote(getResult()) : 0;
+        return totoMatch.getResult() == getResult() ? input * totoMatch.getQuote(getResult()) : 0;
     }
-    
-    public void update(TotoMatch o, Object arg) {
-	if (getGame().getResult() == TotoResult.NOT_PLAYED)
-	    return;
 
+    public void update(TotoMatch o, Object arg) {
+        if (getGame().getResult() == TotoResult.NOT_PLAYED)
+            return;
 
         Lotterie.getInstance().getTotoTipCollectionRepository().findByTips(this).update(this, true);
 
-	if (!isValid())
-	    return;
+        if (!isValid())
+            return;
 
         Lotterie.getInstance().getTotoTipCollectionRepository().findByTips(this).update(this, false);
     }
-    
-    public String getMatchDateAsString(){
+
+    public String getMatchDateAsString() {
         return totoMatch.getDateString();
     }
 
-    public String getMatchTitleAsString(){
+    public String getMatchTitleAsString() {
         return totoMatch.getTitle();
     }
-    
-    public String getInputAsString(){
+
+    public String getInputAsString() {
         return Constants.MONEY_FORMAT.format(input);
     }
-    
-    public String getQuoteAsString(){
+
+    public String getQuoteAsString() {
         return String.valueOf(totoMatch.getQuote(result));
     }
-    
-    public String getResultAsString(){
+
+    public String getResultAsString() {
         StringBuilder temp = new StringBuilder();
-        
+
         temp.append(result);
-        
+
         return temp.toString();
     }
-    
+
     @Override
     public String toCustomString() {
         StringBuilder temp = new StringBuilder();
-        
+
         temp.append("Datum: ");
         temp.append(totoMatch.getDateString());
         temp.append("<br/>Spiel:  ");
@@ -98,10 +95,7 @@ public class TotoTip extends Tip {
         temp.append("€");
         temp.append("<br/>  Quote:   ");
         temp.append(totoMatch.getQuote(result));
-        
-        
-        
-        
+
         return temp.toString();
     }
 }

@@ -94,6 +94,7 @@ public class ConcreteCustomer {
         if (getMessageCount() >= MAX_MESSAGE_COUNT && userAccount.hasRole(Constants.CUSTOMER_BLOCKABLE))
         {
             userAccount.remove(Constants.CUSTOMER_BLOCKABLE);
+            Lotterie.getInstance().getUserAccountManager().save(userAccount);
             state = Status.BLOCKED;
         }
 
@@ -108,9 +109,10 @@ public class ConcreteCustomer {
         account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2);
         messages.remove(message);
 
-        if (getMessageCount() < MAX_MESSAGE_COUNT && userAccount.hasRole(Constants.CUSTOMER_BLOCKABLE))
+        if (getMessageCount() < MAX_MESSAGE_COUNT && !userAccount.hasRole(Constants.CUSTOMER_BLOCKABLE))
         {
             userAccount.add(Constants.CUSTOMER_BLOCKABLE);
+            Lotterie.getInstance().getUserAccountManager().save(userAccount);
             state = Status.ACTIVE;
         }
 

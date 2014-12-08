@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 
 import de.tudresden.swt14ws18.Lotterie;
-import de.tudresden.swt14ws18.tips.LottoTip;
 import de.tudresden.swt14ws18.tips.TotoTip;
 
 @Entity
