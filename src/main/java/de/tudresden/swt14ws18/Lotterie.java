@@ -32,15 +32,12 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
  * TODO Gruppenfunktionalität
  * TODO Wettübersicht des Admins muss funktionieren + schön aussehen
  * TODO Statisik des Admins ausbauen (Transaktionen zusammensuchen und auswerten)
- * TODO Tippscheine müssen anklickbar und anzeigbar sein
  *      
  * TODO Lottotippabgabe hübsch gestalten (optional)
- * TODO Admin sollte keine Tipps abgeben dürfen
  * TODO Mitteilungsbildschirm überarbeiten (Mitteilungen bezahlbar)
  * TODO Statusmeldungen
  * TODO Uhrzeiten bei Fußballspielen anzeigen
  * TODO bei Spielen Datumsanzeige: Wann findet die nächste Ziehung/das nächste Spiel statt?
- * TODO Rollensystem definieren (z.B. Admin Rolle, aufteilung und sperrbare und nicht sperrbare Rechte beim User)
  */
 
 /*
