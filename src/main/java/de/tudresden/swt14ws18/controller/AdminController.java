@@ -1,9 +1,7 @@
 package de.tudresden.swt14ws18.controller;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -63,7 +61,6 @@ public class AdminController extends ControllerBase {
         }
     };
 
-
     @RequestMapping("/betsOverview")
     public String betsOverview(ModelMap map) {
         handleGeneralValues(map);
@@ -71,15 +68,12 @@ public class AdminController extends ControllerBase {
         Entry<LottoGame, Double> lottoGameInput = createLottoOverview().firstEntry();
         map.addAttribute("nextLottoDate", lottoGameInput.getKey().getDateString());
         map.addAttribute("nextLottoInput", Constants.MONEY_FORMAT.format(lottoGameInput.getValue()));
-        
-        
 
         map.addAttribute("liga1nextMatchDay", getMatchDayInput(TotoGameType.BUNDESLIGA1));
         map.addAttribute("liga2nextMatchDay", getMatchDayInput(TotoGameType.BUNDESLIGA2));
         map.addAttribute("liga1TotalInput", getTotalInput(TotoGameType.BUNDESLIGA1));
         map.addAttribute("liga2TotalInput", getTotalInput(TotoGameType.BUNDESLIGA2));
         map.addAttribute("pokalTotalInput", getTotalInput(TotoGameType.POKAL));
-
 
         return "statistics/betsOverview";
     }
@@ -154,7 +148,7 @@ public class AdminController extends ControllerBase {
     public String insertLottoNumbers(@RequestParam Map<String, String> params, ModelMap map) {
 
         LottoNumbers numbers = parseInput(params);
-        
+
         if (numbers == null)
             return "index";
 
@@ -167,8 +161,7 @@ public class AdminController extends ControllerBase {
             break;
         }
 
-        if (result != null)
-        {
+        if (result != null) {
             result.setResult(numbers);
             lottoMatchRepository.save(result);
         }
@@ -224,39 +217,36 @@ public class AdminController extends ControllerBase {
         return lottoTipsMap;
     }
 
-
     private double getTotalInput(TotoGameType totoGameType) {
         double value = 0;
 
-        for (TotoMatch match : totoRepo.findByTotoResultAndTotoGameType(TotoResult.NOT_PLAYED, totoGameType)){
-        	value += getMatchInput(match);
+        for (TotoMatch match : totoRepo.findByTotoResultAndTotoGameType(TotoResult.NOT_PLAYED, totoGameType)) {
+            value += getMatchInput(match);
         }
         return value;
     }
-    
+
     private TreeMap<Integer, Double> getMatchDayInput(TotoGameType totoGameType) {
         TreeMap<Integer, Double> matchDayInput = new TreeMap<>();
-        for (TotoMatch match : totoRepo.findByTotoResultAndTotoGameType(TotoResult.NOT_PLAYED, totoGameType)){
+        for (TotoMatch match : totoRepo.findByTotoResultAndTotoGameType(TotoResult.NOT_PLAYED, totoGameType)) {
             if (time.getTime().isBefore(match.getDate())) {
-            	if(!matchDayInput.containsKey(match.getMatchDay())){
-            		matchDayInput.put(match.getMatchDay(), getMatchInput(match));
-            	}
-            	else{
-            		matchDayInput.put(match.getMatchDay(), matchDayInput.get(match.getMatchDay())+getMatchInput(match));
-            	}
+                if (!matchDayInput.containsKey(match.getMatchDay())) {
+                    matchDayInput.put(match.getMatchDay(), getMatchInput(match));
+                } else {
+                    matchDayInput.put(match.getMatchDay(), matchDayInput.get(match.getMatchDay()) + getMatchInput(match));
+                }
             }
         }
         return matchDayInput;
     }
-    
-    private double getMatchInput(TotoMatch totoMatch){
+
+    private double getMatchInput(TotoMatch totoMatch) {
         double value = 0;
         for (TotoTip tip : totoTipRepository.findByTotoMatch(totoMatch))
             if (tip.isValid())
-                value += tip.getInput();        
-    return value;
-    	
-    	
+                value += tip.getInput();
+        return value;
+
     }
 
- }
+}
