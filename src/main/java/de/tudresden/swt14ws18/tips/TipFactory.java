@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
@@ -18,6 +19,7 @@ import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
+import de.tudresden.swt14ws18.util.Constants;
 
 @Component
 public class TipFactory {
@@ -32,107 +34,118 @@ public class TipFactory {
 
     @Autowired
     public TipFactory(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository, LottoTipRepository lottoTipRepository,
-	    TotoTipRepository totoTipRepository, LottoTipCollectionRepository lottoTipCollectionRepository,
-	    TotoTipCollectionRepository totoTipCollectionRepository) {
-	this.lottoMatchRepository = lottoMatchRepository;
-	this.totoMatchRepository = totoMatchRepository;
-	this.lottoTipCollectionRepository = lottoTipCollectionRepository;
-	this.lottoTipRepository = lottoTipRepository;
-	this.totoTipCollectionRepository = totoTipCollectionRepository;
-	this.totoTipRepository = totoTipRepository;
+            TotoTipRepository totoTipRepository, LottoTipCollectionRepository lottoTipCollectionRepository,
+            TotoTipCollectionRepository totoTipCollectionRepository) {
+        this.lottoMatchRepository = lottoMatchRepository;
+        this.totoMatchRepository = totoMatchRepository;
+        this.lottoTipCollectionRepository = lottoTipCollectionRepository;
+        this.lottoTipRepository = lottoTipRepository;
+        this.totoTipCollectionRepository = totoTipCollectionRepository;
+        this.totoTipRepository = totoTipRepository;
     }
 
     public void craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
 
-	List<TotoTip> tips = new ArrayList<>();
+        List<TotoTip> tips = new ArrayList<>();
 
-	for (TotoMatch totoMatch : totoMatchRepository.findByTotoResult(TotoResult.NOT_PLAYED)) {
-	    if (totoMatch.isFinished())
-		continue;
+        for (TotoMatch totoMatch : totoMatchRepository.findByTotoResult(TotoResult.NOT_PLAYED)) {
+            if (totoMatch.isFinished())
+                continue;
 
-	    if (map.containsKey(String.valueOf(totoMatch.getId()))) {
-		TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
+            if (map.containsKey(String.valueOf(totoMatch.getId()))) {
+                TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
 
-		if (result == TotoResult.NOT_PLAYED)
-		    continue;
+                if (result == TotoResult.NOT_PLAYED)
+                    continue;
 
-		tips.add(new TotoTip(totoMatch, result, 1)); // TODO define
-							     // input per user
-	    }
-	}
+                tips.add(new TotoTip(totoMatch, result, 1)); // TODO define
+                // input per user
+            }
+        }
 
-	if (tips.size() == 0)
-	    return;
+        if (tips.size() == 0)
+            return;
 
-	totoTipRepository.save(tips);
-	totoTipCollectionRepository.save(new TotoTipCollection(tips, owner));
+        totoTipRepository.save(tips);
+        totoTipCollectionRepository.save(new TotoTipCollection(tips, owner));
     }
 
     /**
-     * Erstellt und trägt die Tipps in das System ein.
-     * Gibt true zurück wenn erfolgreich, false wenn nicht.
+     * Erstellt und trägt die Tipps in das System ein. Gibt true zurück wenn erfolgreich, false wenn nicht.
      * 
-     * @param map Die eingetragen Tipps auf der Website
-     * @param owner Der Customer der den Tipp abgibt
+     * @param map
+     *            Die eingetragen Tipps auf der Website
+     * @param owner
+     *            Der Customer der den Tipp abgibt
      */
     public boolean craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
 
-	List<LottoTip> tips = new ArrayList<>();
-	List<LottoNumbers> numbers = new ArrayList<>();
-	
-	if(map.isEmpty())return false;
-	
-	for (int i = 1; i <= LOTTO_TIPS_PER_PAGE; i++) {
-	    if (!isValidLottoTip(map, i))
-		continue;
+        List<LottoTip> tips = new ArrayList<>();
+        List<LottoNumbers> numbers = new ArrayList<>();
 
-	    // yes, this is control flow with exceptions - I already feel bad...
-	    try {
-		int n1 = Integer.parseInt(map.get("number" + i + "-1"));
-		int n2 = Integer.parseInt(map.get("number" + i + "-2"));
-		int n3 = Integer.parseInt(map.get("number" + i + "-3"));
-		int n4 = Integer.parseInt(map.get("number" + i + "-4"));
-		int n5 = Integer.parseInt(map.get("number" + i + "-5"));
-		int n6 = Integer.parseInt(map.get("number" + i + "-6"));
-		int nsuper = Integer.parseInt(map.get("super"));
+        if (map.isEmpty())
+            return false;
 
-		numbers.add(new LottoNumbers(nsuper, n1, n2, n3, n4, n5, n6));
-	    } catch (NumberFormatException e) {
-		continue;
-	    } catch (IllegalArgumentException ex) {
-		continue;
-	    }
-	}
+        for (int i = 1; i <= LOTTO_TIPS_PER_PAGE; i++) {
+            if (!isValidLottoTip(map, i))
+                continue;
 
-	int games = 0;
-	switch (map.get("duration")) {
-	case "0":
-	    games = 1;
-	    break;
-	case "1":
-	    games = 4;
-	    break;
-	case "2":
-	    games = 24;
-	    break;
-	case "3":
-	    games = 48;
-	    break;
-	default:
-	    return false;
-	}
+            // yes, this is control flow with exceptions - I already feel bad...
+            try {
+                int n1 = Integer.parseInt(map.get("number" + i + "-1"));
+                int n2 = Integer.parseInt(map.get("number" + i + "-2"));
+                int n3 = Integer.parseInt(map.get("number" + i + "-3"));
+                int n4 = Integer.parseInt(map.get("number" + i + "-4"));
+                int n5 = Integer.parseInt(map.get("number" + i + "-5"));
+                int n6 = Integer.parseInt(map.get("number" + i + "-6"));
+                int nsuper = Integer.parseInt(map.get("super"));
 
-	List<LottoGame> g = lottoMatchRepository.findByResultOrderByDateAsc(null);
-	for (LottoNumbers num : numbers)
-	    for (int i = 0; i < games; i++)
-		tips.add(new LottoTip((LottoGame) g.get(i), num));
+                numbers.add(new LottoNumbers(nsuper, n1, n2, n3, n4, n5, n6));
+            } catch (NumberFormatException e) {
+                continue;
+            } catch (IllegalArgumentException ex) {
+                continue;
+            }
+        }
 
-	if (tips.size() == 0)
-	    return false;
+        int games = 0;
+        switch (map.get("duration")) {
+        case "0":
+            games = 1;
+            break;
+        case "1":
+            games = 4;
+            break;
+        case "2":
+            games = 24;
+            break;
+        case "3":
+            games = 48;
+            break;
+        default:
+            return false;
+        }
 
-	lottoTipRepository.save(tips);
-	lottoTipCollectionRepository.save(new LottoTipCollection(tips, owner));
-	return true;
+        List<LottoGame> g = lottoMatchRepository.findByResultOrderByDateAsc(null);
+        for (LottoNumbers num : numbers)
+            for (int i = 0; i < games; i++) {
+                LottoGame game = g.get(i);
+
+                if (game.getDate().isBefore(Lotterie.getInstance().getTime().getTime().plusMinutes(Constants.MINUTES_BEFORE_DATE))) {
+                    games++;
+                    continue;
+                }
+
+                tips.add(new LottoTip((LottoGame) g.get(i), num));
+
+            }
+
+        if (tips.size() == 0)
+            return false;
+
+        lottoTipRepository.save(tips);
+        lottoTipCollectionRepository.save(new LottoTipCollection(tips, owner));
+        return true;
     }
 
     /**
@@ -145,27 +158,27 @@ public class TipFactory {
      * @return true wenn der Tipp geht, false wenn nicht
      */
     private boolean isValidLottoTip(Map<String, String> map, int i) {
-	if (!map.containsKey("number" + i + "-1"))
-	    return false;
+        if (!map.containsKey("number" + i + "-1"))
+            return false;
 
-	if (!map.containsKey("number" + i + "-2"))
-	    return false;
+        if (!map.containsKey("number" + i + "-2"))
+            return false;
 
-	if (!map.containsKey("number" + i + "-3"))
-	    return false;
+        if (!map.containsKey("number" + i + "-3"))
+            return false;
 
-	if (!map.containsKey("number" + i + "-4"))
-	    return false;
+        if (!map.containsKey("number" + i + "-4"))
+            return false;
 
-	if (!map.containsKey("number" + i + "-5"))
-	    return false;
+        if (!map.containsKey("number" + i + "-5"))
+            return false;
 
-	if (!map.containsKey("number" + i + "-6"))
-	    return false;
+        if (!map.containsKey("number" + i + "-6"))
+            return false;
 
-	if (!map.containsKey("super"))
-	    return false;
+        if (!map.containsKey("super"))
+            return false;
 
-	return true;
+        return true;
     }
 }

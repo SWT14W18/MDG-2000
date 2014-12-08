@@ -7,4 +7,5 @@ public final class Constants {
     public static final Role USER = new Role("ROLE_USER");
     public static final Role CUSTOMER = new Role("ROLE_CUSTOMER");
     public static final Role CUSTOMER_BLOCKABLE = new Role("ROLE_CUSTOMER_BLOCKABLE");
+    public static final long MINUTES_BEFORE_DATE = 5;
 }

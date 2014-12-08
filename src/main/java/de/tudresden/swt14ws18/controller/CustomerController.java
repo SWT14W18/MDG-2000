@@ -37,6 +37,7 @@ import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Message;
+import de.tudresden.swt14ws18.util.Constants;
 
 @Controller
 @PreAuthorize("hasRole('ROLE_CUSTOMER')")
@@ -51,7 +52,6 @@ public class CustomerController extends ControllerBase {
         super(userAccountManager, customerRepository, communityRepository, authenticationManager, bankAccountRepository, totoRepo,
                 lottoTipCollectionRepo, totoTipCollectionRepo, time, totoTipRepository, lottoMatchRepository, lottoTipRepository,
                 totoMatchRepository, messageRepo, tipFactory, transactionRepo);
-        // TODO Auto-generated constructor stub
     }
 
     @RequestMapping("/payMessage")
@@ -186,7 +186,7 @@ public class CustomerController extends ControllerBase {
         Set<Integer> set = new TreeSet<>();
         for (TotoMatch match : totoRepo.findByTotoResultAndTotoGameType(TotoResult.NOT_PLAYED, totoGameType)) {
             LocalDateTime localTime = time.getTime();
-            LocalDateTime date = match.getDate().minusMinutes(MINUTES_BEFORE_DATE);
+            LocalDateTime date = match.getDate().minusMinutes(Constants.MINUTES_BEFORE_DATE);
             if (!localTime.isAfter(date)) {
                 set.add(match.getMatchDay());
             }
@@ -208,7 +208,7 @@ public class CustomerController extends ControllerBase {
                 continue;
 
             LocalDateTime localTime = time.getTime();
-            LocalDateTime date = match.getDate().minusMinutes(MINUTES_BEFORE_DATE);
+            LocalDateTime date = match.getDate().minusMinutes(Constants.MINUTES_BEFORE_DATE);
 
             if (!localTime.isAfter(date)) {
                 list.add(match);

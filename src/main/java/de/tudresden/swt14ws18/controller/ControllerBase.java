@@ -43,7 +43,6 @@ public abstract class ControllerBase {
     protected final BusinessTime time;
     protected final LottoMatchRepository lottoMatchRepository;
     protected static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-    protected static final long MINUTES_BEFORE_DATE = 5;
     protected static final DecimalFormat MONEY_FORMAT = new DecimalFormat("#0.00");
 
     @Autowired
