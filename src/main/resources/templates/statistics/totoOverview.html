@@ -12,16 +12,14 @@
 			<div align="center">
 			<div align="center"  id="divListMessages">
 			<ol start="1" id="listMessages">
- 				<div th:each="matchDay : ${liga1MatchDayInput}">
- 					<p th:text="@{${matchDay.getKey()}+'.Spieltag'}">Spieltag</p>
+ 				<div th:each="matchDay : ${matchDayInput}">
  					<br/>
-					<a th:href="@{/totoMatchOverview(matchDay=${matchDay.getKey()},liga='BUNDESLIGA1')}"><span th:text="@{'1.Bundesliga - '+${matchDay.getValue()}}">1.Bundesliga</span></a>
-					<a th:href="@{/totoMatchOverview(matchDay=${matchDay.getKey()},liga='BUNDESLIGA2')}"><span th:text="@{'2.Bundesliga - '+${liga2MatchDayInput.get(matchDay.getKey())}}">2.Bundesliga</span></a>
+					<p><a th:href="@{/totoMatchOverview(matchDay=${matchDay.getKey()},liga=${totoGameType})}" th:text="@{${matchDay.getKey()}+'.Spieltag - Gesamtvolumen : '+${matchDay.getValue()}}">1.Bundesliga</a></p>
+					<br/>
 				</div>
 			</ol>
 			</div>
-			</div>
-			
+			</div>			
 			<br/>
 		<br/>
 		<br/>
