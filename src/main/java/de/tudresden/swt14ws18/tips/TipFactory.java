@@ -55,8 +55,6 @@ public class TipFactory {
             if (map.containsKey(String.valueOf(totoMatch.getId()))) {
                 TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
                 String money = map.get("input"+totoMatch.getId());
-                
-                System.out.println(money);
                 try{
                     if (result == TotoResult.NOT_PLAYED)
                         continue;
