@@ -1,11 +1,5 @@
 package de.tudresden.swt14ws18.controller;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.AuthenticationManager;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -16,10 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import de.tudresden.swt14ws18.gamemanagement.GameType;
-import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
-import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
-import de.tudresden.swt14ws18.gamemanagement.TotoResult;
+import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CommunityRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
@@ -31,10 +22,7 @@ import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
-import de.tudresden.swt14ws18.tips.Tip;
-import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
-import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 @Controller
@@ -96,5 +84,16 @@ public class UserController extends ControllerBase {
 
         handleGeneralValues(map);
         return "bankaccount";
+    }
+    
+    @RequestMapping("/transactionOverview")
+    public String transactionOverview(ModelMap map){
+        handleGeneralValues(map);
+        
+        BankAccount customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount();
+        map.addAttribute("transactions", transactionRepo.findByFromOrToOrderByDateDesc(customer, customer));
+        
+        
+        return "statistics/transactionOverview";
     }
 }

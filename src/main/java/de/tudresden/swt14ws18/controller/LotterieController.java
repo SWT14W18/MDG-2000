@@ -55,14 +55,6 @@ public class LotterieController extends ControllerBase {
         return "index";
     }
 
-    /*
-     * TODO bitte hier die Überprüfung obs korrekt ist oder nicht (Tutor fragen ? )
-     * 
-     * @RequestMapping(value = "/trylogin", method = RequestMethod.POST) public String trylogin(@RequestParam("username") String vorname,
-     * @RequestParam("password") String passwort, ModelMap map) {
-     * 
-     * return "index"; }
-     */
     @RequestMapping("/impressum")
     public String getImpressum(ModelMap map) {
         handleGeneralValues(map);

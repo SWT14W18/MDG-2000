@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.Lotterie;
-import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.Transaction;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
@@ -151,17 +150,6 @@ public class AdminController extends ControllerBase {
         map.addAttribute("customers", customerRepository.count());
 
         return "statistics/overview";
-    }
-    
-    @RequestMapping("/transactionOverview")
-    public String transactionOverview(ModelMap map){
-        handleGeneralValues(map);
-        
-        BankAccount customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount();
-        map.addAttribute("transactions", transactionRepo.findByFromOrToOrderByDateDesc(customer, customer));
-        
-        
-        return "statistics/transactionOverview";
     }
 
     private TreeMap<LottoGame, Double> createLottoOverview() {

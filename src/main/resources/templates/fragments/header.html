@@ -27,8 +27,8 @@
 								</ul>
                          </span>
 				   </li>
-				   <!-- <li sec:authorize="hasRole('ROLE_BOSS')" class="lileft" ><a th:href="groupoverview.html"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a></li>-->
-                   <li sec:authorize="hasRole('ROLE_USER')" class="lileft" ><a th:href="groupoverview.html"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a>
+				   <li sec:authorize="hasRole('ROLE_BOSS')" class="lileft" ><a th:href="index"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a></li>
+                   <li sec:authorize="hasRole('ROLE_CUSTOMER')" class="lileft" ><a th:href="groupoverview.html"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a>
 						 <span>
 								<ul id="navi_menu">
 									<li class="span_open">
@@ -63,6 +63,14 @@
 										</div>
 									</li>
 								</ul>								
+												
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="@{/transactionOverview}" ><div class="fill-div"><label class="l_fill-div">Transaktionen</label></div></a>
+										</div>
+									</li>
+								</ul>
 								
 								<ul id="navi_menu" sec:authorize="hasRole('ROLE_CUSTOMER')">
 									<li class="span_open">
