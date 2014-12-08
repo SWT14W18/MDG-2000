@@ -8,7 +8,7 @@
                    <li class="lileft" ><a th:href="index.html"><label class="menuentry"  >Mach dein Gl&uuml;ck!!!</label></a></li>
                    
 			   
-                   <li sec:authorize="hasRole('ROLE_USER')" class="lileft"><a th:href="gameoverview.html"><div><label class="menuentry" ><i class="fa fa-th-large"></i> Spiel</label></div></a>
+                   <li sec:authorize="hasRole('ROLE_CUSTOMER')" class="lileft"><a th:href="gameoverview.html"><div><label class="menuentry" ><i class="fa fa-th-large"></i> Spiel</label></div></a>
 				         <span>
 								<ul id="navi_menu">
 									<li class="span_open">
@@ -27,7 +27,7 @@
 								</ul>
                          </span>
 				   </li>
-				   <li sec:authorize="hasRole('ROLE_BOSS')" class="lileft" ><a th:href="groupoverview.html"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a></li>
+				   <!-- <li sec:authorize="hasRole('ROLE_BOSS')" class="lileft" ><a th:href="groupoverview.html"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a></li>-->
                    <li sec:authorize="hasRole('ROLE_USER')" class="lileft" ><a th:href="groupoverview.html"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a>
 						 <span>
 								<ul id="navi_menu">
@@ -54,7 +54,7 @@
 								</ul>
                          </span>
 				   </li>
-                   <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright"><a th:href="profil.html"><div><label class="menuentry"><i class="fa fa-user"><label class="menuentry_inner" sec:authentication="name"></label></i></label></div></a>
+                   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="profil.html"><div><label class="menuentry"><i class="fa fa-user"><label class="menuentry_inner" sec:authentication="name"></label></i></label></div></a>
                          <span>
 								<ul id="navi_menu">
 									<li class="span_open">
@@ -64,7 +64,7 @@
 									</li>
 								</ul>								
 								
-								<ul id="navi_menu">
+								<ul id="navi_menu" sec:authorize="hasRole('ROLE_CUSTOMER')">
 									<li class="span_open">
 										<div id="navi_button">
 											<a th:href="profil.html"><div class="fill-div"><label class="l_fill-div"><i class="fa fa-user"></i> Profil</label></div></a>
@@ -94,7 +94,7 @@
 		
                    <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></div></a></li>
-                  <li sec:authorize="hasRole('ROLE_USER')||hasRole('ROLE_BOSS')" class="liright" id="Geld"><a th:href="bankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
+                  <li sec:authorize="hasRole('ROLE_USER')" class="liright" id="Geld"><a th:href="bankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
 				   			
 				
 				
