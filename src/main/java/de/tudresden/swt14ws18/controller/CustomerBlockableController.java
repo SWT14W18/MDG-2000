@@ -72,8 +72,11 @@ public class CustomerBlockableController extends ControllerBase{
         if (authenticationManager.getCurrentUser().isPresent()) {
 
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-
-            tipFactory.craftTotoTips(params, customer);
+            
+            if(!tipFactory.craftTotoTips(params, customer)){
+                map.addAttribute("totoError", true);
+                return "forward:/toto";
+            }
             map.addAttribute("totoSuccess", true);
         }
         return "forward:gameoverview";

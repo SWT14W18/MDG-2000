@@ -2,6 +2,7 @@ package de.tudresden.swt14ws18.controller;
 
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.AuthenticationManager;
+import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
