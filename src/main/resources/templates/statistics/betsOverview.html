@@ -25,17 +25,15 @@
 				</td>
 				<td><p>Totoübersicht</p>
 					<br/>
+					<p><a th:text="@{'1.Bundesliga - Gesamtvolumen : '+${liga1TotalInput}}" th:href="@{/totoOverview(gameType='BUNDESLIGA1')}">1.Bundesliga</a></p>
 					<br/>
-					<p th:text="@{${liga1MatchDayInput.firstKey()}+'.Spieltag'}">Spieltag</p>
+					<p th:text="@{${liga1nextMatchDay.firstKey()}+'.Spieltag - Gesamtvolumen : '+${liga1nextMatchDay.get(liga1nextMatchDay.firstKey())}}">Spieltag</p>
 					<br/>
+					<p><a th:text="@{'2.Bundesliga - Gesamtvolumen : '+${liga2TotalInput}}" th:href="@{/totoOverview(gameType='BUNDESLIGA2')}">2.Bundesliga</a></p>
 					<br/>
-					<p th:text="@{'1.Bundesliga - Gesamtvolumen : '+${liga1MatchDayInput.get(liga1MatchDayInput.firstKey())}}">1.Bundesliga</p>
+					<p th:text="@{${liga2nextMatchDay.firstKey()}+'.Spieltag - Gesamtvolumen : '+${liga2nextMatchDay.get(liga2nextMatchDay.firstKey())}}">Spieltag</p>
 					<br/>
-					<p th:text="@{'2.Bundesliga - Gesamtvolumen : '+${liga2MatchDayInput.get(liga2MatchDayInput.firstKey())}}">2.Bundesliga</p>
-					<br/>
-					<a th:href="totoOverview.html"><label>Mehr Daten ...</label></a>
-					<br/>
-					<p><a th:href="@{/totoMatchOverview(matchDay='3',liga='POKAL')}" th:text="@{'DFB Pokal Achtelfinale - Gesamtvolumen : '+${pokalMatchDayInput.get(pokalMatchDayInput.firstKey())}}">DFB Pokal - Achtelfinale</a></p>
+					<p><a th:href="@{/totoMatchOverview(matchDay='3',liga='POKAL')}" th:text="@{'DFB Pokal Achtelfinale - Gesamtvolumen : '+${pokalTotalInput}}">DFB Pokal - Achtelfinale</a></p>
 				</td>
 			</tr>
 		</table>

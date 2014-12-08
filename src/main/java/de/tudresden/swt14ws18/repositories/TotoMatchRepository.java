@@ -18,5 +18,6 @@ public interface TotoMatchRepository extends CrudRepository<TotoMatch, Long>{
 	public List<TotoMatch> findByMatchDay(int matchDay);
 	public List<TotoMatch> findByTotoResultAndTotoGameType(TotoResult totoResult, TotoGameType totoGameType);
 	public List<TotoMatch> findByMatchDayAndTotoGameType(int matchDay, TotoGameType type);
+	public List<TotoMatch> findByMatchDayAndTotoGameTypeAndTotoResult(int matchDay, TotoGameType type, TotoResult totoResult);
 	
 }

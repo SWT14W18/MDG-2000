@@ -145,6 +145,11 @@ public class Lotterie {
     public void setTransactionRepository(TransactionRepository transactionRepo) {
         this.transactionRepo = transactionRepo;
     }
+    
+    @Autowired
+    public UserAccountManager getUserAccountManager(){
+        return this.userAccountManager;
+    }
 
     public BusinessTime getTime() {
         return time;
