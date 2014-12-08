@@ -20,7 +20,7 @@
 		<ol start="1" id="listMessages">
 			<div th:each="messageItem : ${messageList}">
 			<br/>
-			<label  th:text="@{'Du hast am: '+${messageItem.getMessageDate().toString()}+' deinen '+${messageItem.getWhichGameTypeItWas().toString()}+' Tipp  nicht bezahlen können.'}">message</label>
+			<label  th:text="@{'Du hast am: '+${messageItem.getMessageDateString()}+' deinen '+${messageItem.getWhichGameTypeItWas().toString()}+' Tipp  nicht bezahlen können.'}">message</label>
 			<br/>
 			<br/>
 			<small>Dir wurden 2 Euro Strafe auferlegt</small>

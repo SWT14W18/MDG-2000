@@ -34,6 +34,7 @@ public class LottoNumbers implements Serializable {
 		throw new IllegalArgumentException("LottoNumbers must be between 1 and 49!");
 
 	this.numbers = numbers;
+	this.superNumber = superNumber;
     }
 
     /**

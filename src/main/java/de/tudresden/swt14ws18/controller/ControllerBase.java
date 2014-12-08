@@ -1,6 +1,5 @@
 package de.tudresden.swt14ws18.controller;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import org.salespointframework.time.BusinessTime;
@@ -24,6 +23,7 @@ import de.tudresden.swt14ws18.repositories.TotoTipRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
+import de.tudresden.swt14ws18.util.Constants;
 
 public abstract class ControllerBase {
     protected final UserAccountManager userAccountManager;
@@ -43,7 +43,6 @@ public abstract class ControllerBase {
     protected final BusinessTime time;
     protected final LottoMatchRepository lottoMatchRepository;
     protected static final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-    protected static final DecimalFormat MONEY_FORMAT = new DecimalFormat("#0.00");
 
     @Autowired
     public ControllerBase(UserAccountManager userAccountManager, CustomerRepository customerRepository, CommunityRepository communityRepository,
@@ -81,7 +80,7 @@ public abstract class ControllerBase {
 
         if (authenticationManager.getCurrentUser().isPresent()) {
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-            map.addAttribute("balance", MONEY_FORMAT.format(customer.getAccount().getBalance()));
+            map.addAttribute("balance", Constants.MONEY_FORMAT.format(customer.getAccount().getBalance()));
         }
     }
 }

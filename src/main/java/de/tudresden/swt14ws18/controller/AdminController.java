@@ -39,6 +39,7 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
 import de.tudresden.swt14ws18.tips.LottoTip;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.tips.TotoTip;
+import de.tudresden.swt14ws18.util.Constants;
 
 @Controller
 @PreAuthorize("hasRole('ROLE_BOSS')")
@@ -74,7 +75,7 @@ public class AdminController extends ControllerBase {
 
         Entry<LottoGame, Double> lottoGameInput = createLottoOverview().firstEntry();
         map.addAttribute("nextLottoDate", lottoGameInput.getKey().getDateString());
-        map.addAttribute("nextLottoInput", MONEY_FORMAT.format(lottoGameInput.getValue()));
+        map.addAttribute("nextLottoInput", Constants.MONEY_FORMAT.format(lottoGameInput.getValue()));
 
         createTotoOverview();
         map.addAttribute("liga1MatchDayInput", liga1MatchDayInput);

@@ -57,6 +57,10 @@ public class Message {
         return date;
     }
     
+    public String getMessageDateString() {
+        return date.format(Lotterie.OUTPUT_DTF);
+    }
+    
     /**
      * 
      * @return          -> gibt den Typ des Spiel zurück, bei dem die Message ausgelöst wurde

@@ -8,6 +8,7 @@ import javax.persistence.OneToOne;
 
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
+import de.tudresden.swt14ws18.util.Constants;
 
 @Entity
 public class TotoTip extends Tip {
@@ -69,7 +70,7 @@ public class TotoTip extends Tip {
     }
     
     public String getInputAsString(){
-        return String.valueOf(input);
+        return Constants.MONEY_FORMAT.format(input);
     }
     
     public String getQuoteAsString(){
@@ -93,7 +94,7 @@ public class TotoTip extends Tip {
         temp.append("<br/>Spiel:  ");
         temp.append(totoMatch.getTitle());
         temp.append("<br/>  Einsatz:  ");
-        temp.append(input);
+        temp.append(Constants.MONEY_FORMAT.format(input));
         temp.append("€");
         temp.append("<br/>  Quote:   ");
         temp.append(totoMatch.getQuote(result));

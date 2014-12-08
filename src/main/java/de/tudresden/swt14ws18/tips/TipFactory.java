@@ -127,18 +127,17 @@ public class TipFactory {
         }
 
         List<LottoGame> g = lottoMatchRepository.findByResultOrderByDateAsc(null);
-        for (LottoNumbers num : numbers)
-            for (int i = 0; i < games; i++) {
-                LottoGame game = g.get(i);
 
-                if (game.getDate().isBefore(Lotterie.getInstance().getTime().getTime().plusMinutes(Constants.MINUTES_BEFORE_DATE))) {
-                    games++;
-                    continue;
-                }
-
-                tips.add(new LottoTip((LottoGame) g.get(i), num));
-
+        for (int i = 0; i < games; i++) {
+            LottoGame game = g.get(i);
+            if (game.getDate().isBefore(Lotterie.getInstance().getTime().getTime().plusMinutes(Constants.MINUTES_BEFORE_DATE))) {
+                games++;
+                continue;
             }
+
+            for (LottoNumbers num : numbers)
+                tips.add(new LottoTip((LottoGame) game, num));
+        }
 
         if (tips.size() == 0)
             return false;

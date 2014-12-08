@@ -12,5 +12,4 @@ public interface LottoMatchRepository extends CrudRepository<LottoGame, Long>{
     public List<LottoGame> findByResultOrderByDateAsc(LottoNumbers numbers);
     public List<LottoGame> findByDateAfterOrderByDateAsc(LocalDateTime date);
     public LottoGame findByDate(LocalDateTime date);
-   /* public List<LottoGame> findAllAfterOrderByDateAsc();    */
 }
