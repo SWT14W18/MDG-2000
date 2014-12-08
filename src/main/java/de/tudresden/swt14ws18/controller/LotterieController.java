@@ -69,7 +69,7 @@ public class LotterieController extends ControllerBase {
     }
 
     @RequestMapping(value = "/reg", method = RequestMethod.POST)
-    public String reg(@RequestParam("username") String vorname, @RequestParam("password") String passwort, @RequestParam("anonym") boolean anonym,ModelMap map) {
+    public String reg(@RequestParam("username") String vorname, @RequestParam("password") String passwort, @RequestParam(value = "anonym", defaultValue = "false", required = false) boolean anonym,ModelMap map) {
 
         handleGeneralValues(map);
 
