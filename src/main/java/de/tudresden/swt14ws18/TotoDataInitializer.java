@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -30,37 +31,46 @@ import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 public class TotoDataInitializer {
 
     private TotoMatchRepository totoMatchRepository;
-    private Map<TotoResult, Double> quotes;
-    private String bl1 = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=bl1";
-    private String bl2 = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=bl2";
-    private String pokal = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=dfb2014nf";
+    private Random random;
 
     SimpleDateFormat inputSDF = new SimpleDateFormat("yyyy-MM-dd;HH:mm:ss");
     DateTimeFormatter inputDTF = DateTimeFormatter.ofPattern("yyyy-MM-dd;HH:mm:ss");
 
     public TotoDataInitializer(TotoMatchRepository totoMatchRepository) {
 	this.totoMatchRepository = totoMatchRepository;
-	Map<TotoResult, Double> quotes = new HashMap<>();
-	quotes.put(TotoResult.DRAW, 2D);
-	quotes.put(TotoResult.WIN_GUEST, 2D);
-	quotes.put(TotoResult.WIN_HOME, 2D);
+	this.random = new Random();
+
+    }
+    
+    
+    public void totoInitialize(){
+        try {
+            loadTotoMatches(TotoGameType.BUNDESLIGA1);
+            loadTotoMatches(TotoGameType.BUNDESLIGA2);
+            loadTotoMatches(TotoGameType.POKAL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+
+    	
     }
 
-    public void totoInitialize(TotoGameType totoGameType) throws IOException {
+    private void loadTotoMatches(TotoGameType totoGameType) throws IOException {
 	String urlString = "";
 	int a = 0;
 
 	switch (totoGameType) {
 	case BUNDESLIGA1:
-	    urlString = bl1;
+	    urlString = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=bl1";
 	    a = 306;
 	    break;
 	case BUNDESLIGA2:
-	    urlString = bl2;
+	    urlString = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=bl2";
 	    a = 306;
 	    break;
 	case POKAL:
-	    urlString = pokal;
+	    urlString = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=dfb2014nf";
 	    a = 56;
 	    break;
 	}
@@ -73,22 +83,46 @@ public class TotoDataInitializer {
 	JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
 	JsonObject rootobj = root.getAsJsonObject();
 	JsonArray matches = (JsonArray) rootobj.get("matchdata");
-	String team1;
-	String team2;
-	String date;
-	LocalDateTime gameDate;
-	int matchDay;
+	TotoResult result = TotoResult.NOT_PLAYED;
+
 	for (int i = 0; i < a; i++) {
 
 	    JsonObject match = (JsonObject) matches.get(i);
-	    team1 = match.get("name_team1").getAsString();
-	    team2 = match.get("name_team2").getAsString();
-	    date = match.get("match_date_time").getAsString();
-	    matchDay = match.get("group_order_id").getAsInt();
-	    gameDate = LocalDateTime.parse(date.substring(0, 10) + ";" + date.substring(11, 19), inputDTF);
-	    totoMatchRepository.save(new TotoMatch(team1, team2, quotes, gameDate, totoGameType, matchDay));
+	    
+	    String team1 = match.get("name_team1").getAsString();
+	    String team2 = match.get("name_team2").getAsString();
+	    int matchDay = match.get("group_order_id").getAsInt();
+	    String date = match.get("match_date_time").getAsString();
+	    LocalDateTime gameDate = LocalDateTime.parse(date.substring(0, 10) + ";" + date.substring(11, 19), inputDTF);
+	    
+    	Map<TotoResult, Double> quotes = new HashMap<>();
+    	
+    	quotes.put(TotoResult.DRAW, (double) random.nextInt(10)+1);
+    	quotes.put(TotoResult.WIN_GUEST, (double) random.nextInt(10)+1);
+    	quotes.put(TotoResult.WIN_HOME, (double) random.nextInt(10)+1);
+	   
+	    TotoMatch totoMatch = new TotoMatch(team1, team2, quotes, gameDate, totoGameType, matchDay);
+	    totoMatchRepository.save(totoMatch);
+	    
+	    if(match.get("match_is_finished").getAsBoolean()){
+	    	int scoreHome = match.get("points_team1").getAsInt();
+	    	int scoreGuest = match.get("points_team2").getAsInt();
+		    totoMatch.setScoreHome(scoreHome);
+		    totoMatch.setScoreGuest(scoreGuest);
+		    switch(scoreHome > scoreGuest ? +1 : scoreHome < scoreGuest ? -1 : 0){
+		    	case -1:
+		    		result = TotoResult.WIN_GUEST;break;
+		    	case 0:
+		    		result = TotoResult.DRAW;break;
+		    	case 1:
+		    		result = TotoResult.WIN_HOME;break;
 
+		    }
+		    totoMatch.setResult(result);			    	    
+	    }
 	}
 
     }
+
+    
 }

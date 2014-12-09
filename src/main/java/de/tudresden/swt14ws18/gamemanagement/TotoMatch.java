@@ -16,6 +16,8 @@ public class TotoMatch extends Game {
 
     private String teamHome;
     private String teamGuest;
+    private int scoreHome;
+    private int scoreGuest;
     @ElementCollection
     private Map<TotoResult, Double> quotes;
     @ElementCollection
@@ -43,6 +45,8 @@ public class TotoMatch extends Game {
         resultInput.put(TotoResult.WIN_HOME, 0.0D);
         resultInput.put(TotoResult.WIN_GUEST, 0.0D);
         resultInput.put(TotoResult.DRAW, 0.0D);
+        this.scoreHome = -1;
+        this.scoreGuest = -1;
     }
 
     /**
@@ -80,6 +84,22 @@ public class TotoMatch extends Game {
     public TotoGameType getTotoGameType() {
         return totoGameType;
     }
+    
+    public int getScoreHome(){
+    	return scoreHome;
+    }
+    
+    public int getScoreGuest(){
+    	return scoreGuest;
+    }
+    
+    public void setScoreGuest(int scoreGuest){
+    	this.scoreGuest = scoreGuest;
+    }
+    
+    public void setScoreHome(int scoreHome){
+    	this.scoreHome = scoreHome;
+    }
 
     public Map<TotoResult, Double> getResultInput() {
         return resultInput;
@@ -107,7 +127,7 @@ public class TotoMatch extends Game {
      */
     public double getQuote(TotoResult result) {
         if (!quotes.containsKey(result))
-            return 1;
+            return 0.4;
 
         return quotes.get(result);
     }
@@ -115,6 +135,10 @@ public class TotoMatch extends Game {
     public void addInput(TotoResult totoResult, Double input) {
         resultInput.put(totoResult, resultInput.get(totoResult) + input);
         totalInput = +input;
+    }
+    
+    public void setQuotes(Map<TotoResult, Double> quotes){
+    	this.quotes = quotes;
     }
 
     @Override

@@ -74,7 +74,7 @@ public class LotterieDataInitializer implements DataInitializer {
         // lottoMatchRepository.deleteAll();
         // lottoTipRepository.deleteAll();
         // lottoTipCollectionRepository.deleteAll();
-        // totoMatchRepository.deleteAll();
+//         totoMatchRepository.deleteAll();
 
         if (!lottoMatchRepository.findAll().iterator().hasNext()) {
             LocalDateTime ldt = LocalDateTime.of(2014, 12, 7, 12, 0);
@@ -109,14 +109,11 @@ public class LotterieDataInitializer implements DataInitializer {
         if (totoMatchRepository.findAll().iterator().hasNext()) {
             return;
         }
+        
+        TotoDataInitializer totoDataInitializer = new TotoDataInitializer(this.totoMatchRepository);
+        totoDataInitializer.totoInitialize();
 
-        try {
-            new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.BUNDESLIGA1);
-            new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.BUNDESLIGA2);
-            new TotoDataInitializer(this.totoMatchRepository).totoInitialize(TotoGameType.POKAL);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     private void initializeUsers(UserAccountManager userAccountManager, CustomerRepository customerRepository,

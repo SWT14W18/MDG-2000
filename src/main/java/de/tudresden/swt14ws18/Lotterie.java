@@ -45,6 +45,7 @@ import de.tudresden.swt14ws18.tips.LottoTip;
  * TODO Anonymen User ( 80% FERTIG , Rechte entzug und Notification Box )
  * TODO Tippscheine mit Gruppe teilen funktionalität
  * TODO Share bei Tipps angeben in Gruppen
+ * TODO Quoten bei Tippabgabe anzeigen
  */
 
 /*
