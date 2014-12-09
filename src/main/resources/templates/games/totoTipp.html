@@ -27,6 +27,9 @@ th, td {
 				    <td><input style="width: auto" type="radio" th:name="${match.getId()}" value="1">Unendschieden</input></td>
 				    <td>Sieg Auswärts<input style="width: auto" type="radio" th:name="${match.getId()}" value="2"></input></td>
 				    <td th:text="@{${match.getTeamGuest()}}">Team B</td>	
+				    <td th:text="@{${match.getQuote()}}">Quote</td>	
+				    <td th:text="@{$'Spiel vom:'+{match.getDateString()}}">Quote</td>	
+				    <td th:text="@{${match.getTeamGuest()}}">Team B</td>	
 				    <td style="display:none; float:right;" ><input style="display:none;" class="Radio" type="radio" th:name="${match.getId()}" value="3" checked="checked"></input></td>
 				    <td >&euro;<input class="input" style="width:100px;" type="input" th:name="${'input'+match.getId()}" ></input></td>
 				  </tr>
