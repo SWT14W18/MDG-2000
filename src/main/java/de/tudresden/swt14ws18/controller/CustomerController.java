@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.gamemanagement.GameType;
@@ -74,25 +75,38 @@ public class CustomerController extends ControllerBase {
         map.addAttribute("groupoverview", community);
         return "groups/overview";
     }
-
+    
+    @RequestMapping(value="/groupcreate", method=RequestMethod.POST)
+    public String create(ModelMap map, @RequestParam("cName") String name){
+        
+        handleGeneralValues(map);
+        ConcreteCustomer admin = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+        String password = "testpassword";                      //Random Passwort hinzufügen
+        communityRepository.save(new Community(name, password, admin));
+        return "groups/create";
+    }
+    
     @RequestMapping("/groupcreate")
     public String groupcreate(ModelMap map) {
 
         handleGeneralValues(map);
-        // Community community = CommunityRepository.(name, password,
-        // userAccount, admin);
-        // map.addAttribute("cName", community.getCommunityName());
-        // map.addAttribute("cPassword", community.getCommunityPassword());
         return "groups/create";
+    }
+    
+    @RequestMapping(value="/groupjoin", method=RequestMethod.POST)
+    public String join(ModelMap map, @RequestParam("cPassword") String password){
+    	
+    	handleGeneralValues(map);
+    	List<Community> community = communityRepository.findByPassword(password);
+    	map.addAttribute("groupjoin", community);
+    	groupoverview(map);
+    	return "groups/overview";
     }
 
     @RequestMapping("/groupjoin")
     public String groupjoin(ModelMap map) {
 
         handleGeneralValues(map);
-        // Community community = CommunityRepository.();
-        // map.addAttribute("cName", community.getCommunityName());
-        // map.addAttribute("cPassword", community.getCommunityPassword());
         return "groups/join";
     }
 
@@ -100,8 +114,11 @@ public class CustomerController extends ControllerBase {
     public String groupmanage(ModelMap map) {
 
         handleGeneralValues(map);
-        // Community community = CommunityRepository.();
-        // map.addAttribute("", community.getCommunityName());
+        
+       // soll die gleiche Liste wie die Übersicht zeigen + Button zum ändern
+//        ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+//        List<Community> community = communityRepository.findByMembers(customer);
+//        map.addAttribute("groupoverview", community);
         return "groups/manage";
     }
 

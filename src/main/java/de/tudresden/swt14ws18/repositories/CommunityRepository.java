@@ -9,4 +9,5 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 public interface CommunityRepository extends CrudRepository<Community, Long> {	
 	public List<Community> findByMembers(ConcreteCustomer member);
+	public List<Community> findByPassword(String password);
 }
