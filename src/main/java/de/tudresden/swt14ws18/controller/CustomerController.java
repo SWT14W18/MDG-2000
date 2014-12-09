@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.gamemanagement.GameType;
+import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
@@ -238,6 +239,12 @@ public class CustomerController extends ControllerBase {
 
     @RequestMapping("/lotto")
     public String lotto(ModelMap map) {
+    	for(LottoGame lottoGame : lottoMatchRepository.findByResultOrderByDateAsc(null)){
+    		if(lottoGame.getDate().isAfter(time.getTime())){
+    			map.addAttribute("nextLottoGame", lottoGame.getDateString());
+    			break;
+    		}
+    	}
 
         handleGeneralValues(map);
         return "games/lotto";

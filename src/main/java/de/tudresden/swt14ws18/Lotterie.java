@@ -40,12 +40,9 @@ import de.tudresden.swt14ws18.tips.LottoTip;
  * TODO Blocked User darf nichts anderes machen können, als seine Mitteilung bezahlen
  * TODO Gruppenfunktionalität
  * TODO Statisik des Admins ausbauen (Transaktionen zusammensuchen und auswerten)
- * TODO Uhrzeiten bei Fußballspielen anzeigen
- * TODO bei Spielen Datumsanzeige: Wann findet die nächste Ziehung/das nächste Spiel statt?
  * TODO Anonymen User ( 80% FERTIG , Rechte entzug und Notification Box )
  * TODO Tippscheine mit Gruppe teilen funktionalität
  * TODO Share bei Tipps angeben in Gruppen
- * TODO Quoten bei Tippabgabe anzeigen
  */
 
 /*
