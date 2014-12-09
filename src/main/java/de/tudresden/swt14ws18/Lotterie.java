@@ -36,15 +36,13 @@ import de.tudresden.swt14ws18.tips.LottoTip;
 
 /*
  * TODO TESTS!!!
- * TODO bei Tototippagabe das "NONE" RAUS!!!
- * TODO Bei Tototippabgabe muss man seinen Einsatz geben können!!
  * TODO Tippverarbeitung (Ergebnisse eintragen
  * TODO Blocked User darf nichts anderes machen können, als seine Mitteilung bezahlen
  * TODO Gruppenfunktionalität
  * TODO Statisik des Admins ausbauen (Transaktionen zusammensuchen und auswerten)
  * TODO Uhrzeiten bei Fußballspielen anzeigen
  * TODO bei Spielen Datumsanzeige: Wann findet die nächste Ziehung/das nächste Spiel statt?
- * TODO Anonymen User
+ * TODO Anonymen User ( 80% FERTIG , Rechte entzug und Notification Box )
  * TODO Tippscheine mit Gruppe teilen funktionalität
  * TODO Share bei Tipps angeben in Gruppen
  */
@@ -56,6 +54,7 @@ import de.tudresden.swt14ws18.tips.LottoTip;
  * BOSS - Admin Funktionen
  * CUSTOMER - Kunden Funktionen die immer vorhanden sind (Messages bezahlen, Einzahlen, Auszahlen, etc.)
  * CUSTOMER_BLOCKABLE - Kunden funktionen die gesperrt werden können
+ * ANONYM - Anonymes Konto für Mitarbeiter die Tippscheine "echter" Kunden dem System hinzufügen, Kann 1 Tippschein erstellen, Auszahlen und der Account wird auf CLOSED gesetzt
  */
 
 @Configuration
