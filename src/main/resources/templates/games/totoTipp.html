@@ -14,7 +14,7 @@ th, td {
 }
 </style>
 	<section>
-		<h1> Toto Tipperstellung</h1>
+		<h1 th:text="@{${totoGameType}+' - '+${matchDay}+'.Spieltag'}">Toto Tipperstellung</h1>
 		<hr/>		
 			<form action="/createTotoTip" method="post">
 				<div class="tipp">

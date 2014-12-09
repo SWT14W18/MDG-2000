@@ -211,6 +211,7 @@ public class CustomerController extends ControllerBase {
         }
         map.addAttribute("matchDays", set);
         map.addAttribute("liga", totoGameType.name());
+        map.addAttribute("totoGameType", totoGameType.toString());
         return "games/totoMatchDays";
     }
 
@@ -234,6 +235,9 @@ public class CustomerController extends ControllerBase {
         }
 
         map.addAttribute("matches", list);
+        map.addAttribute("totoGameType", totoGameType.toString());
+        map.addAttribute("matchDay", id);
+        
         return "games/totoTipp";
     }
 
