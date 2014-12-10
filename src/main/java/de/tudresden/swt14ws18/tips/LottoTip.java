@@ -73,10 +73,8 @@ public class LottoTip extends Tip {
 
         Lotterie.getInstance().getLottoTipCollectionRepository().findByTips(this).update(this, true);
 
-        if (!isValid()) {
-            // TODO getGame().deleteObserver(this);
+        if (!isValid())
             return;
-        }
 
         result = getGame().getResult().compare(getNumbers());
         getGame().registerResult(result);

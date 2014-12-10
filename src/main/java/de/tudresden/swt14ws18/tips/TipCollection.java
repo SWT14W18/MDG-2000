@@ -13,6 +13,7 @@ import javax.persistence.MappedSuperclass;
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
+import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 @MappedSuperclass
@@ -23,6 +24,9 @@ public abstract class TipCollection<T extends Tip> {
     private long id;
 
     private TipShare shares = new TipShare();
+
+    @ManyToOne
+    private Community community;
 
     @ManyToOne
     private ConcreteCustomer owner;
@@ -39,9 +43,14 @@ public abstract class TipCollection<T extends Tip> {
         return id;
     }
 
-    public TipCollection(List<T> tips, ConcreteCustomer owner) {
+    public TipCollection(List<T> tips, ConcreteCustomer owner, Community community) {
+        this.community = community;
         this.tips = tips;
         this.owner = owner;
+    }
+
+    public TipCollection(List<T> tips, ConcreteCustomer owner) {
+        this(tips, owner, null);
     }
 
     public List<T> getTips() {
