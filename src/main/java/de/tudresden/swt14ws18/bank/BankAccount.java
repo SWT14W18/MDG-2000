@@ -4,11 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.springframework.context.annotation.Configuration;
+
 import de.tudresden.swt14ws18.Lotterie;
 
 /**
  * Repräsentiert einen Bankaccount
  */
+@Configuration
 @Entity
 public class BankAccount {
     @Id

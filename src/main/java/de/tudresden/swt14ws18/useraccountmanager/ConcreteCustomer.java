@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import org.salespointframework.useraccount.UserAccount;
+import org.springframework.context.annotation.Configuration;
 
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
@@ -38,7 +39,7 @@ import de.tudresden.swt14ws18.util.Constants;
  * @author Reinhard_2
  *
  */
-
+@Configuration
 @Entity
 public class ConcreteCustomer {
 
