@@ -15,12 +15,12 @@
       <ol start="1" id="listMessages" >
         <fieldset align="center" class="tipp1">
           <label> Tipp : </label>
-          <input type="text" class="lottoButton" placeholder="1" name="number1-1" />
-          <input type="text" class="lottoButton" placeholder="2" name="number1-2" />
-          <input type="text" class="lottoButton" placeholder="3" name="number1-3" />
-          <input type="text" class="lottoButton" placeholder="4" name="number1-4" />
-          <input type="text" class="lottoButton" placeholder="5" name="number1-5" />
-          <input type="text" class="lottoButton" placeholder="6" name="number1-6" />
+          <input type="text" class="lottoButton" placeholder="1" name="number1" />
+          <input type="text" class="lottoButton" placeholder="2" name="number2" />
+          <input type="text" class="lottoButton" placeholder="3" name="number3" />
+          <input type="text" class="lottoButton" placeholder="4" name="number4" />
+          <input type="text" class="lottoButton" placeholder="5" name="number5" />
+          <input type="text" class="lottoButton" placeholder="6" name="number6" />
         </fieldset>
         <fieldset align="center">
           <label>Superzahl</label>
