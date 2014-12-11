@@ -1,6 +1,5 @@
 package de.tudresden.swt14ws18;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -15,7 +14,6 @@ import org.springframework.util.Assert;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
-import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CommunityRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;
@@ -77,7 +75,7 @@ public class LotterieDataInitializer implements DataInitializer {
 //         totoMatchRepository.deleteAll();
 
         if (!lottoMatchRepository.findAll().iterator().hasNext()) {
-            LocalDateTime ldt = LocalDateTime.of(2014, 12, 7, 12, 0);
+            LocalDateTime ldt = LocalDateTime.of(2014, 12, 14, 12, 0);
             for (int i = 0; i < 50; i++) {
                 LottoGame game = new LottoGame(ldt);
 

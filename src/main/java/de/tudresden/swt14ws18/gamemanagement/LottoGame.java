@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.tips.LottoTip;
+import de.tudresden.swt14ws18.util.Constants;
 
 /**
  * Repräsentiert eine Lotto Ziehung
@@ -147,6 +148,10 @@ public class LottoGame extends Game {
     @Override
     public boolean isFinished() {
         return getResult() != null;
+    }
+
+    public String getJackpot() {
+        return winLevels != null && winLevels.containsKey(LottoResult.SIX_SUPER) ? Constants.MONEY_FORMAT.format(20000.0D) : "Unbekannt";
     }
 
 }

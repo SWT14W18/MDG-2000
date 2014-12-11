@@ -11,6 +11,7 @@
 		<br/>
 			<div align="center">
 			<p th:text="@{'Die nächste Ziehung ist am '+${nextLottoGame}}"></p>
+			<p th:text="@{'Der Jackpot beträgt '+${nextLottoJackpot}} + ' €'"></p>
 			</div>
 			<br/>
 			<form action="/createLottoTip" method="post">
@@ -142,10 +143,8 @@
 			</select><br/>
 			<label>Einzel-/Gruppentippschein</label><br/>
 			<select name="whichGroup">
-				<option value="0">Alleine Spielen</option>
-				<option value="1">Gruppe1</option>
-				<option value="2">Gruppe0</option>
-				<option value="3">Gruppe </option>		
+				<option value="null">Alleine Spielen</option>
+				<option th:each="group : ${groups}" value="${group.getId()}" th:text="${group.getName()}">Gruppenname</option>	
 			</select><br/>
 			<label>Überprüfen sie vor dem Absenden alle Tipps auf Fehler. Falls ihnen ein Fehler beim Eintragen einer Zahl unterlaufen ist, können sie ihren Tipp bis 5 Minuten vor Ziehung (Jeden Sonntag 12:00 Uhr) ändern. Falsch eingetragene Tipps werden hingegen ignoriert und sie müssen einen Extra Tippschein erstellen.</label><br/>
 			<input type="hidden" name="gameType" value="lotto" />

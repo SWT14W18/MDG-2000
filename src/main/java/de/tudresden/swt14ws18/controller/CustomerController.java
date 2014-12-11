@@ -76,32 +76,32 @@ public class CustomerController extends ControllerBase {
         map.addAttribute("groupoverview", community);
         return "groups/overview";
     }
-    
-    @RequestMapping(value="/groupcreate", method=RequestMethod.POST)
-    public String create(ModelMap map, @RequestParam("cName") String name){
-        
+
+    @RequestMapping(value = "/groupcreate", method = RequestMethod.POST)
+    public String create(ModelMap map, @RequestParam("cName") String name) {
+
         handleGeneralValues(map);
         ConcreteCustomer admin = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-        String password = "testpassword";                      //Random Passwort hinzufügen
+        String password = "testpassword"; // Random Passwort hinzufügen
         communityRepository.save(new Community(name, password, admin));
         return "groups/create";
     }
-    
+
     @RequestMapping("/groupcreate")
     public String groupcreate(ModelMap map) {
 
         handleGeneralValues(map);
         return "groups/create";
     }
-    
-    @RequestMapping(value="/groupjoin", method=RequestMethod.POST)
-    public String join(ModelMap map, @RequestParam("cPassword") String password){
-    	
-    	handleGeneralValues(map);
-    	List<Community> community = communityRepository.findByPassword(password);
-    	map.addAttribute("groupjoin", community);
-    	groupoverview(map);
-    	return "groups/overview";
+
+    @RequestMapping(value = "/groupjoin", method = RequestMethod.POST)
+    public String join(ModelMap map, @RequestParam("cPassword") String password) {
+
+        handleGeneralValues(map);
+        List<Community> community = communityRepository.findByPassword(password);
+        map.addAttribute("groupjoin", community);
+        groupoverview(map);
+        return "groups/overview";
     }
 
     @RequestMapping("/groupjoin")
@@ -115,11 +115,11 @@ public class CustomerController extends ControllerBase {
     public String groupmanage(ModelMap map) {
 
         handleGeneralValues(map);
-        
-       // soll die gleiche Liste wie die Übersicht zeigen + Button zum ändern
-//        ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-//        List<Community> community = communityRepository.findByMembers(customer);
-//        map.addAttribute("groupoverview", community);
+
+        // soll die gleiche Liste wie die Übersicht zeigen + Button zum ändern
+        // ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+        // List<Community> community = communityRepository.findByMembers(customer);
+        // map.addAttribute("groupoverview", community);
         return "groups/manage";
     }
 
@@ -166,6 +166,8 @@ public class CustomerController extends ControllerBase {
     @RequestMapping("/toto")
     public String toto(ModelMap map) {
         handleGeneralValues(map);
+
+        map.addAttribute("groups", communityRepository.findByMembers(getCurrentUser()));
 
         map.addAttribute("totoGameTypes", TotoGameType.values());
         return "games/toto";
@@ -237,20 +239,24 @@ public class CustomerController extends ControllerBase {
         map.addAttribute("matches", list);
         map.addAttribute("totoGameType", totoGameType.toString());
         map.addAttribute("matchDay", id);
-        
+
         return "games/totoTipp";
     }
 
     @RequestMapping("/lotto")
     public String lotto(ModelMap map) {
-    	for(LottoGame lottoGame : lottoMatchRepository.findByResultOrderByDateAsc(null)){
-    		if(lottoGame.getDate().isAfter(time.getTime())){
-    			map.addAttribute("nextLottoGame", lottoGame.getDateString());
-    			break;
-    		}
-    	}
-
         handleGeneralValues(map);
+
+        map.addAttribute("groups", communityRepository.findByMembers(getCurrentUser()));
+
+        for (LottoGame lottoGame : lottoMatchRepository.findByResultOrderByDateAsc(null)) {
+            if (lottoGame.getDate().isAfter(time.getTime())) {
+                map.addAttribute("nextLottoGame", lottoGame.getDateString());
+                map.addAttribute("nextLottoJackpot", lottoGame.getJackpot());
+                break;
+            }
+        }
+
         return "games/lotto";
     }
 

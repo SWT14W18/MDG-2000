@@ -68,7 +68,7 @@ public class Community extends Customer{
 		this.communityName = name;
 		this.communityPassword = password;
 		this.admin = admin;
-		//addMember(admin);
+		addMember(admin);
 	}
 	
 	public ConcreteCustomer getAdmin(){

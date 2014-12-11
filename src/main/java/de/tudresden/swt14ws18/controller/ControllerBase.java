@@ -83,4 +83,8 @@ public abstract class ControllerBase {
             map.addAttribute("balance", Constants.MONEY_FORMAT.format(customer.getAccount().getBalance()));
         }
     }
+
+    public ConcreteCustomer getCurrentUser() {
+        return authenticationManager.getCurrentUser().isPresent() ? customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()) : null;
+    }
 }
