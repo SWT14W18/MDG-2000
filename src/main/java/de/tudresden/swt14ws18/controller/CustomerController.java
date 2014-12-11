@@ -326,7 +326,7 @@ public class CustomerController extends ControllerBase {
     }
     
     @RequestMapping(value = "/editTotoTip", method = RequestMethod.POST)
-    public String editTotoTip(@RequestParam("id") long id, @RequestParam("result") TotoResult result, ModelMap map) {
+    public String editTotoTip(@RequestParam("id") long id, @RequestParam("result") TotoResult result, @RequestParam("input") double input, ModelMap map) {
 
         TotoTip tip = totoTipRepository.findOne(id);
         TotoTipCollection col = totoTipCollectionRepo.findByTips(tip);
@@ -338,6 +338,7 @@ public class CustomerController extends ControllerBase {
             return "index";
         
         tip.setResult(result);
+        tip.setInput(input);
         totoTipRepository.save(tip);
         
         return "index";

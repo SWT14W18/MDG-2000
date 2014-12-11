@@ -102,4 +102,8 @@ public class TotoTip extends Tip {
     public void setResult(TotoResult result) {
         this.result = result;
     }
+
+    public void setInput(double input) {
+        this.input = input;
+    }
 }
