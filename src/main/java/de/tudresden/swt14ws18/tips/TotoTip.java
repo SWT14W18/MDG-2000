@@ -46,7 +46,7 @@ public class TotoTip extends Tip {
         return totoMatch.getResult() == getResult() ? input * totoMatch.getQuote(getResult()) : 0;
     }
 
-    public void update(TotoMatch o, Object arg) {
+    public void update() {
         if (getGame().getResult() == TotoResult.NOT_PLAYED)
             return;
 
@@ -97,5 +97,9 @@ public class TotoTip extends Tip {
         temp.append(totoMatch.getQuote(result));
 
         return temp.toString();
+    }
+
+    public void setResult(TotoResult result) {
+        this.result = result;
     }
 }

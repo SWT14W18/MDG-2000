@@ -169,7 +169,7 @@ public class TotoMatch extends Game {
         this.totoResult = result;
 
         for (TotoTip tip : Lotterie.getInstance().getTotoTipRepository().findByTotoMatch(this)) {
-            tip.update(this, true); // report that the game is finished in all things
+            tip.update(); // report that the game is finished in all things
         }
     }
 
