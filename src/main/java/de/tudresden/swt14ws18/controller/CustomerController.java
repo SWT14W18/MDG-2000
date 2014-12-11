@@ -82,7 +82,9 @@ public class CustomerController extends ControllerBase {
 
         handleGeneralValues(map);
         ConcreteCustomer admin = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-        String password = Community.createPassword(); // Random Passwort hinzufügen
+        String password = Community.createPassword();   // Random Passwort hinzufügen
+        while(!communityRepository.findByPassword(password).isEmpty())
+        	password = Community.createPassword();
         communityRepository.save(new Community(name, password, admin));
         return "groups/create";
     }

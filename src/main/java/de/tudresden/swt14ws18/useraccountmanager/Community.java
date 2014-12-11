@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import de.tudresden.swt14ws18.Lotterie;
 import scala.util.Random;
 
 
@@ -166,5 +167,10 @@ public class Community extends Customer{
         public Set<ConcreteCustomer> getMemberList(){
             return members;
         }
+        
+       public String getPasswordHtml(){
+    	   ConcreteCustomer c = Lotterie.getInstance().getCustomerRepository().findByUserAccount(Lotterie.getInstance().getAuthenticationManager().getCurrentUser().get());
+    	   return getAdmin().equals(c)?getCommunityPassword():"******"; 
+       }
 
   }
