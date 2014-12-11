@@ -37,7 +37,6 @@ import de.tudresden.swt14ws18.tips.LottoTip;
 
 /*
  * TODO TESTS!!!
- * TODO Tippverarbeitung (Ergebnisse eintragen
  * TODO Blocked User darf nichts anderes machen können, als seine Mitteilung bezahlen
  * TODO Gruppenfunktionalität
  * TODO Statisik des Admins ausbauen (Transaktionen zusammensuchen und auswerten)
