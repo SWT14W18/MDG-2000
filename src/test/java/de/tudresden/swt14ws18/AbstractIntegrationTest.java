@@ -15,8 +15,7 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Lotterie.class)
-@ContextConfiguration(classes = Lotterie.class)//{CustomerRepository.class, UserAccountManager.class, BankAccountRepository.class, BankAccount.class, ConcreteCustomer.class})
-//@ContextConfiguration(classes = Lotterie.class)//locations ={"/MDG-2000/pom.xml"})
+@ContextConfiguration(classes = Lotterie.class) //locations ={"/MDG-2000/pom.xml"})
 //@Transactional
 public class AbstractIntegrationTest {
 
