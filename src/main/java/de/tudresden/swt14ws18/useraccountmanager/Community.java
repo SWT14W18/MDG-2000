@@ -172,5 +172,9 @@ public class Community extends Customer{
     	   ConcreteCustomer c = Lotterie.getInstance().getCustomerRepository().findByUserAccount(Lotterie.getInstance().getAuthenticationManager().getCurrentUser().get());
     	   return getAdmin().equals(c)?getCommunityPassword():"******"; 
        }
+       
+       public long getId(){
+    	   return id;
+       }
 
   }

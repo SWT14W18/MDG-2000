@@ -121,14 +121,14 @@ public class CustomerController extends ControllerBase {
     }
 
     @RequestMapping("/groupmanage")
-    public String groupmanage(ModelMap map) {
+    public String groupmanage(ModelMap map, @RequestParam ("id") long id) {
 
         handleGeneralValues(map);
 
         // soll die gleiche Liste wie die Übersicht zeigen + Button zum ändern
-         ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-         List<Community> community = communityRepository.findByMembers(customer);
-         map.addAttribute("groupmanage", community);
+        Community community = communityRepository.findById(id);
+        Set<ConcreteCustomer> customer = community.getMemberList();
+        map.addAttribute("groupmanage", customer);
         return "groups/manage";
     }
 

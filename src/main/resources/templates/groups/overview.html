@@ -13,12 +13,14 @@
 			<div align="center"  id="divListMessages">
 			<ol start="1" id="listMessages">
  				<div th:each="Community : ${groupoverview}">
+			    <a th:href="@{/groupmanage(id=${Community.getId()})}" >
 				<br/>
 				<br/>
 				<label  th:text="@{${Community.getCommunityName()}}">Group</label>
 				<label  th:text="@{${Community.getPasswordHtml()}}">Password</label>
 				<br/>
-				<br/>	
+				<br/>
+				</a>	
 				</div>
 			</ol>
 			</div>
