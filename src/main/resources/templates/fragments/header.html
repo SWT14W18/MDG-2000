@@ -102,6 +102,7 @@
 		
                    <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></div></a></li>
+                  <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="lotterydraw.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i>Ziehungen</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_USER')" class="liright" id="Geld"><a th:href="bankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_ANONYM')" class="liright" id="Geld"><a th:href="anonymbankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
 				   			

@@ -97,7 +97,7 @@ public class LotterieController extends ControllerBase {
     }
 
     private void createAnonymUser(String vorname, String passwort) {
-        UserAccount ua = userAccountManager.create(vorname, passwort, Constants.ANONYM,Constants.CUSTOMER);
+        UserAccount ua = userAccountManager.create(vorname, passwort, Constants.ANONYM,Constants.CUSTOMER,Constants.TOTO_LIST);
         userAccountManager.save(ua);
 
         BankAccount ba = new BankAccount();
@@ -109,7 +109,7 @@ public class LotterieController extends ControllerBase {
     }
 
     private void createUser(String name, String password) {
-        UserAccount ua = userAccountManager.create(name, password, Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
+        UserAccount ua = userAccountManager.create(name, password, Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,Constants.TOTO_LIST);
         userAccountManager.save(ua);
 
         BankAccount ba = new BankAccount();

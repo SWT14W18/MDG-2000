@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<!-- Header include -->
+	<div th:replace="fragments/header :: header"></div>
+	<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+</style>
+	<section>
+		<h1 th:text="@{${totoGameType}+' - '+${matchDay}+'.Spieltag'}">Toto Tipperstellung</h1>
+		<hr/>		
+			<form action="/setTotoResult" method="post">
+				<div class="tipp">
+				<div align="center">
+				<table style="width:100%; border:1px solid red; border-collapse: collapse;">
+				  <tr th:each="match : ${matches}">
+				    <td th:text="@{${match.getTeamHome()}+' (Heimsieg)'}">Team A</td>
+				    <td >gegen</td>	
+				    <td th:text="@{${match.getTeamGuest()}+' (Auswärtsseig)'}">Team B</td>	
+				    <td ><select name="result">
+				    		<option value="Nicht gespielt">Nicht gespielt</option>
+							<option value="Heimsieg">Heimsieg</option>
+							<option value="Auswärtssieg">Auswärtssieg</option>
+							<option value="Unentschieden">Unentschieden</option>
+						</select>
+					</td>
+				  </tr>
+				</table>
+				</div>
+				</div>
+				<input type="submit" />
+			</form>
+			
+			<br/>
+			<br/>
+			<br/>
+	</section>
+	<!-- Footer include -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

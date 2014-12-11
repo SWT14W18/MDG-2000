@@ -122,7 +122,7 @@ public class LotterieDataInitializer implements DataInitializer {
             return;
         }
 
-        UserAccount admin = userAccountManager.create("admin", "123", Constants.ADMIN, Constants.USER);
+        UserAccount admin = userAccountManager.create("admin", "123", Constants.ADMIN, Constants.USER,Constants.TOTO_LIST);
         userAccountManager.save(admin);
 
         BankAccount adminAccount = new BankAccount();
@@ -131,13 +131,13 @@ public class LotterieDataInitializer implements DataInitializer {
         bankAccountRepository.save(adminAccount);
         customerRepository.save(adminCustomer);
 
-        UserAccount ua1 = userAccountManager.create("hans", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
+        UserAccount ua1 = userAccountManager.create("hans", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,Constants.TOTO_LIST);
         userAccountManager.save(ua1);
-        UserAccount ua2 = userAccountManager.create("dextermorgan", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
+        UserAccount ua2 = userAccountManager.create("dextermorgan", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,Constants.TOTO_LIST);
         userAccountManager.save(ua2);
-        UserAccount ua3 = userAccountManager.create("earlhickey", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
+        UserAccount ua3 = userAccountManager.create("earlhickey", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,Constants.TOTO_LIST);
         userAccountManager.save(ua3);
-        UserAccount ua4 = userAccountManager.create("mclovinfogell", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
+        UserAccount ua4 = userAccountManager.create("mclovinfogell", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,Constants.TOTO_LIST);
         userAccountManager.save(ua4);
 
         BankAccount ba1 = new BankAccount();

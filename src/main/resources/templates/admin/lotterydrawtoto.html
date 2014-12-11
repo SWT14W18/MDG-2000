@@ -5,7 +5,7 @@
 	
 		<div th:replace="fragments/header :: header"></div>
 		<section>
-		<h1>Fussball Toto</h1>
+		<h1>TOTO Ziehung Liga Auswahl</h1>
 		<hr/>
 		<br/>
 		<br/>
@@ -17,9 +17,7 @@
 			<a th:href="@{'/totoMatchDays?id='+${item.name()}}" >
 			<br/>
 			<br/>
-			<br/>
-			<label th:text="@{${item.toString()}}">TotoGameType</label>
-			<br/>
+			<label  th:text="@{${item.toString()}}">TotoGameType</label>
 			<br/>
 			<br/>
 			</a>				

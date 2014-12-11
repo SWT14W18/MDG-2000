@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<!-- Header include -->
+	<div th:replace="fragments/header :: header"></div>
+	<section>
+		<h1>Lotto Ziehung</h1>
+		<hr/>
+		<br/>
+		<br/>
+		<p>Hier werden die Ziehung des Lottos am Sonntag und die Ergebnisse der Fussballspiele eingetragen. Wir tragen alle Daten unter notarieller Aufsicht ein.</p>
+		
+		<form th:action="@{/setLottoNumbers}" method="post">
+		<p>Die Lottozahlen werden immer für das nächste Lottospiel gesetzt. Wenn man also 2mal hintereinander einträgt , so trägt man für die beiden kommenden Sonntage ein.</p>
+		<div align="center"><input type="value" name="number1" placeholder="1"/><br/></div>
+		<div align="center"><input type="value" name="number2" placeholder="2"/><br/></div>
+		<div align="center"><input type="value" name="number3" placeholder="3"/><br/></div>
+		<div align="center"><input type="value" name="number4" placeholder="4"/><br/></div>
+		<div align="center"><input type="value" name="number5" placeholder="5"/><br/></div>
+		<div align="center"><input type="value" name="number6" placeholder="6"/><br/></div>
+		<div align="center"><input type="value" name="super" placeholder="sup"/><br/></div>
+		<div align="center"><input type="submit" value="Lottozahlen setzen"/></div>
+		
+		</form>
+		<br/>
+		<br/>
+		<br/>
+		
+		<p>Für die Toto Ziehung wählen sie im nächsten Abschnitt die Liga, den Spieltag, und das jeweilige Team aus.</p>
+		
+		<a th:href="toto.html">TOTO Ziehung</a>				
+				
+		<br/>
+		<br/>
+		<br/>
+	</section>
+	<!-- Footer include -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>	
+</html>

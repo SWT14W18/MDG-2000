@@ -2,24 +2,21 @@
 <html>
 <head th:replace="fragments/head :: head"></head>
 <body>
-	
-		<div th:replace="fragments/header :: header"></div>
+	<!-- Header include -->
+	<div th:replace="fragments/header :: header"></div>
 		<section>
-		<h1>Fussball Toto</h1>
+		<h1 th:text="@{${totoGameType}}"> Spieltage</h1>
 		<hr/>
 		<br/>
 		<br/>
 		<div align="center">
 		<div align="center"  id="divListMessages">
 		<ol start="1" id="listMessages">
-		
-			<div th:each="item : ${totoGameTypes}">
-			<a th:href="@{'/totoMatchDays?id='+${item.name()}}" >
+			<div th:each="item : ${matchDays}">
+			<a th:href="@{/totoTipp(id=${item},liga=${liga})}">
 			<br/>
 			<br/>
-			<br/>
-			<label th:text="@{${item.toString()}}">TotoGameType</label>
-			<br/>
+			<label  th:text="@{${item}+'.Spieltag'}">Spieltag</label>
 			<br/>
 			<br/>
 			</a>				
@@ -31,7 +28,7 @@
 		<br/>
 		<br/>
 		<br/>
-	</section>
+		</section>	
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>
 </body>	
