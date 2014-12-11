@@ -12,19 +12,27 @@
 		<ol start="1" id="listMessages">
 			<div th:each="item : ${tips}">
 			<br/>
-		    <br/>
-		    <label th:text="${item.getMatchDateAsString()}+'Uhr'">Datum</label>
-		    <br/>
-		    <label th:text="${item.getMatchTitleAsString()}">Titel</label>
-		    <br/>
-		    <br/>
-		    <label th:text="@{'Getippt auf: '+${item.getResultAsString()}}">Tipp</label>
-		    <br/>
+			<br/>
+			<label th:text="${item.getMatchDateAsString()}+'Uhr'">Datum</label>
+			<br/>
+			<label th:text="${item.getMatchTitleAsString()}">Titel</label>
+			<br/>
+			<br/>
+			<label th:text="@{'Getippt auf: '+${item.getResultAsString()}}">Tipp</label>
+		    	<br/>
 			<label th:text="@{'Einsatz: '+${item.getInputAsString()}+'€'}">Einsatz</label>
-		    <br/>
-		    <label th:text="@{'Quote: '+${item.getQuoteAsString()}}">Quote</label>
-		    <br/>
+		    	<br/>
+		    	<label th:text="@{'Quote: '+${item.getQuoteAsString()}}">Quote</label>
+		    	<br/>
 			</div>
+				<form action="/deleteTip">
+				<input type="submit" value="Löschen"/>
+				<input type="hidden" name="id" th:value="${item.getId()}"/>
+			</form>
+			<form action="/changeTip">
+				<input type="submit" value="Ändern"/>
+				<input type="hidden" name="id" th:value="${item.getId()}"/>
+			</form>
 		</ol>
 		
 		<br/>
