@@ -1,4 +1,4 @@
-package de.tudresden.swt14ws18;
+package de.tudresden.swt14ws18.modelTests;
 
 import org.junit.Test;
 
