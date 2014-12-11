@@ -90,7 +90,7 @@ public class LottoGame extends Game {
             tip.update(this, true); // report that the game now knows who won how much
         }
 
-        Lotterie.getInstance().setNextLottoPot(this); // TODO noch nicht optimal
+        Lotterie.getInstance().setNextLottoPot(this);
     }
 
     @Override
