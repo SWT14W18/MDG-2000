@@ -51,10 +51,16 @@ public class ConcreteCustomerTest extends AbstractIntegrationTest{
 	        
 	        c1.getAccount().incomingTransaction(new Transaction(null, c1.getAccount(), 200.0));
 	        
-	       // assertEquals(c1.getAccount().getBalance(), 200.0);
+	        assertEquals(c1.getAccount().getBalance(), 200.0, 0.01);
+	      
+	        Iterable<Message> messages = c1.getMessages();
 	        
-	        c1.payAllMessages();
-	       // assertEquals(c1.getAccount().getBalance(), 198.0);
+	        while(messages.iterator().hasNext()){
+	            c1.payOneMessage(messages.iterator().next());
+	        }
+	        
+	        
+	        assertEquals(c1.getAccount().getBalance(), 198.0, 0.01);
 	        
 	        c1.addMessage(GameType.LOTTO);
 	        c1.addMessage(GameType.LOTTO);
@@ -68,9 +74,10 @@ public class ConcreteCustomerTest extends AbstractIntegrationTest{
 	        c1.addMessage(GameType.LOTTO);
 	        
 	        assertEquals(c1.getState(), Status.BLOCKED);
-	        
-	        c1.payAllMessages();
-	        
+	        	        
+	        while(messages.iterator().hasNext()){
+                    c1.payOneMessage(messages.iterator().next());
+                }	        
 	        assertEquals(c1.getState(), Status.ACTIVE);
 	       
 	}

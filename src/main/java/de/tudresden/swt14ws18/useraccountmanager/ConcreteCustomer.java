@@ -123,10 +123,6 @@ public class ConcreteCustomer {
         Lotterie.getInstance().getCustomerRepository().save(this);
     }
 
-    public void payAllMessages() {
-        for (Message message : messages)
-            payOneMessage(message);
-    }
 
     public List<Message> getMessages() {
         return messages;
