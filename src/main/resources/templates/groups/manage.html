@@ -13,7 +13,7 @@
 			<br/>
 			<div align="center">
 			<div align="center"  id="divListMessages">
-			<ol start="1" id="listMessages">
+        <ol start="1" id="listMessages">
  				<div th:each="Community : ${groupmanage}">
 				<br/>
 				<br/>
@@ -21,13 +21,27 @@
 				<br/>
 				<br/>	
 				</div>
-			</ol>
+        </ol>
 			</div>
 			</div>
 			<!-- kick User -->
-		<!-- add new user -->
-		<!-- change Password -->
-		<!-- change information? -->
+			
+		<div align="center">
+		<div align="center"  id="divListMessages">
+		<ol start="1" id="listMessages">
+			<div th:each="item : ${tips}">
+			<a th:href="@{/tipCollectionView(id=${item.getId()}, game=${item.getGameType().name()})}" >
+			<br/>
+		    <br/>
+			<label th:text="@{'Tippschein ('+${item.getTips().size()}+' Tipp(s) )'}">Test</label>
+		    <br/>
+		    <br/>
+		    </a>
+			</div>
+		</ol>
+		</div>
+		</div>
+
 		<br/>
 		<br/>
 		<br/>

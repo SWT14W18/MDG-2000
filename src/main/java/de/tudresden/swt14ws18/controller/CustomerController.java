@@ -89,7 +89,7 @@ public class CustomerController extends ControllerBase {
         handleGeneralValues(map);
         ConcreteCustomer admin = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
         String password = Community.createPassword();   // Random Passwort hinzufügen
-        while(!communityRepository.findByPassword(password).isEmpty())
+        while(communityRepository.findByPassword(password) != null)
         	password = Community.createPassword();
         communityRepository.save(new Community(name, password, admin));
         return "groups/create";
@@ -106,8 +106,10 @@ public class CustomerController extends ControllerBase {
     public String join(ModelMap map, @RequestParam("cPassword") String password) {
 
         handleGeneralValues(map);
-        List<Community> community = communityRepository.findByPassword(password);
+        Community community = communityRepository.findByPassword(password);
         ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+        community.addMember(customer);
+        communityRepository.save(community);
         map.addAttribute("groupoverview", community);
         groupoverview(map);
         return "groups/overview";
@@ -129,6 +131,12 @@ public class CustomerController extends ControllerBase {
         Community community = communityRepository.findById(id);
         Set<ConcreteCustomer> customer = community.getMemberList();
         map.addAttribute("groupmanage", customer);
+        
+        List<TipCollection> tip = new ArrayList<>();
+        tip.addAll(totoTipCollectionRepo.findByCommunity(community));
+        tip.addAll(lottoTipCollectionRepo.findByCommunity(community));
+        map.addAttribute("tips", tip);
+        System.out.println(tip.size());
         return "groups/manage";
     }
 
