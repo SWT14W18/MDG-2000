@@ -166,7 +166,6 @@ public class LotterieDataInitializer implements DataInitializer {
         c1.addMessage(GameType.LOTTO);
         c1.addMessage(GameType.LOTTO);
         c1.addMessage(GameType.LOTTO);
-        c1.addMessage(GameType.LOTTO);
 
         messageRepository.save(c1.getMessages());
 
