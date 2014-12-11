@@ -92,8 +92,7 @@ public class ConcreteCustomer {
         Message tmp = new Message(whichGame);
         messages.add(tmp);
 
-        if (getMessageCount() >= MAX_MESSAGE_COUNT && userAccount.hasRole(Constants.CUSTOMER_BLOCKABLE))
-        {
+        if (getMessageCount() >= MAX_MESSAGE_COUNT && userAccount.hasRole(Constants.CUSTOMER_BLOCKABLE)) {
             userAccount.remove(Constants.CUSTOMER_BLOCKABLE);
             Lotterie.getInstance().getUserAccountManager().save(userAccount);
             state = Status.BLOCKED;
@@ -108,11 +107,12 @@ public class ConcreteCustomer {
     }
 
     public void payOneMessage(Message message) {
-        account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2);
+        if (!account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2))
+            return;
+        
         messages.remove(message);
 
-        if (getMessageCount() < MAX_MESSAGE_COUNT && !userAccount.hasRole(Constants.CUSTOMER_BLOCKABLE))
-        {
+        if (getMessageCount() < MAX_MESSAGE_COUNT && !userAccount.hasRole(Constants.CUSTOMER_BLOCKABLE)) {
             userAccount.add(Constants.CUSTOMER_BLOCKABLE);
             Lotterie.getInstance().getUserAccountManager().save(userAccount);
             state = Status.ACTIVE;
@@ -122,7 +122,6 @@ public class ConcreteCustomer {
         Lotterie.getInstance().getMessagesRepository().save(messages);
         Lotterie.getInstance().getCustomerRepository().save(this);
     }
-
 
     public List<Message> getMessages() {
         return messages;
