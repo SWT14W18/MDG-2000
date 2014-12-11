@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 
 import de.tudresden.swt14ws18.gamemanagement.GameType;
+import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 @Entity
@@ -15,8 +16,8 @@ public class LottoTipCollection extends TipCollection<LottoTip> {
 	
     }
     
-    public LottoTipCollection(List<LottoTip> tips, ConcreteCustomer owner) {
-	super(tips, owner);
+    public LottoTipCollection(List<LottoTip> tips, ConcreteCustomer owner, Community community) {
+	super(tips, owner, community);
     }
 
     @Override

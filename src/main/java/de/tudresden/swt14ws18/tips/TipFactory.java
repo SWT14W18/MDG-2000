@@ -12,12 +12,14 @@ import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
+import de.tudresden.swt14ws18.repositories.CommunityRepository;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
 import de.tudresden.swt14ws18.repositories.LottoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.LottoTipRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipRepository;
+import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.util.Constants;
 
@@ -31,41 +33,43 @@ public class TipFactory {
     private final TotoTipRepository totoTipRepository;
     private final LottoTipCollectionRepository lottoTipCollectionRepository;
     private final TotoTipCollectionRepository totoTipCollectionRepository;
+    private final CommunityRepository communityRepo;
 
     @Autowired
     public TipFactory(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository, LottoTipRepository lottoTipRepository,
             TotoTipRepository totoTipRepository, LottoTipCollectionRepository lottoTipCollectionRepository,
-            TotoTipCollectionRepository totoTipCollectionRepository) {
+            TotoTipCollectionRepository totoTipCollectionRepository, CommunityRepository communityRepo) {
         this.lottoMatchRepository = lottoMatchRepository;
         this.totoMatchRepository = totoMatchRepository;
         this.lottoTipCollectionRepository = lottoTipCollectionRepository;
         this.lottoTipRepository = lottoTipRepository;
         this.totoTipCollectionRepository = totoTipCollectionRepository;
         this.totoTipRepository = totoTipRepository;
+        this.communityRepo = communityRepo;
     }
 
     public boolean craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
-        
+
         List<TotoTip> tips = new ArrayList<>();
 
         for (TotoMatch totoMatch : totoMatchRepository.findByTotoResult(TotoResult.NOT_PLAYED)) {
-            if (totoMatch.isFinished()){
+            if (totoMatch.isFinished()) {
                 continue;
             }
             if (map.containsKey(String.valueOf(totoMatch.getId()))) {
                 TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
-                String money = map.get("input"+totoMatch.getId());
-                try{
+                String money = map.get("input" + totoMatch.getId());
+                try {
                     if (result == TotoResult.NOT_PLAYED)
                         continue;
+
                     double d = Double.parseDouble(money);
-                    if(d < 0){
+
+                    if (d < 0)
                         continue;
-                    }
-                    System.out.println(money);
+
                     tips.add(new TotoTip(totoMatch, result, d));
-                }catch(Exception e)
-                {
+                } catch (NumberFormatException e) {
                     continue;
                 }
             }
@@ -73,8 +77,16 @@ public class TipFactory {
         if (tips.size() == 0)
             return false;
 
+        Community community;
+
+        try {
+            community = communityRepo.findById(Long.parseLong(map.get("whichGroup")));
+        } catch (NumberFormatException e) {
+            community = null;
+        }
+
         totoTipRepository.save(tips);
-        totoTipCollectionRepository.save(new TotoTipCollection(tips, owner));
+        totoTipCollectionRepository.save(new TotoTipCollection(tips, owner, community));
         return true;
     }
 
@@ -85,6 +97,7 @@ public class TipFactory {
      *            Die eingetragen Tipps auf der Website
      * @param owner
      *            Der Customer der den Tipp abgibt
+     * @return true wenn ein Tippschein erstellt wurde, false wenn nicht
      */
     public boolean craftLottoTips(Map<String, String> map, ConcreteCustomer owner) {
 
@@ -150,8 +163,16 @@ public class TipFactory {
         if (tips.size() == 0)
             return false;
 
+        Community community;
+
+        try {
+            community = communityRepo.findById(Long.parseLong(map.get("whichGroup")));
+        } catch (NumberFormatException e) {
+            community = null;
+        }
+        
         lottoTipRepository.save(tips);
-        lottoTipCollectionRepository.save(new LottoTipCollection(tips, owner));
+        lottoTipCollectionRepository.save(new LottoTipCollection(tips, owner, community));
         return true;
     }
 
