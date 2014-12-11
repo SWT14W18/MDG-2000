@@ -5,7 +5,7 @@
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1> Tippscheinuuml;bersicht</h1>
+		<h1> Tippscheinübersicht</h1>
 		<hr/>
 		<br/>
 		<br/>
@@ -18,17 +18,13 @@
 		    	<br/>
 			<label th:text="${item.getNumbersAsString()}">Zahlen</label>
 			<br/>
-		    	<label th:text="${item.getSuperNumberAsString()}">Superzahel</label>
+		    	<label th:text="${item.getSuperNumberAsString()}">Superzahl</label>
 		    	<br/>
-		    	<form action="/deleteLottoTip">
-				<input type="submit" value="Löschen"/>
-				<input type="hidden" name="id" th:value="${item.getId()}"/>
-			</form>
-			<form action="/lottoTipChange">
+			</div>
+            <form action="/changeLottoTip">
 				<input type="submit" value="Ändern"/>
 				<input type="hidden" name="id" th:value="${item.getId()}"/>
 			</form>
-			</div>
 		</ol>
 		
 		<br/>

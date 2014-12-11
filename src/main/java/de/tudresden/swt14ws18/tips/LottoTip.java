@@ -43,8 +43,8 @@ public class LottoTip extends Tip {
         return result;
     }
 
-    public void update(LottoGame o, Object arg) {
-        if ((Boolean) arg)
+    public void update(boolean arg) {
+        if (arg)
             handleResult();
         else
             calculateResult();
@@ -53,7 +53,7 @@ public class LottoTip extends Tip {
     }
 
     private void handleResult() {
-        if (result == null)
+        if (result == null && isValid())
             throw new IllegalStateException("Tried to resolve a tip, which has not be processed yet!");
 
         if (result == LottoResult.NONE || !isValid())
