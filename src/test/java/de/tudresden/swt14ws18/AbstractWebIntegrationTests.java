@@ -14,6 +14,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+/**
+ * 
+ * Dieses Grundgerüst dient als Startgerüst für WebIntegrationtests, also ControllerTests!
+ * =========================
+ * !!!!!!NICHT FUNKTIONSFÄHIG!!!
+ * =========================
+ * 
+ * aber auch nocht vom Tutor gefordert
+ * @author Reinhard_2
+ *
+ */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @SpringApplicationConfiguration(classes = Lotterie.class) //classes = Lotterie.class)

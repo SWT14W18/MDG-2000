@@ -1,4 +1,4 @@
-package de.tudresden.swt14ws18.modelTests;
+package de.tudresden.swt14ws18.bankTests;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
@@ -13,6 +13,18 @@ import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.bank.Transaction;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
+
+/**
+ * Der BankAccountIntegratioNTest befasst sich mit der BankAccountverwaltung.
+ * 
+ * getestete Funktionen:
+ * 
+ * Erstellung, Speicherung im Repository (siehe test dazu), Einzahlung, Transfer, Auszahlung
+ * Transaktionen abrufen, Transaktion erstellen
+ * 
+ * @author Reinhard_2
+ *
+ */
 
 public class BankAccountTest extends AbstractIntegrationTest{
     

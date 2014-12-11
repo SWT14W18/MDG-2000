@@ -21,6 +21,16 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * 
+ * Test des CustomerRepositories
+ * 
+ * Funktionen
+ * Anlegen und speichern eines Kunden, Finden aller und des angelegten Kunden
+ * 
+ * @author Reinhard_2
+ *
+ */
 
 public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest{
 

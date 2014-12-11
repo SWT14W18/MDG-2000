@@ -1,4 +1,4 @@
-package de.tudresden.swt14ws18.modelTests;
+package de.tudresden.swt14ws18.useraccountmanagerTests;
 
 import static org.junit.Assert.assertEquals;
 

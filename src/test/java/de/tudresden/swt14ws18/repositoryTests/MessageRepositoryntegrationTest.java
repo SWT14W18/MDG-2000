@@ -13,6 +13,17 @@ import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.useraccountmanager.Message;
 
+/**
+ * 
+ * Testen des MessageRepositories
+ * 
+ * Funktionen
+ * Anelgen einer Message, suchen und Finden einer Massge, Finden aller Messages
+ * 
+ * @author Reinhard_2
+ *
+ */
+
 public class MessageRepositoryntegrationTest extends AbstractIntegrationTest {
 
     @Autowired MessageRepository MessageRepo;

@@ -12,6 +12,15 @@ import de.tudresden.swt14ws18.AbstractIntegrationTest;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 
+/**
+ * Test des BankAccountRepositories
+ * 
+ * Funktionen:
+ * Account anlegen und speichern, Wiederfinden des eben gespeicherten Accounts, finden aller Accounts
+ * 
+ * @author Reinhard_2
+ *
+ */
 
 public class BankAccountRepositoryIntegrationTest extends AbstractIntegrationTest {
 

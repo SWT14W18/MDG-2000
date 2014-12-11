@@ -1,4 +1,4 @@
-package de.tudresden.swt14ws18.modelTests;
+package de.tudresden.swt14ws18.useraccountmanagerTests;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
@@ -19,6 +19,16 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Message;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 import de.tudresden.swt14ws18.util.Constants;
+
+/**
+ * Der Test zum ConcreteCustomer umfasst nicht nur allein den Kunden! Er umfasst einen Test der
+ * Accountanlegung, Banktransfers, Messages und Statusänderung
+ * 
+ * Dieser Test baut auf die funktionierenden RepositoryTests auf!
+ * 
+ * @author Reinhard_2
+ *
+ */
 
 public class ConcreteCustomerTest extends AbstractIntegrationTest{
 
