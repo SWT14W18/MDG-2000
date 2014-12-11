@@ -136,7 +136,6 @@ public class CustomerController extends ControllerBase {
         tip.addAll(totoTipCollectionRepo.findByCommunity(community));
         tip.addAll(lottoTipCollectionRepo.findByCommunity(community));
         map.addAttribute("tips", tip);
-        System.out.println(tip.size());
         return "groups/manage";
     }
 
