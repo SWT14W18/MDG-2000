@@ -116,4 +116,8 @@ public class LottoTip extends Tip {
 
         return lottoGame.getTitle() + getNumbersAsString();
     }
+
+    public void setResult(LottoNumbers numbers2) {
+        this.numbers = numbers2;
+    }
 }

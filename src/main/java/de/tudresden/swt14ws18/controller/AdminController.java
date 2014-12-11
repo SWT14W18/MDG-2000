@@ -182,37 +182,6 @@ public class AdminController extends ControllerBase {
         return "index";
     }
 
-    private LottoNumbers parseInput(Map<String, String> input) {
-        if (!input.containsKey("number1"))
-            return null;
-        if (!input.containsKey("number2"))
-            return null;
-        if (!input.containsKey("number3"))
-            return null;
-        if (!input.containsKey("number4"))
-            return null;
-        if (!input.containsKey("number5"))
-            return null;
-        if (!input.containsKey("number6"))
-            return null;
-        if (!input.containsKey("super"))
-            return null;
-
-        try {
-            int n1 = Integer.parseInt(input.get("number1"));
-            int n2 = Integer.parseInt(input.get("number2"));
-            int n3 = Integer.parseInt(input.get("number3"));
-            int n4 = Integer.parseInt(input.get("number4"));
-            int n5 = Integer.parseInt(input.get("number5"));
-            int n6 = Integer.parseInt(input.get("number6"));
-            int nsuper = Integer.parseInt(input.get("super"));
-
-            return new LottoNumbers(nsuper, n1, n2, n3, n4, n5, n6);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
     private TreeMap<LottoGame, Double> createLottoOverview() {
         TreeMap<LottoGame, Double> lottoTipsMap = new TreeMap<LottoGame, Double>(comp);
         // TODO mit richtiger Zeit arbeiten lassen

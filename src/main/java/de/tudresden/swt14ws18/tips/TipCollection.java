@@ -146,5 +146,9 @@ public abstract class TipCollection<T extends Tip> {
                 tip.getInput() * (getShares().getRemainingShare() + ownerExtra));
     }
 
+    public void removeTip(Tip tip) {
+        tips.remove(tip);
+    }
+
     public abstract GameType getGameType();
 }
