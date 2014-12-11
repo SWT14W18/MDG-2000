@@ -239,6 +239,7 @@ public class CustomerController extends ControllerBase {
         map.addAttribute("matches", list);
         map.addAttribute("totoGameType", totoGameType.toString());
         map.addAttribute("matchDay", id);
+        map.addAttribute("groups", communityRepository.findByMembers(getCurrentUser()));
 
         return "games/totoTipp";
     }
