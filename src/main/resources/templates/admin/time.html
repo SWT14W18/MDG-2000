@@ -9,13 +9,13 @@
 		<hr/>
 		<br/>
 		<br/>
-		<p>Geld einzahlen:</p>
+		<p>Ändere die Zeit in Minuten. Zurückspulen mit negativen Werten!</p>
+		
 		<form th:action="@{/vorspulen}" method="post">
-		
-		Ändere die Zeit in Minuten. Zurückspulen mit negativen Werten!
-		
 		<div align="center"><input type="value" name="time" placeholder="Minuten"/><br/></div>
 		<div align="center"><input type="submit" value="Spulen!"/></div>
+
+		<!-- TODO momentaner Zeitversatz, reale Zeit <-> interne Zeit -->
 
 		</form>
 				
