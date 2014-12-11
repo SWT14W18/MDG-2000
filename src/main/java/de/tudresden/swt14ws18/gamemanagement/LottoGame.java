@@ -86,8 +86,8 @@ public class LottoGame extends Game {
         this.result = result;
 
         for (LottoTip tip : Lotterie.getInstance().getLottoTipRepository().findByLottoGame(this)) {
-            tip.update(this, false); // report that game is ready and that tips please report their result
-            tip.update(this, true); // report that the game now knows who won how much
+            tip.update(false); // report that game is ready and that tips please report their result
+            tip.update(true); // report that the game now knows who won how much
         }
 
         Lotterie.getInstance().setNextLottoPot(this);
