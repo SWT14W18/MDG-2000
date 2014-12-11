@@ -20,11 +20,11 @@
 			<br/>
 		    	<label th:text="${item.getSuperNumberAsString()}">Superzahel</label>
 		    	<br/>
-		    	<form action="/deleteTip">
+		    	<form action="/deleteLottoTip">
 				<input type="submit" value="Löschen"/>
 				<input type="hidden" name="id" th:value="${item.getId()}"/>
 			</form>
-			<form action="/changeTip">
+			<form action="/lottoTipChange">
 				<input type="submit" value="Ändern"/>
 				<input type="hidden" name="id" th:value="${item.getId()}"/>
 			</form>

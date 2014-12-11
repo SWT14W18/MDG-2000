@@ -348,7 +348,7 @@ public class CustomerController extends ControllerBase {
         handleGeneralValues(map);
         map.addAttribute("id", id);
         
-        return "games/totoTipChange";
+        return "games/lottoTipChange";
     }
     
     @RequestMapping(value = "/editLottoTip", method = RequestMethod.POST)
