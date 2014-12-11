@@ -13,7 +13,7 @@
 		<div align="center"  id="divListMessages">
 		<ol start="1" id="listMessages">
 			<div th:each="item : ${matchDays}">
-			<a th:href="@{/totoTipp(id=${item},liga=${liga})}">
+			<a th:href="@{/ADMINtotoTipp(id=${item},liga=${liga})}">
 			<br/>
 			<br/>
 			<label  th:text="@{${item}+'.Spieltag'}">Spieltag</label>

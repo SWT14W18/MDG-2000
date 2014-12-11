@@ -14,7 +14,7 @@
 		<ol start="1" id="listMessages">
 		
 			<div th:each="item : ${totoGameTypes}">
-			<a th:href="@{'/totoMatchDays?id='+${item.name()}}" >
+			<a th:href="@{'/ADMINtotoMatchDays?id='+${item.name()}}" >
 			<br/>
 			<br/>
 			<label  th:text="@{${item.toString()}}">TotoGameType</label>

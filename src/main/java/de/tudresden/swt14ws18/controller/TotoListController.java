@@ -80,6 +80,31 @@ public class TotoListController extends ControllerBase{
         }
         return "games/totoMatchDays";
     }
+    @RequestMapping("/ADMINtotoMatchDays")
+    public String admintotoMatchDays(@RequestParam("id") String totoGameTypeString, ModelMap map) {
+
+        handleGeneralValues(map);
+        TotoGameType totoGameType = TotoGameType.valueOf(totoGameTypeString);
+
+        Set<Integer> set = new TreeSet<>();
+        for (TotoMatch match : totoRepo.findByTotoResultAndTotoGameType(TotoResult.NOT_PLAYED, totoGameType)) {
+            if(!match.isFinished()){
+            set.add(match.getMatchDay());
+            }
+        }
+        map.addAttribute("matchDays", set);
+        map.addAttribute("liga", totoGameType.name());
+        map.addAttribute("totoGameType", totoGameType.toString());
+        Iterable<Role> it = authenticationManager.getCurrentUser().get().getRoles();
+        for(Role r : it) {
+            if(r.toString().equals("ROLE_BOSS"))
+            {
+                System.out.println(r);
+                return "admin/lotterydrawtotomatchday";
+            }
+        }
+        return "games/totoMatchDays";
+    }
 
     @RequestMapping("/totoTipp")
     public String totoTipp(@RequestParam("liga") String liga, @RequestParam("id") int id, ModelMap map) {
@@ -115,6 +140,38 @@ public class TotoListController extends ControllerBase{
         }
         return "games/totoTipp";
     }
+    
+    @RequestMapping("/ADMINtotoTipp")
+    public String admintotoTipp(@RequestParam("liga") String liga, @RequestParam("id") int id, ModelMap map) {
+        handleGeneralValues(map);
+
+        TotoGameType totoGameType = TotoGameType.valueOf(liga);
+        List<TotoMatch> list = new ArrayList<>();
+
+        for (TotoMatch match : totoRepo.findByMatchDayAndTotoGameType(id, totoGameType)) {
+            if (match.isFinished())
+                continue;
+            if(!match.isFinished()){
+                list.add(match);
+            }
+        }
+
+        map.addAttribute("matches", list);
+        map.addAttribute("totoGameType", totoGameType.toString());
+        map.addAttribute("matchDay", id);
+        map.addAttribute("groups", communityRepository.findByMembers(getCurrentUser()));
+        Iterable<Role> it = authenticationManager.getCurrentUser().get().getRoles();
+        for(Role r : it) {
+            if(r.toString().equals("ROLE_BOSS"))
+            {
+                
+                return "admin/lotterydrawsettoto";
+     
+            }
+        }
+        return "games/totoTipp";
+    }
+    
     @RequestMapping("/toto")
     public String toto(ModelMap map) {
         handleGeneralValues(map);

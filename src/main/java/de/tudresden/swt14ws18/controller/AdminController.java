@@ -159,9 +159,11 @@ public class AdminController extends ControllerBase {
     public String insertTotoResult(@RequestParam("id") long id, @RequestParam("result") TotoResult result, ModelMap map) {
         TotoMatch match = totoMatchRepository.findById(id);
         
-        if(match.getDate().isAfter(time.getTime()) || result == TotoResult.NOT_PLAYED)
+        if(match.getDate().isAfter(time.getTime()) || result == TotoResult.NOT_PLAYED){
+            System.out.println("time :" + time.getTime());
             return "index";
-            
+        }
+
         match.setResult(result);
         totoMatchRepository.save(match);
             

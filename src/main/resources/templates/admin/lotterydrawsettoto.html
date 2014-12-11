@@ -23,18 +23,21 @@ th, td {
 				  <tr th:each="match : ${matches}">
 				    <td th:text="@{${match.getTeamHome()}+' (Heimsieg)'}">Team A</td>
 				    <td >gegen</td>	
-				    <td th:text="@{${match.getTeamGuest()}+' (Auswärtsseig)'}">Team B</td>	
+				    <td th:text="@{${match.getTeamGuest()}+' (Auswärtsseig)'}">Team B</td>
+				    	
 				    <td ><select name="result">
-				    		<option value="Nicht gespielt">Nicht gespielt</option>
-							<option value="Heimsieg">Heimsieg</option>
-							<option value="Auswärtssieg">Auswärtssieg</option>
-							<option value="Unentschieden">Unentschieden</option>
+				    		<option value="NOT_PLAYED">Nicht gespielt</option>
+							<option value="WIN_HOME">Heimsieg</option>
+							<option value="WIN_GUEST">Auswärtssieg</option>
+							<option value="DRAW">Unentschieden</option>
 						</select>
 					</td>
+					<input type="hidden" name="id" th:value="${match.getId()}" />
 				  </tr>
 				</table>
 				</div>
 				</div>
+				
 				<input type="submit" />
 			</form>
 			
