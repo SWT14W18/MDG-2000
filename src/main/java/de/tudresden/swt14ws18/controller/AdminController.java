@@ -1,8 +1,13 @@
 package de.tudresden.swt14ws18.controller;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -113,6 +118,12 @@ public class AdminController extends ControllerBase {
         handleGeneralValues(map);
         return "admin/time";
     }
+    
+    @RequestMapping("/lotterydraw")
+    public String lotterydraw(ModelMap map) {
+        handleGeneralValues(map);
+        return "admin/lotterydraw";
+    }
 
     @RequestMapping("inOutOverview")
     public String inoutoverview(ModelMap map) {
@@ -154,7 +165,7 @@ public class AdminController extends ControllerBase {
         match.setResult(result);
         totoMatchRepository.save(match);
             
-        return "index";
+        return "admin/lotterydrawsettoto";
     }
     
     @RequestMapping("/setLottoNumbers")

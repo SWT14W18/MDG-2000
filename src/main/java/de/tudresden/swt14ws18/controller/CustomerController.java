@@ -172,15 +172,6 @@ public class CustomerController extends ControllerBase {
         return tips;
     }
 
-    @RequestMapping("/toto")
-    public String toto(ModelMap map) {
-        handleGeneralValues(map);
-
-        map.addAttribute("groups", communityRepository.findByMembers(getCurrentUser()));
-
-        map.addAttribute("totoGameTypes", TotoGameType.values());
-        return "games/toto";
-    }
 
     @RequestMapping("/tipCollectionView")
     public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType spielType) {
@@ -206,52 +197,7 @@ public class CustomerController extends ControllerBase {
             return "games/tipCollectionView";
     }
 
-    @RequestMapping("/totoMatchDays")
-    public String totoMatchDays(@RequestParam("id") String totoGameTypeString, ModelMap map) {
 
-        handleGeneralValues(map);
-        TotoGameType totoGameType = TotoGameType.valueOf(totoGameTypeString);
-
-        Set<Integer> set = new TreeSet<>();
-        for (TotoMatch match : totoRepo.findByTotoResultAndTotoGameType(TotoResult.NOT_PLAYED, totoGameType)) {
-            LocalDateTime localTime = time.getTime();
-            LocalDateTime date = match.getDate().minusMinutes(Constants.MINUTES_BEFORE_DATE);
-            if (!localTime.isAfter(date)) {
-                set.add(match.getMatchDay());
-            }
-        }
-        map.addAttribute("matchDays", set);
-        map.addAttribute("liga", totoGameType.name());
-        map.addAttribute("totoGameType", totoGameType.toString());
-        return "games/totoMatchDays";
-    }
-
-    @RequestMapping("/totoTipp")
-    public String totoTipp(@RequestParam("liga") String liga, @RequestParam("id") int id, ModelMap map) {
-        handleGeneralValues(map);
-
-        TotoGameType totoGameType = TotoGameType.valueOf(liga);
-        List<TotoMatch> list = new ArrayList<>();
-
-        for (TotoMatch match : totoRepo.findByMatchDayAndTotoGameType(id, totoGameType)) {
-            if (match.isFinished())
-                continue;
-
-            LocalDateTime localTime = time.getTime();
-            LocalDateTime date = match.getDate().minusMinutes(Constants.MINUTES_BEFORE_DATE);
-
-            if (!localTime.isAfter(date)) {
-                list.add(match);
-            }
-        }
-
-        map.addAttribute("matches", list);
-        map.addAttribute("totoGameType", totoGameType.toString());
-        map.addAttribute("matchDay", id);
-        map.addAttribute("groups", communityRepository.findByMembers(getCurrentUser()));
-
-        return "games/totoTipp";
-    }
 
     @RequestMapping("/lotto")
     public String lotto(ModelMap map) {
@@ -326,7 +272,7 @@ public class CustomerController extends ControllerBase {
     }
     
     @RequestMapping(value = "/editTotoTip", method = RequestMethod.POST)
-    public String editTotoTip(@RequestParam("id") long id, @RequestParam("result") TotoResult result, ModelMap map) {
+    public String editTotoTip(@RequestParam("id") long id, @RequestParam("result") TotoResult result, @RequestParam("input") double input, ModelMap map) {
 
         TotoTip tip = totoTipRepository.findOne(id);
         TotoTipCollection col = totoTipCollectionRepo.findByTips(tip);
@@ -338,6 +284,7 @@ public class CustomerController extends ControllerBase {
             return "index";
         
         tip.setResult(result);
+        tip.setInput(input);
         totoTipRepository.save(tip);
         
         return "index";
@@ -348,7 +295,7 @@ public class CustomerController extends ControllerBase {
         handleGeneralValues(map);
         map.addAttribute("id", id);
         
-        return "games/totoTipChange";
+        return "games/lottoTipChange";
     }
     
     @RequestMapping(value = "/editLottoTip", method = RequestMethod.POST)
