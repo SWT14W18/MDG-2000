@@ -56,6 +56,10 @@ public class LottoGame extends Game {
         winLevels.put(LottoResult.SIX, 0.1 * winningPot);
         winLevels.put(LottoResult.SIX_SUPER, 0.2 * winningPot);
     }
+    
+    public Map<LottoResult, Double> getWinningPot(){
+        return winLevels;
+    }
 
     /**
      * Hole die gezogenen Zahlen, null fall noch nicht gezogen.
