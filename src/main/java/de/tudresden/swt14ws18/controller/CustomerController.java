@@ -82,7 +82,7 @@ public class CustomerController extends ControllerBase {
 
         handleGeneralValues(map);
         ConcreteCustomer admin = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-        String password = "testpassword"; // Random Passwort hinzufügen
+        String password = Community.createPassword(); // Random Passwort hinzufügen
         communityRepository.save(new Community(name, password, admin));
         return "groups/create";
     }
@@ -99,7 +99,8 @@ public class CustomerController extends ControllerBase {
 
         handleGeneralValues(map);
         List<Community> community = communityRepository.findByPassword(password);
-        map.addAttribute("groupjoin", community);
+        ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+        map.addAttribute("groupoverview", community);
         groupoverview(map);
         return "groups/overview";
     }
@@ -117,9 +118,9 @@ public class CustomerController extends ControllerBase {
         handleGeneralValues(map);
 
         // soll die gleiche Liste wie die Übersicht zeigen + Button zum ändern
-        // ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-        // List<Community> community = communityRepository.findByMembers(customer);
-        // map.addAttribute("groupoverview", community);
+         ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+         List<Community> community = communityRepository.findByMembers(customer);
+         map.addAttribute("groupmanage", community);
         return "groups/manage";
     }
 
