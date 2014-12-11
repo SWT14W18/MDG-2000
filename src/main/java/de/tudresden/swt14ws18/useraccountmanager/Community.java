@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import de.tudresden.swt14ws18.Lotterie;
+import scala.util.Random;
+
 
 /**
  * die Klasse "Community" leitet sich wie auch der ConcreteCustomer vom Customer ab und besitzt
@@ -128,9 +131,9 @@ public class Community extends Customer{
 	    return communityName;
 	}
 	
-        public String getCommunityPassword() {
-            return communityPassword;
-        }
+    public String getCommunityPassword() {
+        return communityPassword;
+    }
 	
 //	/**
 //	 * Gruppenname wird geändert
@@ -144,23 +147,30 @@ public class Community extends Customer{
 //          return false;
 //        }
 //
-//	/**
-//	 * Gruppenpasswort wird geändert
-//	 * @return
-//	 */
-//      private boolean changeCommunityPassword(String communityPassword){
-//            if(changePassword(newPassword)){
-//                communityPassword = newPassword;
-//                return true;
-//            }
-//        return false;
-//      }        
-        /**
+	/**
+	 * Gruppenpasswort wird erstellt
+	 * @return
+	 */
+      static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+      static Random rnd = new Random();
+      public static String createPassword(){
+          StringBuilder sb = new StringBuilder(6);
+          for(int i=0; i<6; i++)
+        	  sb.append(AB.charAt(rnd.nextInt(AB.length())));
+          return sb.toString();
+      } 
+
+		/**
          * Gibt die Mitglieder einer Gruppe aus
          * @return
          */
         public Set<ConcreteCustomer> getMemberList(){
             return members;
         }
+        
+       public String getPasswordHtml(){
+    	   ConcreteCustomer c = Lotterie.getInstance().getCustomerRepository().findByUserAccount(Lotterie.getInstance().getAuthenticationManager().getCurrentUser().get());
+    	   return getAdmin().equals(c)?getCommunityPassword():"******"; 
+       }
 
   }

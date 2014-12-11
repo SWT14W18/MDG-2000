@@ -8,6 +8,7 @@ import org.salespointframework.Salespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
 import org.salespointframework.SalespointWebConfiguration;
 import org.salespointframework.time.BusinessTime;
+import org.salespointframework.useraccount.AuthenticationManager;
 import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,7 @@ public class Lotterie {
     private TotoTipRepository totoTipRepo;
     private LottoTipCollectionRepository lottoTipColRepo;
     private TotoTipCollectionRepository totoTipColRepo;
+    private AuthenticationManager authManager;
 
     public Lotterie() {
         instance = this;
@@ -142,9 +144,19 @@ public class Lotterie {
         this.transactionRepo = transactionRepo;
     }
     
-    @Autowired
+    
     public UserAccountManager getUserAccountManager(){
         return this.userAccountManager;
+    }
+    
+    
+    public AuthenticationManager getAuthenticationManager(){
+    	return this.authManager;
+    }
+    
+    @Autowired
+    public void setAuthenticatioManager(AuthenticationManager authManager) {
+        this.authManager = authManager;
     }
 
     public BusinessTime getTime() {
@@ -158,6 +170,7 @@ public class Lotterie {
     public static void main(String[] args) {
         SpringApplication.run(Lotterie.class, args);
     }
+    
 
     public BankAccount getBankAccount() {
         return customerRepository.findByUserAccount(userAccountManager.get(new UserAccountIdentifier("admin")).get()).getAccount();

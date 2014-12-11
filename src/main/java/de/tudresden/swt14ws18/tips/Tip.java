@@ -22,6 +22,10 @@ public abstract class Tip/* extends Observable */{
         return valid;
     }
 
+    public long getId() {
+        return id;
+    }
+    
     public abstract String toCustomString();
 
     public void invalidate(boolean valid) {

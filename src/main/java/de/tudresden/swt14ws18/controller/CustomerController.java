@@ -3,6 +3,7 @@ package de.tudresden.swt14ws18.controller;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
+import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
@@ -33,9 +35,13 @@ import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
+import de.tudresden.swt14ws18.tips.LottoTip;
+import de.tudresden.swt14ws18.tips.LottoTipCollection;
 import de.tudresden.swt14ws18.tips.Tip;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
+import de.tudresden.swt14ws18.tips.TotoTip;
+import de.tudresden.swt14ws18.tips.TotoTipCollection;
 import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Message;
@@ -82,7 +88,9 @@ public class CustomerController extends ControllerBase {
 
         handleGeneralValues(map);
         ConcreteCustomer admin = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-        String password = "testpassword"; // Random Passwort hinzufügen
+        String password = Community.createPassword();   // Random Passwort hinzufügen
+        while(!communityRepository.findByPassword(password).isEmpty())
+        	password = Community.createPassword();
         communityRepository.save(new Community(name, password, admin));
         return "groups/create";
     }
@@ -99,7 +107,8 @@ public class CustomerController extends ControllerBase {
 
         handleGeneralValues(map);
         List<Community> community = communityRepository.findByPassword(password);
-        map.addAttribute("groupjoin", community);
+        ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+        map.addAttribute("groupoverview", community);
         groupoverview(map);
         return "groups/overview";
     }
@@ -117,9 +126,9 @@ public class CustomerController extends ControllerBase {
         handleGeneralValues(map);
 
         // soll die gleiche Liste wie die Übersicht zeigen + Button zum ändern
-        // ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-        // List<Community> community = communityRepository.findByMembers(customer);
-        // map.addAttribute("groupoverview", community);
+         ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+         List<Community> community = communityRepository.findByMembers(customer);
+         map.addAttribute("groupmanage", community);
         return "groups/manage";
     }
 
@@ -207,4 +216,105 @@ public class CustomerController extends ControllerBase {
         return "games/lotto";
     }
 
+    @RequestMapping("/deleteTotoTip")
+    public String deleteTotoTip(@RequestParam("id") long id, ModelMap map) {
+        handleGeneralValues(map);
+
+        TotoTip tip = totoTipRepository.findOne(id);
+        TotoTipCollection col = totoTipCollectionRepo.findByTips(tip);
+
+        if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
+            return "index";
+        if (timeCheck(tip.getGame().getDate()))
+            return "index";
+
+        col.removeTip(tip);
+
+        totoTipRepository.delete(tip);
+        if (col.getTips().isEmpty())
+            totoTipCollectionRepo.delete(col);
+
+        return "index";
+    }
+
+    @RequestMapping("/deleteLottoTip")
+    public String deleteLottoTip(@RequestParam("id") long id, ModelMap map) {
+        handleGeneralValues(map);
+
+        LottoTip tip = lottoTipRepository.findOne(id);
+        LottoTipCollection col = lottoTipCollectionRepo.findByTips(tip);
+
+        if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
+            return "index";
+
+        if (timeCheck(tip.getGame().getDate()))
+            return "index";
+        
+        col.removeTip(tip);
+
+        lottoTipRepository.delete(tip);
+        if (col.getTips().isEmpty())
+            lottoTipCollectionRepo.delete(col);
+
+        return "index";
+    }
+
+    @RequestMapping("/totoTipChange")
+    public String totoTipChange(@RequestParam("id") long id, ModelMap map) {
+        handleGeneralValues(map);
+
+        TotoTip tip = totoTipRepository.findOne(id);
+
+        map.addAttribute("id", id);
+        map.addAttribute("match", tip.getGame());
+        
+        return "games/totoTipChange";
+    }
+    
+    @RequestMapping(value = "/editTotoTip", method = RequestMethod.POST)
+    public String editTotoTip(@RequestParam("id") long id, @RequestParam("result") TotoResult result, @RequestParam("input") double input, ModelMap map) {
+
+        TotoTip tip = totoTipRepository.findOne(id);
+        TotoTipCollection col = totoTipCollectionRepo.findByTips(tip);
+        
+        if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
+            return "index";
+
+        if (timeCheck(tip.getGame().getDate()))
+            return "index";
+        
+        tip.setResult(result);
+        tip.setInput(input);
+        totoTipRepository.save(tip);
+        
+        return "index";
+    }
+
+    @RequestMapping("/lottoTipChange")
+    public String lottoTipChange(@RequestParam("id") long id, ModelMap map) {
+        handleGeneralValues(map);
+        map.addAttribute("id", id);
+        
+        return "games/lottoTipChange";
+    }
+    
+    @RequestMapping(value = "/editLottoTip", method = RequestMethod.POST)
+    public String editLottoTip(@RequestParam("id") long id, @RequestParam Map<String, String> params, ModelMap map) {
+
+        LottoTip tip = lottoTipRepository.findOne(id);
+        LottoTipCollection col = lottoTipCollectionRepo.findByTips(tip);
+        
+        if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
+            return "index";
+
+        if (timeCheck(tip.getGame().getDate()))
+            return "index";
+        
+        LottoNumbers numbers = parseInput(params);
+        
+        tip.setResult(numbers);
+        lottoTipRepository.save(tip);
+        
+        return "index";
+    }
 }
