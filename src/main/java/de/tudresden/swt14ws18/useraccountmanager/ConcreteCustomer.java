@@ -99,6 +99,7 @@ public class ConcreteCustomer {
             state = Status.BLOCKED;
         }
 
+        Lotterie.getInstance().getMessagesRepository().save(messages);
         Lotterie.getInstance().getCustomerRepository().save(this);
     }
 
@@ -117,6 +118,8 @@ public class ConcreteCustomer {
             state = Status.ACTIVE;
         }
 
+        Lotterie.getInstance().getMessagesRepository().delete(message);
+        Lotterie.getInstance().getMessagesRepository().save(messages);
         Lotterie.getInstance().getCustomerRepository().save(this);
     }
 
