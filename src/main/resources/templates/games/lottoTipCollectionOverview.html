@@ -12,14 +12,22 @@
 		<ol start="1" id="listMessages">
 			<div th:each="item : ${tips}">
 			<br/>
-		    <br/>
-		    <label th:text="${item.getLottoGameTitleAsString()}+' Uhr'">Datum</label>
-		    <br/>
-		    <br/>
+			<br/>
+			<label th:text="${item.getLottoGameTitleAsString()}+' Uhr'">Datum</label>
+		    	<br/>
+		    	<br/>
 			<label th:text="${item.getNumbersAsString()}">Zahlen</label>
-		    <br/>
-		    <label th:text="${item.getSuperNumberAsString()}">Superzahel</label>
-		    <br/>
+			<br/>
+		    	<label th:text="${item.getSuperNumberAsString()}">Superzahel</label>
+		    	<br/>
+		    	<form action="/deleteTip">
+				<input type="submit" value="Löschen"/>
+				<input type="hidden" name="id" th:value="${item.getId()}"/>
+			</form>
+			<form action="/changeTip">
+				<input type="submit" value="Ändern"/>
+				<input type="hidden" name="id" th:value="${item.getId()}"/>
+			</form>
 			</div>
 		</ol>
 		
