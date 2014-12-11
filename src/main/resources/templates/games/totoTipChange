@@ -35,7 +35,7 @@
       </div>
       </div>
       <td><input type="hidden" name="id" th:value="${id}" />
-      <input type="submit" />
+      <input type="submit" value="Ändern"/>
       </form>
     </section>
     <!-- Footer include -->
