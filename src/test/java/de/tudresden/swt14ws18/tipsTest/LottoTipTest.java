@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 import org.salespointframework.useraccount.UserAccount;
@@ -21,6 +23,7 @@ import de.tudresden.swt14ws18.repositories.CustomerRepository;
 import de.tudresden.swt14ws18.repositories.LottoTipCollectionRepository;
 import de.tudresden.swt14ws18.tips.LottoTip;
 import de.tudresden.swt14ws18.tips.LottoTipCollection;
+import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
@@ -44,6 +47,7 @@ public class LottoTipTest extends AbstractIntegrationTest{
     @Autowired CustomerRepository customerRepo;
     @Autowired BankAccountRepository bARepo;
     @Autowired CommunityRepository commRepo;
+    @Autowired TipFactory tipFactory;
 
     @Test
     public void createALottoTipTest(){
@@ -108,4 +112,45 @@ public class LottoTipTest extends AbstractIntegrationTest{
         
     }
 
+    @Test
+    public void craftALottoTip() {
+        UserAccount userAccount = uAManager.create("Dieter","345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
+        uAManager.save(userAccount);       
+        BankAccount bankAccount = new BankAccount();
+        bankAccount.payIn(200.0);
+        ConcreteCustomer c1 = new ConcreteCustomer("Dieter", Status.ACTIVE, userAccount, bankAccount);
+        
+        bARepo.save(bankAccount);
+        customerRepo.save(c1);
+        
+        Map<String, String> input1 = new HashMap<String, String>();
+        
+        assertFalse(tipFactory.craftLottoTips(input1, c1));
+
+        input1.put("duration", "5");
+
+        assertFalse(tipFactory.craftLottoTips(input1, c1));
+
+        input1.put("duration", "0");
+        input1.put("number1-1", "10");
+        input1.put("number1-2", "111");
+        input1.put("number1-3", "12");
+        input1.put("number1-4", "13");
+        input1.put("number1-5", "14");
+        input1.put("number1-6", "15");
+        
+        assertFalse(tipFactory.craftLottoTips(input1, c1));
+        
+        input1.put("number1-2", "11");
+
+        assertFalse(tipFactory.craftLottoTips(input1, c1));
+        
+        input1.put("super", "11");
+
+        assertFalse(tipFactory.craftLottoTips(input1, c1));
+
+        input1.put("super", "1");
+
+        assertTrue(tipFactory.craftLottoTips(input1, c1));
+    }
 }
