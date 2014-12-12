@@ -20,11 +20,15 @@
 			<br/>
 		    	<label th:text="${item.getSuperNumberAsString()}">Superzahl</label>
 		    	<br/>
-			</div>
+		    	<form action="/deleteLottoTip">
+ 				<input type="submit" value="Löschen"/>
+ 				<input type="hidden" name="id" th:value="${item.getId()}"/>
+ 				</form>
             <form action="/changeLottoTip">
 				<input type="submit" value="Ã„ndern"/>
 				<input type="hidden" name="id" th:value="${item.getId()}"/>
 			</form>
+			</div>
 		</ol>
 		
 		<br/>
