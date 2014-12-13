@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
+import javax.persistence.OneToOne;
+
 import org.junit.Test;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -70,20 +73,10 @@ public class LottoGameTest extends AbstractIntegrationTest {
         winLevels.put(LottoResult.SIX_SUPER, 0.2 * winpot);
         
         g.setWinningPot(winpot);
+        matchRepo.save(g);
         assertEquals(g.getWinningPot(),winLevels);
     }
     
-    @Test
-    public void testResult(){
-        LocalDateTime time = Lotterie.getInstance().getTime().getTime();
-        LottoGame g = new LottoGame(time);
-        double winpot = 1;
-        g.setWinningPot(winpot);
-        assertEquals(g.getResult(),null);
-        LottoNumbers result = new LottoNumbers(1,1,2,3,4,5,6);
-        g.setResult(result);
-        matchRepo.save(g);
-        assertEquals(result,matchRepo.findByDate(time).getResult());
-    }
+
 
 }
