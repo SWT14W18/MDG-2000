@@ -88,7 +88,7 @@ public class TotoListController extends ControllerBase{
 
         Set<Integer> set = new TreeSet<>();
         for (TotoMatch match : totoRepo.findByTotoResultAndTotoGameType(TotoResult.NOT_PLAYED, totoGameType)) {
-            if(!match.isFinished()){
+            if(!match.isFinished() && match.getDate().isBefore(time.getTime())){
             set.add(match.getMatchDay());
             }
         }
@@ -149,9 +149,8 @@ public class TotoListController extends ControllerBase{
         List<TotoMatch> list = new ArrayList<>();
 
         for (TotoMatch match : totoRepo.findByMatchDayAndTotoGameType(id, totoGameType)) {
-            if (match.isFinished())
-                continue;
-            if(!match.isFinished()){
+
+            if(!match.isFinished() && match.getDate().isBefore(time.getTime())){
                 list.add(match);
             }
         }
