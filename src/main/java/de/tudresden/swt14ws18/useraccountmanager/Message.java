@@ -8,6 +8,7 @@ import javax.persistence.Id;
 
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
+import de.tudresden.swt14ws18.util.Constants;
 
 /**
  * Die Message-KLasse repräsentiert eine Mitteilung, die an einen Kunden geschickt wird, sollte er bei einem
@@ -58,7 +59,7 @@ public class Message {
     }
     
     public String getMessageDateString() {
-        return date.format(Lotterie.OUTPUT_DTF);
+        return date.format(Constants.OUTPUT_DTF);
     }
     
     /**

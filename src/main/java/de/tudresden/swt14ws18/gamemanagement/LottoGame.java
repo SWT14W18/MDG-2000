@@ -99,7 +99,7 @@ public class LottoGame extends Game {
 
     @Override
     public String getTitle() {
-        return String.format(title, Lotterie.OUTPUT_DTF.format(getDate()));
+        return String.format(title, Constants.OUTPUT_DTF.format(getDate()));
     }
 
     @Override

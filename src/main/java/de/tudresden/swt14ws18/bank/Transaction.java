@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import de.tudresden.swt14ws18.Lotterie;
+import de.tudresden.swt14ws18.util.Constants;
 
 /**
  * Repräsentiert eine Geld Transaktion zwischen 2 Kunden, wobei null Accounts einen physischen Kunden repräsentieren.
@@ -135,7 +136,7 @@ public class Transaction {
     }
 
     public String getDateString() {
-	return date.format(Lotterie.OUTPUT_DTF);
+	return date.format(Constants.OUTPUT_DTF);
     }
 
     @Override

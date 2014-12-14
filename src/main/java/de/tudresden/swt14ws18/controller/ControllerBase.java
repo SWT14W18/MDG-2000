@@ -79,7 +79,7 @@ public abstract class ControllerBase {
     }
 
     public void handleGeneralValues(ModelMap map) {
-        map.addAttribute("time", Lotterie.getInstance().getTime().getTime().format(Lotterie.OUTPUT_DTF));
+        map.addAttribute("time", Lotterie.getInstance().getTime().getTime().format(Constants.OUTPUT_DTF));
 
         if (authenticationManager.getCurrentUser().isPresent()) {
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());

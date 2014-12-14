@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import de.tudresden.swt14ws18.Lotterie;
+import de.tudresden.swt14ws18.util.Constants;
 
 /**
  * Repräsentiert ein Spiel
@@ -60,7 +60,7 @@ public abstract class Game {
     }
 
     public String getDateString() {
-        return date.format(Lotterie.OUTPUT_DTF);
+        return date.format(Constants.OUTPUT_DTF);
     }
 
     /**
