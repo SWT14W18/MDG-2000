@@ -57,7 +57,7 @@ public class BankAccountTest extends AbstractIntegrationTest{
 	assertTrue(a1.outgoingTransaction(a2, 10));	
 
 	assertEquals(a1.getBalance(), 40.0, 0.001);
-	assertEquals(a2.getBalance(), 100.0, 0.001);
+	assertEquals(a2.getBalance(), 110.0, 0.001);
     }
     
     @Test
