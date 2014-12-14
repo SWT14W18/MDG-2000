@@ -9,6 +9,9 @@ import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * Repräsentiert einen Toto Tipp.
+ */
 @Entity
 public class TotoTip extends Tip {
 
@@ -30,22 +33,35 @@ public class TotoTip extends Tip {
         totoMatch.addInput(result, input);
     }
 
+    @Override
     public TotoMatch getGame() {
         return totoMatch;
     }
 
+    /**
+     * Hole das Ergebnis auf welches Getippt wurde.
+     * 
+     * @return das getippte Ergebnis
+     */
     public TotoResult getResult() {
         return result;
     }
 
+    @Override
     public double getInput() {
         return input;
     }
 
+    @Override
     public double getWinAmount() {
         return totoMatch.getResult() == getResult() ? input * totoMatch.getQuote(getResult()) : 0;
     }
 
+    /**
+     * Überreste des Observer Pattern
+     * 
+     * Symbolisiert diesem Tipp, dass das zugehörige Spiel fertig ist und triggert das abarbeiten des Tipps.
+     */
     public void update() {
         if (getGame().getResult() == TotoResult.NOT_PLAYED)
             return;

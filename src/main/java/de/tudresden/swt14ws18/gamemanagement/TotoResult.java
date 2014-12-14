@@ -12,12 +12,12 @@ public enum TotoResult {
     private String name;
 
     private TotoResult(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     @Override
     public String toString() {
-	return name;
+        return name;
     }
 
     /**
@@ -32,17 +32,17 @@ public enum TotoResult {
      * @return das TotoResult, null falls der input invalid war.
      */
     public static TotoResult parseString(String string) {
-	switch (string) {
-	case "0":
-	    return WIN_HOME;
-	case "1":
-	    return WIN_GUEST;
-	case "2":
-	    return DRAW;
-	case "3":
-	    return NOT_PLAYED;
-	default:
-	    return null;
-	}
+        switch (string) {
+        case "0":
+            return WIN_HOME;
+        case "1":
+            return WIN_GUEST;
+        case "2":
+            return DRAW;
+        case "3":
+            return NOT_PLAYED;
+        default:
+            return null;
+        }
     }
 }

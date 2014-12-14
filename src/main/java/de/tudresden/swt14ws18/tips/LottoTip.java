@@ -9,6 +9,9 @@ import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
 import de.tudresden.swt14ws18.gamemanagement.LottoResult;
 
+/**
+ * Repräsentiert einen Lottotip
+ */
 @Entity
 public class LottoTip extends Tip {
 
@@ -26,25 +29,49 @@ public class LottoTip extends Tip {
     }
 
     public LottoTip(LottoGame game, LottoNumbers numbers) {
-        // game.addObserver(this);
         this.numbers = numbers;
         this.lottoGame = game;
     }
 
+    @Override
     public LottoGame getGame() {
         return lottoGame;
     }
 
+    /**
+     * Hole die gesetzten Lottozahlen
+     * 
+     * @return LottoNumbers dieses Tips
+     */
     public LottoNumbers getNumbers() {
         return numbers;
     }
 
+    /**
+     * Hole die Gewinnklasse des Tipps
+     * 
+     * @return das LottoResult des Tipps, null falls der Tipp noch nicht ausgewertet wurde.
+     */
     public LottoResult getResult() {
         return result;
     }
 
-    public void update(boolean arg) {
-        if (arg)
+    /**
+     * Überreste des Oberserver Patterns.
+     * 
+     * Diese Methode wird vom Spiel aufgerufen um zu zu erkennen zu geben, dass dieses abgeschlossen wurde. Es gibt dabei 2 verschiedene Modi. Der
+     * "false" mode, ist ein Trockenlauf, der das Ergebnis des Spieles mit dem Tip vergleicht und das Spiel soweit updated, dass es weiß, wieviel Geld
+     * pro Gewinnklasse ausgezahlt werden muss. Außerdem wird hier vom Tippschein überprüft, ob der Tip überhaupt gewertet wird.
+     * 
+     * Der "true" mode meldet an den Tippschein, dass der Tipp fertig ist und weiterverarbeitet werden kann.
+     * 
+     * Nach jedem Aufruf dieser Methode, wird der Tip im Repository gespeichert.
+     * 
+     * @param mode
+     *            der Modus, des Updates
+     */
+    public void update(boolean mode) {
+        if (mode)
             handleResult();
         else
             calculateResult();

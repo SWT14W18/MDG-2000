@@ -20,21 +20,21 @@ public class LottoNumbers implements Serializable {
      *            die Lottozahlen, müssen genau 6 und zwischen 1 und 49 sein (inklusive)
      */
     public LottoNumbers(int superNumber, int... numbers) {
-	if (!Util.isBetween(superNumber, 0, 9))
-	    throw new IllegalArgumentException("SuperNumber must be between 0 and 9");
+        if (!Util.isBetween(superNumber, 0, 9))
+            throw new IllegalArgumentException("SuperNumber must be between 0 and 9");
 
-	if (numbers.length != 6)
-	    throw new IllegalArgumentException("LottoNumbers requires exactly 6 values!");
+        if (numbers.length != 6)
+            throw new IllegalArgumentException("LottoNumbers requires exactly 6 values!");
 
-	if (!Util.isUnique(numbers))
-	    throw new IllegalArgumentException("LottoNumbers must be unique");
+        if (!Util.isUnique(numbers))
+            throw new IllegalArgumentException("LottoNumbers must be unique");
 
-	for (int number : numbers)
-	    if (!Util.isBetween(number, 1, 49))
-		throw new IllegalArgumentException("LottoNumbers must be between 1 and 49!");
+        for (int number : numbers)
+            if (!Util.isBetween(number, 1, 49))
+                throw new IllegalArgumentException("LottoNumbers must be between 1 and 49!");
 
-	this.numbers = numbers;
-	this.superNumber = superNumber;
+        this.numbers = numbers;
+        this.superNumber = superNumber;
     }
 
     /**
@@ -43,7 +43,7 @@ public class LottoNumbers implements Serializable {
      * @return die Superzahl
      */
     public int getSuperNumber() {
-	return superNumber;
+        return superNumber;
     }
 
     /**
@@ -52,7 +52,7 @@ public class LottoNumbers implements Serializable {
      * @return ein int array mit genau 6 elementen
      */
     public int[] getNumbers() {
-	return numbers;
+        return numbers;
     }
 
     /**
@@ -63,6 +63,6 @@ public class LottoNumbers implements Serializable {
      * @return das Ergebnis des vergleiches als LottoResult
      */
     public LottoResult compare(LottoNumbers number) {
-	return LottoResult.valueOf(Util.matches(getNumbers(), number.getNumbers()), getSuperNumber() == number.getSuperNumber());
+        return LottoResult.valueOf(Util.matches(getNumbers(), number.getNumbers()), getSuperNumber() == number.getSuperNumber());
     }
 }

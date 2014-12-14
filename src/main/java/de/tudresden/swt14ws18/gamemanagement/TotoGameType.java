@@ -11,11 +11,11 @@ public enum TotoGameType {
     private String name;
 
     private TotoGameType(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     @Override
     public String toString() {
-	return name;
+        return name;
     }
 }

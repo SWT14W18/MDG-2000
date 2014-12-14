@@ -89,21 +89,21 @@ public class TotoMatch extends Game {
     public TotoGameType getTotoGameType() {
         return totoGameType;
     }
-    
-    public int getScoreHome(){
-    	return scoreHome;
+
+    public int getScoreHome() {
+        return scoreHome;
     }
-    
-    public int getScoreGuest(){
-    	return scoreGuest;
+
+    public int getScoreGuest() {
+        return scoreGuest;
     }
-    
-    public void setScoreGuest(int scoreGuest){
-    	this.scoreGuest = scoreGuest;
+
+    public void setScoreGuest(int scoreGuest) {
+        this.scoreGuest = scoreGuest;
     }
-    
-    public void setScoreHome(int scoreHome){
-    	this.scoreHome = scoreHome;
+
+    public void setScoreHome(int scoreHome) {
+        this.scoreHome = scoreHome;
     }
 
     public Map<TotoResult, Double> getResultInput() {
@@ -142,22 +142,25 @@ public class TotoMatch extends Game {
      * 
      * Deprecated, da dies eigentlich nicht im Match passieren sollte.
      * 
-     * @param totoResult das Ergebnis, zu welchen der Input gerechnet werden soll
-     * @param input der Betrag
+     * @param totoResult
+     *            das Ergebnis, zu welchen der Input gerechnet werden soll
+     * @param input
+     *            der Betrag
      */
     @Deprecated
     public void addInput(TotoResult totoResult, Double input) {
         resultInput.put(totoResult, resultInput.get(totoResult) + input);
         totalInput += input;
     }
-    
+
     /**
      * Setze die Quoten des Spieles.
      * 
-     * @param quotes eine Map mit Werten des TotoResult enums als Key und einem Double als value.
+     * @param quotes
+     *            eine Map mit Werten des TotoResult enums als Key und einem Double als value.
      */
-    public void setQuotes(Map<TotoResult, Double> quotes){
-    	this.quotes = quotes;
+    public void setQuotes(Map<TotoResult, Double> quotes) {
+        this.quotes = quotes;
     }
 
     @Override
