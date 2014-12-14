@@ -77,6 +77,33 @@ public class LottoGameTest extends AbstractIntegrationTest {
         assertEquals(g.getWinningPot(),winLevels);
     }
     
-
+    @Test
+    public void testResult(){
+        LocalDateTime time = Lotterie.getInstance().getTime().getTime();
+        LottoGame g = new LottoGame(time);
+        matchRepo.save(g);
+        assertEquals(g.getResult(),null);
+        double winpot = 1;
+        Map<LottoResult, Double> winLevels = new HashMap<>();
+        
+        winLevels.put(LottoResult.NONE, 0 * winpot);
+        winLevels.put(LottoResult.TWO_SUPER, 0.1 * winpot);
+        winLevels.put(LottoResult.THREE, 0.1 * winpot);
+        winLevels.put(LottoResult.THREE_SUPER, 0.1 * winpot);
+        winLevels.put(LottoResult.FOUR, 0.1 * winpot);
+        winLevels.put(LottoResult.FOUR_SUPER, 0.1 * winpot);
+        winLevels.put(LottoResult.FIVE, 0.1 * winpot);
+        winLevels.put(LottoResult.FIVE_SUPER, 0.1 * winpot);
+        winLevels.put(LottoResult.SIX, 0.1 * winpot);
+        winLevels.put(LottoResult.SIX_SUPER, 0.2 * winpot);
+        
+        g.setWinningPot(winpot);
+        
+        LottoNumbers num = new LottoNumbers(1,2,3,4,5,6,7);
+        g.setResult(num);
+        matchRepo.save(g);
+        assertEquals(g.getResult(),num);
+        assertEquals(g.isFinished(),true);
+    }
 
 }
