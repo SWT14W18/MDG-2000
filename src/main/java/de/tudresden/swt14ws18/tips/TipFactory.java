@@ -60,7 +60,7 @@ public class TipFactory {
                 TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
                 String money = map.get("input" + totoMatch.getId());
                 try {
-                    if (result == TotoResult.NOT_PLAYED)
+                    if (result == TotoResult.NOT_PLAYED || result == null)
                         continue;
 
                     double d = Double.parseDouble(money);
