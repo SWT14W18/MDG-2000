@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import de.tudresden.swt14ws18.tips.LottoTip;
 import de.tudresden.swt14ws18.tips.LottoTipCollection;
-import de.tudresden.swt14ws18.tips.TotoTipCollection;
 import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
