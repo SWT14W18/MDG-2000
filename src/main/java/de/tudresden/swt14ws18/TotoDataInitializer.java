@@ -33,28 +33,27 @@ public class TotoDataInitializer {
     private TotoMatchRepository totoMatchRepository;
     private Random random;
 
-    SimpleDateFormat inputSDF = new SimpleDateFormat("yyyy-MM-dd;HH:mm:ss");
     DateTimeFormatter inputDTF = DateTimeFormatter.ofPattern("yyyy-MM-dd;HH:mm:ss");
 
     public TotoDataInitializer(TotoMatchRepository totoMatchRepository) {
-	this.totoMatchRepository = totoMatchRepository;
-	this.random = new Random();
-
+    	this.totoMatchRepository = totoMatchRepository;
+    	this.random = new Random();
     }
     
     
     public void totoInitialize(){
-        try {
-            loadTotoMatches(TotoGameType.BUNDESLIGA1);
-            loadTotoMatches(TotoGameType.BUNDESLIGA2);
-            loadTotoMatches(TotoGameType.POKAL);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-
     	
-    }
+    	if(checkConnection()){
+    		try {
+    			loadTotoMatches(TotoGameType.BUNDESLIGA1);
+    			loadTotoMatches(TotoGameType.BUNDESLIGA2);
+    			loadTotoMatches(TotoGameType.POKAL);
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+    	}
+	}
+    
 
     private void loadTotoMatches(TotoGameType totoGameType) throws IOException {
 	String urlString = "";
@@ -122,6 +121,27 @@ public class TotoDataInitializer {
 	    }
 	}
 
+    }
+    
+    private boolean checkConnection(){
+		boolean connection = false;
+    	try {
+    		try {
+    			URL url = new URL("http://openligadb-json.herokuapp.com/");
+    			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+    			con.connect();
+    			if (con.getResponseCode() == 200){
+    				System.out.println("Connection established");
+    				connection = true;
+    			}
+    		} catch (Exception exception) {
+    			System.out.println("No Connection");
+    			connection = false;
+    		}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	return connection;
     }
 
     
