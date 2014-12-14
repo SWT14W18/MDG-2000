@@ -91,7 +91,7 @@ public abstract class TipCollection<T extends Tip> {
 
         BankAccount lotterie = Lotterie.getInstance().getBankAccount();
         if (ownerExtra + getShares().getRemainingShare() > 0)
-            lotterie.outgoingTransaction(owner.getAccount(), win * (ownerExtra + getShares().getRemainingShare()));
+            lotterie.outgoingTransaction(owner.getAccount(), win * (ownerExtra + getShares().getRemainingShare()), getGameType().name() + " Gewinn");
 
         for (Entry<ConcreteCustomer, Double> entry : getShares()) {
             ConcreteCustomer customer = entry.getKey();
@@ -139,7 +139,7 @@ public abstract class TipCollection<T extends Tip> {
             if (customer == owner)
                 continue;
 
-            customer.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(), tip.getInput() * value);
+            customer.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(), tip.getInput() * value, getGameType().name() + " Einsatz");
         }
 
         owner.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(),

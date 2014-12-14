@@ -46,7 +46,7 @@ public class AnonymController extends ControllerBase {
         
         if (authenticationManager.getCurrentUser().isPresent()) {
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-            if (!customer.getAccount().outgoingTransaction(null, customer.getAccount().getBalance()) && !(customer.getAccount().getBalance() > 0)) {
+            if (!customer.getAccount().outgoingTransaction(null, customer.getAccount().getBalance(), "Auszahlung") && !(customer.getAccount().getBalance() > 0)) {
                 map.addAttribute("paymentOutAnonymError", true);
                 return "forward:bankaccount";
             }

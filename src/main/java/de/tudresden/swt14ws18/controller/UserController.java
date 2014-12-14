@@ -66,7 +66,7 @@ public class UserController extends ControllerBase {
             double money = Double.parseDouble(moneyString);
             if (authenticationManager.getCurrentUser().isPresent() && money > 0) {
                 ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-                if (!customer.getAccount().outgoingTransaction(null, money)) {
+                if (!customer.getAccount().outgoingTransaction(null, money, "Auszahlung")) {
                     map.addAttribute("paymentOutError", true);
                     return "forward:bankaccount";
                 }
