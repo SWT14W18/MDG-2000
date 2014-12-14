@@ -16,6 +16,13 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * Der MessageTest überprüft die korrekte Funktionalität des Mitteilungssystems der Lotterie. 
+ * 
+ * @author Reinhard_2
+ *
+ */
+
 public class MessageTest extends AbstractIntegrationTest{
    
     @Autowired CustomerRepository customerRepository;

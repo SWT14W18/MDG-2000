@@ -24,6 +24,17 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * Dieser Test befasst sich mit der Prüfung der TotoTipp-Erstellung. 
+ * 
+ * Funktionen:
+ * Ein Kunde (Kundentest im ConcreteCustomerTest) erstellt einen Tipp über die TotoTippFactory und überprüft,
+ * ob der Tipp erstellt wurde
+ * 
+ * @author Reinhard_2
+ *
+ */
+
 public class TotoTipTest  extends AbstractIntegrationTest{
     @Autowired TipFactory tipFactory;
     @Autowired UserAccountManager uAManager;

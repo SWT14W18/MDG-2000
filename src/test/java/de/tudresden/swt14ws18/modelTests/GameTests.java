@@ -2,6 +2,13 @@ package de.tudresden.swt14ws18.modelTests;
 
 import org.junit.Test;
 
+/**
+ * 
+ * 
+ * @author Reinhard_2
+ *
+ */
+
 public class GameTests {
 
     @Test

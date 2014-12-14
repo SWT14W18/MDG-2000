@@ -19,6 +19,15 @@ import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 
+/**
+ * Dieser Test befasst sich mit dem Testen der TotoMatch-Funktionalität.
+ * Da wir die TotoMatches in Echtzeit aus dem Web laden, wird hier lediglich überprüft, ob ein geladenes
+ * Spiel im Repository ordnungsgemäß gespeichert wird.
+ * 
+ * @author Reinhard_2
+ *
+ */
+
 public class TotoMatchTest extends AbstractIntegrationTest {
 	
 	@Autowired TotoMatchRepository matchRepo;

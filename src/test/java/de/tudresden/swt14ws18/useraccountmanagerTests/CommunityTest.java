@@ -19,6 +19,15 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * Der CommunityTest umfasst das Testen der korrekten Gruppenfunktionen.
+ * 
+ * TODO Gruppentests vervollständigen, wenn Gruppenfunktionalität vollständig
+ * 
+ * @author Reinhard_2
+ *
+ */
+
 public class CommunityTest extends AbstractIntegrationTest {
 	
 	@Autowired BankAccountRepository bRepo;

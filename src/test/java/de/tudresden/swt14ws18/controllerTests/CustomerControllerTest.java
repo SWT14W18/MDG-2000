@@ -16,6 +16,16 @@ import de.tudresden.swt14ws18.AbstractWebIntegrationTests;
 import de.tudresden.swt14ws18.controller.CustomerController;
 import de.tudresden.swt14ws18.controller.LotterieController;
 
+/**
+ * Dieser Controller-Test ist NICHT FUNKTIONSFÄHIG!!
+ * Dies liegt an der Fehlfunktion des AbstractWebIntegrationTests!
+ * 
+ * Da diese Anforderung nur optional ist, wird die Lösung des Problems eher an das Ende der Testphase gelegt!
+ * 
+ * @author Reinhard_2
+ *
+ */
+
 public class CustomerControllerTest extends AbstractWebIntegrationTests{
     
     @Autowired LotterieController controller;
