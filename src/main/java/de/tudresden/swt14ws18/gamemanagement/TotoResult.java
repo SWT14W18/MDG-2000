@@ -1,5 +1,8 @@
 package de.tudresden.swt14ws18.gamemanagement;
 
+/**
+ * Repräsentiert die möglichen Ergebnisse eines Fußballspieles.
+ */
 public enum TotoResult {
     WIN_HOME("Heimsieg"),
     WIN_GUEST("Auswärtssieg"),

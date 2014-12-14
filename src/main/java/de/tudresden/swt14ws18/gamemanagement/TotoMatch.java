@@ -11,6 +11,9 @@ import javax.persistence.Enumerated;
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.tips.TotoTip;
 
+/**
+ * Repräsentiert ein Fussballspiel.
+ */
 @Entity
 public class TotoMatch extends Game {
 
@@ -21,12 +24,14 @@ public class TotoMatch extends Game {
     @ElementCollection
     private Map<TotoResult, Double> quotes;
     @ElementCollection
+    @Deprecated
     private Map<TotoResult, Double> resultInput;
     @Enumerated
     private TotoResult totoResult;
     @Enumerated
     private TotoGameType totoGameType;
     private int matchDay;
+    @Deprecated
     private Double totalInput = 0.0D; // TODO entfernen, sollte über repository abgefragt werden!
 
     @Deprecated
@@ -132,11 +137,25 @@ public class TotoMatch extends Game {
         return quotes.get(result);
     }
 
+    /**
+     * Fügt den Input zur Statistik hinzu.
+     * 
+     * Deprecated, da dies eigentlich nicht im Match passieren sollte.
+     * 
+     * @param totoResult das Ergebnis, zu welchen der Input gerechnet werden soll
+     * @param input der Betrag
+     */
+    @Deprecated
     public void addInput(TotoResult totoResult, Double input) {
         resultInput.put(totoResult, resultInput.get(totoResult) + input);
-        totalInput = +input;
+        totalInput += input;
     }
     
+    /**
+     * Setze die Quoten des Spieles.
+     * 
+     * @param quotes eine Map mit Werten des TotoResult enums als Key und einem Double als value.
+     */
     public void setQuotes(Map<TotoResult, Double> quotes){
     	this.quotes = quotes;
     }

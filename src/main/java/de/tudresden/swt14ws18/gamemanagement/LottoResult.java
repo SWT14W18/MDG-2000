@@ -1,5 +1,8 @@
 package de.tudresden.swt14ws18.gamemanagement;
 
+/**
+ * Repräsentiert die möglichen Gewinnklassen im Lotto 6 aus 49 mit Superzahl
+ */
 public enum LottoResult {
     NONE,
     TWO_SUPER,

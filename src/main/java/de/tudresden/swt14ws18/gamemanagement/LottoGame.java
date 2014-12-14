@@ -154,6 +154,11 @@ public class LottoGame extends Game {
         return getResult() != null;
     }
 
+    /**
+     * Hole den Jackpot dieses Spieles. Falls der Pot noch nicht gesetzt wurde, wird "Unbekannt" zurückgegeben.
+     * 
+     * @return Den Jackpot des Spieles oder "Unbekannt", falls noch nicht bekannt.
+     */
     public String getJackpot() {
         return winLevels != null && winLevels.containsKey(LottoResult.SIX_SUPER) ? Constants.MONEY_FORMAT.format(20000.0D) : "Unbekannt";
     }
