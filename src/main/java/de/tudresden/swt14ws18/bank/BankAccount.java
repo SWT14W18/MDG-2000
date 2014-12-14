@@ -37,7 +37,7 @@ public class BankAccount {
     }
 
     public boolean outgoingTransaction(BankAccount to, double amount, String reason) {
-        if (amount < 0)
+        if (amount <= 0)
             throw new IllegalArgumentException("amount must be greater than 0!");
 
         if (balance < amount)
