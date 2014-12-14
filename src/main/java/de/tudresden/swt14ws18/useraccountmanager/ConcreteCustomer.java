@@ -107,7 +107,7 @@ public class ConcreteCustomer {
     }
 
     public void payOneMessage(Message message) {
-        if (!account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2))
+        if (!account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2, "Meldung bezahlt"))
             return;
         
         messages.remove(message);

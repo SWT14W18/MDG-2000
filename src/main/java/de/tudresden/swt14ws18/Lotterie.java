@@ -1,8 +1,6 @@
 package de.tudresden.swt14ws18;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 
 import org.salespointframework.Salespoint;
 import org.salespointframework.SalespointSecurityConfiguration;
@@ -34,6 +32,7 @@ import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
 import de.tudresden.swt14ws18.tips.LottoTip;
+import de.tudresden.swt14ws18.util.Constants;
 
 /*
  * TODO TESTS!!!
@@ -60,13 +59,6 @@ import de.tudresden.swt14ws18.tips.LottoTip;
 @EnableJpaRepositories(basePackageClasses = { Salespoint.class, Lotterie.class })
 @ComponentScan
 public class Lotterie {
-    /**
-     * Standard Datumsformat für die allgemeine Zeitausgabe.
-     */
-    public static final DateTimeFormatter OUTPUT_DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);
-
-    private static final double LOTTO_PRICE = 1.00D;
-    private static final double INPUT_INTO_POT = 0.9D;
 
     private static Lotterie instance;
     private BusinessTime time;
@@ -182,7 +174,7 @@ public class Lotterie {
             if (tip.isValid())
                 count++;
 
-        result.setWinningPot((game.getRemainingPot() + (count * LOTTO_PRICE)) * INPUT_INTO_POT);
+        result.setWinningPot((game.getRemainingPot() + (count * Constants.LOTTO_PRICE)) * Constants.INPUT_INTO_POT);
     }
 
     @Configuration

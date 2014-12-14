@@ -16,6 +16,12 @@ import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
+/**
+ * Repräsentiert einen Tippschein
+ * 
+ * @param <T>
+ *            der Type von Tipps, die dieser Tippschein halten kann.
+ */
 @MappedSuperclass
 public abstract class TipCollection<T extends Tip> {
 
@@ -65,6 +71,15 @@ public abstract class TipCollection<T extends Tip> {
         return shares;
     }
 
+    /**
+     * Überreste des Observer Patterns
+     * 
+     * Meldet dem Tippschein, dass einer seiner Tipps fertig ist. Es gibt 2 Modies. Modus "true" überprüft ob der Tipp valide ist und zieht
+     * gegebenenfalls das Geld ab. Modus "false" überweist den Spielern ihren Gewinn
+     * 
+     * @param o
+     * @param arg
+     */
     public void update(Tip o, Object arg) {
         if ((Boolean) arg)
             checkMoney(o);
@@ -72,6 +87,11 @@ public abstract class TipCollection<T extends Tip> {
             payout(o);
     }
 
+    /**
+     * Finde herraus ob der Tippschein komplett fertig ist, d.h. ob alle Tipps fertig sind.
+     * 
+     * @return true wenn alle Tipps fertig sind, false wenn nicht
+     */
     public boolean isFinished() {
         for (Tip tip : tips)
             if (!tip.isFinished())
@@ -91,7 +111,7 @@ public abstract class TipCollection<T extends Tip> {
 
         BankAccount lotterie = Lotterie.getInstance().getBankAccount();
         if (ownerExtra + getShares().getRemainingShare() > 0)
-            lotterie.outgoingTransaction(owner.getAccount(), win * (ownerExtra + getShares().getRemainingShare()));
+            lotterie.outgoingTransaction(owner.getAccount(), win * (ownerExtra + getShares().getRemainingShare()), getGameType().name() + " Gewinn");
 
         for (Entry<ConcreteCustomer, Double> entry : getShares()) {
             ConcreteCustomer customer = entry.getKey();
@@ -119,13 +139,13 @@ public abstract class TipCollection<T extends Tip> {
 
             if (!customer.getAccount().hasBalance(value * tip.getInput())) {
                 customer.addMessage(getGameType());
-                tip.invalidate(false);
+                tip.invalidate();
             }
         }
 
         if (!owner.getAccount().hasBalance(tip.getInput() * (getShares().getRemainingShare() + ownerExtra))) {
             owner.addMessage(getGameType());
-            tip.invalidate(false);
+            tip.invalidate();
         }
 
         if (!tip.isValid())
@@ -139,16 +159,28 @@ public abstract class TipCollection<T extends Tip> {
             if (customer == owner)
                 continue;
 
-            customer.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(), tip.getInput() * value);
+            customer.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(), tip.getInput() * value,
+                    getGameType().name() + " Einsatz");
         }
 
         owner.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(),
                 tip.getInput() * (getShares().getRemainingShare() + ownerExtra));
     }
 
+    /**
+     * Entferne einen Tipp vom Tippschein
+     * 
+     * @param tip
+     *            der zu entfernende Tipp. Wenn der Tipp nicht zu dem Tippschein gehört, passiert nichts.
+     */
     public void removeTip(Tip tip) {
         tips.remove(tip);
     }
 
+    /**
+     * Hole den Type des Tippscheins.
+     * 
+     * @return der Type des Tippscheins.
+     */
     public abstract GameType getGameType();
 }

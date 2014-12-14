@@ -47,6 +47,12 @@ public class LotterieController extends ControllerBase {
         handleGeneralValues(map);
         return "index";
     }
+    
+    @RequestMapping("/generalInformations")
+    public String generalInformations(ModelMap map){
+        handleGeneralValues(map);
+        return "generalInformations";
+    }
 
     @RequestMapping("/login")
     public String login(ModelMap map) {

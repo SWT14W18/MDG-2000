@@ -23,6 +23,10 @@ import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * Zuständig um Tipps zu erstellen.
+ * Ist kein sauberes Factory Pattern mehr...
+ */
 @Component
 public class TipFactory {
     private static final int LOTTO_TIPS_PER_PAGE = 6;
@@ -48,6 +52,15 @@ public class TipFactory {
         this.communityRepo = communityRepo;
     }
 
+    /**
+     * Erstellt und trägt die Tipps in das System ein. Gibt true zurück wenn erfolgreich, false wenn nicht.
+     * 
+     * @param map
+     *            Die eingetragen Tipps auf der Website
+     * @param owner
+     *            Der Customer der den Tipp abgibt
+     * @return true wenn ein Tippschein erstellt wurde, false wenn nicht
+     */
     public boolean craftTotoTips(Map<String, String> map, ConcreteCustomer owner) {
 
         List<TotoTip> tips = new ArrayList<>();
@@ -60,7 +73,7 @@ public class TipFactory {
                 TotoResult result = TotoResult.parseString(map.get(String.valueOf(totoMatch.getId())));
                 String money = map.get("input" + totoMatch.getId());
                 try {
-                    if (result == TotoResult.NOT_PLAYED)
+                    if (result == TotoResult.NOT_PLAYED || result == null)
                         continue;
 
                     double d = Double.parseDouble(money);
@@ -170,14 +183,14 @@ public class TipFactory {
         } catch (NumberFormatException e) {
             community = null;
         }
-        
+
         lottoTipRepository.save(tips);
         lottoTipCollectionRepository.save(new LottoTipCollection(tips, owner, community));
         return true;
     }
 
     /**
-     * Oh great flying spaghetti monster, forgive me for this code
+     * Oh great flying spaghetti monster, forgive me for this code Überprüft ob der Input valide ist.
      * 
      * @param map
      *            HTTP parameter Map

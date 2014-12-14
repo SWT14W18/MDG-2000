@@ -33,6 +33,10 @@ public class BankAccount {
      * @return true wenn die Transaktion erfolgreich war, false wenn nicht
      */
     public boolean outgoingTransaction(BankAccount to, double amount) {
+        return outgoingTransaction(to, amount, "");
+    }
+
+    public boolean outgoingTransaction(BankAccount to, double amount, String reason) {
         if (amount < 0)
             throw new IllegalArgumentException("amount must be greater than 0!");
 
@@ -42,7 +46,7 @@ public class BankAccount {
         if(balance == amount)
         {
             balance = 0;
-            Transaction trans = new Transaction(this, to, amount);
+            Transaction trans = new Transaction(this, to, amount, reason);
             Lotterie.getInstance().getBankAccountRepository().save(this);
             if (to != null)
                 to.incomingTransaction(trans);
@@ -50,8 +54,7 @@ public class BankAccount {
         }
         balance -= amount;
         
-        
-        Transaction trans = new Transaction(this, to, amount);
+        Transaction trans = new Transaction(this, to, amount, reason);
         
         Lotterie.getInstance().getBankAccountRepository().save(this);
         if (to != null)
@@ -59,7 +62,7 @@ public class BankAccount {
 
         return true;
     }
-
+    
     /**
      * Behandelt eine ankommende Transaktion, sprich fügt das Geld zum Kontostand hinzu.
      * 
@@ -82,7 +85,7 @@ public class BankAccount {
         if (amount < 0)
             return;
 
-        new Transaction(null, this, amount);
+        new Transaction(null, this, amount, "Einzahlung");
         balance += amount;
         Lotterie.getInstance().getBankAccountRepository().save(this);
     }

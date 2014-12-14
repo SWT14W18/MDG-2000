@@ -1,11 +1,9 @@
 package de.tudresden.swt14ws18.controller;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.AuthenticationManager;
@@ -21,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.gamemanagement.LottoGame;
 import de.tudresden.swt14ws18.gamemanagement.LottoNumbers;
-import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
-import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CommunityRepository;
@@ -45,7 +41,6 @@ import de.tudresden.swt14ws18.tips.TotoTipCollection;
 import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Message;
-import de.tudresden.swt14ws18.util.Constants;
 
 @Controller
 @PreAuthorize("hasRole('ROLE_CUSTOMER')")
@@ -132,7 +127,7 @@ public class CustomerController extends ControllerBase {
         Set<ConcreteCustomer> customer = community.getMemberList();
         map.addAttribute("groupmanage", customer);
         
-        List<TipCollection> tip = new ArrayList<>();
+        List<TipCollection<?>> tip = new ArrayList<>();
         tip.addAll(totoTipCollectionRepo.findByCommunity(community));
         tip.addAll(lottoTipCollectionRepo.findByCommunity(community));
         map.addAttribute("tips", tip);
@@ -173,8 +168,16 @@ public class CustomerController extends ControllerBase {
     private List<TipCollection<?>> getTips(ConcreteCustomer customer) {
         List<TipCollection<?>> tips = new ArrayList<>();
 
-        tips.addAll(lottoTipCollectionRepo.findByOwner(customer));
-        tips.addAll(totoTipCollectionRepo.findByOwner(customer));
+        for(TipCollection<?> tip : lottoTipCollectionRepo.findByOwner(customer))
+            if(!tip.isFinished())
+                tips.add(tip);
+        
+        for(TipCollection<?> tip : totoTipCollectionRepo.findByOwner(customer))
+            if(!tip.isFinished())
+                tips.add(tip);
+        
+        //tips.addAll(lottoTipCollectionRepo.findByOwner(customer));
+        //tips.addAll(totoTipCollectionRepo.findByOwner(customer));
 
         return tips;
     }
@@ -285,16 +288,16 @@ public class CustomerController extends ControllerBase {
         TotoTipCollection col = totoTipCollectionRepo.findByTips(tip);
         
         if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
-            return "index";
+            return "redirect:gameoverview";
 
         if (timeCheck(tip.getGame().getDate()))
-            return "index";
+            return "redirect:gameoverview";
         
         tip.setResult(result);
         tip.setInput(input);
         totoTipRepository.save(tip);
         
-        return "index";
+        return "redirect:gameoverview";
     }
 
     @RequestMapping("/lottoTipChange")
@@ -312,16 +315,16 @@ public class CustomerController extends ControllerBase {
         LottoTipCollection col = lottoTipCollectionRepo.findByTips(tip);
         
         if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
-            return "index";
+            return "redirect:gameoverview";
 
         if (timeCheck(tip.getGame().getDate()))
-            return "index";
+            return "redirect:gameoverview";
         
         LottoNumbers numbers = parseInput(params);
         
         tip.setResult(numbers);
         lottoTipRepository.save(tip);
         
-        return "index";
+        return "redirect:gameoverview";
     }
 }

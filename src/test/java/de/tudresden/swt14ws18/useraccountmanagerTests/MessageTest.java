@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import de.tudresden.swt14ws18.AbstractIntegrationTest;
 import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
@@ -14,12 +16,12 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 import de.tudresden.swt14ws18.util.Constants;
 
-public class MessageTest {
+public class MessageTest extends AbstractIntegrationTest{
    
-    private final CustomerRepository customerRepository = Lotterie.getInstance().getCustomerRepository();
-    private final MessageRepository messageRepo = Lotterie.getInstance().getMessagesRepository();
-    private final UserAccountManager userAccountManager = Lotterie.getInstance().getUserAccountManager();
-    private final BankAccountRepository bankAccountRepository = Lotterie.getInstance().getBankAccountRepository();
+    @Autowired CustomerRepository customerRepository;
+    @Autowired MessageRepository messageRepo;
+    @Autowired UserAccountManager userAccountManager;
+    @Autowired BankAccountRepository bankAccountRepository;
 
 
     @Test

@@ -58,8 +58,8 @@ public class LottoGame extends Game {
         winLevels.put(LottoResult.SIX, 0.1 * winningPot);
         winLevels.put(LottoResult.SIX_SUPER, 0.2 * winningPot);
     }
-    
-    public Map<LottoResult, Double> getWinningPot(){
+
+    public Map<LottoResult, Double> getWinningPot() {
         return winLevels;
     }
 
@@ -105,7 +105,7 @@ public class LottoGame extends Game {
 
     @Override
     public String getTitle() {
-        return String.format(title, Lotterie.OUTPUT_DTF.format(getDate()));
+        return String.format(title, Constants.OUTPUT_DTF.format(getDate()));
     }
 
     @Override
@@ -160,6 +160,11 @@ public class LottoGame extends Game {
         return getResult() != null;
     }
 
+    /**
+     * Hole den Jackpot dieses Spieles. Falls der Pot noch nicht gesetzt wurde, wird "Unbekannt" zurückgegeben.
+     * 
+     * @return Den Jackpot des Spieles oder "Unbekannt", falls noch nicht bekannt.
+     */
     public String getJackpot() {
         return winLevels != null && winLevels.containsKey(LottoResult.SIX_SUPER) ? Constants.MONEY_FORMAT.format(20000.0D) : "Unbekannt";
     }
