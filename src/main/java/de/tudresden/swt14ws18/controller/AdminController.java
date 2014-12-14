@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -69,10 +70,25 @@ public class AdminController extends ControllerBase {
     @RequestMapping("/betsOverview")
     public String betsOverview(ModelMap map) {
         handleGeneralValues(map);
+        
 
         Entry<LottoGame, Double> lottoGameInput = createLottoOverview().firstEntry();
         map.addAttribute("nextLottoDate", lottoGameInput.getKey().getDateString());
         map.addAttribute("nextLottoInput", Constants.MONEY_FORMAT.format(lottoGameInput.getValue()));
+        
+        Double totalLottoLoss = 0.0;
+        Map<LottoGame, Double> lottomap = getFinishedLottoMatches();
+        for(LottoGame lottoGame : lottomap.keySet()){
+        	totalLottoLoss+=(lottoGame.getTotalWinningPot()-lottoGame.getRemainingPot());
+        }
+        map.addAttribute("totalLoss", Constants.MONEY_FORMAT.format(totalLottoLoss));
+        
+        Double totalLottoInput = 0.0;
+        for(LottoGame lottoGame : lottoMatchRepository.findAll()){
+            for (LottoTip lottoTip : lottoTipRepository.findByLottoGame(lottoGame))                
+            	totalLottoInput+=1.0;
+        }
+        map.addAttribute("totalInput", Constants.MONEY_FORMAT.format(totalLottoInput));        
 
         map.addAttribute("liga1nextMatchDay", getMatchDayInput(TotoGameType.BUNDESLIGA1));
         map.addAttribute("liga2nextMatchDay", getMatchDayInput(TotoGameType.BUNDESLIGA2));
@@ -81,6 +97,32 @@ public class AdminController extends ControllerBase {
         map.addAttribute("pokalTotalInput", getTotalInput(TotoGameType.POKAL));
 
         return "statistics/betsOverview";
+    }
+    
+    @RequestMapping("/finishedLottoMatches")
+    public String finishedLottoMatches(ModelMap modelMap){
+    	handleGeneralValues(modelMap); 
+    	modelMap.addAttribute("moneyFormat", Constants.MONEY_FORMAT);
+    	modelMap.addAttribute("finishedLottoMatches", getFinishedLottoMatches());   	
+    	return "statistics/finishedLottoMatches";
+    }
+    
+    private TreeMap<LottoGame, Double> getFinishedLottoMatches() {
+
+    	List<LottoGame> list = new ArrayList<>();
+    	for(LottoGame lottoGame : lottoMatchRepository.findAll()){
+    		if(lottoGame.isFinished())list.add(lottoGame);
+    	}
+    	TreeMap<LottoGame, Double> map = new TreeMap<>(comp);
+    	for(LottoGame lottoGame : list){
+            if (!map.containsKey(lottoGame))
+                map.put(lottoGame, 0.0D);
+
+            for (LottoTip lottoTip : lottoTipRepository.findByLottoGame(lottoGame))
+                map.put(lottoGame, map.get(lottoGame) + lottoTip.getInput());    		
+    	}
+
+    	return map;
     }
 
     @RequestMapping("/lottoOverview")

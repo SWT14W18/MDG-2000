@@ -12,12 +12,12 @@
 			<div align="center">
 			<div align="center"  id="divListMessages">
 			<ol start="1" id="listMessages">
- 				<div th:each="lottoGame : ${lottoGameInput}">
+ 				<div th:each="lottoGame : ${finishedLottoMatches}">
 				<br/>
-				<label  th:text="@{'Ziehung vom '+${lottoGame.getKey().getDateString()}}">Match</label>
+				<label th:text="@{'Ziehung vom '+${lottoGame.getKey().getDateString()}}">Match</label>
 				<br/>
 				<label th:text="@{'Einnahmen : '+${lottoGame.getValue()}}"></label>
-
+				<label th:text="@{((${lottoGame.getKey().getTotalWinningPot()}==null) ? 'Ausgaben : noch nicht gezogen' : 'Ausgaben : '+${moneyFormat.format(lottoGame.getKey().getTotalWinningPot()-lottoGame.getKey().getRemainingPot())})}"></label>
 				<br/>
 				<br/>	
 				</div>

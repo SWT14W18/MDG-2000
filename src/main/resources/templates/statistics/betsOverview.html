@@ -14,6 +14,8 @@
 			<tr>
 				<td><p>Lottoübersicht</p>
 					<br/>
+					<p th:text="@{'Lottogesamteinnahmen : '+${totalInput}}"></p>
+					<p th:text="@{'Lottogesamtausgaben : '+${totalLoss}}"></p>
 					<br/>
 					<p th:text="@{'Nächste Ziehung ist am '+${nextLottoDate}}">Nächste Ziehung</p>
 					<br/>
@@ -22,6 +24,8 @@
 					<br/>
 					<br/>
 					<a th:href="lottoOverview.html"><label>Liste aller Ziehungen</label></a>
+					<br/>
+					<a th:href="finishedLottoMatches.html"><label>Liste aller vergangenen Ziehungen</label></a>
 				</td>
 				<td><p>Totoübersicht</p>
 					<br/>
