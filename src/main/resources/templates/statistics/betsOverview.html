@@ -12,32 +12,51 @@
 		<div align="center">
 		<table>
 			<tr>
-				<td><p>Lottoübersicht</p>
+				<td><h2>Lottoübersicht</h2>
+					<div align="left">
 					<br/>
-					<p th:text="@{'Lottogesamteinnahmen : '+${totalInput}}"></p>
-					<p th:text="@{'Lottogesamtausgaben : '+${totalLoss}}"></p>
-					<br/>
-					<p th:text="@{'Nächste Ziehung ist am '+${nextLottoDate}}">Nächste Ziehung</p>
-					<br/>
-					<p th:text="@{'Gesamtvolumen der Tipps : '+${nextLottoInput}+' Euro'}">Input</p>
+					<p th:text="@{'Lottogesamteinnahmen : '+${totalInput}+' €'}"></p>
+					<p th:text="@{'Lottogesamtausgaben : '+${totalLoss}+' €'}"></p>
 					<br/>
 					<br/>
+					<label th:text="@{'Nächste Ziehung ist am '+${nextLottoDate}}">Nächste Ziehung</label>
 					<br/>
-					<a th:href="lottoOverview.html"><label>Liste aller Ziehungen</label></a>
 					<br/>
-					<a th:href="finishedLottoMatches.html"><label>Liste aller vergangenen Ziehungen</label></a>
+					<label th:text="@{'Gesamtvolumen der Tipps : '+${nextLottoInput}+' €'}">Input</label>
+					<br/>
+					<br/>
+					<br/>
+					<a th:href="lottoOverview.html">Liste aller anstehenden Ziehungen</a>
+					<br/>
+					<br/>
+					<a th:href="finishedLottoMatches.html">Liste aller vergangenen Ziehungen</a>
+					</div>
 				</td>
-				<td><p>Totoübersicht</p>
+				<td><h2>Totoübersicht</h2>
 					<br/>
-					<p><a th:text="@{'1.Bundesliga - Gesamtvolumen : '+${liga1TotalInput}}" th:href="@{/totoOverview(gameType='BUNDESLIGA1')}">1.Bundesliga</a></p>
+					<p th:text="@{'Totogesamteinnahmen : '+${totoTotalInput}+' €'}"></p>
+					<p th:text="@{'Totogesamtausgaben : '+${totoTotalLoss}+' €'}"></p>
 					<br/>
-					<p th:text="@{${liga1nextMatchDay.firstKey()}+'.Spieltag - Gesamtvolumen : '+${liga1nextMatchDay.get(liga1nextMatchDay.firstKey())}}">Spieltag</p>
 					<br/>
-					<p><a th:text="@{'2.Bundesliga - Gesamtvolumen : '+${liga2TotalInput}}" th:href="@{/totoOverview(gameType='BUNDESLIGA2')}">2.Bundesliga</a></p>
+					<label th:text="@{'1.Bundesliga - '+${liga1nextMatchDay.firstKey()}+'.Spieltag'}"></label>
 					<br/>
-					<p th:text="@{${liga2nextMatchDay.firstKey()}+'.Spieltag - Gesamtvolumen : '+${liga2nextMatchDay.get(liga2nextMatchDay.firstKey())}}">Spieltag</p>
 					<br/>
-					<p><a th:href="@{/totoMatchOverview(matchDay='3',liga='POKAL')}" th:text="@{'DFB Pokal Achtelfinale - Gesamtvolumen : '+${pokalTotalInput}}">DFB Pokal - Achtelfinale</a></p>
+					<label th:text="@{'Gesamttippvolumen : '+${liga1nextMatchDay.get(liga1nextMatchDay.firstKey())}+' €'}">Spieltag</label>
+					<br/>
+					<br/>
+					<label th:text="@{'2.Bundesliga - '+${liga2nextMatchDay.firstKey()}+'.Spieltag'}"></label>
+					<br/>
+					<br/>
+					<label th:text="@{'Gesamttippvolumen : '+${liga2nextMatchDay.get(liga2nextMatchDay.firstKey())}+' €'}">Spieltag</label>
+					<br/>
+					<br/>
+					<a th:text="@{'Alle Spiele der 1.Bundesliga ('+${liga1TotalInput}+' €)'}" th:href="@{/totoOverview(gameType='BUNDESLIGA1')}">1.Bundesliga</a>
+					<br/>
+					<br/>
+					<a th:text="@{'Alle Spiele der 2.Bundesliga ('+${liga2TotalInput}+' €)'}" th:href="@{/totoOverview(gameType='BUNDESLIGA2')}">2.Bundesliga</a>
+					<br/>
+					<br/>
+					<a th:href="@{/totoMatchOverview(matchDay='3',liga='POKAL')}" th:text="@{'Alle Spiele des DFB Pokal Achtelfinales ('+${pokalTotalInput}+' €)'}">DFB Pokal - Achtelfinale</a>
 				</td>
 			</tr>
 		</table>

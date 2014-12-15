@@ -95,7 +95,20 @@ public class AdminController extends ControllerBase {
         map.addAttribute("liga1TotalInput", getTotalInput(TotoGameType.BUNDESLIGA1));
         map.addAttribute("liga2TotalInput", getTotalInput(TotoGameType.BUNDESLIGA2));
         map.addAttribute("pokalTotalInput", getTotalInput(TotoGameType.POKAL));
-
+        
+        Double totoTotalInput = 0.0;
+        Double totoTotalLoss = 0.0;
+        for(TotoMatch totoMatch : totoMatchRepository.findAll()){
+        	for(TotoTip totoTip : totoTipRepository.findByTotoMatch(totoMatch)){
+        		totoTotalInput+=totoTip.getInput();
+        		if(totoMatch.getResult()!=TotoResult.NOT_PLAYED){
+        			totoTotalLoss+=totoTip.getWinAmount();        			
+        		}
+        	}
+        }
+        map.addAttribute("totoTotalInput", totoTotalInput);
+        map.addAttribute("totoTotalLoss", totoTotalLoss);
+        
         return "statistics/betsOverview";
     }
     
@@ -138,6 +151,7 @@ public class AdminController extends ControllerBase {
         TotoGameType totoGameType = TotoGameType.valueOf(gameTypeString);
         map.addAttribute("matchDayInput", getMatchDayInput(totoGameType));
         map.addAttribute("totoGameType", totoGameType.name());
+        map.addAttribute("totoGameTypeString", totoGameType.toString());
         return "statistics/totoOverview";
     }
 
@@ -146,6 +160,8 @@ public class AdminController extends ControllerBase {
         handleGeneralValues(map);
         TotoGameType totoGameType = TotoGameType.valueOf(liga);
         map.addAttribute("totoMatches", totoMatchRepository.findByMatchDayAndTotoGameType(matchDay, totoGameType));
+        map.addAttribute("totoMatchDay", matchDay);
+        map.addAttribute("totoGameType", totoGameType);
         return "statistics/totoMatchOverview";
     }
 

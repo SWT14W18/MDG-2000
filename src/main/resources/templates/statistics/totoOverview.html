@@ -5,7 +5,7 @@
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1> Wettübersicht</h1>
+		<h1 th:text="@{${totoGameTypeString}}"></h1>
 			<hr/>
 			<br/>
 			<br/>
@@ -14,7 +14,8 @@
 			<ol start="1" id="listMessages">
  				<div th:each="matchDay : ${matchDayInput}">
  					<br/>
-					<p><a th:href="@{/totoMatchOverview(matchDay=${matchDay.getKey()},liga=${totoGameType})}" th:text="@{${matchDay.getKey()}+'.Spieltag - Gesamtvolumen : '+${matchDay.getValue()}}">1.Bundesliga</a></p>
+					<label><a th:href="@{/totoMatchOverview(matchDay=${matchDay.getKey()},liga=${totoGameType})}" th:text="@{${matchDay.getKey()}+'.Spieltag - Gesamttippvolumen : '+${matchDay.getValue()}+' €'}">1.Bundesliga</a></label>
+					<br/>
 					<br/>
 				</div>
 			</ol>

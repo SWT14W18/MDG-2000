@@ -16,8 +16,8 @@
 				<br/>
 				<label th:text="@{'Ziehung vom '+${lottoGame.getKey().getDateString()}}">Match</label>
 				<br/>
-				<label th:text="@{'Einnahmen : '+${lottoGame.getValue()}}"></label>
-				<label th:text="@{((${lottoGame.getKey().getTotalWinningPot()}==null) ? 'Ausgaben : noch nicht gezogen' : 'Ausgaben : '+${moneyFormat.format(lottoGame.getKey().getTotalWinningPot()-lottoGame.getKey().getRemainingPot())})}"></label>
+				<label th:text="@{'Einnahmen : '+${lottoGame.getValue()}+' €'}"></label>
+				<label th:text="@{((${lottoGame.getKey().getTotalWinningPot()}==null) ? 'Ausgaben : noch nicht gezogen' : 'Ausgaben : '+${moneyFormat.format(lottoGame.getKey().getTotalWinningPot()-lottoGame.getKey().getRemainingPot())}+' €')}"></label>
 				<br/>
 				<br/>	
 				</div>

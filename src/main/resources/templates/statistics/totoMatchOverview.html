@@ -7,7 +7,7 @@
 	<section>
 
 
-		<h1> Wettübersicht</h1>
+		<h1 th:text="@{${totoGameType}+' - '+${totoMatchDay}+'.Spieltag'}"></h1>
 			<hr/>
 			<br/>
 			<br/>
@@ -16,29 +16,16 @@
 			<ol start="1" id="listMessages">
  				<div th:each="match : ${totoMatches}">
  				<br/>
- 				<table>
- 					<tr>
- 						<td>
- 						</td>
- 						<td>
- 							<p th:text="@{${match.getTeamHome()}+' - '+${match.getTeamGuest()}}">FC Beispiel - KeinPlan SC</p>
- 						</td>
- 						<td>
- 						</td> 						
- 					</tr>
-  					<tr>
- 						<td>
- 						<p th:text="@{'Heimsieg : '+${match.getResultInput().get(WIN_HOME)}}"></p>
- 						</td>
- 						<td>
- 						<p th:text="@{'Auswärtssieg : '+${match.getResultInput().get(WIN_GUEST)}}"></p>
- 						</td>
- 						<td>
- 						<p th:text="@{'Unentschieden : '+${match.getResultInput().get(DRAW)}}"></p>
- 						</td> 					
- 					</tr>
- 				</table>
-				<br/>
+
+ 					<label th:text="@{${match.getTeamHome()}+' - '+${match.getTeamGuest()}}">FC Beispiel - KeinPlan SC</label>
+ 					<br/>
+ 					<label th:text="@{'Heimsieg : '+${match.getResultInput().get(WIN_HOME)}}"></label>
+
+ 					<label th:text="@{'Auswärtssieg : '+${match.getResultInput().get(WIN_GUEST)}}"></label>
+
+ 					<label th:text="@{'Unentschieden : '+${match.getResultInput().get(DRAW)}}"></label>
+ 					<br/>
+ 					<br/>
 				</div>
 			</ol>
 			</div>
