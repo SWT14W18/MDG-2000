@@ -133,7 +133,57 @@ public class CustomerController extends ControllerBase {
         map.addAttribute("tips", tip);
         return "groups/manage";
     }
+    
+    @RequestMapping("/tipCollection")
+    public String tipCollection(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType gameType) {
+        handleGeneralValues(map);
 
+        if (authenticationManager.getCurrentUser().isPresent()) {
+
+            List<Tip> set = new ArrayList<>();
+            if (gameType == GameType.LOTTO) {
+                set.addAll(lottoTipCollectionRepo.findOne(tippscheinId).getTips());
+            }
+            if (gameType == GameType.TOTO) {
+                set.addAll(totoTipCollectionRepo.findOne(tippscheinId).getTips());
+            }
+            map.addAttribute("tips", set);
+        }
+
+        if (gameType == GameType.LOTTO)
+            return "groups/lottoTipCollection";
+        else if (gameType == GameType.TOTO)
+            return "groups/totoTipCollection";
+        else
+            return "groups/tipCollection";
+    }
+    
+    @RequestMapping(value = "/changeTotoTip", method = RequestMethod.POST)
+    public String changeToto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType gameType){
+        handleGeneralValues(map);
+        while (percentage >100){
+            percentage = percentage - 100;
+        }
+        while (percentage <0){
+            percentage = percentage + 100;
+        }
+        
+    	return "groups/totoTipCollection";
+    }
+
+    @RequestMapping(value = "/changeLottoTip", method = RequestMethod.POST)
+    public String changeLotto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType gameType){
+        handleGeneralValues(map);
+        while (percentage >100){
+            percentage = percentage - 100;
+        }
+        while (percentage <0){
+            percentage = percentage + 100;
+        }
+        
+    	return "groups/lottoTipCollection";
+    }
+    
     @RequestMapping("/profil")
     @PreAuthorize("isAuthenticated()")
     public String profil(ModelMap map) {

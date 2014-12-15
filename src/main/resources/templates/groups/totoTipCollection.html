@@ -5,7 +5,7 @@
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
-		<h1> Tippscheinübersicht</h1>
+		<h1> Gruppentippscheinübersicht</h1>
 			<hr/>
 			<br/>
 			<br/>		
@@ -25,10 +25,11 @@
 		    	<label th:text="@{'Quote: '+${item.getQuoteAsString()}}">Quote</label>
 		    	<br/>
             
-            <form action="/changeTotoTip">
-				<input type="submit" value="Ändern"/>
-				<input type="hidden" name="id" th:value="${item.getId()}"/>
-			</form>
+		<form action="/changeTotoTip" method="post">	
+			<div align="center"><input type="text" name="percentage" placeholder="Anteil"/><br/></div>
+			<div align="center"><input type="hidden" name="groups" value="tipCollection"/></div>
+			<div align="center"><input type="submit" value="Ändern"/><br/></div>
+		</form>
             
 			</div>
 		</ol>

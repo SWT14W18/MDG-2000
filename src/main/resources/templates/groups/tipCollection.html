@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<!-- Header include -->
+	<div th:replace="fragments/header :: header"></div>
+	<section>
+		<h1> Gruppentippscheinübersicht</h1>
+		<hr/>
+		<br/>
+		<br/>
+		<ol start="1" id="listMessages">
+			<div th:each="item : ${tips}">
+			<br/>
+		    <br/>
+			<label th:text="${item.toCustomString()}">Test</label>
+		    <br/>
+		    <br/>
+			</div>
+		</ol>
+		
+		<br/>
+		<br/>
+		<br/>
+	</section>
+	<!-- Footer include -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>	
+</html>
