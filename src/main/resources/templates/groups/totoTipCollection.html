@@ -23,17 +23,18 @@
 			<label th:text="@{'Einsatz: '+${item.getInputAsString()}+'€'}">Einsatz</label>
 		    	<br/>
 		    	<label th:text="@{'Quote: '+${item.getQuoteAsString()}}">Quote</label>
-		    	<br/>
-            
-		<form action="/changeTotoTip" method="post">	
-			<div align="center"><input type="text" name="percentage" placeholder="Anteil"/><br/></div>
-			<div align="center"><input type="hidden" name="groups" value="tipCollection"/></div>
-			<div align="center"><input type="submit" value="Ändern"/><br/></div>
-		</form>
-            
+		    	<br/>            
 			</div>
 		</ol>
-		        
+		
+		<form action="/changeTotoTip" method="post">	
+			<div align="center"><input type="text" name="percentage" placeholder="Anteil"/><br/></div>
+			<input type="hidden" name="groups" value="tipCollection"/>
+			<input type="hidden" name="id" th:value="${id}"/>
+			<input type="hidden" name="game" th:value="${game}"/>
+			<div align="center"><input type="submit" value="Ändern"/><br/></div>
+		</form>		     
+		   
 		<br/>
 		<br/>
 		<br/>

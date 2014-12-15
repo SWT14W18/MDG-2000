@@ -21,14 +21,16 @@
 			<br/>
 		    	<label th:text="${item.getSuperNumberAsString()}">Superzahl</label>
 		    	<br/>
-			
-		<form action="/changeLottoTip" method="post">	
-			<div align="center"><input type="text" name="percentage" placeholder="Anteil"/><br/></div>
-			<div align="center"><input type="hidden" name="groups" value="tipCollection"/><br/></div>
-			<div align="center"><input type="submit" value="Ändern"/><br/></div>
-		</form>
 			</div>
 		</ol>
+		
+		<form action="/changeLottoTip" method="post">	
+			<div align="center"><input type="text" name="percentage" placeholder="Anteil"/><br/></div>
+			<input type="hidden" name="groups" value="tipCollection"/>
+			<input type="hidden" name="id" th:value="${id}"/>
+			<input type="hidden" name="game" th:value="${game}"/>
+			<div align="center"><input type="submit" value="Ändern"/><br/></div>
+		</form>
         
 		<br/>
 		<br/>

@@ -149,6 +149,8 @@ public class CustomerController extends ControllerBase {
             }
             map.addAttribute("tips", set);
         }
+        map.addAttribute("id", tippscheinId);
+        map.addAttribute("game", gameType.name());
 
         if (gameType == GameType.LOTTO)
             return "groups/lottoTipCollection";
@@ -159,7 +161,7 @@ public class CustomerController extends ControllerBase {
     }
     
     @RequestMapping(value = "/changeTotoTip", method = RequestMethod.POST)
-    public String changeToto(ModelMap map, @RequestParam("percentage") double percentage){
+    public String changeToto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long id, @RequestParam("game") GameType gametype){
         handleGeneralValues(map);
         while (percentage >100){
             percentage = percentage - 100;
@@ -167,12 +169,13 @@ public class CustomerController extends ControllerBase {
         while (percentage <0){
             percentage = percentage + 100;
         }
-        
-    	return "redirect:tipCollection";
+        map.addAttribute("id", id);
+        map.addAttribute("game", gametype.name());
+    	return "forward:tipCollection";
     }
 
     @RequestMapping(value = "/changeLottoTip", method = RequestMethod.POST)
-    public String changeLotto(ModelMap map, @RequestParam("percentage") double percentage){
+    public String changeLotto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long id, @RequestParam("game") GameType gametype){
         handleGeneralValues(map);
         while (percentage >100){
             percentage = percentage - 100;
@@ -180,8 +183,9 @@ public class CustomerController extends ControllerBase {
         while (percentage <0){
             percentage = percentage + 100;
         }
-        
-    	return "redirect:tipCollection";
+        map.addAttribute("id", id);
+        map.addAttribute("game", gametype.name());
+    	return "forward:tipCollection";
     }
     
     @RequestMapping("/profil")
