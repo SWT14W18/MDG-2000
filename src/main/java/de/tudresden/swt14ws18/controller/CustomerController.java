@@ -159,7 +159,7 @@ public class CustomerController extends ControllerBase {
     }
     
     @RequestMapping(value = "/changeTotoTip", method = RequestMethod.POST)
-    public String changeToto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType gameType){
+    public String changeToto(ModelMap map, @RequestParam("percentage") double percentage){
         handleGeneralValues(map);
         while (percentage >100){
             percentage = percentage - 100;
@@ -168,11 +168,11 @@ public class CustomerController extends ControllerBase {
             percentage = percentage + 100;
         }
         
-    	return "groups/totoTipCollection";
+    	return "redirect:tipCollection";
     }
 
     @RequestMapping(value = "/changeLottoTip", method = RequestMethod.POST)
-    public String changeLotto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType gameType){
+    public String changeLotto(ModelMap map, @RequestParam("percentage") double percentage){
         handleGeneralValues(map);
         while (percentage >100){
             percentage = percentage - 100;
@@ -181,7 +181,7 @@ public class CustomerController extends ControllerBase {
             percentage = percentage + 100;
         }
         
-    	return "groups/lottoTipCollection";
+    	return "redirect:tipCollection";
     }
     
     @RequestMapping("/profil")
