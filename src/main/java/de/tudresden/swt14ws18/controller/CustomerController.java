@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.hibernate.internal.util.SerializationHelper;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.AuthenticationManager;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -36,6 +37,7 @@ import de.tudresden.swt14ws18.tips.LottoTipCollection;
 import de.tudresden.swt14ws18.tips.Tip;
 import de.tudresden.swt14ws18.tips.TipCollection;
 import de.tudresden.swt14ws18.tips.TipFactory;
+import de.tudresden.swt14ws18.tips.TipShare;
 import de.tudresden.swt14ws18.tips.TotoTip;
 import de.tudresden.swt14ws18.tips.TotoTipCollection;
 import de.tudresden.swt14ws18.useraccountmanager.Community;
@@ -134,6 +136,52 @@ public class CustomerController extends ControllerBase {
         return "groups/manage";
     }
     
+    @RequestMapping(value = "/tipCollection", method = RequestMethod.POST)
+    public String tipCollectionPost(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType gameType, @RequestParam("remove") boolean remove) {
+        handleGeneralValues(map);
+
+        if (authenticationManager.getCurrentUser().isPresent()) {
+
+            List<Tip> set = new ArrayList<>();
+            if (gameType == GameType.LOTTO) {
+                set.addAll(lottoTipCollectionRepo.findOne(tippscheinId).getTips());
+                LottoTipCollection col = lottoTipCollectionRepo.findById(tippscheinId);
+                TipShare shares = col.getShares();
+                
+                double remain = 100 * shares.getRemainingShare();
+                double share = 100 * shares.getShare(getCurrentUser());
+                map.addAttribute("shares", share);
+                map.addAttribute("remain", remain);
+                
+                if (remove) shares.removeShareholder(getCurrentUser());
+            }
+            if (gameType == GameType.TOTO) {
+                set.addAll(totoTipCollectionRepo.findOne(tippscheinId).getTips());
+                TotoTipCollection col = totoTipCollectionRepo.findById(tippscheinId);
+                TipShare shares = col.getShares();
+                
+                double remain = 100 * shares.getRemainingShare();
+                double share = 100 * shares.getShare(getCurrentUser());
+                map.addAttribute("shares", share);
+                map.addAttribute("remain", remain);
+                
+                if (remove) shares.removeShareholder(getCurrentUser());
+            }
+            map.addAttribute("tips", set);
+            
+            
+        }
+        map.addAttribute("id", tippscheinId);
+        map.addAttribute("game", gameType.name());
+
+        if (gameType == GameType.LOTTO)
+            return "groups/lottoTipCollection";
+        else if (gameType == GameType.TOTO)
+            return "groups/totoTipCollection";
+        else
+            return "groups/tipCollection";
+    }
+    
     @RequestMapping("/tipCollection")
     public String tipCollection(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType gameType) {
         handleGeneralValues(map);
@@ -143,11 +191,26 @@ public class CustomerController extends ControllerBase {
             List<Tip> set = new ArrayList<>();
             if (gameType == GameType.LOTTO) {
                 set.addAll(lottoTipCollectionRepo.findOne(tippscheinId).getTips());
+                LottoTipCollection col = lottoTipCollectionRepo.findById(tippscheinId);
+                TipShare shares = col.getShares();
+                
+                double remain = 100 * shares.getRemainingShare();
+                double share = 100 * shares.getShare(getCurrentUser());
+                map.addAttribute("shares", share);
+                map.addAttribute("remain", remain);                
             }
             if (gameType == GameType.TOTO) {
                 set.addAll(totoTipCollectionRepo.findOne(tippscheinId).getTips());
+                TotoTipCollection col = totoTipCollectionRepo.findById(tippscheinId);
+                TipShare shares = col.getShares();
+                
+                double remain = 100 * shares.getRemainingShare();
+                double share = 100 * shares.getShare(getCurrentUser());
+                map.addAttribute("shares", share);
+                map.addAttribute("remain", remain);
             }
             map.addAttribute("tips", set);
+            
         }
         map.addAttribute("id", tippscheinId);
         map.addAttribute("game", gameType.name());
@@ -163,28 +226,40 @@ public class CustomerController extends ControllerBase {
     @RequestMapping(value = "/changeTotoTip", method = RequestMethod.POST)
     public String changeToto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long id, @RequestParam("game") GameType gametype){
         handleGeneralValues(map);
-        while (percentage >100){
-            percentage = percentage - 100;
-        }
-        while (percentage <0){
-            percentage = percentage + 100;
-        }
+        
+        TotoTipCollection col = totoTipCollectionRepo.findById(id);
+        TipShare shares = col.getShares();
+        percentage = percentage/100;
+        shares.addShareholder(getCurrentUser(), percentage);
+        double remain = 100 * shares.getRemainingShare();
+        double share = 100 * shares.getShare(getCurrentUser());
+        
+        map.addAttribute("remain", remain);
+        map.addAttribute("shares", share);
         map.addAttribute("id", id);
         map.addAttribute("game", gametype.name());
+        
+        totoTipCollectionRepo.save(col);
     	return "forward:tipCollection";
     }
 
     @RequestMapping(value = "/changeLottoTip", method = RequestMethod.POST)
     public String changeLotto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long id, @RequestParam("game") GameType gametype){
         handleGeneralValues(map);
-        while (percentage >100){
-            percentage = percentage - 100;
-        }
-        while (percentage <0){
-            percentage = percentage + 100;
-        }
+        
+        LottoTipCollection col = lottoTipCollectionRepo.findById(id);
+        TipShare shares = col.getShares();
+        percentage = percentage/100;
+        shares.addShareholder(getCurrentUser(), percentage);
+        double remain = 100 * shares.getRemainingShare();
+        double share = 100 * shares.getShare(getCurrentUser());
+        
+        map.addAttribute("remain", remain);
+        map.addAttribute("shares", share);
         map.addAttribute("id", id);
         map.addAttribute("game", gametype.name());
+        
+        lottoTipCollectionRepo.save(col);
     	return "forward:tipCollection";
     }
     

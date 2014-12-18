@@ -11,10 +11,10 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 /**
  * Verwaltet die Anteile die Kunden an einem Tippschein haben können.
  */
-public class TipShare implements Iterable<Entry<ConcreteCustomer, Double>>, Serializable {
+public class TipShare implements Iterable<Entry<Long, Double>>, Serializable {
 
     private static final long serialVersionUID = -4805968579498236694L;
-    private Map<ConcreteCustomer, Double> share = new HashMap<>();
+    private Map<Long, Double> share = new HashMap<>();
     private double remainingShare = 1;
 
     public TipShare() {
@@ -37,7 +37,7 @@ public class TipShare implements Iterable<Entry<ConcreteCustomer, Double>>, Seri
      * @return true wenn der Kunde ein Anteil hat, false wenn nicht.
      */
     public boolean containsShareholder(ConcreteCustomer customer) {
-        return share.containsKey(customer);
+        return share.containsKey(customer.getId());
     }
 
     /**
@@ -48,7 +48,7 @@ public class TipShare implements Iterable<Entry<ConcreteCustomer, Double>>, Seri
      * @return der Anteil als double, 0 falls der Kunde keinen Anteil hält
      */
     public double getShare(ConcreteCustomer customer) {
-        return share.containsKey(customer) ? share.get(customer) : 0;
+        return share.containsKey(customer.getId()) ? share.get(customer.getId()) : 0;
     }
 
     /**
@@ -61,13 +61,13 @@ public class TipShare implements Iterable<Entry<ConcreteCustomer, Double>>, Seri
      * @return true wenn der Anteil erfolgreich hinzugefügt wurde, false wenn nicht.
      */
     public boolean addShareholder(ConcreteCustomer customer, double amount) {
-        if (share.containsKey(customer))
+        if (share.containsKey(customer.getId()))
             removeShareholder(customer);
 
         if (amount > remainingShare)
             return false;
 
-        share.put(customer, amount);
+        share.put(customer.getId(), amount);
         remainingShare -= amount;
 
         return true;
@@ -81,16 +81,16 @@ public class TipShare implements Iterable<Entry<ConcreteCustomer, Double>>, Seri
      * @return true wenn etwas verändert wurde, false wenn nicht
      */
     public boolean removeShareholder(ConcreteCustomer customer) {
-        if (!share.containsKey(customer))
+        if (!share.containsKey(customer.getId()))
             return false;
 
-        remainingShare += share.get(customer);
-        share.remove(customer);
+        remainingShare += share.get(customer.getId());
+        share.remove(customer.getId());
         return true;
     }
 
     @Override
-    public Iterator<Entry<ConcreteCustomer, Double>> iterator() {
+    public Iterator<Entry<Long, Double>> iterator() {
         return share.entrySet().iterator();
     }
 }

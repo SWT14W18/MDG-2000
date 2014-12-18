@@ -160,4 +160,9 @@ public class ConcreteCustomer {
             return false;
         return true;
     }
+
+	public long getId() {
+		
+		return id;
+	}
 }

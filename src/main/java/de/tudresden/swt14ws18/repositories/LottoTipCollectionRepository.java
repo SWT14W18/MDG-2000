@@ -15,5 +15,6 @@ public interface LottoTipCollectionRepository extends CrudRepository<LottoTipCol
     public Collection<LottoTipCollection> findByOwner(ConcreteCustomer customer);
     public LottoTipCollection findByTips(LottoTip tip);
     public List<LottoTipCollection> findByCommunity (Community community);
+    public LottoTipCollection findById(long id);
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,7 +30,8 @@ public abstract class TipCollection<T extends Tip> {
     @Id
     private long id;
 
-    private TipShare shares = new TipShare();
+    @Column(length = 2048)
+    private TipShare shares;
 
     @ManyToOne
     private Community community;
@@ -53,6 +55,7 @@ public abstract class TipCollection<T extends Tip> {
         this.community = community;
         this.tips = tips;
         this.owner = owner;
+        this.shares = new TipShare();
     }
 
     public TipCollection(List<T> tips, ConcreteCustomer owner) {
@@ -113,8 +116,8 @@ public abstract class TipCollection<T extends Tip> {
         if (ownerExtra + getShares().getRemainingShare() > 0)
             lotterie.outgoingTransaction(owner.getAccount(), win * (ownerExtra + getShares().getRemainingShare()), getGameType().name() + " Gewinn");
 
-        for (Entry<ConcreteCustomer, Double> entry : getShares()) {
-            ConcreteCustomer customer = entry.getKey();
+        for (Entry<Long, Double> entry : getShares()) {
+            ConcreteCustomer customer = Lotterie.getInstance().getCustomerRepository().findOne(entry.getKey());
             Double value = entry.getValue();
 
             if (customer == owner)
@@ -130,8 +133,8 @@ public abstract class TipCollection<T extends Tip> {
         double ownerExtra = getShares().getShare(owner);
 
         // check if money is available
-        for (Entry<ConcreteCustomer, Double> entry : getShares()) {
-            ConcreteCustomer customer = entry.getKey();
+        for (Entry<Long, Double> entry : getShares()) {
+            ConcreteCustomer customer = Lotterie.getInstance().getCustomerRepository().findOne(entry.getKey());
             Double value = entry.getValue();
 
             if (customer == owner)
@@ -152,8 +155,8 @@ public abstract class TipCollection<T extends Tip> {
             return;
 
         // take money
-        for (Entry<ConcreteCustomer, Double> entry : getShares()) {
-            ConcreteCustomer customer = entry.getKey();
+        for (Entry<Long, Double> entry : getShares()) {
+            ConcreteCustomer customer = Lotterie.getInstance().getCustomerRepository().findOne(entry.getKey());
             Double value = entry.getValue();
 
             if (customer == owner)

@@ -17,4 +17,6 @@ public interface TotoTipCollectionRepository extends CrudRepository<TotoTipColle
     public TotoTipCollection findByTips(TotoTip totoTip);
     
     public List<TotoTipCollection> findByCommunity (Community community);
+
+	public TotoTipCollection findById(long id);
 }

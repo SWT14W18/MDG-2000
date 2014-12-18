@@ -24,14 +24,25 @@
 			</div>
 		</ol>
 		
-		<form action="/changeLottoTip" method="post">	
+		<form action="/changeLottoTip" method="post">
+			<br/><br/><br/>
+			<div align = "center"><label th:text="@{'Ihr aktueller Anteil: '+${shares} +'%'}">Anteil</label>
+			<br/> <label th:text="@{'Verbleibende Anteile: '+${remain} +'%'}">RestAnteil</label> </div>	
 			<div align="center"><input type="text" name="percentage" placeholder="Anteil"/><br/></div>
+			<input type="hidden" name="remove" value="false"/><br/>
 			<input type="hidden" name="groups" value="tipCollection"/>
 			<input type="hidden" name="id" th:value="${id}"/>
 			<input type="hidden" name="game" th:value="${game}"/>
 			<div align="center"><input type="submit" value="Ändern"/><br/></div>
 		</form>
-        
+        <br/>
+		<form action="/tipCollection" method="post">
+		    <input type="hidden" name="remove" value="true"/><br/>
+		    <input type="hidden" name="groups" value="tipCollection"/>
+			<input type="hidden" name="id" th:value="${id}"/>
+			<input type="hidden" name="game" th:value="${game}"/>
+			<div align="center"><input type="submit" value="Austreten"/><br/></div>
+		</form>	
 		<br/>
 		<br/>
 		<br/>
