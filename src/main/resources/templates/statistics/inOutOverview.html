@@ -9,6 +9,19 @@
 		<hr/>
 		<br/>
 		<br/>
+		<canvas width="400" height="200" id="diagramm"></canvas>
+		<p id="zufluesse" th:text="${zufluesse}" class="hidden"></p>
+		<p id="ausgaben" th:text="${ausgaben}" class="hidden"></p>
+		<script>		    
+		     /*alert(document.getElementById("zufluesse").innerHTML);*/
+		     var int1 = parseInt(document.getElementById("zufluesse").innerHTML);
+		     var int2 = parseInt(document.getElementById("ausgaben").innerHTML);
+  			 kreisdiagramm = new RGraph.Pie("diagramm", [int1, int2]);
+			 kreisdiagramm.Set("chart.labels", ["Einnahmen", "Ausgaben"]);
+			 kreisdiagramm.Set("chart.colors", ["blue", "red"]);
+			 kreisdiagramm.Set("chart.colors.sequential", true);
+			 kreisdiagramm.Draw();
+		</script>
 		<div align="center">
 		<div align="center"  id="divListMessages">
 		<ol start="1" id="listMessages">

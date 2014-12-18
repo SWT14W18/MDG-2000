@@ -30,6 +30,7 @@ public class Message {
     
     private LocalDateTime date;
     private GameType whichGame;
+    private MessageState state;
     
     @Deprecated
     public Message(){
@@ -45,6 +46,7 @@ public class Message {
         this.whichGame = type;
         this.date = Lotterie.getInstance().getTime().getTime();
         Lotterie.getInstance().getMessagesRepository().save(this);
+        this.state = MessageState.NEW;
     }
     
     /**
@@ -60,6 +62,14 @@ public class Message {
     
     public String getMessageDateString() {
         return date.format(Constants.OUTPUT_DTF);
+    }
+    
+    public MessageState getState(){
+        return this.state;
+    }
+    
+    public void setState(MessageState state){
+        this.state = state;
     }
     
     /**

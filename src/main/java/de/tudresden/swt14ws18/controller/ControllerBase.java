@@ -84,7 +84,10 @@ public abstract class ControllerBase {
         if (authenticationManager.getCurrentUser().isPresent()) {
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
             map.addAttribute("balance", Constants.MONEY_FORMAT.format(customer.getAccount().getBalance()));
+            // TODO Neue Nachrichten sollten angezeigt werden mit bootbox
+            map.addAttribute("newMessages", customer.getNumberOfNewMessages());
         }
+        
     }
 
     public ConcreteCustomer getCurrentUser() {
