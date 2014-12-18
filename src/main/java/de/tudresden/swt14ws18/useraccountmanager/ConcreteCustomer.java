@@ -122,6 +122,23 @@ public class ConcreteCustomer {
         Lotterie.getInstance().getMessagesRepository().save(messages);
         Lotterie.getInstance().getCustomerRepository().save(this);
     }
+    
+    public int getNumberOfNewMessages(){
+        int number = 0;
+        
+        for(Message temp : messages){
+            if(temp.getState() == MessageState.NEW) number += 1;
+        }
+        
+        return number;
+        
+    }
+    
+    public void SetAllMessageStatesTo(MessageState state){
+        for(Message temp: messages){
+            temp.setState(state);
+        }
+    }
 
     public List<Message> getMessages() {
         return messages;

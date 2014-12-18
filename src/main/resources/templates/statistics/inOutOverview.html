@@ -16,7 +16,6 @@
 		     /*alert(document.getElementById("zufluesse").innerHTML);*/
 		     var int1 = parseInt(document.getElementById("zufluesse").innerHTML);
 		     var int2 = parseInt(document.getElementById("ausgaben").innerHTML);
-		     alert(int1);
   			 kreisdiagramm = new RGraph.Pie("diagramm", [int1, int2]);
 			 kreisdiagramm.Set("chart.labels", ["Einnahmen", "Ausgaben"]);
 			 kreisdiagramm.Set("chart.colors", ["blue", "red"]);
