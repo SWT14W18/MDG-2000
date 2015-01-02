@@ -432,7 +432,15 @@ public class CustomerController extends ControllerBase {
     @RequestMapping("/lottoTipChange")
     public String lottoTipChange(@RequestParam("id") long id, ModelMap map) {
         handleGeneralValues(map);
+        LottoTip tip = lottoTipRepository.findOne(id);
         map.addAttribute("id", id);
+        map.addAttribute("1", tip.getNumbers().getNumbers()[0]);
+        map.addAttribute("2", tip.getNumbers().getNumbers()[1]);
+        map.addAttribute("3", tip.getNumbers().getNumbers()[2]);
+        map.addAttribute("4", tip.getNumbers().getNumbers()[3]);
+        map.addAttribute("5", tip.getNumbers().getNumbers()[4]);
+        map.addAttribute("6", tip.getNumbers().getNumbers()[5]);
+        map.addAttribute("super", tip.getNumbers().getSuperNumber());        
         
         return "games/lottoTipChange";
     }
