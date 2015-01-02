@@ -23,8 +23,8 @@ public enum TotoResult {
     /**
      * Parse ein TotoResult aus einem Input String. Valider Input ist: <br\>
      * 0 für WIN_HOME <br\>
-     * 1 für WIN_GUEST <br\>
-     * 2 für DRAW <br\>
+     * 2 für WIN_GUEST <br\>
+     * 1 für DRAW <br\>
      * 3 für NOT_PLAYED <br\>
      * 
      * @param string
@@ -35,9 +35,9 @@ public enum TotoResult {
         switch (string) {
         case "0":
             return WIN_HOME;
-        case "1":
-            return WIN_GUEST;
         case "2":
+            return WIN_GUEST;
+        case "1":
             return DRAW;
         case "3":
             return NOT_PLAYED;
