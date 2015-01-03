@@ -104,6 +104,10 @@ public class CustomerController extends ControllerBase {
 
         handleGeneralValues(map);
         Community community = communityRepository.findByPassword(password);
+        
+        if(community == null)
+            return "groups/overview";
+        
         ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
         community.addMember(customer);
         communityRepository.save(community);
@@ -117,6 +121,19 @@ public class CustomerController extends ControllerBase {
 
         handleGeneralValues(map);
         return "groups/join";
+    }
+    
+    @RequestMapping("/groupLeave")
+    public String groupLeave(@RequestParam("id") long id, ModelMap map) {
+        handleGeneralValues(map);
+        
+        Community com = communityRepository.findById(id);
+        if(com.isMember(getCurrentUser()) && !com.getAdmin().equals(getCurrentUser()))
+            com.removeMember(getCurrentUser());
+        
+        communityRepository.save(com);
+        
+        return groupoverview(map);
     }
 
     @RequestMapping("/groupmanage")
