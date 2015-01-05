@@ -42,6 +42,9 @@ import de.tudresden.swt14ws18.util.Constants;
  * TODO Share bei Tipps angeben in Gruppen
  * TODO Alle Transaktionsanzeigen aufhübschen
  * TODO Zeitmanipulkation konsistent gestalten (Beim Rückspulen muss auch gespielt werden können)
+ * TODO KUNDENWUNSCH!!
+ * TODO Alle Ergebnisse der Fußballspiele automatisch eintragen, damit der Admin nur noch bestätigen muss
+ * TODO arc 42 Entwicklerdokumentation		
  */
 
 /*
