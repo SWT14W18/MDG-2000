@@ -8,10 +8,11 @@ import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.tudresden.swt14ws18.AbstractIntegrationTest;
-import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.gamemanagement.GameType;
-import de.tudresden.swt14ws18.repositories.*;
+import de.tudresden.swt14ws18.repositories.BankAccountRepository;
+import de.tudresden.swt14ws18.repositories.CustomerRepository;
+import de.tudresden.swt14ws18.repositories.MessageRepository;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 import de.tudresden.swt14ws18.util.Constants;

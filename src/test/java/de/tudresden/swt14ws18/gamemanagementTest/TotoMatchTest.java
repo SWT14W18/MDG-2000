@@ -1,6 +1,6 @@
 package de.tudresden.swt14ws18.gamemanagementTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -16,7 +16,6 @@ import de.tudresden.swt14ws18.Lotterie;
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
 import de.tudresden.swt14ws18.gamemanagement.TotoMatch;
 import de.tudresden.swt14ws18.gamemanagement.TotoResult;
-import de.tudresden.swt14ws18.repositories.LottoMatchRepository;
 import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
 
 /**

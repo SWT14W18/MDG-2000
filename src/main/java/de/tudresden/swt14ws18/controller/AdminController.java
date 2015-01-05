@@ -1,14 +1,10 @@
 package de.tudresden.swt14ws18.controller;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -86,7 +82,7 @@ public class AdminController extends ControllerBase {
         Double totalLottoInput = 0.0;
         for(LottoGame lottoGame : lottoMatchRepository.findAll()){
             for (LottoTip lottoTip : lottoTipRepository.findByLottoGame(lottoGame))                
-            	totalLottoInput+=1.0;
+            	totalLottoInput+=lottoTip.getInput();
         }
         map.addAttribute("totalInput", Constants.MONEY_FORMAT.format(totalLottoInput));        
 
@@ -215,6 +211,7 @@ public class AdminController extends ControllerBase {
 
     @RequestMapping("/setTotoResult")
     public String insertTotoResult(@RequestParam("id") long id, @RequestParam("result") TotoResult result, ModelMap map) {
+        handleGeneralValues(map);
         TotoMatch match = totoMatchRepository.findById(id);
         
         if(match.getDate().isAfter(time.getTime()) || result == TotoResult.NOT_PLAYED){
@@ -230,7 +227,7 @@ public class AdminController extends ControllerBase {
     
     @RequestMapping("/setLottoNumbers")
     public String insertLottoNumbers(@RequestParam Map<String, String> params, ModelMap map) {
-
+        handleGeneralValues(map);
         LottoNumbers numbers = parseInput(params);
 
         if (numbers == null)

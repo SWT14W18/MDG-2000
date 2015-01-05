@@ -109,7 +109,7 @@ public class ConcreteCustomer {
     public void payOneMessage(Message message) {
         if (!account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2, "Meldung bezahlt"))
             return;
-        
+
         messages.remove(message);
 
         if (getMessageCount() < MAX_MESSAGE_COUNT && !userAccount.hasRole(Constants.CUSTOMER_BLOCKABLE)) {
@@ -122,34 +122,27 @@ public class ConcreteCustomer {
         Lotterie.getInstance().getMessagesRepository().save(messages);
         Lotterie.getInstance().getCustomerRepository().save(this);
     }
-    
-    public int getNumberOfNewMessages(){
+
+    public int getNumberOfNewMessages() {
         int number = 0;
-        
-        for(Message temp : messages){
-            if(temp.getState() == MessageState.NEW) number += 1;
+
+        for (Message temp : messages) {
+            if (temp.getState() == MessageState.NEW)
+                number += 1;
         }
-        
+
         return number;
-        
+
     }
-    
-    public void SetAllMessageStatesTo(MessageState state){
-        for(Message temp: messages){
+
+    public void SetAllMessageStatesTo(MessageState state) {
+        for (Message temp : messages) {
             temp.setState(state);
         }
     }
 
     public List<Message> getMessages() {
         return messages;
-    }
-
-    public void joinGroup(Community community) {
-        // TODO
-    }
-
-    public void leaveGroup(Community community) {
-        // TODO:
     }
 
     public BankAccount getAccount() {
@@ -178,8 +171,8 @@ public class ConcreteCustomer {
         return true;
     }
 
-	public long getId() {
-		
-		return id;
-	}
+    public long getId() {
+
+        return id;
+    }
 }

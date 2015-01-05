@@ -1,7 +1,9 @@
 package de.tudresden.swt14ws18.repositoryTests;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.iterableWithSize;
+import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;
 
@@ -9,11 +11,8 @@ import org.junit.Test;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 
 import de.tudresden.swt14ws18.AbstractIntegrationTest;
-import de.tudresden.swt14ws18.Lotterie;
-import de.tudresden.swt14ws18.LotterieDataInitializer;
 import de.tudresden.swt14ws18.bank.BankAccount;
 import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 import de.tudresden.swt14ws18.repositories.CustomerRepository;

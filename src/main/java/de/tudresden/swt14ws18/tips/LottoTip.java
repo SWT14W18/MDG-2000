@@ -15,7 +15,7 @@ import de.tudresden.swt14ws18.gamemanagement.LottoResult;
 @Entity
 public class LottoTip extends Tip {
 
-    private static final double input = 1.00D;
+    private static final double LOTTO_INPUT = 1.00D;
 
     @ManyToOne
     private LottoGame lottoGame;
@@ -109,7 +109,7 @@ public class LottoTip extends Tip {
 
     @Override
     public double getInput() {
-        return input;
+        return LOTTO_INPUT;
     }
 
     public String getNumbersAsString() {

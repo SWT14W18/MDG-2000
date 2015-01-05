@@ -2,9 +2,7 @@ package de.tudresden.swt14ws18.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -17,7 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import de.tudresden.swt14ws18.gamemanagement.TotoGameType;
@@ -35,7 +32,6 @@ import de.tudresden.swt14ws18.repositories.TotoTipCollectionRepository;
 import de.tudresden.swt14ws18.repositories.TotoTipRepository;
 import de.tudresden.swt14ws18.repositories.TransactionRepository;
 import de.tudresden.swt14ws18.tips.TipFactory;
-import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.util.Constants;
 
 @Controller
