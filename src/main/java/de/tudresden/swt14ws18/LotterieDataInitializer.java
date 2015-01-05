@@ -98,6 +98,8 @@ public class LotterieDataInitializer implements DataInitializer {
         BankAccount adminAccount = new BankAccount();
         ConcreteCustomer adminCustomer = new ConcreteCustomer("admin", Status.ACTIVE, admin, adminAccount);
 
+        adminAccount.payIn(1000000);
+        
         bankAccountRepository.save(adminAccount);
         customerRepository.save(adminCustomer);
 
