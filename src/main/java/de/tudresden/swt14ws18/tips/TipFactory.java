@@ -29,7 +29,7 @@ import de.tudresden.swt14ws18.util.Constants;
  */
 @Component
 public class TipFactory {
-    private static final int LOTTO_TIPS_PER_PAGE = 6;
+    private static final int LOTTO_TIPS_PER_PAGE = 12;
 
     private final LottoMatchRepository lottoMatchRepository;
     private final TotoMatchRepository totoMatchRepository;

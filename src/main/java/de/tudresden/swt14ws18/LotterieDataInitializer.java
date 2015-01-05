@@ -2,6 +2,7 @@ package de.tudresden.swt14ws18;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import org.salespointframework.core.DataInitializer;
 import org.salespointframework.useraccount.UserAccount;
@@ -62,7 +63,15 @@ public class LotterieDataInitializer implements DataInitializer {
     private void initializeData(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository) {
 
         if (!lottoMatchRepository.findAll().iterator().hasNext()) {
-            LocalDateTime ldt = LocalDateTime.of(2014, 12, 14, 12, 0);
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            c.set(Calendar.HOUR, 12);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            
+         
+            LocalDateTime ldt = LocalDateTime.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DATE)-1, 12, 0);
+
             for (int i = 0; i < 50; i++) {
                 LottoGame game = new LottoGame(ldt);
 
