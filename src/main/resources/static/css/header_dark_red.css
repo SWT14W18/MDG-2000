@@ -305,6 +305,10 @@ section {
 		background-image: -moz-linear-gradient(#C51919 0%,#C51919 0.2%, #FFFEEE 0.24%);
 		background-image: -webkit-linear-gradient(#C51919 0%,#FFFFFF 0.4%)
 }
+
+section div#divListMessages > div#listMessages > div#ListItem > label#Geldbetrag{
+		font-size:28pt;
+}
 footer {
 box-shadow: 5px 5px 5px 3px #888;
 		width:1170px;
