@@ -1,4 +1,4 @@
-<header>
+﻿<header>
 <script src="javascript/jquery-1.11.1.min.js"></script>
 <script src="javascript/bootstrap.min.js"></script>
 <script src="javascript/bootbox.min.js"></script>
@@ -50,7 +50,7 @@
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="groupoverview.html"><div class="fill-div"><label class="l_fill-div">Gruppen Übersicht</label></div></a>
+											<a th:href="groupoverview.html"><div class="fill-div"><label class="l_fill-div">Gruppen Ãœbersicht</label></div></a>
 										</div>
 									</li>
 								</ul>
@@ -103,7 +103,7 @@
 				   
 		
                    <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></div></a></li>
-                  <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></div></a></li>
+                  <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> WettÃ¼bersicht</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="lotterydraw.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i>Ziehungen</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_USER')" class="liright" id="Geld"><a th:href="bankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_ANONYM')" class="liright" id="Geld"><a th:href="anonymbankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
@@ -126,6 +126,40 @@
 					 ###########   FEHLER MELDUNGEN BOXEN  ##############
 					 #######   Nichts mehr drunter schreiben  ###########
 					 #################################################### -->
+			
+					<!-- TIPPÄNDERUNG Fehler BOX -->		
+					<script th:if="${tippChangeError}">
+						bootbox.dialog({
+						  title: "Änderung Fehlgeschlagen!",
+						  message: "Der Tipp konnte nicht geändert werden. Überprüfen sie bitte ihre Eingaben.",
+						  buttons: {
+							danger: {
+							  label: "Verstanden!",
+							  className: "btn-danger",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- TIPPÄNDERUNG Erfolg BOX -->		
+					<script th:if="${tippChangeSuccess}">
+						bootbox.dialog({
+						  title: "Änderung Erfolgreich!",
+						  message: "Tipp erfolgreich geändert.",
+						  buttons: {
+							danger: {
+							  label: "Ok!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
 			
 					<!-- EINZAHLUNG Fehler BOX -->		
 					<script th:if="${paymentInError}">
