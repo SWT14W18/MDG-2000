@@ -2,6 +2,33 @@
 <html>
 <head th:replace="fragments/head :: head"></head>
 <body>
+<script src="javascript/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+				
+				$("[id=nach]").each(function(index){
+				if( $(this).text()  === 'Nach: admin' )
+  				{
+  					console.log($(this).text());
+  					$(this).parent().css({"background-color": "#58FA58"});
+  				}
+  				else{
+  					console.log($(this).text());
+  					$(this).parent().css({"background-color": "#FA5858"});
+  					}
+				});
+				
+		   		$('label', '.Item').toggle(0);
+   				$('br', '.Item').toggle(0);
+   				$('#Geldbetrag', '.Item').show(20);
+   			$(".Item").click(function(){
+   				$('label', this).toggle(0);
+   				$('br', this).toggle(0);
+   				$('#Geldbetrag', this).show(20);
+   		 	});
+		});
+		</script>
+
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
 	<section>
@@ -11,42 +38,19 @@
 		<br/>
 		<p>Für mehr bzw. weniger Details den jeweiligen Eintrag anklicken!</p>
 		
-		<script type="text/javascript">	
-			$(document).ready(function(){
-				
-				$('.Item').each(function(i) {
-					$(this).bind('click', {index:i}, function(e){
-						
-						
-						
-						$('.fadeable').each(function(i){
-							if($(this).css('display') != 'none'){
-								$(this).addClass('hidden');
-							} else {
-								$(this).removeClass('hidden');
-							}
-						});
-					
-					});
-				}); 
-			});
-		    </script>
-		
 		<br/>
 		<br/>
 		<br/>
 		<div align="center">
 		<div align="center"  id="divListMessages">
 		<ol start="1" id="listMessages">	
-			<div id="ListItem" class="Item" th:each="transactionItem : ${transactions}">
+			<div id="ListItem" class="Item" th:each="transactionItem : ${transactions}" >
 			<br/>			
-			<label  id="Geldbetrag" th:text="@{'Geldbetrag: '+${transactionItem.getAmount()}}+' €'">Von</label>
-			<br/>
-			<label  class="fadeable hidden" th:text="@{'Nach: '+${transactionItem.getNameTo()}}">Von</label>
-			<br/>
-			<label  class="fadeable hidden" th:text="@{'Von: '+${transactionItem.getNameFrom()}}">Von</label>
-			<br/>
-			<label  class="fadeable hidden" th:text="@{'Datum: '+${transactionItem.getDateString()}}">Von</label>
+			<label  id="Geldbetrag" th:text="@{'Geldbetrag: '+${transactionItem.getAmount()}}+' €'">Von</label><br/>
+			<label  id="nach" th:text="@{'Nach: '+${transactionItem.getNameTo()}}">Von</label>
+			<label  id="von" th:text="@{'Von: '+${transactionItem.getNameFrom()}}">Von</label>
+			<label  th:text="@{'Datum: '+${transactionItem.getDateString()}}">Von</label>
+			<label  >Grund?!?!</label>
 			<br/>
 			<br/>				
 			</div>

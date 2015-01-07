@@ -309,6 +309,9 @@ section {
 section div#divListMessages > div#listMessages > div#ListItem > label#Geldbetrag{
 		font-size:28pt;
 }
+
+
+
 footer {
 box-shadow: 5px 5px 5px 3px #888;
 		width:1170px;
@@ -574,4 +577,12 @@ section.button{
          margin: 3px 0px 10px 0px;
          padding: 0px 5px 0px 0px;
          box-sizing: border-box;
+}
+
+.positive{
+color: #58FA58;
+}
+
+.negative{
+background-color: #FE2E2E;
 }
