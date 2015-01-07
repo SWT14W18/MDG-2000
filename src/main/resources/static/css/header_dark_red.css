@@ -403,6 +403,10 @@ section label {
 		
 }
 
+section label.hidden{
+	display: none;
+}
+
 section ul{
 	font-family: 'Ubuntu Condensed',sans-serif;
 	font-size: 15px;

@@ -9,30 +9,44 @@
 		<hr/>
 		<br/>
 		<br/>
+		<p>Für mehr bzw. weniger Details den jeweiligen Eintrag anklicken!</p>
 		
-		<script>
+		<script type="text/javascript">	
 			$(document).ready(function(){
-				$("ListItem").click(function(){
+				
+				$('.Item').each(function(i) {
+					$(this).bind('click', {index:i}, function(e){
+						
+						
+						
+						$('.fadeable').each(function(i){
+							if($(this).css('display') != 'none'){
+								$(this).addClass('hidden');
+							} else {
+								$(this).removeClass('hidden');
+							}
+						});
 					
-				});
+					});
+				}); 
 			});
-		</script>
+		    </script>
 		
 		<br/>
 		<br/>
 		<br/>
 		<div align="center">
 		<div align="center"  id="divListMessages">
-		<ol start="1" id="listMessages">
-			<div id="ListItem" th:each="transactionItem : ${transactions}">
+		<ol start="1" id="listMessages">	
+			<div id="ListItem" class="Item" th:each="transactionItem : ${transactions}">
 			<br/>			
 			<label  id="Geldbetrag" th:text="@{'Geldbetrag: '+${transactionItem.getAmount()}}+' €'">Von</label>
 			<br/>
-			<label  th:text="@{'Nach: '+${transactionItem.getNameTo()}}">Von</label>
+			<label  class="fadeable hidden" th:text="@{'Nach: '+${transactionItem.getNameTo()}}">Von</label>
 			<br/>
-			<label  th:text="@{'Von: '+${transactionItem.getNameFrom()}}">Von</label>
+			<label  class="fadeable hidden" th:text="@{'Von: '+${transactionItem.getNameFrom()}}">Von</label>
 			<br/>
-			<label  th:text="@{'Datum: '+${transactionItem.getDateString()}}">Von</label>
+			<label  class="fadeable hidden" th:text="@{'Datum: '+${transactionItem.getDateString()}}">Von</label>
 			<br/>
 			<br/>				
 			</div>
