@@ -329,9 +329,12 @@ public class CustomerController extends ControllerBase {
 
 
     @RequestMapping("/tipCollectionView")
-    public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType spielType) {
+    public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam(value ="success", required = false) Boolean bool, @RequestParam("game") GameType spielType) {
         handleGeneralValues(map);
 
+        if(bool != null)
+            map.addAttribute(bool ? "tippChangeSuccess" : "tippChangeError", true);
+        
         if (authenticationManager.getCurrentUser().isPresent()) {
 
             List<Tip> set = new ArrayList<>();
@@ -467,17 +470,33 @@ public class CustomerController extends ControllerBase {
         LottoTip tip = lottoTipRepository.findOne(id);
         LottoTipCollection col = lottoTipCollectionRepo.findByTips(tip);
         
+        map.addAttribute("id", id);
+        map.addAttribute("game", GameType.LOTTO.name());
+                
         if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
-            return "redirect:gameoverview";
+        {
+            map.addAttribute("success", false);
+            return "redirect:tipCollectionView";
+        }
 
         if (timeCheck(tip.getGame().getDate()))
-            return "redirect:gameoverview";
+        {
+            map.addAttribute("success", false);
+            return "redirect:tipCollectionView";
+        }
         
         LottoNumbers numbers = parseInput(params);
         
+        if(numbers == null)
+        {
+            map.addAttribute("success", false);
+            return "redirect:tipCollectionView";
+        }
+        
         tip.setResult(numbers);
         lottoTipRepository.save(tip);
-        
-        return "redirect:gameoverview";
+
+        map.addAttribute("success", true);
+        return "redirect:tipCollectionView";
     }
 }
