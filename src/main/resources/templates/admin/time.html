@@ -14,10 +14,28 @@
 		<form th:action="@{/vorspulen}" method="post">
 		<div align="center"><input type="value" name="time" placeholder="Minuten"/><br/></div>
 		<div align="center"><input type="submit" value="Spulen!"/></div>
+		</form>
+		
+
+		<form th:action="@{/vorspulen}" method="post">
+		<div align="center"><input type="hidden" name="time" value="1440" /></div>
+		<div align="center"><input type="submit" value="1 Tag vorspulen!"/></div></form>
+
+		<form th:action="@{/vorspulen}" method="post">
+		<div align="center"><input type="hidden" name="time" value="10080" /></div>
+		<div align="center"><input type="submit" value="1 Woche vorspulen!"/></div></form>
+
+		<form th:action="@{/vorspulen}" method="post">
+		<div align="center"><input type="hidden" name="time" value="-1440" /></div>
+		<div align="center"><input type="submit" value="1 Tag zurückspulen!"/></div></form>
+
+		<form th:action="@{/vorspulen}" method="post">
+		<div align="center"><input type="hidden" name="time" value="-10080" /></div>
+		<div align="center"><input type="submit" value="1 Woche zurückspulen!"/></div></form>
 
 		<!-- TODO momentaner Zeitversatz, reale Zeit <-> interne Zeit -->
 
-		</form>
+		
 				
 		<br/>
 		<br/>
