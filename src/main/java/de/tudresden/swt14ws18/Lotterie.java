@@ -39,8 +39,6 @@ import de.tudresden.swt14ws18.util.Constants;
  * TODO Gruppenfunktionalität
  * TODO Statisik des Admins ausbauen (Transaktionen zusammensuchen und auswerten)
  * TODO Anonymen User ( 80% FERTIG , Rechte entzug und Notification Box )
- * TODO Share bei Tipps angeben in Gruppen
- * TODO Alle Transaktionsanzeigen aufhübschen
  * TODO Zeitmanipulkation konsistent gestalten (Beim Rückspulen muss auch gespielt werden können)
  * TODO KUNDENWUNSCH!!
  * TODO Alle Ergebnisse der Fußballspiele automatisch eintragen, damit der Admin nur noch bestätigen muss
