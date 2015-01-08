@@ -67,7 +67,6 @@ public class Community extends Customer {
      * @param admin
      *            -> der Kunde, der der Admin der Gruppe sein soll (im Normalfall der Ersteller)
      */
-
     public Community(String name, String password, ConcreteCustomer admin) {
         super(name, password);
         this.communityName = name;
@@ -87,7 +86,6 @@ public class Community extends Customer {
      *            -> Das neue Mitglied vom Typ "ConcreteCustomer"
      * @return true wenn das Mitglied hinzugefügt wurde, false wenn nicht
      */
-
     public boolean addMember(ConcreteCustomer newMember) {
         if (!isMember(newMember)) {
             return members.add(newMember);
@@ -103,7 +101,6 @@ public class Community extends Customer {
      *            -> für diesen Kuden prüfen
      * @return true wenn der Kunde Mitglied der Gruppe ist, false wenn nicht
      */
-
     public boolean isMember(ConcreteCustomer concreteCustomer) {
         return members.contains(concreteCustomer);
     }
@@ -115,7 +112,6 @@ public class Community extends Customer {
      *            -> Der Kunde, der aus der Gruppe austritt
      * @return true wenn etwas entfernt wurde, false wenn nicht
      */
-
     public boolean removeMember(ConcreteCustomer leaver) {
         return members.remove(leaver);
     }
@@ -129,22 +125,15 @@ public class Community extends Customer {
         return communityName;
     }
 
+    /**
+     * Gibt das Passwort der Gruppe aus
+     * 
+     * @return das Gruppenpasswort
+     */
     public String getCommunityPassword() {
         return communityPassword;
     }
 
-    // /**
-    // * Gruppenname wird geändert
-    // * @return
-    // */
-    // public boolean changeCommunityName(Community name){
-    // if(changeName(newName)){
-    // communityName.change(newName);
-    // return true;
-    // }
-    // return false;
-    // }
-    //
     static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static Random rnd = new Random();
 
@@ -169,16 +158,32 @@ public class Community extends Customer {
         return members;
     }
 
+    /**
+     * Gibt das Passwort als Klartext zurück, wenn das Mitglied Gruppenadmin ist
+     * 
+     * @return wenn man Gruppenadmin ist: das Gruppenpasswort, sonst "******"
+     */
     public String getPasswordHtml() {
         ConcreteCustomer c = Lotterie.getInstance().getCustomerRepository()
                 .findByUserAccount(Lotterie.getInstance().getAuthenticationManager().getCurrentUser().get());
         return getAdmin().equals(c) ? getCommunityPassword() : "******";
     }
 
+    /**
+     * Gibt die Id zurück
+     * 
+     * @return Gruppen-ID
+     */
     public long getId() {
         return id;
     }
     
+
+    /**
+     * Ist das Mitglied Gruppenadmin?
+     * 
+     * @return Falls Gruppenadmin: true, sonst false
+     */
     public boolean isAdmin() {
     	ConcreteCustomer c = Lotterie.getInstance().getCustomerRepository()
                 .findByUserAccount(Lotterie.getInstance().getAuthenticationManager().getCurrentUser().get());
@@ -187,6 +192,11 @@ public class Community extends Customer {
     	return false;
     }
     
+    /**
+     * Ist das Mitglied kein Gruppenadmin?
+     * 
+     * @return Falls Gruppenadmin: false, sonst true
+     */
     public boolean isNoAdmin(){
     	if (isAdmin()) return false;
     	return true;
