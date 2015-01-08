@@ -166,6 +166,9 @@ public class Lotterie {
         if(args.length > 0 && args[0].equalsIgnoreCase("debug"))
             DEBUG = true;
         
+        if(DEBUG)
+            System.out.println("Starting in Developer Mode - app date changed to 1.10.2014");
+        
         SpringApplication.run(Lotterie.class, args);
     }
     
