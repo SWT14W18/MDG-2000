@@ -27,7 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @SpringApplicationConfiguration(classes = Lotterie.class) //classes = Lotterie.class)
 @ContextConfiguration(classes = Lotterie.class)
-public class AbstractWebIntegrationTests {
+public abstract class AbstractWebIntegrationTests {
 
         @Autowired WebApplicationContext context;
         protected MockMvc mvc;

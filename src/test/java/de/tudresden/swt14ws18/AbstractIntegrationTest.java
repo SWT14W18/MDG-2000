@@ -23,6 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringApplicationConfiguration(classes = Lotterie.class)
 @ContextConfiguration(classes = Lotterie.class) //locations ={"/MDG-2000/pom.xml"})
 @Transactional
-public class AbstractIntegrationTest {
+public abstract class AbstractIntegrationTest {
 
 }
