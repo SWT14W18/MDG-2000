@@ -3,11 +3,12 @@
 <head th:replace="fragments/head :: head"></head>
 <body>
 <script src="javascript/jquery-1.11.1.min.js"></script>
+
 		<script type="text/javascript">
 		$(document).ready(function(){
 				
 				$("[id=nach]").each(function(index){
-				if( $(this).text()  === 'Nach: admin' )
+				if( $(this).text()  === 'Nach: admin')  
   				{
   					console.log($(this).text());
   					$(this).parent().css({"background-color": "#58FA58"});

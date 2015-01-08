@@ -56,7 +56,7 @@
 								</ul>
                          </span>
 				   </li>
-                   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="profil.html"><div><label class="menuentry"><i class="fa fa-user"><label class="menuentry_inner" sec:authentication="name"></label></i></label></div></a>
+                   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="profil.html"><div><label id="userName" class="menuentry"><i class="fa fa-user"><label class="menuentry_inner" sec:authentication="name"></label></i></label></div></a>
                          <span>
 								<ul id="navi_menu">
 									<li class="span_open">
