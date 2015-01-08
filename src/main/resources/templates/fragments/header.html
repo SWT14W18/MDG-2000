@@ -56,7 +56,7 @@
 								</ul>
                          </span>
 				   </li>
-                   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="profil.html"><div><label class="menuentry"><i class="fa fa-user"><label class="menuentry_inner" sec:authentication="name"></label></i></label></div></a>
+                   <li sec:authorize="hasRole('ROLE_USER')" class="liright"><a th:href="profil.html"><div><label class="menuentry"><i class="fa fa-user"><label class="menuentry_inner" id="UserName" sec:authentication="name"></label></i></label></div></a>
                          <span>
 								<ul id="navi_menu">
 									<li class="span_open">
@@ -104,7 +104,25 @@
 		
                    <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></div></a></li>
-                  <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="lotterydraw.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i>Ziehungen</label></div></a></li>
+                  <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="lotterydraw.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i>Ziehungen</label></div></a>
+                  		<span>
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="lotterydraw" ><div class="fill-div"><label class="l_fill-div"><i class="fa fa-pencil"></i> Lotto Ziehung</label></div></a>
+										</div>
+									</li>
+								</ul>								
+								
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="toto"><div class="fill-div"><label class="l_fill-div"><i class="fa fa-futbol-o"></i> Toto Ziehung</label></div></a>
+										</div>
+									</li>
+								</ul>
+                         </span>
+				   </li>
                   <li sec:authorize="hasRole('ROLE_USER')" class="liright" id="Geld"><a th:href="bankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_ANONYM')" class="liright" id="Geld"><a th:href="anonymbankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
 				   			
@@ -455,6 +473,32 @@
 			<!--  ###########################################
 				  ###############	 ENDE   #################
 				  ###########################################  -->
+				  
+					<script type="text/javascript">
+		$(document).ready(function(){
+				
+				$("[id=nach]").each(function(index){
+				if( $(this).text()  === 'Nach: '+$("#UserName").text())  
+  				{
+  					console.log($(this).text());
+  					$(this).parent().css({"background-color": "#58FA58"});
+  				}
+  				else{
+  					console.log($(this).text());
+  					$(this).parent().css({"background-color": "#FA5858"});
+  					}
+				});
+				
+		   		$('label', '.Item').toggle(0);
+   				$('br', '.Item').toggle(0);
+   				$('#Geldbetrag', '.Item').show(20);
+   			$(".Item").click(function(){
+   				$('label', this).toggle(0);
+   				$('br', this).toggle(0);
+   				$('#Geldbetrag', this).show(20);
+   		 	});
+		});
+		</script>
 					
               </ul>
          </nav>
