@@ -178,6 +178,23 @@
 						  }
 						});
 					</script>
+					
+					<!-- GRUPPE LÖSCHEN Fehler BOX -->
+				    <script th:if="${groupDeleteError}">
+						bootbox.dialog({
+						  title: "Löschen Fehlgeschlagen!",
+						  message: "Die Gruppe konnte nicht gelöscht werden. Es sind noch offene Tippscheine vorhanden.",
+						  buttons: {
+							danger: {
+							  label: "Verstanden!",
+							  className: "btn-danger",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
 			
 					<!-- EINZAHLUNG Fehler BOX -->		
 					<script th:if="${paymentInError}">

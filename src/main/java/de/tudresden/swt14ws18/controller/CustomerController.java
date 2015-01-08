@@ -141,9 +141,16 @@ public class CustomerController extends ControllerBase {
     	handleGeneralValues(map);
     	
     	Community com = communityRepository.findById(id);
-    	if (com != null)
-    	if (com.isAdmin()) communityRepository.delete(com);
+    	if (com != null) {
+    		if (com.isAdmin()) {   	
+    	for (LottoTipCollection lottotip: lottoTipCollectionRepo.findByCommunity(com))
+    		if (!lottotip.isFinished()){map.addAttribute("groupDeleteError", true); return groupoverview(map);}
+    	for (TotoTipCollection tototip: totoTipCollectionRepo.findByCommunity(com))
+    		if (!tototip.isFinished()){map.addAttribute("groupDeleteError", true); return groupoverview(map);}  	
     	
+    	communityRepository.delete(com);
+    		}
+    	}
     	return groupoverview(map);
     }
 
