@@ -178,5 +178,17 @@ public class Community extends Customer {
     public long getId() {
         return id;
     }
-
+    
+    public boolean isAdmin() {
+    	ConcreteCustomer c = Lotterie.getInstance().getCustomerRepository()
+                .findByUserAccount(Lotterie.getInstance().getAuthenticationManager().getCurrentUser().get());
+    	if (getAdmin().equals(c)) return true;
+    	
+    	return false;
+    }
+    
+    public boolean isNoAdmin(){
+    	if (isAdmin()) return false;
+    	return true;
+    }
 }
