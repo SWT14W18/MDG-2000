@@ -90,6 +90,9 @@ public class UserController extends ControllerBase {
     public String transactionOverview(ModelMap map){
         handleGeneralValues(map);
         
+        ConcreteCustomer tempCust = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
+        map.addAttribute("currentUserName", tempCust.getName());
+        
         BankAccount customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount();
         map.addAttribute("transactions", transactionRepo.findByFromOrToOrderByDateDesc(customer, customer));
         
