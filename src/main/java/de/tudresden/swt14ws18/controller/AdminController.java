@@ -176,6 +176,20 @@ public class AdminController extends ControllerBase {
     @RequestMapping("/lotterydraw")
     public String lotterydraw(ModelMap map) {
         handleGeneralValues(map);
+        
+        LottoNumbers numbers = LottoNumbers.draw();
+        
+        for(int i : numbers.getNumbers())
+            System.out.println(i);
+
+        map.addAttribute("n1", numbers.getNumbers()[0]);
+        map.addAttribute("n2", numbers.getNumbers()[1]);
+        map.addAttribute("n3", numbers.getNumbers()[2]);
+        map.addAttribute("n4", numbers.getNumbers()[3]);
+        map.addAttribute("n5", numbers.getNumbers()[4]);
+        map.addAttribute("n6", numbers.getNumbers()[5]);
+        map.addAttribute("super", numbers.getSuperNumber());
+        
         return "admin/lotterydraw";
     }
 

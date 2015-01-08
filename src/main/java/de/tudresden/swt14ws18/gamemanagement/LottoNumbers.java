@@ -1,6 +1,7 @@
 package de.tudresden.swt14ws18.gamemanagement;
 
 import java.io.Serializable;
+import java.util.Random;
 
 import de.tudresden.swt14ws18.util.Util;
 
@@ -64,5 +65,25 @@ public class LottoNumbers implements Serializable {
      */
     public LottoResult compare(LottoNumbers number) {
         return LottoResult.valueOf(Util.matches(getNumbers(), number.getNumbers()), getSuperNumber() == number.getSuperNumber());
+    }
+
+    public static LottoNumbers draw() {
+        Random rand = new Random();
+
+        int[] arr = new int[6];
+
+        for (int i = 0; i < 6; i++) {
+            int r;
+
+            do {
+                r = rand.nextInt(49) + 1;
+            } while (Util.arrayContains(arr, r));
+
+            arr[i] = r;
+        }
+        
+        int s = rand.nextInt(10);
+
+        return new LottoNumbers(s, arr);
     }
 }
