@@ -25,15 +25,14 @@ th, td {
 				    <td >gegen</td>	
 				    <td th:text="@{${match.getTeamGuest()}+' (Auswärtsseig)'}">Team B</td>
 				    	
-				    <td ><select name="result">
+				    <td ><select th:name="${match.getId()}">
 				    		<option value="NOT_PLAYED">Nicht gespielt</option>
 							<option value="WIN_HOME">Heimsieg</option>
 							<option value="WIN_GUEST">Auswärtssieg</option>
 							<option value="DRAW">Unentschieden</option>
 						</select>
 					</td>
-					<input type="hidden" name="id" th:value="${match.getId()}" />
-				  </tr>
+					</tr>
 				</table>
 				</div>
 				</div>

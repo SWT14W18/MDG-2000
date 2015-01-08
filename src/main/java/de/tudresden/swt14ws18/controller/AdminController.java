@@ -63,88 +63,88 @@ public class AdminController extends ControllerBase {
             return lottoGame1.getDate().compareTo(lottoGame2.getDate());
         }
     };
-    
+
     @RequestMapping("/groupadminoverview")
     public String groupadminoverview(ModelMap map) {
-    	
+
         handleGeneralValues(map);
-        
+
         Iterable<Community> community = communityRepository.findAll();
         map.addAttribute("count", communityRepository.count());
-        map.addAttribute("groupadminoverview", community);    	
-    	
+        map.addAttribute("groupadminoverview", community);
+
         return "admin/groupoverview";
     }
 
     @RequestMapping("/betsOverview")
     public String betsOverview(ModelMap map) {
         handleGeneralValues(map);
-        
 
         Entry<LottoGame, Double> lottoGameInput = createLottoOverview().firstEntry();
         map.addAttribute("nextLottoDate", lottoGameInput.getKey().getDateString());
         map.addAttribute("nextLottoInput", Constants.MONEY_FORMAT.format(lottoGameInput.getValue()));
-        
+
         Double totalLottoLoss = 0.0;
         Map<LottoGame, Double> lottomap = getFinishedLottoMatches();
-        for(LottoGame lottoGame : lottomap.keySet()){
-        	totalLottoLoss+=(lottoGame.getTotalWinningPot()-lottoGame.getRemainingPot());
+        for (LottoGame lottoGame : lottomap.keySet()) {
+            totalLottoLoss += (lottoGame.getTotalWinningPot() - lottoGame.getRemainingPot());
         }
         map.addAttribute("totalLoss", Constants.MONEY_FORMAT.format(totalLottoLoss));
-        
+
         Double totalLottoInput = 0.0;
-        for(LottoGame lottoGame : lottoMatchRepository.findAll()){
-            for (LottoTip lottoTip : lottoTipRepository.findByLottoGame(lottoGame))                
-            	totalLottoInput+=lottoTip.getInput();
+        for (LottoGame lottoGame : lottoMatchRepository.findAll()) {
+            for (LottoTip lottoTip : lottoTipRepository.findByLottoGame(lottoGame))
+                totalLottoInput += lottoTip.getInput();
         }
-        map.addAttribute("totalInput", Constants.MONEY_FORMAT.format(totalLottoInput));        
+        map.addAttribute("totalInput", Constants.MONEY_FORMAT.format(totalLottoInput));
 
         map.addAttribute("liga1nextMatchDay", getMatchDayInput(TotoGameType.BUNDESLIGA1));
         map.addAttribute("liga2nextMatchDay", getMatchDayInput(TotoGameType.BUNDESLIGA2));
         map.addAttribute("liga1TotalInput", getTotalInput(TotoGameType.BUNDESLIGA1));
         map.addAttribute("liga2TotalInput", getTotalInput(TotoGameType.BUNDESLIGA2));
         map.addAttribute("pokalTotalInput", getTotalInput(TotoGameType.POKAL));
-        
+
         Double totoTotalInput = 0.0;
         Double totoTotalLoss = 0.0;
-        for(TotoMatch totoMatch : totoMatchRepository.findAll()){
-        	for(TotoTip totoTip : totoTipRepository.findByTotoMatch(totoMatch)){
-        		totoTotalInput+=totoTip.getInput();
-        		if(totoMatch.getResult()!=TotoResult.NOT_PLAYED){
-        			totoTotalLoss+=totoTip.getWinAmount();        			
-        		}
-        	}
+        for (TotoMatch totoMatch : totoMatchRepository.findAll()) {
+            for (TotoTip totoTip : totoTipRepository.findByTotoMatch(totoMatch)) {
+                totoTotalInput += totoTip.getInput();
+                if (totoMatch.getResult() != TotoResult.NOT_PLAYED) {
+                    totoTotalLoss += totoTip.getWinAmount();
+                }
+            }
         }
         map.addAttribute("totoTotalInput", totoTotalInput);
         map.addAttribute("totoTotalLoss", totoTotalLoss);
-        
+
         return "statistics/betsOverview";
-    }    
-    
-    @RequestMapping("/finishedLottoMatches")
-    public String finishedLottoMatches(ModelMap modelMap){
-    	handleGeneralValues(modelMap); 
-    	modelMap.addAttribute("moneyFormat", Constants.MONEY_FORMAT);
-    	modelMap.addAttribute("finishedLottoMatches", getFinishedLottoMatches());   	
-    	return "statistics/finishedLottoMatches";
     }
-    
+
+    @RequestMapping("/finishedLottoMatches")
+    public String finishedLottoMatches(ModelMap modelMap) {
+        handleGeneralValues(modelMap);
+        modelMap.addAttribute("moneyFormat", Constants.MONEY_FORMAT);
+        modelMap.addAttribute("finishedLottoMatches", getFinishedLottoMatches());
+        return "statistics/finishedLottoMatches";
+    }
+
     private TreeMap<LottoGame, Double> getFinishedLottoMatches() {
 
-    	List<LottoGame> list = new ArrayList<>();
-    	for(LottoGame lottoGame : lottoMatchRepository.findAll()){
-    		if(lottoGame.isFinished())list.add(lottoGame);
-    	}
-    	TreeMap<LottoGame, Double> map = new TreeMap<>(comp);
-    	for(LottoGame lottoGame : list){
+        List<LottoGame> list = new ArrayList<>();
+        for (LottoGame lottoGame : lottoMatchRepository.findAll()) {
+            if (lottoGame.isFinished())
+                list.add(lottoGame);
+        }
+        TreeMap<LottoGame, Double> map = new TreeMap<>(comp);
+        for (LottoGame lottoGame : list) {
             if (!map.containsKey(lottoGame))
                 map.put(lottoGame, 0.0D);
 
             for (LottoTip lottoTip : lottoTipRepository.findByLottoGame(lottoGame))
-                map.put(lottoGame, map.get(lottoGame) + lottoTip.getInput());    		
-    	}
+                map.put(lottoGame, map.get(lottoGame) + lottoTip.getInput());
+        }
 
-    	return map;
+        return map;
     }
 
     @RequestMapping("/lottoOverview")
@@ -185,7 +185,7 @@ public class AdminController extends ControllerBase {
         handleGeneralValues(map);
         return "admin/time";
     }
-    
+
     @RequestMapping("/lotterydraw")
     public String lotterydraw(ModelMap map) {
         handleGeneralValues(map);
@@ -223,21 +223,35 @@ public class AdminController extends ControllerBase {
     }
 
     @RequestMapping("/setTotoResult")
-    public String insertTotoResult(@RequestParam("id") long id, @RequestParam("result") TotoResult result, ModelMap map) {
+    public String insertTotoResult(@RequestParam Map<String, String> params, ModelMap map) {
         handleGeneralValues(map);
-        TotoMatch match = totoMatchRepository.findById(id);
-        
-        if(match.getDate().isAfter(time.getTime()) || result == TotoResult.NOT_PLAYED){
-            System.out.println("time :" + time.getTime());
-            return "index";
+
+        for (Entry<String, String> entry : params.entrySet()) {
+            long id = -1;
+            TotoResult result = null;
+            try {
+                id = Long.parseLong(entry.getKey());
+                result = TotoResult.valueOf(entry.getValue());
+            } catch (IllegalArgumentException e) {
+                continue;
+            }
+
+            if (result == null)
+                continue;
+
+            TotoMatch match = totoMatchRepository.findById(id);
+
+            if (match == null || match.getDate().isAfter(time.getTime()) || result == TotoResult.NOT_PLAYED) {
+                continue;
+            }
+
+            match.setResult(result);
+            totoMatchRepository.save(match);
         }
 
-        match.setResult(result);
-        totoMatchRepository.save(match);
-            
-        return "admin/lotterydrawsettoto";
+        return "redirect:toto";
     }
-    
+
     @RequestMapping("/setLottoNumbers")
     public String insertLottoNumbers(@RequestParam Map<String, String> params, ModelMap map) {
         handleGeneralValues(map);

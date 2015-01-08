@@ -70,7 +70,6 @@ public class TotoListController extends ControllerBase{
         for(Role r : it) {
             if(r.toString().equals("ROLE_BOSS"))
             {
-                System.out.println(r);
                 return "admin/lotterydrawtotomatchday";
             }
         }
@@ -95,7 +94,6 @@ public class TotoListController extends ControllerBase{
         for(Role r : it) {
             if(r.toString().equals("ROLE_BOSS"))
             {
-                System.out.println(r);
                 return "admin/lotterydrawtotomatchday";
             }
         }
@@ -128,10 +126,8 @@ public class TotoListController extends ControllerBase{
         Iterable<Role> it = authenticationManager.getCurrentUser().get().getRoles();
         for(Role r : it) {
             if(r.toString().equals("ROLE_BOSS"))
-            {
-                
+            {   
                 return "admin/lotterydrawsettoto";
-     
             }
         }
         return "games/totoTipp";
@@ -159,9 +155,7 @@ public class TotoListController extends ControllerBase{
         for(Role r : it) {
             if(r.toString().equals("ROLE_BOSS"))
             {
-                
                 return "admin/lotterydrawsettoto";
-     
             }
         }
         return "games/totoTipp";
@@ -178,7 +172,6 @@ public class TotoListController extends ControllerBase{
         for(Role r : it) {
             if(r.toString().equals("ROLE_BOSS") )
             {
-                System.out.println(r);
                 return "admin/lotterydrawtoto";
             }
         }

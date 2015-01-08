@@ -110,6 +110,10 @@ public abstract class TipCollection<T extends Tip> {
             return;
 
         double win = tip.getWinAmount();
+        
+        if(win <= 0)
+            return;
+        
         double ownerExtra = getShares().getShare(owner);
 
         BankAccount lotterie = Lotterie.getInstance().getBankAccount();
