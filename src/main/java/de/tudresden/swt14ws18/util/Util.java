@@ -5,16 +5,6 @@ public class Util {
 	return input <= upperBound && input >= lowerBound;
     }
 
-    public static <T> boolean arrayContains(int[] arr, int r)
-    {
-        if (arr != null && arr.length != 0)
-            for (int ob : arr)
-                if (ob == r)
-                    return true;
-        
-        return false;
-    }
-    
     public static int matches(int[] arr1, int[] arr2) {
 	if (arr1 == null || arr1.length == 0 || arr2 == null || arr2.length == 0)
 	    return 0;

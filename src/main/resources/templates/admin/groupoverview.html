@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<!-- Header include -->
+	<div th:replace="fragments/header :: header"></div>
+	<section>
+		<h1> Gruppenübersicht</h1>
+			<hr/>
+			<br/>
+			<div align="center">
+			<label>Anzahl der Gruppen:</label>
+			<label  th:text="@{${count}}">Count</label>
+			</div>
+			<br/>
+			<div align="center">
+			<div align="center"  id="divListMessages">
+			<ol start="1" id="listMessages">
+ 				<div th:each="Community : ${groupadminoverview}">
+				<br/>
+				<label>Gruppenname: </label><label  th:text="@{${Community.getCommunityName()}}">Group</label> <br/>
+				<label>Anzahl der Mitglieder:</label><label th:text="@{${Community.getMemberList().size()}}">Membercount</label>
+				<br/>
+				<br/>
+				</div>
+			</ol>
+			</div>
+			</div>
+					
+		<!-- insert button here -->
+		<br/>
+		<br/>
+		<br/>
+	</section>
+	<!-- Footer include -->
+	<div th:replace="fragments/footer :: footer"></div>
+</body>	
+</html>
