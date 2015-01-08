@@ -104,7 +104,25 @@
 		
                    <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> WettÃ¼bersicht</label></div></a></li>
-                  <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="lotterydraw.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i>Ziehungen</label></div></a></li>
+                  <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="lotterydraw.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i>Ziehungen</label></div></a>
+                  		<span>
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="lotterydraw" ><div class="fill-div"><label class="l_fill-div"><i class="fa fa-pencil"></i> Lotto Ziehung</label></div></a>
+										</div>
+									</li>
+								</ul>								
+								
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="toto"><div class="fill-div"><label class="l_fill-div"><i class="fa fa-futbol-o"></i> Toto Ziehung</label></div></a>
+										</div>
+									</li>
+								</ul>
+                         </span>
+				   </li>
                   <li sec:authorize="hasRole('ROLE_USER')" class="liright" id="Geld"><a th:href="bankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_ANONYM')" class="liright" id="Geld"><a th:href="anonymbankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
 				   			
