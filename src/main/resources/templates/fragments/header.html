@@ -1,4 +1,4 @@
-ï»¿<header>
+<header>
 <script src="javascript/jquery-1.11.1.min.js"></script>
 <script src="javascript/bootstrap.min.js"></script>
 <script src="javascript/bootbox.min.js"></script>
@@ -29,7 +29,7 @@
 								</ul>
                          </span>
 				   </li>
-				   <li sec:authorize="hasRole('ROLE_BOSS')" class="lileft" ><a th:href="index"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a></li>
+				   <li sec:authorize="hasRole('ROLE_BOSS')" class="lileft" ><a th:href="groupadminoverview.html"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a></li>
                    <li sec:authorize="hasRole('ROLE_CUSTOMER')" class="lileft" ><a th:href="groupoverview.html"><div><label class="menuentry"><i class="fa fa-list"></i> Gruppen</label></div></a>
 						 <span>
 								<ul id="navi_menu">
@@ -50,7 +50,7 @@
 								<ul id="navi_menu">
 									<li class="span_open">
 										<div id="navi_button">
-											<a th:href="groupoverview.html"><div class="fill-div"><label class="l_fill-div">Gruppen ÃƒÅ“bersicht</label></div></a>
+											<a th:href="groupoverview.html"><div class="fill-div"><label class="l_fill-div">Gruppen Ãœbersicht</label></div></a>
 										</div>
 									</li>
 								</ul>
@@ -103,7 +103,7 @@
 				   
 		
                    <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></div></a></li>
-                  <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> WettÃƒÂ¼bersicht</label></div></a></li>
+                  <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> WettÃ¼bersicht</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="lotterydraw.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i>Ziehungen</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_USER')" class="liright" id="Geld"><a th:href="bankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_ANONYM')" class="liright" id="Geld"><a th:href="anonymbankaccount.html"><div><label class="menuentry_money"><i class="fa fa-eur"><label class="menuentry_money_inner" th:text="${balance}"></label></i></label></div></a></li>
@@ -127,11 +127,11 @@
 					 #######   Nichts mehr drunter schreiben  ###########
 					 #################################################### -->
 			
-					<!-- TIPPÃ„NDERUNG Fehler BOX -->		
+					<!-- TIPPÄNDERUNG Fehler BOX -->		
 					<script th:if="${tippChangeError}">
 						bootbox.dialog({
-						  title: "Ã„nderung Fehlgeschlagen!",
-						  message: "Der Tipp konnte nicht geÃ¤ndert werden. ÃœberprÃ¼fen sie bitte ihre Eingaben.",
+						  title: "Änderung Fehlgeschlagen!",
+						  message: "Der Tipp konnte nicht geändert werden. Überprüfen sie bitte ihre Eingaben.",
 						  buttons: {
 							danger: {
 							  label: "Verstanden!",
@@ -144,11 +144,11 @@
 						});
 					</script>
 					
-					<!-- TIPPÃ„NDERUNG Erfolg BOX -->		
+					<!-- TIPPÄNDERUNG Erfolg BOX -->		
 					<script th:if="${tippChangeSuccess}">
 						bootbox.dialog({
-						  title: "Ã„nderung Erfolgreich!",
-						  message: "Tipp erfolgreich geÃ¤ndert.",
+						  title: "Änderung Erfolgreich!",
+						  message: "Tipp erfolgreich geändert.",
 						  buttons: {
 							danger: {
 							  label: "Ok!",

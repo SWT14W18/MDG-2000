@@ -39,6 +39,7 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
 import de.tudresden.swt14ws18.tips.LottoTip;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.tips.TotoTip;
+import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.util.Constants;
 
 @Controller
@@ -62,6 +63,18 @@ public class AdminController extends ControllerBase {
             return lottoGame1.getDate().compareTo(lottoGame2.getDate());
         }
     };
+    
+    @RequestMapping("/groupadminoverview")
+    public String groupadminoverview(ModelMap map) {
+    	
+        handleGeneralValues(map);
+        
+        Iterable<Community> community = communityRepository.findAll();
+        map.addAttribute("count", communityRepository.count());
+        map.addAttribute("groupadminoverview", community);    	
+    	
+        return "admin/groupoverview";
+    }
 
     @RequestMapping("/betsOverview")
     public String betsOverview(ModelMap map) {
@@ -106,7 +119,7 @@ public class AdminController extends ControllerBase {
         map.addAttribute("totoTotalLoss", totoTotalLoss);
         
         return "statistics/betsOverview";
-    }
+    }    
     
     @RequestMapping("/finishedLottoMatches")
     public String finishedLottoMatches(ModelMap modelMap){
