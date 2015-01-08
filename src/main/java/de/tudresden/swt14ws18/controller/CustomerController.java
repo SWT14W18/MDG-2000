@@ -84,11 +84,11 @@ public class CustomerController extends ControllerBase {
 
         handleGeneralValues(map);
         ConcreteCustomer admin = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-        String password = Community.createPassword();   // Random Passwort hinzufügen
+        String password = Community.createPassword();   // Random Passwort hinzufügen        
         while(communityRepository.findByPassword(password) != null)
         	password = Community.createPassword();
         communityRepository.save(new Community(name, password, admin));
-        return "groups/create";
+        return groupoverview(map);
     }
 
     @RequestMapping("/groupcreate")
@@ -122,17 +122,29 @@ public class CustomerController extends ControllerBase {
         return "groups/join";
     }
     
-    @RequestMapping("/groupLeave")
+    @RequestMapping("/groupleave")
     public String groupLeave(@RequestParam("id") long id, ModelMap map) {
         handleGeneralValues(map);
         
         Community com = communityRepository.findById(id);
-        if(com.isMember(getCurrentUser()) && !com.getAdmin().equals(getCurrentUser()))
+        if (com != null)
+        if(com.isMember(getCurrentUser()) && !com.isAdmin())
             com.removeMember(getCurrentUser());
         
         communityRepository.save(com);
         
         return groupoverview(map);
+    }
+    
+    @RequestMapping("/groupdelete")
+    public String groupDelete(@RequestParam("id") long id, ModelMap map) {
+    	handleGeneralValues(map);
+    	
+    	Community com = communityRepository.findById(id);
+    	if (com != null)
+    	if (com.isAdmin()) communityRepository.delete(com);
+    	
+    	return groupoverview(map);
     }
 
     @RequestMapping("/groupmanage")

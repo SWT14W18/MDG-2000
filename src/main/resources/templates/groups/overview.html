@@ -16,15 +16,20 @@
 			    <a th:href="@{/groupmanage(id=${Community.getId()})}" >
 				<br/>
 				<br/>
-				<label  th:text="@{${Community.getCommunityName()}}">Group</label>
-				<label  th:text="@{${Community.getPasswordHtml()}}">Password</label>
+				<label>Gruppenname:</label><label  th:text="@{${Community.getCommunityName()}}">Group</label> <br/>
+				<label>Passwort:</label><label  th:text="@{${Community.getPasswordHtml()}}">Password</label>
 				<br/>
 				<br/>
 				</a>	
-				<form action="groupLeave">
+				<form th:if="${Community.isNoAdmin()}" action="groupleave">
 				<input type="hidden" name="id" th:value="${Community.getId()}" />
 				<input type="submit" value="Austreten" />
 				</form>
+				<form th:if="${Community.isAdmin()}" action="groupdelete">
+				<input type="hidden" name="id" th:value="${Community.getId()}" />
+				<input type="submit" value="Auflösen" />
+				</form>
+				
 				</div>
 			</ol>
 			</div>
