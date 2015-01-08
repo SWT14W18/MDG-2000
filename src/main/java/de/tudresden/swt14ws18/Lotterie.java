@@ -64,6 +64,8 @@ import de.tudresden.swt14ws18.util.Constants;
 @ComponentScan
 public class Lotterie {
 
+    public static boolean DEBUG = false;
+    
     private static Lotterie instance;
     private BusinessTime time;
     private TransactionRepository transactionRepo;
@@ -161,6 +163,9 @@ public class Lotterie {
     }
 
     public static void main(String[] args) {
+        if(args.length > 0 && args[0].equalsIgnoreCase("debug"))
+            DEBUG = true;
+        
         SpringApplication.run(Lotterie.class, args);
     }
     

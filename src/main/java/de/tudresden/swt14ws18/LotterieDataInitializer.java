@@ -1,10 +1,12 @@
 package de.tudresden.swt14ws18;
 
+import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Calendar;
 
 import org.salespointframework.core.DataInitializer;
+import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -36,11 +38,13 @@ public class LotterieDataInitializer implements DataInitializer {
     private final LottoMatchRepository lottoMatchRepository;
     private final MessageRepository messageRepository;
     private final CommunityRepository communityRepository;
+    private final BusinessTime time;
+    private static final LocalDateTime DEBUG_DATE = LocalDateTime.of(2014, 10, 1, 12, 0);
 
     @Autowired
     public LotterieDataInitializer(CommunityRepository communityRepository, CustomerRepository customerRepository,
             UserAccountManager userAccountManager, BankAccountRepository bankAccountRepository, TotoMatchRepository totoMatchRepository,
-            LottoMatchRepository lottoMatchRepository, MessageRepository messageRepository) {
+            LottoMatchRepository lottoMatchRepository, MessageRepository messageRepository, BusinessTime time) {
 
         Assert.notNull(customerRepository, "CustomerRepository must not be null!");
         Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
@@ -52,10 +56,17 @@ public class LotterieDataInitializer implements DataInitializer {
         this.bankAccountRepository = bankAccountRepository;
         this.totoMatchRepository = totoMatchRepository;
         this.lottoMatchRepository = lottoMatchRepository;
+        this.time = time;
     }
 
     @Override
     public void initialize() {
+
+        if (Lotterie.DEBUG) {
+            Duration dur = Duration.between(time.getTime(), DEBUG_DATE);
+            time.forward(dur);
+        }
+
         initializeUsers(userAccountManager, customerRepository, bankAccountRepository);
         initializeData(lottoMatchRepository, totoMatchRepository);
     }
@@ -63,16 +74,13 @@ public class LotterieDataInitializer implements DataInitializer {
     private void initializeData(LottoMatchRepository lottoMatchRepository, TotoMatchRepository totoMatchRepository) {
 
         if (!lottoMatchRepository.findAll().iterator().hasNext()) {
-            Calendar c = Calendar.getInstance();
-            c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-            c.set(Calendar.HOUR, 12);
-            c.set(Calendar.MINUTE, 0);
-            c.set(Calendar.SECOND, 0);
-            
-         
-            LocalDateTime ldt = LocalDateTime.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH)+1, c.get(Calendar.DATE)-1, 12, 0);
+            LocalDateTime ldt = time.getTime().withHour(12).withMinute(0).withSecond(0);
+            ldt = ldt.with(DayOfWeek.SUNDAY);
 
-            for (int i = 0; i < 50; i++) {
+            if (ldt.isBefore(time.getTime()))
+                ldt.plusDays(7);
+
+            for (int i = 0; i < 250; i++) {
                 LottoGame game = new LottoGame(ldt);
 
                 if (i == 0)
@@ -86,10 +94,9 @@ public class LotterieDataInitializer implements DataInitializer {
         if (totoMatchRepository.findAll().iterator().hasNext()) {
             return;
         }
-        
+
         TotoDataInitializer totoDataInitializer = new TotoDataInitializer(this.totoMatchRepository);
         totoDataInitializer.totoInitialize();
-
 
     }
 
@@ -101,24 +108,28 @@ public class LotterieDataInitializer implements DataInitializer {
             return;
         }
 
-        UserAccount admin = userAccountManager.create("admin", "123", Constants.ADMIN, Constants.USER,Constants.TOTO_LIST);
+        UserAccount admin = userAccountManager.create("admin", "123", Constants.ADMIN, Constants.USER, Constants.TOTO_LIST);
         userAccountManager.save(admin);
 
         BankAccount adminAccount = new BankAccount();
         ConcreteCustomer adminCustomer = new ConcreteCustomer("admin", Status.ACTIVE, admin, adminAccount);
 
         adminAccount.payIn(1000000);
-        
+
         bankAccountRepository.save(adminAccount);
         customerRepository.save(adminCustomer);
 
-        UserAccount ua1 = userAccountManager.create("hans", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,Constants.TOTO_LIST);
+        UserAccount ua1 = userAccountManager.create("hans", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,
+                Constants.TOTO_LIST);
         userAccountManager.save(ua1);
-        UserAccount ua2 = userAccountManager.create("dextermorgan", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,Constants.TOTO_LIST);
+        UserAccount ua2 = userAccountManager.create("dextermorgan", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,
+                Constants.TOTO_LIST);
         userAccountManager.save(ua2);
-        UserAccount ua3 = userAccountManager.create("earlhickey", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,Constants.TOTO_LIST);
+        UserAccount ua3 = userAccountManager.create("earlhickey", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,
+                Constants.TOTO_LIST);
         userAccountManager.save(ua3);
-        UserAccount ua4 = userAccountManager.create("mclovinfogell", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,Constants.TOTO_LIST);
+        UserAccount ua4 = userAccountManager.create("mclovinfogell", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,
+                Constants.TOTO_LIST);
         userAccountManager.save(ua4);
 
         BankAccount ba1 = new BankAccount();
