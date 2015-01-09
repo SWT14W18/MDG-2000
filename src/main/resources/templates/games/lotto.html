@@ -4,6 +4,7 @@
 <body>
 	<!-- Header include -->
 	<div th:replace="fragments/header :: header"></div>
+	
 	<section>
 		<h1>Lotto Tipperstellung</h1>
 		<hr/>
@@ -14,9 +15,10 @@
 			<p th:text="@{'Der Jackpot beträgt '+${nextLottoJackpot}} + ' €'"></p>
 			</div>
 			<br/>
+			<!--
 			<form action="/createLottoTip" method="post">
 			<div align="center">
-			<div id="divListMessages" style="min-height:570px;">
+			 <div id="divListMessages" style="min-height:570px;">
 			<ol start="1" id="listMessages" >
 			<fieldset align="center" class="tipp1">
 				<label> Tipp 1:  </label>
@@ -131,9 +133,52 @@
 				<input type="text" class="lottoButton" placeholder="0-9" name="super" />
 			</fieldset>
 			</ol>
+			
+			
+			
+	
 			</div>
-			</div>
+			-->
 			<div align="center">
+		
+			</div>
+			<form action="/createLottoTip" method="post" onsubmit="sub()" id="submitForm">
+			<div align="center">
+			<!-- neue auswahl -->
+			
+			<div align="center" style="float: none; height: auto; width: 902px; ">
+			<div id="auswahlbox" style="float: left; height: auto; width: 902px; ">
+			<div id="pat1" style="float: left; padding-right: 20px; padding-bottom: 10px;">
+			</div>
+			<div id="pat2" style="float: left; padding-right: 20px; padding-bottom: 10px;">	
+			</div>
+			<div id="pat3" style="float: left; padding-right: 20px; padding-bottom: 10px;">	
+			</div>
+			<div id="pat4" style="float: left; padding-bottom: 10px;">	
+			</div>
+			<div id="pat5" style="float: left; padding-right: 20px; padding-bottom: 10px;">	
+			</div>
+			<div id="pat6" style="float: left; padding-right: 20px; padding-bottom: 10px;">	
+			</div>
+			<div id="pat7" style="float: left; padding-right: 20px; padding-bottom: 10px;">	
+			</div>
+			<div id="pat8" style="float: left; padding-bottom: 10px;">	
+			</div>
+			<div id="pat9" style="float: left; padding-right: 20px;">	
+			</div>
+			<div id="pat10" style="float: left; padding-right: 20px;">	
+			</div>
+			<div id="pat11" style="float: left; padding-right: 20px;">	
+			</div>
+			<div id="pat12" style="float: left;">	
+			</div>
+			</div>
+			<label>Superzahl des gesamten Tippscheins </label>
+			<input type="text" class="lottoButton" placeholder="0-9" name="super" />
+			</div>
+			
+			<hr/>
+
 			<label>Einzel-/Dauertippschein</label><br/>
 			<select name="duration">
 				<option value="0">Einzelspiel</option>
@@ -148,7 +193,7 @@
 			</select><br/>
 			<label>Überprüfen sie vor dem Absenden alle Tipps auf Fehler. Falls ihnen ein Fehler beim Eintragen einer Zahl unterlaufen ist, können sie ihren Tipp bis 5 Minuten vor Ziehung (Jeden Sonntag 12:00 Uhr) ändern. Falsch eingetragene Tipps werden hingegen ignoriert und sie müssen einen Extra Tippschein erstellen.</label><br/>
 			<input type="hidden" name="gameType" value="lotto" />
-			<input type="submit" value="Tipp abgeben" />	
+			<input type="submit" id="submitButton" value="Tipp abgeben" />	
 			</div>	
 		</form>
 		
