@@ -21,16 +21,19 @@ th, td {
 				<div align="center">
 				<table style="width:100%; border:1px solid red; border-collapse: collapse;">
 				  <tr th:each="match : ${matches}">
-				    <td th:text="@{${match.getTeamHome()}+' (Heimsieg)'}">Team A</td>
+				    <td th:text="@{${match.getKey().getTeamHome()}+' (Heimsieg)'}">Team A</td>
 				    <td >gegen</td>	
-				    <td th:text="@{${match.getTeamGuest()}+' (Auswärtsseig)'}">Team B</td>
+				    <td th:text="@{${match.getKey().getTeamGuest()}+' (Auswärtsseig)'}">Team B</td>
 				    	
-				    <td ><select th:name="${match.getId()}">
+				    <td ><input th:name="${match.getKey().getId()}" th:value="${match.getValue().name()}" th:text="${match.getValue()}" type="hidden">Nothing</input>
+				    	<!--	
+				    		<select>
 				    		<option value="NOT_PLAYED">Nicht gespielt</option>
 							<option value="WIN_HOME">Heimsieg</option>
 							<option value="WIN_GUEST">Auswärtssieg</option>
 							<option value="DRAW">Unentschieden</option>
-						</select>
+							</select>
+						-->
 					</td>
 					</tr>
 				</table>
