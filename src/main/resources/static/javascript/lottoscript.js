@@ -29,8 +29,9 @@ $( document ).ready(function() {
         		$(this).toggleClass("angeklickt");
         	}
         }
+		
     });
-    button.addClass("lottoButton");
+    button.addClass("auswahlbutton");
     if(i < 10 && x < 10) {
     		button.attr("id","lotto-"+'0'+i+"-"+'0'+x); 
     }

@@ -589,3 +589,14 @@ color: #58FA58;
 .negative{
 background-color: #FE2E2E;
 }
+
+.angeklickt{
+	background-color: red;
+}
+.auswahlbutton{
+	width: 30px;
+	height: 21px;
+	border:1px solid #fcfcfc;
+	cursor: pointer;
+	
+}
