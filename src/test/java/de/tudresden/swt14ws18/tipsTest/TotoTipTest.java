@@ -44,7 +44,7 @@ public class TotoTipTest  extends AbstractIntegrationTest{
 
     @Test
     public void craftATotoTip() {
-        TotoMatch match = new TotoMatch("FC Test", "SG Beispiel", null, LocalDateTime.now(), TotoGameType.BUNDESLIGA1, 1);
+        TotoMatch match = new TotoMatch("FC Test", "SG Beispiel", null, LocalDateTime.now(), TotoGameType.BUNDESLIGA1, 1, 1);
         totoMatchRepository.save(match);
         
         UserAccount userAccount = uAManager.create("Dieter","345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);

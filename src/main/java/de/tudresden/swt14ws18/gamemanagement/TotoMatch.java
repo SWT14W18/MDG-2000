@@ -21,6 +21,7 @@ public class TotoMatch extends Game {
     private String teamGuest;
     private int scoreHome;
     private int scoreGuest;
+    private int jsonMatchId;
     @ElementCollection
     private Map<TotoResult, Double> quotes;
     @ElementCollection
@@ -38,7 +39,7 @@ public class TotoMatch extends Game {
     protected TotoMatch() {
     }
 
-    public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes, LocalDateTime date, TotoGameType totoGameType, int matchDay) {
+    public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes, LocalDateTime date, TotoGameType totoGameType, int matchDay, int jsonMatchId) {
         super(date);
         this.teamGuest = teamGuest;
         this.teamHome = teamHome;
@@ -46,6 +47,7 @@ public class TotoMatch extends Game {
         this.totoGameType = totoGameType;
         this.totoResult = TotoResult.NOT_PLAYED;
         this.matchDay = matchDay;
+        this.jsonMatchId = jsonMatchId;
         resultInput = new HashMap<>();
         resultInput.put(TotoResult.WIN_HOME, 0.0D);
         resultInput.put(TotoResult.WIN_GUEST, 0.0D);
@@ -70,6 +72,10 @@ public class TotoMatch extends Game {
      */
     public String getTeamGuest() {
         return teamGuest;
+    }
+    
+    public int getJsonMatchId(){
+    	return jsonMatchId;
     }
 
     /**

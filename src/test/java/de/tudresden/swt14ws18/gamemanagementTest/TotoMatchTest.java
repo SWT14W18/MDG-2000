@@ -40,7 +40,7 @@ public class TotoMatchTest extends AbstractIntegrationTest {
 		quotes.put(TotoResult.WIN_HOME, 1.0D);
 		quotes.put(TotoResult.WIN_GUEST, 1.0D);
 		quotes.put(TotoResult.DRAW, 1.0D);
-		TotoMatch totoMatch = new TotoMatch("teamHome", "teamGuest", quotes, ldt, TotoGameType.BUNDESLIGA1, 1);
+		TotoMatch totoMatch = new TotoMatch("teamHome", "teamGuest", quotes, ldt, TotoGameType.BUNDESLIGA1, 1, 1);
 		matchRepo.save(totoMatch);		
 		assertEquals(totoMatch, matchRepo.findOne(totoMatch.getId()));
 	}
@@ -52,7 +52,7 @@ public class TotoMatchTest extends AbstractIntegrationTest {
 		quotes.put(TotoResult.WIN_HOME, 1.0D);
 		quotes.put(TotoResult.WIN_GUEST, 1.0D);
 		quotes.put(TotoResult.DRAW, 1.0D);
-		TotoMatch totoMatch = new TotoMatch("teamHome", "teamGuest", quotes, ldt, TotoGameType.BUNDESLIGA1, 1);
+		TotoMatch totoMatch = new TotoMatch("teamHome", "teamGuest", quotes, ldt, TotoGameType.BUNDESLIGA1, 1, 1);
 		matchRepo.save(totoMatch);
 		
 		thrown.expect(IllegalArgumentException.class);

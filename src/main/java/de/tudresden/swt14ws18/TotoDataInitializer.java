@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -91,6 +92,7 @@ public class TotoDataInitializer {
 	    String team2 = match.get("name_team2").getAsString();
 	    int matchDay = match.get("group_order_id").getAsInt();
 	    String date = match.get("match_date_time").getAsString();
+	    int jsonMatchId = match.get("match_id").getAsInt();
 	    LocalDateTime gameDate = LocalDateTime.parse(date.substring(0, 10) + ";" + date.substring(11, 19), inputDTF);
 	    
     	Map<TotoResult, Double> quotes = new HashMap<>();
@@ -99,26 +101,10 @@ public class TotoDataInitializer {
     	quotes.put(TotoResult.WIN_GUEST, (double) random.nextInt(10)+1);
     	quotes.put(TotoResult.WIN_HOME, (double) random.nextInt(10)+1);
 	   
-	    TotoMatch totoMatch = new TotoMatch(team1, team2, quotes, gameDate, totoGameType, matchDay);
+	    TotoMatch totoMatch = new TotoMatch(team1, team2, quotes, gameDate, totoGameType, matchDay, jsonMatchId);
 	    totoMatchRepository.save(totoMatch);
-	    
-	    if(match.get("match_is_finished").getAsBoolean()){
-	    	int scoreHome = match.get("points_team1").getAsInt();
-	    	int scoreGuest = match.get("points_team2").getAsInt();
-		    totoMatch.setScoreHome(scoreHome);
-		    totoMatch.setScoreGuest(scoreGuest);
-		    switch(scoreHome > scoreGuest ? +1 : scoreHome < scoreGuest ? -1 : 0){
-		    	case -1:
-		    		result = TotoResult.WIN_GUEST;break;
-		    	case 0:
-		    		result = TotoResult.DRAW;break;
-		    	case 1:
-		    		result = TotoResult.WIN_HOME;break;
-
-		    }
-		    totoMatch.setResult(result);			    	    
 	    }
-	}
+	    
 
     }
     
@@ -141,6 +127,60 @@ public class TotoDataInitializer {
     		e.printStackTrace();
     	}
     	return connection;
+    }
+    
+    public Map<TotoMatch, TotoResult> updateTotoResultMatchDay(int matchDay, TotoGameType totoGameType) throws IOException{
+    	
+    	Map<TotoMatch, TotoResult> resultMap = new HashMap<>();
+    	
+    	String leagueString="";
+    	switch (totoGameType) {
+    	case BUNDESLIGA1:
+    	    leagueString = "bl1";
+    	    break;
+    	case BUNDESLIGA2:
+    		leagueString = "bl2";
+    	    break;
+    	case POKAL:
+    		leagueString = "dfb2014nf";
+    	    break;
+    	}
+    	
+    	URL url = new URL("http://openligadb-json.herokuapp.com/api/matchdata_by_group_league_saison?group_order_id="+matchDay+"&league_saison=2014&league_shortcut="+leagueString);
+    	HttpURLConnection request = (HttpURLConnection) url.openConnection();
+    	request.connect();
+    	
+    	JsonParser jp = new JsonParser();
+    	JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+    	JsonObject rootobj = root.getAsJsonObject();
+    	JsonArray matches = (JsonArray) rootobj.get("matchdata");
+    	
+    	for(TotoMatch totoMatch : totoMatchRepository.findByMatchDayAndTotoGameType(matchDay, totoGameType)){
+    		
+    		
+    		for(int i = 0; i < matches.size(); i++){
+    			JsonObject match = (JsonObject) matches.get(i);
+    			if(totoMatch.getJsonMatchId()==match.get("match_id").getAsInt()){
+    				if(match.get("match_is_finished").getAsBoolean()){
+    					int scoreHome = match.get("points_team1").getAsInt();
+    					int scoreGuest = match.get("points_team2").getAsInt();
+    					totoMatch.setScoreHome(scoreHome);
+    					totoMatch.setScoreGuest(scoreGuest);
+    					TotoResult result = TotoResult.NOT_PLAYED;
+    					switch(scoreHome > scoreGuest ? +1 : scoreHome < scoreGuest ? -1 : 0){
+    						case -1:
+    							result = TotoResult.WIN_GUEST;break;
+    						case 0:
+    							result = TotoResult.DRAW;break;
+    						case 1:
+    							result = TotoResult.WIN_HOME;break;
+    					}
+            		    resultMap.put(totoMatch, result);
+    				}
+    			}
+    	    }
+    	}
+    	return resultMap;
     }
 
     
