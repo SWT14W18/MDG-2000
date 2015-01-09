@@ -12,10 +12,10 @@ public enum BoxReason {
 		this.type = type;
 	}
 	
-	@Override
-	public String toString(){
-		return type;
-	}
+//	@Override
+//	public String toString(){
+//		return type;
+//	}
 	
 	public static BoxReason parseString(String type){
 		switch(type){
