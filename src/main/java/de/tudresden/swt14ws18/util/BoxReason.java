@@ -12,6 +12,10 @@ public enum BoxReason {
 		this.type = type;
 	}
 	
+	public String getType(){
+		return type;
+	}
+	
 //	@Override
 //	public String toString(){
 //		return type;

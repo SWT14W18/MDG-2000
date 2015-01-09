@@ -353,7 +353,7 @@ public class CustomerController extends ControllerBase {
         handleGeneralValues(map);
 
           if(boxReason != null)
-        	  map.addAttribute(boxReason.toString(), true);
+        	  map.addAttribute(boxReason.getType(), true);
 //          if(boxReason == BoxReason.TIPPCHANGEERROR)
 //        	  map.addAttribute("tippChangeError", true);
         
