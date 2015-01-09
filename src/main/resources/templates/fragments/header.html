@@ -102,7 +102,26 @@
 
 				   
 		
-                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></div></a></li>
+                   
+                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="statisticsoverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Statistiken</label></div></a>
+                   		<span>
+                   			<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="inOutOverview.html"><div class="fill-div"><label class="l_fill-div"><i class="fa fa-line-chart"></i> Geldflüsse</label></div></a>
+										</div>
+									</li>
+								</ul>								
+												
+								<ul id="navi_menu">
+									<li class="span_open">
+										<div id="navi_button">
+											<a th:href="@{/transactionOverview}" ><div class="fill-div"><label class="l_fill-div">Transaktionen</label></div></a>
+										</div>
+									</li>
+								</ul>
+                   		</span>
+                   </li>
                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="betsOverview.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i> Wettübersicht</label></div></a></li>
                   <li sec:authorize="hasRole('ROLE_BOSS')" class="liright"><a th:href="lotterydraw.html"><div><label class="menuentry" ><i class="fa fa-line-chart"></i>Ziehungen</label></div></a>
                   		<span>
