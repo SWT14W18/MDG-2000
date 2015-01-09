@@ -199,6 +199,39 @@
 						});
 					</script>
 					
+					<!-- TIPPLÖSCHUNG Erfolg BOX -->		
+					<script th:if="${tippDeleteSuccess}">
+						bootbox.dialog({
+						  title: "Löschung erfolgreich!",
+						  message: "Tipp erfolgreich gelöscht.",
+						  buttons: {
+							danger: {
+							  label: "Ok!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
+					
+					<!-- TIPPSCHEINLÖSCHUNG Erfolg BOX -->		
+					<script th:if="${tippCollectionDeleteSuccess}">
+						bootbox.dialog({
+						  title: "Löschung erfolgreich!",
+						  message: "Da sie den letzten Tipp ihres Tippscheins löschten, wurde der gesamte Tippschein erfolgreich gelöscht.",
+						  buttons: {
+							danger: {
+							  label: "Ok!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
 		
 					
 					<!-- GRUPPE LÖSCHEN Fehler BOX -->

@@ -4,7 +4,8 @@ public enum BoxReason {
 	TIPPCHANGESUCCESS("tippChangeSuccess"),
 	TIPPCHANGEERROR("tippChangeError"),
 	TIPPDELETESUCCESS("tippDeleteSuccess"),
-	TIPPDELETEERROR("tippDeleteError");
+	TIPPDELETEERROR("tippDeleteError"),
+	TIPPCOLLECTIONDELETESUCCESS("tippCollectionDeleteSuccess");
 	
 	private String type;
 	

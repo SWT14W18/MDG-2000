@@ -354,11 +354,7 @@ public class CustomerController extends ControllerBase {
 
           if(boxReason != null)
         	  map.addAttribute(boxReason.getType(), true);
-//          if(boxReason == BoxReason.TIPPCHANGEERROR)
-//        	  map.addAttribute("tippChangeError", true);
-        
-//        if(bool != null)
-//            map.addAttribute(bool ? "tippChangeSuccess" : "tippChangeError", true);
+
         
         if (authenticationManager.getCurrentUser().isPresent()) {
 
@@ -424,6 +420,8 @@ public class CustomerController extends ControllerBase {
     public String deleteLottoTip(@RequestParam("id") long id, ModelMap map) {
         handleGeneralValues(map);
 
+        
+        
         LottoTip tip = lottoTipRepository.findOne(id);
         LottoTipCollection col = lottoTipCollectionRepo.findByTips(tip);
 
@@ -434,13 +432,20 @@ public class CustomerController extends ControllerBase {
             return "index";
         
         col.removeTip(tip);
-
-        lottoTipRepository.delete(tip);
-        if (col.getTips().isEmpty())
-            lottoTipCollectionRepo.delete(col);
         
-
-        return "index";
+        lottoTipRepository.delete(tip);
+        
+        if (col.getTips().isEmpty()){
+            lottoTipCollectionRepo.delete(col);
+            map.addAttribute("boxReason", BoxReason.TIPPCOLLECTIONDELETESUCCESS);
+        }    
+        else{        	
+        	map.addAttribute("boxReason", BoxReason.TIPPDELETESUCCESS);
+        }
+        
+        
+        
+        return "redirect:tipCollectionView";
     }
 
     @RequestMapping("/totoTipChange")
@@ -489,6 +494,8 @@ public class CustomerController extends ControllerBase {
         
         return "games/lottoTipChange";
     }
+    
+    
     
     @RequestMapping(value = "/editLottoTip", method = RequestMethod.POST)
     public String editLottoTip(@RequestParam("id") long id, @RequestParam Map<String, String> params, ModelMap map) {
