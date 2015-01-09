@@ -441,7 +441,7 @@ public class CustomerController extends ControllerBase {
         map.addAttribute("boxReason", BoxReason.TIPPDELETESUCCESS);
         
         
-        return "games/overview";
+        return "index";
     }
 
     @RequestMapping("/totoTipChange")
