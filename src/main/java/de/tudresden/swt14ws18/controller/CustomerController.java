@@ -432,6 +432,7 @@ public class CustomerController extends ControllerBase {
         lottoTipRepository.delete(tip);
         if (col.getTips().isEmpty())
             lottoTipCollectionRepo.delete(col);
+        
 
         return "index";
     }

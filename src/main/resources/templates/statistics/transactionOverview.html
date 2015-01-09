@@ -26,7 +26,7 @@
 			<label  id="nach" th:text="@{'Nach: '+${transactionItem.getNameTo()}}">Von</label>
 			<label  id="von" th:text="@{'Von: '+${transactionItem.getNameFrom()}}">Von</label>
 			<label  th:text="@{'Datum: '+${transactionItem.getDateString()}}">Von</label>
-			<label  >Grund?!?!</label>
+			<label  th:text="@{'Grund: '+${transactionItem.getReason()}}">Grund?!?!</label>
 			<br/>
 			<br/>				
 			</div>

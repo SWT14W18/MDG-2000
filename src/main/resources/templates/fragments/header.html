@@ -167,8 +167,8 @@
 					<!-- TIPP�NDERUNG Fehler BOX -->		
 					<script th:if="${tippChangeError}">
 						bootbox.dialog({
-						  title: "�nderung Fehlgeschlagen!",
-						  message: "Der Tipp konnte nicht ge�ndert werden. �berpr�fen sie bitte ihre Eingaben.",
+						  title: "Änderung Fehlgeschlagen",
+						  message: "Der Tipp konnte nicht geändert werden. überprüfen Sie bitte ihre Eingaben.",
 						  buttons: {
 							danger: {
 							  label: "Verstanden!",
@@ -184,8 +184,8 @@
 					<!-- TIPP�NDERUNG Erfolg BOX -->		
 					<script th:if="${tippChangeSuccess}">
 						bootbox.dialog({
-						  title: "�nderung Erfolgreich!",
-						  message: "Tipp erfolgreich ge�ndert.",
+						  title: "Änderung Erfolgreich!",
+						  message: "Tipp erfolgreich geändert.",
 						  buttons: {
 							danger: {
 							  label: "Ok!",
@@ -197,6 +197,8 @@
 						  }
 						});
 					</script>
+					
+		
 					
 					<!-- GRUPPE LÖSCHEN Fehler BOX -->
 				    <script th:if="${groupDeleteError}">

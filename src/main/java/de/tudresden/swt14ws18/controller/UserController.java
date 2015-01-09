@@ -55,7 +55,7 @@ public class UserController extends ControllerBase {
             return "forward:bankaccount";
         }
         map.addAttribute("paymentInSuccess", true);
-        return "forward:bankaccount";
+        return "forward:transactionOverview";
     }
 
     @RequestMapping("/auszahlen")
@@ -76,7 +76,7 @@ public class UserController extends ControllerBase {
             return "forward:bankaccount";
         }
         map.addAttribute("paymentOutSuccess", true);
-        return "forward:bankaccount";
+        return "forward:transactionOverview";
     }
 
     @RequestMapping("/bankaccount")
