@@ -352,10 +352,10 @@ public class CustomerController extends ControllerBase {
     public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam(value ="boxReason", required= false) BoxReason boxReason, @RequestParam(value ="success", required = false) Boolean bool, @RequestParam("game") GameType spielType) {
         handleGeneralValues(map);
 
-          if(boxReason == BoxReason.TIPPCHANGESUCCESS)
-        	  map.addAttribute("tippChangeSuccess", true);
-          if(boxReason == BoxReason.TIPPCHANGEERROR)
-        	  map.addAttribute("tippChangeError", true);
+          if(boxReason != null)
+        	  map.addAttribute(boxReason.toString(), true);
+//          if(boxReason == BoxReason.TIPPCHANGEERROR)
+//        	  map.addAttribute("tippChangeError", true);
         
 //        if(bool != null)
 //            map.addAttribute(bool ? "tippChangeSuccess" : "tippChangeError", true);
@@ -501,14 +501,14 @@ public class CustomerController extends ControllerBase {
                 
         if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
         {
-        	map.addAttribute("boxReason", BoxReason.parseString("tippChangeSuccess"));
+        	map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
             //map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
 
         if (timeCheck(tip.getGame().getDate()))
         {
-        	map.addAttribute("boxReason", BoxReason.parseString("tippChangeError"));
+        	map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
             //map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
@@ -517,7 +517,7 @@ public class CustomerController extends ControllerBase {
         
         if(numbers == null)
         {
-        	map.addAttribute("boxReason", BoxReason.parseString("tippChangeError"));
+        	map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
             //map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
@@ -525,7 +525,7 @@ public class CustomerController extends ControllerBase {
         tip.setResult(numbers);
         lottoTipRepository.save(tip);
 
-        map.addAttribute("boxReason", BoxReason.parseString("tippChangeSuccess"));
+        map.addAttribute("boxReason", BoxReason.TIPPCHANGESUCCESS);
         //map.addAttribute("success", true);
         return "redirect:tipCollectionView";
     }
