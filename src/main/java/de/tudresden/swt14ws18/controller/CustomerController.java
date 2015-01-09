@@ -42,6 +42,7 @@ import de.tudresden.swt14ws18.tips.TotoTipCollection;
 import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Message;
+import de.tudresden.swt14ws18.util.BoxReason;
 
 @Controller
 @PreAuthorize("hasRole('ROLE_CUSTOMER')")
@@ -348,11 +349,16 @@ public class CustomerController extends ControllerBase {
 
 
     @RequestMapping("/tipCollectionView")
-    public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam(value ="success", required = false) Boolean bool, @RequestParam("game") GameType spielType) {
+    public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam(value ="boxReason", required= false) BoxReason boxReason, @RequestParam(value ="success", required = false) Boolean bool, @RequestParam("game") GameType spielType) {
         handleGeneralValues(map);
 
-        if(bool != null)
-            map.addAttribute(bool ? "tippChangeSuccess" : "tippChangeError", true);
+          if(boxReason == BoxReason.TIPPCHANGESUCCESS)
+        	  map.addAttribute("tippChangeSuccess", true);
+          if(boxReason == BoxReason.TIPPCHANGEERROR)
+        	  map.addAttribute("tippChangeError", true);
+        
+//        if(bool != null)
+//            map.addAttribute(bool ? "tippChangeSuccess" : "tippChangeError", true);
         
         if (authenticationManager.getCurrentUser().isPresent()) {
 
@@ -495,13 +501,15 @@ public class CustomerController extends ControllerBase {
                 
         if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
         {
-            map.addAttribute("success", false);
+        	map.addAttribute("boxReason", BoxReason.parseString("tippChangeSuccess"));
+            //map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
 
         if (timeCheck(tip.getGame().getDate()))
         {
-            map.addAttribute("success", false);
+        	map.addAttribute("boxReason", BoxReason.parseString("tippChangeError"));
+            //map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
         
@@ -509,14 +517,16 @@ public class CustomerController extends ControllerBase {
         
         if(numbers == null)
         {
-            map.addAttribute("success", false);
+        	map.addAttribute("boxReason", BoxReason.parseString("tippChangeError"));
+            //map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
         
         tip.setResult(numbers);
         lottoTipRepository.save(tip);
 
-        map.addAttribute("success", true);
+        map.addAttribute("boxReason", BoxReason.parseString("tippChangeSuccess"));
+        //map.addAttribute("success", true);
         return "redirect:tipCollectionView";
     }
 }
