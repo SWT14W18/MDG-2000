@@ -435,17 +435,13 @@ public class CustomerController extends ControllerBase {
         
         lottoTipRepository.delete(tip);
         
-        if (col.getTips().isEmpty()){
+        if (col.getTips().isEmpty())
             lottoTipCollectionRepo.delete(col);
-            map.addAttribute("boxReason", BoxReason.TIPPCOLLECTIONDELETESUCCESS);
-        }    
-        else{        	
-        	map.addAttribute("boxReason", BoxReason.TIPPDELETESUCCESS);
-        }
+         
+        map.addAttribute("boxReason", BoxReason.TIPPDELETESUCCESS);
         
         
-        
-        return "redirect:tipCollectionView";
+        return "games/overview";
     }
 
     @RequestMapping("/totoTipChange")
