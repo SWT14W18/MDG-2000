@@ -166,8 +166,14 @@ public class CustomerController extends ControllerBase {
         map.addAttribute("groupmanage", customer);
         
         List<TipCollection<?>> tip = new ArrayList<>();
-        tip.addAll(totoTipCollectionRepo.findByCommunity(community));
-        tip.addAll(lottoTipCollectionRepo.findByCommunity(community));
+        for(TipCollection<?> tipcol : totoTipCollectionRepo.findByCommunity(community))
+            if(!tipcol.isFinished())
+                tip.add(tipcol);
+        
+        for(TipCollection<?> tipcol : lottoTipCollectionRepo.findByCommunity(community))
+            if(!tipcol.isFinished())
+                tip.add(tipcol);
+        
         map.addAttribute("tips", tip);
         return "groups/manage";
     }
