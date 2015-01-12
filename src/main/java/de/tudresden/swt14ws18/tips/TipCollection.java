@@ -127,7 +127,7 @@ public abstract class TipCollection<T extends Tip> {
             if (customer == owner)
                 continue;
 
-            lotterie.outgoingTransaction(customer.getAccount(), win * value);
+            lotterie.outgoingTransaction(customer.getAccount(), win * value, getGameType().name() + " Gewinn");
         }
     }
 
