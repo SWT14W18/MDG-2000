@@ -189,8 +189,19 @@ public class AdminController extends ControllerBase {
     @RequestMapping("/lotterydraw")
     public String lotterydraw(ModelMap map) {
         handleGeneralValues(map);
+        
+        LottoGame result = null;
+        for (LottoGame match : lottoMatchRepository.findByResultOrderByDateAsc(null)) {
+            if (!match.getDate().isBefore(time.getTime()))
+                continue;
+
+            result = match;
+            break;
+        }
+        
         LottoNumbers numbers = LottoNumbers.draw();
 
+        map.addAttribute("date", result == null ? "Keine ausstehende Ziehung." : Constants.OUTPUT_DTF.format(result.getDate()));
         map.addAttribute("n1", numbers.getNumbers()[0]);
         map.addAttribute("n2", numbers.getNumbers()[1]);
         map.addAttribute("n3", numbers.getNumbers()[2]);
