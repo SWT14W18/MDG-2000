@@ -55,7 +55,7 @@ public class LotterieController extends ControllerBase {
 
         if (customer != null && customer.getUserAccount().hasRole(Constants.CUSTOMER)) {
             LottoGame result = null;
-            for (LottoGame match : lottoMatchRepository.findByResultOrderByDateAsc(null)) {
+            for (LottoGame match : lottoMatchRepository.findByDateBeforeOrderByDateAsc(time.getTime())) {
                 if (!match.isFinished())
                     break;
 
