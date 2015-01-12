@@ -1,9 +1,13 @@
 $( document ).ready(function() {
 
+	var a = 0;
+
 	for( var x = 0; x < 12; x++){
 	x+=1;
 	for( var i = 0; i < 49; i++){
 	i +=1;
+	a +=1;
+
     var button = $('<button/>',
     {
         text: i,
@@ -40,17 +44,19 @@ $( document ).ready(function() {
 	if(i >= 10 && x >= 10){
 			button.attr("id","lotto-"+i+"-"+x);
 	}
-    button.attr("left",a);
-    button.attr("top",b);
+	
  
     console.log(button.attr("id"));
     $('#pat'+x).append(button).end();
-    if(b!=7 && a==7){$('#pat'+x).append('<br/>').end();}
+    console.log(a);
+    if(a==7){$('#pat'+x).append('<br/>').end();a=0;}
     i-=1;
     }
    	$('#pat'+x).attr("width","auto");
     x-=1;
     } 
+ 
+	
 });
 
 function sub(){
