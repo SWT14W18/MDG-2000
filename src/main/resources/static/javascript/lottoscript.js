@@ -3,10 +3,6 @@ $( document ).ready(function() {
 	for( var x = 0; x < 12; x++){
 	x+=1;
 	for( var i = 0; i < 49; i++){
-	var a = (i%7);
-	var b = Math.trunc(i/7);
-	a +=1;
-	b +=1;
 	i +=1;
     var button = $('<button/>',
     {
@@ -64,8 +60,8 @@ function sub(){
     	if($(this).attr("active")==1){ 
     		tipp+=1;
 			var stringNumber = $(this).attr("id");
-        	var lottozahl = stringNumber.substring(6,8); //Gewählte Lottozahl
-        	var lottoschein = stringNumber.substring(9,11); //Gewählter Tippschein
+        	var lottozahl = stringNumber.substring(6,8); //Gewï¿½hlte Lottozahl
+        	var lottoschein = stringNumber.substring(9,11); //Gewï¿½hlter Tippschein
 			if(lottoschein.substring(0,1) == '0'){
 				lottoschein = lottoschein.substring(1,2);
 			}
