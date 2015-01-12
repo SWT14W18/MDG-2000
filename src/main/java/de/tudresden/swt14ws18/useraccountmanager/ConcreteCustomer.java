@@ -25,15 +25,15 @@ import de.tudresden.swt14ws18.util.Constants;
  * Dem Kunden ist genau ein org.salespointframework.useraccount.UserAccount zugeordnet, über den er später in der Lotterie zu identifizieren ist. Um
  * den Kunden allerdings in unserer Lotterie (persistent) zu speichern, ist ein CustomerRepository angelegt, in dem Jeder Kunde gespeichert ist.
  * 
- * @param messages
+ * messages
  *            : Anzahl der MItteilungen, die der Kunde bekommen hat, weil er irgendwann nicht liquid war Bei 10 Mitteilungen wird der Kunde gesperrt.
- * @param account
+ * account
  *            : Das Bankkonto des Kunden, auf dem sein Geld liegt. Er kann abheben und einzahlen
  * 
- * @param UserAccount
+ * UserAccount
  *            : der eindeutig zugeordnete UserAccount des Kunden
  * 
- * @param state
+ * state
  *            : Der Status des Kunden (ACTIVE, CLOSED, ANONYM)
  * 
  * @author Reinhard_2

@@ -23,13 +23,13 @@ import de.tudresden.swt14ws18.Lotterie;
  * Communities sind genau wie ConcreteCustomer an genau einen UserAccount gebunden, besitzen jedoch keinen BankAccount, da das Geld direkt von den
  * Konten der ConcreteCustomer kommt.
  * 
- * @param members
+ * members
  *            : Ein HashSet der Mitglieder der Gemeinschaft.
  * 
- * @param admin
+ * admin
  *            : Der Administrator der Gruppe
  * 
- * @param userAccount
+ * userAccount
  *            : Der Useraccount, der der Gemeinschaft zugeordnet ist
  * 
  *
@@ -61,11 +61,11 @@ public class Community extends Customer {
      * Konstruktor!
      * 
      * @param name
-     *            -> Name der Gemeinschaft (frei wählbar)
+     *            - Name der Gemeinschaft (frei wählbar)
      * @param password
-     *            -> Das Passwort, mit dem man in die Gruppe gelangt (vom Admin(ersteller) festgelegt)
+     *            - Das Passwort, mit dem man in die Gruppe gelangt (vom Admin(ersteller) festgelegt)
      * @param admin
-     *            -> der Kunde, der der Admin der Gruppe sein soll (im Normalfall der Ersteller)
+     *            - der Kunde, der der Admin der Gruppe sein soll (im Normalfall der Ersteller)
      */
     public Community(String name, String password, ConcreteCustomer admin) {
         super(name, password);
@@ -83,7 +83,7 @@ public class Community extends Customer {
      * Wenn ein Kunde hinzugefügt werden soll, muss geprüft werden, ob er schon Mitglied der Gruppe ist.
      * 
      * @param newMember
-     *            -> Das neue Mitglied vom Typ "ConcreteCustomer"
+     *            - Das neue Mitglied vom Typ "ConcreteCustomer"
      * @return true wenn das Mitglied hinzugefügt wurde, false wenn nicht
      */
     public boolean addMember(ConcreteCustomer newMember) {
@@ -98,7 +98,7 @@ public class Community extends Customer {
      * Ist ein Kunde bereits Mitglied?
      * 
      * @param concreteCustomer
-     *            -> für diesen Kuden prüfen
+     *            - für diesen Kuden prüfen
      * @return true wenn der Kunde Mitglied der Gruppe ist, false wenn nicht
      */
     public boolean isMember(ConcreteCustomer concreteCustomer) {
@@ -109,7 +109,7 @@ public class Community extends Customer {
      * Ein Kunde tritt aus der Gruppe aus? Dann wird er aus der Memberslist gelöscht
      * 
      * @param leaver
-     *            -> Der Kunde, der aus der Gruppe austritt
+     *            - Der Kunde, der aus der Gruppe austritt
      * @return true wenn etwas entfernt wurde, false wenn nicht
      */
     public boolean removeMember(ConcreteCustomer leaver) {

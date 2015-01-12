@@ -21,11 +21,11 @@ public enum TotoResult {
     }
 
     /**
-     * Parse ein TotoResult aus einem Input String. Valider Input ist: <br\>
-     * 0 für WIN_HOME <br\>
-     * 2 für WIN_GUEST <br\>
-     * 1 für DRAW <br\>
-     * 3 für NOT_PLAYED <br\>
+     * Parse ein TotoResult aus einem Input String. Valider Input ist: <br>
+     * 0 für WIN_HOME <br>
+     * 2 für WIN_GUEST <br>
+     * 1 für DRAW <br>
+     * 3 für NOT_PLAYED <br>
      * 
      * @param string
      *            der input String

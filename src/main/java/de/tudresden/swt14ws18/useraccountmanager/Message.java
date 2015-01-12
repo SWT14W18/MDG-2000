@@ -40,7 +40,7 @@ public class Message {
     /**
      * Der Konstruktor
      * 
-     * @param type      -> gibt an, von welchem Typ das Spiel war, bei dem der Kunde nicht bezahlen konnte
+     * @param type      - gibt an, von welchem Typ das Spiel war, bei dem der Kunde nicht bezahlen konnte
      */
     public Message(GameType type){
         this.whichGame = type;
@@ -52,7 +52,7 @@ public class Message {
     /**
      * 
      * 
-     * @return          -> das Datum, an dem die Mitteilung erstellt wurde = das Datum, an dem nicht bezahlt werden 
+     * @return          - das Datum, an dem die Mitteilung erstellt wurde = das Datum, an dem nicht bezahlt werden 
      *                     konnte
      */
     
@@ -74,7 +74,7 @@ public class Message {
     
     /**
      * 
-     * @return          -> gibt den Typ des Spiel zurück, bei dem die Message ausgelöst wurde
+     * @return          - gibt den Typ des Spiel zurück, bei dem die Message ausgelöst wurde
      */
     
     public GameType getWhichGameTypeItWas(){

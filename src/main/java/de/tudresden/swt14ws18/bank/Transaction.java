@@ -92,7 +92,7 @@ public class Transaction {
      * Transaktionen aufgelistet bekommt.
      * 
      * 
-     * @return -> Name des Kontoinhabers
+     * @return - Name des Kontoinhabers
      */
 
     public String getNameFrom() {
@@ -116,7 +116,7 @@ public class Transaction {
      * Transaktionen aufgelistet bekommt.
      * 
      * 
-     * @return -> Name des Kontoinhabers
+     * @return - Name des Kontoinhabers
      */
 
     public String getNameTo() {
