@@ -1,0 +1,15 @@
+de.tudresden.swt14ws18
+de.tudresden.swt14ws18.bank
+de.tudresden.swt14ws18.bankTests
+de.tudresden.swt14ws18.controller
+de.tudresden.swt14ws18.controllerTests
+de.tudresden.swt14ws18.gamemanagement
+de.tudresden.swt14ws18.gamemanagementTest
+de.tudresden.swt14ws18.modelTests
+de.tudresden.swt14ws18.repositories
+de.tudresden.swt14ws18.repositoryTests
+de.tudresden.swt14ws18.tips
+de.tudresden.swt14ws18.tipsTest
+de.tudresden.swt14ws18.useraccountmanager
+de.tudresden.swt14ws18.useraccountmanagerTests
+de.tudresden.swt14ws18.util
