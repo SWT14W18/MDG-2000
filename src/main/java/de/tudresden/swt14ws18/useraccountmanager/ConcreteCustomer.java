@@ -105,6 +105,10 @@ public class ConcreteCustomer {
     public boolean hasMessage(Message message) {
         return messages.contains(message);
     }
+    
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
 
     public void payOneMessage(Message message) {
         if (!account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2, "Meldung bezahlt"))

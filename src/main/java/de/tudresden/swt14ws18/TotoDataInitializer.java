@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -97,9 +96,9 @@ public class TotoDataInitializer {
 	    
     	Map<TotoResult, Double> quotes = new HashMap<>();
     	
-    	quotes.put(TotoResult.DRAW, (double) random.nextInt(10)+1);
-    	quotes.put(TotoResult.WIN_GUEST, (double) random.nextInt(10)+1);
-    	quotes.put(TotoResult.WIN_HOME, (double) random.nextInt(10)+1);
+    	quotes.put(TotoResult.DRAW, (double) (random.nextInt(90)/10)+1);
+    	quotes.put(TotoResult.WIN_GUEST, (double) (random.nextInt(90)/10)+1);
+    	quotes.put(TotoResult.WIN_HOME, (double) (random.nextInt(90)/10)+1);
 	   
 	    TotoMatch totoMatch = new TotoMatch(team1, team2, quotes, gameDate, totoGameType, matchDay, jsonMatchId);
 	    totoMatchRepository.save(totoMatch);

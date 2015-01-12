@@ -84,4 +84,26 @@ public class LottoNumbers implements Serializable {
         int s = rand.nextInt(10);
         return new LottoNumbers(s, arr);
     }
+    
+    public String getNumbersAsString() {
+        StringBuilder numbers_temp = new StringBuilder();
+
+        numbers_temp.append("  Getippte Zahlen: ");
+
+        for (int i : getNumbers()) {
+            numbers_temp.append(i);
+            numbers_temp.append(" ");
+        }
+
+        return numbers_temp.toString();
+    }
+
+    public String getSuperNumberAsString() {
+        StringBuilder temp = new StringBuilder();
+
+        temp.append("Getippte Superzahl: ");
+        temp.append(getSuperNumber());
+
+        return temp.toString();
+    }
 }
