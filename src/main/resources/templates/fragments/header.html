@@ -250,6 +250,23 @@
 						  }
 						});
 					</script>
+					
+					<!-- GRUPPE LÖSCHEN Fehler BOX -->
+				    <script th:if="${hasPlayed}">
+						bootbox.dialog({
+						  title: "Sie haben gespielt",
+						  message: "Sie haben an einem der vergangenen Spiele teilgenommen!",
+						  buttons: {
+							danger: {
+							  label: "Ok!",
+							  className: "btn-success",
+							  callback: function() {
+							   close();
+							  }
+							}
+						  }
+						});
+					</script>
 			
 					<!-- EINZAHLUNG Fehler BOX -->		
 					<script th:if="${paymentInError}">
