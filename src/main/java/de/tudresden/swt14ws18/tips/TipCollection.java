@@ -171,7 +171,7 @@ public abstract class TipCollection<T extends Tip> {
         }
 
         owner.getAccount().outgoingTransaction(Lotterie.getInstance().getBankAccount(),
-                tip.getInput() * (getShares().getRemainingShare() + ownerExtra));
+                tip.getInput() * (getShares().getRemainingShare() + ownerExtra), getGameType().name() + " Einsatz");
     }
 
     /**
