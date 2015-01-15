@@ -15,9 +15,9 @@
         <tbody>
         <tr>
           <td th:text="@{${match.getTeamHome()}}">Team A</td>
-          <td><input style="width: auto" type="radio" th:name="${'result'}" value="WIN_HOME" th:text="@{'Sieg Heim ('+${match.getQuote('WIN_HOME')}+')'}">Sieg Heim</input></td>
-          <td><input style="width: auto" type="radio" th:name="${'result'}" value="DRAW" th:text="@{'Unentschieden ('+${match.getQuote('DRAW')}+')'}">Unendschieden</input></td>
-          <td><input style="width: auto" type="radio" th:name="${'result'}" value="WIN_GUEST" th:text="@{'Sieg Auswärts ('+${match.getQuote('WIN_GUEST')}+')'}">Sieg Auswärts</input></td>
+          <td><input style="width: auto" type="radio" th:name="${'result'}" value="WIN_HOME" th:text="@{'Sieg Heim ('+${match.getQuote('WIN_HOME')}+')'}" th:checked="${winHome}">Sieg Heim</input></td>
+          <td><input style="width: auto" type="radio" th:name="${'result'}" value="DRAW" th:text="@{'Unentschieden ('+${match.getQuote('DRAW')}+')'}" th:checked="${draw}">Unendschieden</input></td>
+          <td><input style="width: auto" type="radio" th:name="${'result'}" value="WIN_GUEST" th:text="@{'Sieg Auswärts ('+${match.getQuote('WIN_GUEST')}+')'}" th:checked="${winGuest}">Sieg Auswärts</input></td>
           <td th:text="@{${match.getTeamGuest()}}">Team B</td>
           <td th:text="@{'Spiel vom:'+${match.getDateString()}}">Quote</td>
           <td style="display:none; float:right;" ><input style="display:none;" class="Radio" type="radio" th:name="${match.getId()}" value="3" checked="checked"></input></td>

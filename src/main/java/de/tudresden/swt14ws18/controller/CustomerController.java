@@ -474,7 +474,9 @@ public class CustomerController extends ControllerBase {
 
         map.addAttribute("id", id);
         map.addAttribute("match", tip.getGame());
-        map.addAttribute("result", tip.getResult());
+        map.addAttribute("winHome", tip.getResult() == TotoResult.WIN_HOME);
+        map.addAttribute("draw", tip.getResult() == TotoResult.DRAW);
+        map.addAttribute("winGuest", tip.getResult() == TotoResult.WIN_GUEST);
 
         return "games/totoTipChange";
     }
@@ -528,13 +530,11 @@ public class CustomerController extends ControllerBase {
 
         if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished()) {
             map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
-            // map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
 
         if (timeCheck(tip.getGame().getDate())) {
             map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
-            // map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
 
@@ -542,7 +542,6 @@ public class CustomerController extends ControllerBase {
 
         if (numbers == null) {
             map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
-            // map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
 
@@ -550,7 +549,6 @@ public class CustomerController extends ControllerBase {
         lottoTipRepository.save(tip);
 
         map.addAttribute("boxReason", BoxReason.TIPPCHANGESUCCESS);
-        // map.addAttribute("success", true);
         return "redirect:tipCollectionView";
     }
 }
