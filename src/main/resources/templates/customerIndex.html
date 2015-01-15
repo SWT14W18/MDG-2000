@@ -12,8 +12,8 @@
 		<br/>
 		<p th:text="@{'Die Zahlen der letzten Ziehung am '+${leastLottoDate}+' sind'}">Die Zahlen der letzten Ziehung waren:</p>
 		<br/>
-		<p th:text="@{'Gezogene Zahlen: '+${lottoNumbers}}">number</p>
-		<p th:text="@{'Gezogene Superzahl: '+${superNumber}}">superNumber</p>
+		<p th:text="${lottoNumbers}">number</p>
+		<p th:text="${superNumber}">superNumber</p>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>
