@@ -15,11 +15,11 @@ Ein aktuellen Webbrowser, vorzugsweise Google Chrome oder Mozilla Firefox.
 
 Zum kompilieren aus dem Repository wird sowohl Maven 3 als auch git benötigt.
 
-git clone https://github.com/SWT14W18/MDG-2000/
-cd MDG-2000
-mvn install
-java -jar /target/mdg2000.jar
+git clone https://github.com/SWT14W18/MDG-2000/ \
+cd MDG-2000 \
+mvn install \
+java -jar /target/mdg2000.jar \
 
-Für den Debug Modus, welcher das Programm am 1.10.2014 startet muss das Programm mit
-java -jar /target/mdg2000.jar debug
-gestartet werden.
+Für den Debug Modus, welcher das Programm am 1.10.2014 startet muss das Programm mit \
+java -jar /target/mdg2000.jar debug \
+gestartet werden. \
