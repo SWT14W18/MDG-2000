@@ -69,30 +69,26 @@ public class LotterieController extends ControllerBase {
                 map.addAttribute("leastLottoDate", Constants.OUTPUT_DTF.format(result.getDate()));
                 map.addAttribute("lottoNumbers", result.getResult().getNumbersAsString());
                 map.addAttribute("superNumber", result.getResult().getSuperNumberAsString());
-                
+
                 boolean bool = false;
-                for(LottoTip tip : lottoTipRepository.findByLottoGame(result))
-                {
+                for (LottoTip tip : lottoTipRepository.findByLottoGame(result)) {
                     LottoTipCollection col = lottoTipCollectionRepo.findByTips(tip);
-                        
-                    if(col.getOwner().equals(getCurrentUser()))
-                    {
+
+                    if (col.getOwner().equals(getCurrentUser())) {
                         bool = true;
                         break;
                     }
-                    
-                    for(Entry<Long, Double> a : col.getShares())
-                    {
+
+                    for (Entry<Long, Double> a : col.getShares()) {
                         ConcreteCustomer c = customerRepository.findOne(a.getKey());
-                        
-                        if(getCurrentUser().equals(c))
-                        {
+
+                        if (getCurrentUser().equals(c)) {
                             bool = true;
                             break;
                         }
                     }
                 }
-                
+
                 map.addAttribute("hasPlayed", bool);
             }
 

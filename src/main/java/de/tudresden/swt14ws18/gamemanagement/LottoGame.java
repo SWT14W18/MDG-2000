@@ -46,7 +46,7 @@ public class LottoGame extends Game {
      *            der Geldbetrag der in dieser Lottoziehung ausgeschütet wird.
      */
     public void setWinningPot(double winningPot) {
-    	this.totalWinningPot = winningPot;
+        this.totalWinningPot = winningPot;
         winLevels.put(LottoResult.NONE, 0 * winningPot);
         winLevels.put(LottoResult.TWO_SUPER, 0.1 * winningPot);
         winLevels.put(LottoResult.THREE, 0.1 * winningPot);
@@ -71,9 +71,14 @@ public class LottoGame extends Game {
     public LottoNumbers getResult() {
         return result;
     }
-    
-    public Double getTotalWinningPot(){
-    	return totalWinningPot;
+
+    /**
+     * Hole die Gesamtsumme an Gewinnen.
+     * 
+     * @return die Summe aller Gewinne.
+     */
+    public Double getTotalWinningPot() {
+        return totalWinningPot;
     }
 
     /**

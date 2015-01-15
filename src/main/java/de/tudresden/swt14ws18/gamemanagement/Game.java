@@ -23,6 +23,12 @@ public abstract class Game {
     protected Game() {
     }
 
+    /**
+     * Erzeugt ein Spiel
+     * 
+     * @param date
+     *            das Datum, an dem das Spiel stattfindet.
+     */
     public Game(LocalDateTime date) {
         this.date = date;
     }
@@ -59,6 +65,11 @@ public abstract class Game {
         return date;
     }
 
+    /**
+     * Hole das formatierte Datum.
+     * 
+     * @return das formatierte Datum
+     */
     public String getDateString() {
         return date.format(Constants.OUTPUT_DTF);
     }

@@ -39,7 +39,8 @@ public class TotoMatch extends Game {
     protected TotoMatch() {
     }
 
-    public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes, LocalDateTime date, TotoGameType totoGameType, int matchDay, int jsonMatchId) {
+    public TotoMatch(String teamHome, String teamGuest, Map<TotoResult, Double> quotes, LocalDateTime date, TotoGameType totoGameType, int matchDay,
+            int jsonMatchId) {
         super(date);
         this.teamGuest = teamGuest;
         this.teamHome = teamHome;
@@ -73,9 +74,14 @@ public class TotoMatch extends Game {
     public String getTeamGuest() {
         return teamGuest;
     }
-    
-    public int getJsonMatchId(){
-    	return jsonMatchId;
+
+    /**
+     * Hole die ID des Matches, welches von der WebAPI genutzt wird.
+     * 
+     * @return die ID des Matches
+     */
+    public int getJsonMatchId() {
+        return jsonMatchId;
     }
 
     /**

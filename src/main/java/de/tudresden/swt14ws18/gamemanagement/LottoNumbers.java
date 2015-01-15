@@ -67,6 +67,11 @@ public class LottoNumbers implements Serializable {
         return LottoResult.valueOf(Util.matches(getNumbers(), number.getNumbers()), getSuperNumber() == number.getSuperNumber());
     }
 
+    /**
+     * Zieht zufällt Lottozahlen.
+     * 
+     * @return eine LottoNumbers Instanz mit zufälligen Zahlen.
+     */
     public static LottoNumbers draw() {
         Random rand = new Random();
 
@@ -84,7 +89,12 @@ public class LottoNumbers implements Serializable {
         int s = rand.nextInt(10);
         return new LottoNumbers(s, arr);
     }
-    
+
+    /**
+     * Erstellt ein String mit dem Format "Getippte Zahlen: x x x x x x"
+     * 
+     * @return der String
+     */
     public String getNumbersAsString() {
         StringBuilder numbers_temp = new StringBuilder();
 
@@ -98,6 +108,11 @@ public class LottoNumbers implements Serializable {
         return numbers_temp.toString();
     }
 
+    /**
+     * Erstellt ein String mit dem Format "Getippte Superzahl: x"
+     * 
+     * @return der String
+     */
     public String getSuperNumberAsString() {
         StringBuilder temp = new StringBuilder();
 

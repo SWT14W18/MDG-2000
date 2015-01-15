@@ -88,9 +88,9 @@ public class CustomerController extends ControllerBase {
 
         handleGeneralValues(map);
         ConcreteCustomer admin = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-        String password = Community.createPassword();   // Random Passwort hinzufügen        
-        while(communityRepository.findByPassword(password) != null)
-        	password = Community.createPassword();
+        String password = Community.createPassword(); // Random Passwort hinzufügen
+        while (communityRepository.findByPassword(password) != null)
+            password = Community.createPassword();
         communityRepository.save(new Community(name, password, admin));
         return groupoverview(map);
     }
@@ -107,10 +107,10 @@ public class CustomerController extends ControllerBase {
 
         handleGeneralValues(map);
         Community community = communityRepository.findByPassword(password);
-        
-        if(community == null)
+
+        if (community == null)
             return "groups/overview";
-        
+
         ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
         community.addMember(customer);
         communityRepository.save(community);
@@ -125,41 +125,47 @@ public class CustomerController extends ControllerBase {
         handleGeneralValues(map);
         return "groups/join";
     }
-    
+
     @RequestMapping("/groupleave")
     public String groupLeave(@RequestParam("id") long id, ModelMap map) {
         handleGeneralValues(map);
-        
+
         Community com = communityRepository.findById(id);
         if (com != null)
-        if(com.isMember(getCurrentUser()) && !com.isAdmin())
-            com.removeMember(getCurrentUser());
-        
+            if (com.isMember(getCurrentUser()) && !com.isAdmin())
+                com.removeMember(getCurrentUser());
+
         communityRepository.save(com);
-        
+
         return groupoverview(map);
     }
-    
+
     @RequestMapping("/groupdelete")
     public String groupDelete(@RequestParam("id") long id, ModelMap map) {
-    	handleGeneralValues(map);
-    	
-    	Community com = communityRepository.findById(id);
-    	if (com != null) {
-    		if (com.isAdmin()) {   	
-    	for (LottoTipCollection lottotip: lottoTipCollectionRepo.findByCommunity(com))
-    		if (!lottotip.isFinished()){map.addAttribute("groupDeleteError", true); return groupoverview(map);}
-    	for (TotoTipCollection tototip: totoTipCollectionRepo.findByCommunity(com))
-    		if (!tototip.isFinished()){map.addAttribute("groupDeleteError", true); return groupoverview(map);}  	
-    	
-    	communityRepository.delete(com);
-    		}
-    	}
-    	return groupoverview(map);
+        handleGeneralValues(map);
+
+        Community com = communityRepository.findById(id);
+        if (com != null) {
+            if (com.isAdmin()) {
+                for (LottoTipCollection lottotip : lottoTipCollectionRepo.findByCommunity(com))
+                    if (!lottotip.isFinished()) {
+                        map.addAttribute("groupDeleteError", true);
+                        return groupoverview(map);
+                    }
+                for (TotoTipCollection tototip : totoTipCollectionRepo.findByCommunity(com))
+                    if (!tototip.isFinished()) {
+                        map.addAttribute("groupDeleteError", true);
+                        return groupoverview(map);
+                    }
+
+                communityRepository.delete(com);
+            }
+        }
+        return groupoverview(map);
     }
 
     @RequestMapping("/groupmanage")
-    public String groupmanage(ModelMap map, @RequestParam ("id") long id) {
+    public String groupmanage(ModelMap map, @RequestParam("id") long id) {
 
         handleGeneralValues(map);
 
@@ -167,22 +173,23 @@ public class CustomerController extends ControllerBase {
         Community community = communityRepository.findById(id);
         Set<ConcreteCustomer> customer = community.getMemberList();
         map.addAttribute("groupmanage", customer);
-        
+
         List<TipCollection<?>> tip = new ArrayList<>();
-        for(TipCollection<?> tipcol : totoTipCollectionRepo.findByCommunity(community))
-            if(!tipcol.isFinished())
+        for (TipCollection<?> tipcol : totoTipCollectionRepo.findByCommunity(community))
+            if (!tipcol.isFinished())
                 tip.add(tipcol);
-        
-        for(TipCollection<?> tipcol : lottoTipCollectionRepo.findByCommunity(community))
-            if(!tipcol.isFinished())
+
+        for (TipCollection<?> tipcol : lottoTipCollectionRepo.findByCommunity(community))
+            if (!tipcol.isFinished())
                 tip.add(tipcol);
-        
+
         map.addAttribute("tips", tip);
         return "groups/manage";
     }
-    
+
     @RequestMapping(value = "/tipCollection", method = RequestMethod.POST)
-    public String tipCollectionPost(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType gameType, @RequestParam("remove") boolean remove) {
+    public String tipCollectionPost(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType gameType,
+            @RequestParam("remove") boolean remove) {
         handleGeneralValues(map);
 
         if (authenticationManager.getCurrentUser().isPresent()) {
@@ -192,29 +199,30 @@ public class CustomerController extends ControllerBase {
                 set.addAll(lottoTipCollectionRepo.findOne(tippscheinId).getTips());
                 LottoTipCollection col = lottoTipCollectionRepo.findById(tippscheinId);
                 TipShare shares = col.getShares();
-                
+
                 double remain = 100 * shares.getRemainingShare();
                 double share = 100 * shares.getShare(getCurrentUser());
                 map.addAttribute("shares", share);
                 map.addAttribute("remain", remain);
-                
-                if (remove) shares.removeShareholder(getCurrentUser());
+
+                if (remove)
+                    shares.removeShareholder(getCurrentUser());
             }
             if (gameType == GameType.TOTO) {
                 set.addAll(totoTipCollectionRepo.findOne(tippscheinId).getTips());
                 TotoTipCollection col = totoTipCollectionRepo.findById(tippscheinId);
                 TipShare shares = col.getShares();
-                
+
                 double remain = 100 * shares.getRemainingShare();
                 double share = 100 * shares.getShare(getCurrentUser());
                 map.addAttribute("shares", share);
                 map.addAttribute("remain", remain);
-                
-                if (remove) shares.removeShareholder(getCurrentUser());
+
+                if (remove)
+                    shares.removeShareholder(getCurrentUser());
             }
             map.addAttribute("tips", set);
-            
-            
+
         }
         map.addAttribute("id", tippscheinId);
         map.addAttribute("game", gameType.name());
@@ -226,7 +234,7 @@ public class CustomerController extends ControllerBase {
         else
             return "groups/tipCollection";
     }
-    
+
     @RequestMapping("/tipCollection")
     public String tipCollection(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam("game") GameType gameType) {
         handleGeneralValues(map);
@@ -238,24 +246,24 @@ public class CustomerController extends ControllerBase {
                 set.addAll(lottoTipCollectionRepo.findOne(tippscheinId).getTips());
                 LottoTipCollection col = lottoTipCollectionRepo.findById(tippscheinId);
                 TipShare shares = col.getShares();
-                
+
                 double remain = 100 * shares.getRemainingShare();
                 double share = 100 * shares.getShare(getCurrentUser());
                 map.addAttribute("shares", share);
-                map.addAttribute("remain", remain);                
+                map.addAttribute("remain", remain);
             }
             if (gameType == GameType.TOTO) {
                 set.addAll(totoTipCollectionRepo.findOne(tippscheinId).getTips());
                 TotoTipCollection col = totoTipCollectionRepo.findById(tippscheinId);
                 TipShare shares = col.getShares();
-                
+
                 double remain = 100 * shares.getRemainingShare();
                 double share = 100 * shares.getShare(getCurrentUser());
                 map.addAttribute("shares", share);
                 map.addAttribute("remain", remain);
             }
             map.addAttribute("tips", set);
-            
+
         }
         map.addAttribute("id", tippscheinId);
         map.addAttribute("game", gameType.name());
@@ -267,47 +275,49 @@ public class CustomerController extends ControllerBase {
         else
             return "groups/tipCollection";
     }
-    
+
     @RequestMapping(value = "/changeTotoTip", method = RequestMethod.POST)
-    public String changeToto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long id, @RequestParam("game") GameType gametype){
+    public String changeToto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long id,
+            @RequestParam("game") GameType gametype) {
         handleGeneralValues(map);
-        
+
         TotoTipCollection col = totoTipCollectionRepo.findById(id);
         TipShare shares = col.getShares();
-        percentage = percentage/100;
+        percentage = percentage / 100;
         shares.addShareholder(getCurrentUser(), percentage);
         double remain = 100 * shares.getRemainingShare();
         double share = 100 * shares.getShare(getCurrentUser());
-        
+
         map.addAttribute("remain", remain);
         map.addAttribute("shares", share);
         map.addAttribute("id", id);
         map.addAttribute("game", gametype.name());
-        
+
         totoTipCollectionRepo.save(col);
-    	return "forward:tipCollection";
+        return "forward:tipCollection";
     }
 
     @RequestMapping(value = "/changeLottoTip", method = RequestMethod.POST)
-    public String changeLotto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long id, @RequestParam("game") GameType gametype){
+    public String changeLotto(ModelMap map, @RequestParam("percentage") double percentage, @RequestParam("id") long id,
+            @RequestParam("game") GameType gametype) {
         handleGeneralValues(map);
-        
+
         LottoTipCollection col = lottoTipCollectionRepo.findById(id);
         TipShare shares = col.getShares();
-        percentage = percentage/100;
+        percentage = percentage / 100;
         shares.addShareholder(getCurrentUser(), percentage);
         double remain = 100 * shares.getRemainingShare();
         double share = 100 * shares.getShare(getCurrentUser());
-        
+
         map.addAttribute("remain", remain);
         map.addAttribute("shares", share);
         map.addAttribute("id", id);
         map.addAttribute("game", gametype.name());
-        
+
         lottoTipCollectionRepo.save(col);
-    	return "forward:tipCollection";
+        return "forward:tipCollection";
     }
-    
+
     @RequestMapping("/profil")
     @PreAuthorize("isAuthenticated()")
     public String profil(ModelMap map) {
@@ -342,29 +352,28 @@ public class CustomerController extends ControllerBase {
     private List<TipCollection<?>> getTips(ConcreteCustomer customer) {
         List<TipCollection<?>> tips = new ArrayList<>();
 
-        for(TipCollection<?> tip : lottoTipCollectionRepo.findByOwner(customer))
-            if(!tip.isFinished())
+        for (TipCollection<?> tip : lottoTipCollectionRepo.findByOwner(customer))
+            if (!tip.isFinished())
                 tips.add(tip);
-        
-        for(TipCollection<?> tip : totoTipCollectionRepo.findByOwner(customer))
-            if(!tip.isFinished())
+
+        for (TipCollection<?> tip : totoTipCollectionRepo.findByOwner(customer))
+            if (!tip.isFinished())
                 tips.add(tip);
-        
-        //tips.addAll(lottoTipCollectionRepo.findByOwner(customer));
-        //tips.addAll(totoTipCollectionRepo.findByOwner(customer));
+
+        // tips.addAll(lottoTipCollectionRepo.findByOwner(customer));
+        // tips.addAll(totoTipCollectionRepo.findByOwner(customer));
 
         return tips;
     }
 
-
     @RequestMapping("/tipCollectionView")
-    public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam(value ="boxReason", required= false) BoxReason boxReason, @RequestParam("game") GameType spielType) {
+    public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId,
+            @RequestParam(value = "boxReason", required = false) BoxReason boxReason, @RequestParam("game") GameType spielType) {
         handleGeneralValues(map);
 
-          if(boxReason != null)
-        	  map.addAttribute(boxReason.getType(), true);
+        if (boxReason != null)
+            map.addAttribute(boxReason.getType(), true);
 
-        
         if (authenticationManager.getCurrentUser().isPresent()) {
 
             List<Tip> set = new ArrayList<>();
@@ -384,8 +393,6 @@ public class CustomerController extends ControllerBase {
         else
             return "games/tipCollectionView";
     }
-
-
 
     @RequestMapping("/lotto")
     public String lotto(ModelMap map) {
@@ -429,8 +436,6 @@ public class CustomerController extends ControllerBase {
     public String deleteLottoTip(@RequestParam("id") long id, ModelMap map) {
         handleGeneralValues(map);
 
-        
-        
         LottoTip tip = lottoTipRepository.findOne(id);
         LottoTipCollection col = lottoTipCollectionRepo.findByTips(tip);
 
@@ -439,17 +444,16 @@ public class CustomerController extends ControllerBase {
 
         if (timeCheck(tip.getGame().getDate()))
             return "index";
-        
+
         col.removeTip(tip);
-        
+
         lottoTipRepository.delete(tip);
-        
+
         if (col.getTips().isEmpty())
             lottoTipCollectionRepo.delete(col);
-         
+
         map.addAttribute("boxReason", BoxReason.TIPPDELETESUCCESS);
-        
-        
+
         return "index";
     }
 
@@ -461,26 +465,26 @@ public class CustomerController extends ControllerBase {
 
         map.addAttribute("id", id);
         map.addAttribute("match", tip.getGame());
-        
+
         return "games/totoTipChange";
     }
-    
+
     @RequestMapping(value = "/editTotoTip", method = RequestMethod.POST)
     public String editTotoTip(@RequestParam("id") long id, @RequestParam("result") TotoResult result, @RequestParam("input") double input) {
 
         TotoTip tip = totoTipRepository.findOne(id);
         TotoTipCollection col = totoTipCollectionRepo.findByTips(tip);
-        
+
         if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
             return "redirect:gameoverview";
 
         if (timeCheck(tip.getGame().getDate()))
             return "redirect:gameoverview";
-        
+
         tip.setResult(result);
         tip.setInput(input);
         totoTipRepository.save(tip);
-        
+
         return "redirect:gameoverview";
     }
 
@@ -495,50 +499,45 @@ public class CustomerController extends ControllerBase {
         map.addAttribute("4", tip.getNumbers().getNumbers()[3]);
         map.addAttribute("5", tip.getNumbers().getNumbers()[4]);
         map.addAttribute("6", tip.getNumbers().getNumbers()[5]);
-        map.addAttribute("super", tip.getNumbers().getSuperNumber());        
-        
+        map.addAttribute("super", tip.getNumbers().getSuperNumber());
+
         return "games/lottoTipChange";
     }
-    
-    
-    
+
     @RequestMapping(value = "/editLottoTip", method = RequestMethod.POST)
     public String editLottoTip(@RequestParam("id") long id, @RequestParam Map<String, String> params, ModelMap map) {
 
         LottoTip tip = lottoTipRepository.findOne(id);
         LottoTipCollection col = lottoTipCollectionRepo.findByTips(tip);
-        
+
         map.addAttribute("id", id);
         map.addAttribute("game", GameType.LOTTO.name());
-                
-        if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
-        {
-        	map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
-            //map.addAttribute("success", false);
+
+        if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished()) {
+            map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
+            // map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
 
-        if (timeCheck(tip.getGame().getDate()))
-        {
-        	map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
-            //map.addAttribute("success", false);
+        if (timeCheck(tip.getGame().getDate())) {
+            map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
+            // map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
-        
+
         LottoNumbers numbers = parseInput(params);
-        
-        if(numbers == null)
-        {
-        	map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
-            //map.addAttribute("success", false);
+
+        if (numbers == null) {
+            map.addAttribute("boxReason", BoxReason.TIPPCHANGEERROR);
+            // map.addAttribute("success", false);
             return "redirect:tipCollectionView";
         }
-        
+
         tip.setResult(numbers);
         lottoTipRepository.save(tip);
 
         map.addAttribute("boxReason", BoxReason.TIPPCHANGESUCCESS);
-        //map.addAttribute("success", true);
+        // map.addAttribute("success", true);
         return "redirect:tipCollectionView";
     }
 }
