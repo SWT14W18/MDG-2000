@@ -11,15 +11,20 @@ Die innovattive Idee der Gewinngemeinschaften, macht Ihr Spielerlebnis noch bess
 Zum ausführen
 ------
 
-Vorraussetzungen:
+* Java 8, vorzugsweise von Oracle.
+* Ein aktuellen Webbrowser, vorzugsweise Google Chrome oder Mozilla Firefox.
 
-Java 8, vorzugsweise von Oracle.
-Ein aktuellen Webbrowser, vorzugsweise Google Chrome oder Mozilla Firefox.
+* cd <pfad zur mdg2000.jar>
+* java -jar mdg2000.jar
+* Browser öffnen und auf http://localhost:8080 gehen.
+* Für externen Zugriff muss der Port 8080 freigegeben sein.
 
 Zum kompilieren
 ------
-Maven 3
-Git
+Benötigt:
+* Java 8
+* Maven 3
+* Git
 
 * git clone https://github.com/SWT14W18/MDG-2000/
 * cd MDG-2000
