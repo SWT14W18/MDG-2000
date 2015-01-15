@@ -125,29 +125,14 @@ public class LotterieDataInitializer implements DataInitializer {
         UserAccount ua1 = userAccountManager.create("hans", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,
                 Constants.TOTO_LIST);
         userAccountManager.save(ua1);
-        UserAccount ua2 = userAccountManager.create("dextermorgan", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,
-                Constants.TOTO_LIST);
-        userAccountManager.save(ua2);
-        UserAccount ua3 = userAccountManager.create("earlhickey", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,
-                Constants.TOTO_LIST);
-        userAccountManager.save(ua3);
-        UserAccount ua4 = userAccountManager.create("mclovinfogell", "123", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE,
-                Constants.TOTO_LIST);
-        userAccountManager.save(ua4);
 
         BankAccount ba1 = new BankAccount();
-        BankAccount ba2 = new BankAccount();
-        BankAccount ba3 = new BankAccount();
-        BankAccount ba4 = new BankAccount();
         ba1.payIn(100);
 
         ConcreteCustomer c1 = new ConcreteCustomer("hans", Status.ACTIVE, ua1, ba1);
-        ConcreteCustomer c2 = new ConcreteCustomer("dextermorgan", Status.ACTIVE, ua2, ba2);
-        ConcreteCustomer c3 = new ConcreteCustomer("earlhickey", Status.ACTIVE, ua3, ba3);
-        ConcreteCustomer c4 = new ConcreteCustomer("mclovinfogell", Status.ACTIVE, ua4, ba4);
 
-        bankAccountRepository.save(Arrays.asList(ba1, ba2, ba3, ba4));
-        customerRepository.save(Arrays.asList(c1, c2, c3, c4));
+        bankAccountRepository.save(Arrays.asList(ba1));
+        customerRepository.save(Arrays.asList(c1));
 
         Community com = new Community("Test", "test", c1);
         communityRepository.save(com);

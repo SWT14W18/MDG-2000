@@ -39,16 +39,6 @@
 			<div align="center"><input type="submit" value="Ändern"/><br/></div>
 		</form>	
 		<br/>
-		<form action="/tipCollection" method="post">
-		    <input type="hidden" name="remove" value="true"/><br/>
-		    <input type="hidden" name="groups" value="tipCollection"/>
-			<input type="hidden" name="id" th:value="${id}"/>
-			<input type="hidden" name="game" th:value="${game}"/>
-			<div align="center"><input type="submit" value="Austreten"/><br/></div>
-		</form>	     
-		<br/>
-		<br/>
-		<br/>
 	</section>
 	<!-- Footer include -->
 	<div th:replace="fragments/footer :: footer"></div>

@@ -19,7 +19,7 @@ import de.tudresden.swt14ws18.util.Constants;
 @Entity
 public class LottoGame extends Game {
 
-    private static final String title = "Losung vom %1$s";
+    private static final String TITLE = "Ziehung vom %1$s";
 
     private LottoNumbers result = null;
     private Double totalWinningPot = null;
@@ -110,7 +110,7 @@ public class LottoGame extends Game {
 
     @Override
     public String getTitle() {
-        return String.format(title, Constants.OUTPUT_DTF.format(getDate()));
+        return String.format(TITLE, Constants.OUTPUT_DTF.format(getDate()));
     }
 
     @Override

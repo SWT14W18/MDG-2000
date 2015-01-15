@@ -12,7 +12,7 @@
 		<div align="center">
 		<table>
 			<tr>
-				<td><h2>Lottoübersicht</h2>
+				<td style="padding-right:10px;"><h2>Lottoübersicht</h2>
 					<div align="left">
 					<br/>
 					<p th:text="@{'Lottogesamteinnahmen : '+${totalInput}+' €'}"></p>
@@ -41,13 +41,13 @@
 					<label th:text="@{'1.Bundesliga - '+${liga1nextMatchDay.firstKey()}+'.Spieltag'}"></label>
 					<br/>
 					<br/>
-					<label th:text="@{'Gesamttippvolumen : '+${liga1nextMatchDay.get(liga1nextMatchDay.firstKey())}+' €'}">Spieltag</label>
+					<label th:text="@{'Gesamtvolumen der Tipps : '+${liga1nextMatchDay.get(liga1nextMatchDay.firstKey())}+' €'}">Spieltag</label>
 					<br/>
 					<br/>
 					<label th:text="@{'2.Bundesliga - '+${liga2nextMatchDay.firstKey()}+'.Spieltag'}"></label>
 					<br/>
 					<br/>
-					<label th:text="@{'Gesamttippvolumen : '+${liga2nextMatchDay.get(liga2nextMatchDay.firstKey())}+' €'}">Spieltag</label>
+					<label th:text="@{'Gesamtvolumen der Tipps : '+${liga2nextMatchDay.get(liga2nextMatchDay.firstKey())}+' €'}">Spieltag</label>
 					<br/>
 					<br/>
 					<a th:text="@{'Alle Spiele der 1.Bundesliga ('+${liga1TotalInput}+' €)'}" th:href="@{/totoOverview(gameType='BUNDESLIGA1')}">1.Bundesliga</a>
