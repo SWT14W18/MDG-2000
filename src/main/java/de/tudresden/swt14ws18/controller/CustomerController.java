@@ -419,9 +419,9 @@ public class CustomerController extends ControllerBase {
         TotoTipCollection col = totoTipCollectionRepo.findByTips(tip);
 
         if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
-            return "index";
+            return "redirect:gameoverview";
         if (timeCheck(tip.getGame().getDate()))
-            return "index";
+            return "redirect:gameoverview";
 
         col.removeTip(tip);
 
@@ -429,7 +429,7 @@ public class CustomerController extends ControllerBase {
         if (col.getTips().isEmpty())
             totoTipCollectionRepo.delete(col);
 
-        return "index";
+        return "redirect:gameoverview";
     }
 
     @RequestMapping("/deleteLottoTip")
@@ -440,10 +440,10 @@ public class CustomerController extends ControllerBase {
         LottoTipCollection col = lottoTipCollectionRepo.findByTips(tip);
 
         if (!col.getOwner().equals(getCurrentUser()) || tip.isFinished() || !tip.isValid() || col.isFinished())
-            return "index";
+            return "redirect:gameoverview";
 
         if (timeCheck(tip.getGame().getDate()))
-            return "index";
+            return "redirect:gameoverview";
 
         col.removeTip(tip);
 
@@ -454,7 +454,7 @@ public class CustomerController extends ControllerBase {
 
         map.addAttribute("boxReason", BoxReason.TIPPDELETESUCCESS);
 
-        return "index";
+        return "redirect:gameoverview";
     }
 
     @RequestMapping("/totoTipChange")
