@@ -22,8 +22,6 @@ import de.tudresden.swt14ws18.util.Constants;
 /**
  * Der CommunityTest umfasst das Testen der korrekten Gruppenfunktionen.
  * 
- * TODO Gruppentests vervollständigen, wenn Gruppenfunktionalität vollständig
- * 
  * @author Reinhard_2
  *
  */

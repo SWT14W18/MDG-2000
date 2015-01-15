@@ -300,7 +300,7 @@ public class AdminController extends ControllerBase {
 
     private TreeMap<LottoGame, Double> createLottoOverview() {
         TreeMap<LottoGame, Double> lottoTipsMap = new TreeMap<LottoGame, Double>(comp);
-        // TODO mit richtiger Zeit arbeiten lassen
+
         for (LottoGame lottoGame : lottoMatchRepository.findAll()/* AfterOrderByDateAsc() */) {
             if (lottoGame.isFinished() || lottoGame.getDate().isBefore(time.getTime()))
                 continue;
