@@ -15,8 +15,7 @@ import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 /**
  * Test des BankAccountRepositories
  * 
- * Funktionen:
- * Account anlegen und speichern, Wiederfinden des eben gespeicherten Accounts, finden aller Accounts
+ * Funktionen: Account anlegen und speichern, Wiederfinden des eben gespeicherten Accounts, finden aller Accounts
  * 
  * @author Reinhard_2
  *
@@ -24,26 +23,26 @@ import de.tudresden.swt14ws18.repositories.BankAccountRepository;
 
 public class BankAccountRepositoryIntegrationTest extends AbstractIntegrationTest {
 
-    @Autowired BankAccountRepository bARepo;
-    
+    @Autowired
+    BankAccountRepository bARepo;
+
     @Test
     public void findAllBankAccounts() {
-        
+
         long size = bARepo.count();
         int sizeInt = new BigDecimal(size).intValueExact();
-        
-        
+
         assertThat(bARepo.findAll(), is(iterableWithSize(sizeInt)));
-        
+
     }
-    
+
     @Test
-    public void addAnAccount(){
+    public void addAnAccount() {
         BankAccount ba = new BankAccount();
         bARepo.save(ba);
-        
+
         assertThat(bARepo.findAll(), hasItem(ba));
-       
+
     }
 
 }

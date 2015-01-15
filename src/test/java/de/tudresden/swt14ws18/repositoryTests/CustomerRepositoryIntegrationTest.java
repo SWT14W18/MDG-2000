@@ -24,44 +24,43 @@ import de.tudresden.swt14ws18.util.Constants;
  * 
  * Test des CustomerRepositories
  * 
- * Funktionen
- * Anlegen und speichern eines Kunden, Finden aller und des angelegten Kunden
+ * Funktionen Anlegen und speichern eines Kunden, Finden aller und des angelegten Kunden
  * 
  * @author Reinhard_2
  *
  */
 
-public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest{
+public class CustomerRepositoryIntegrationTest extends AbstractIntegrationTest {
 
-    @Autowired CustomerRepository customers;
-    @Autowired UserAccountManager uAManager;
-    @Autowired BankAccountRepository bARepo;
-  
-    
-    
-    
+    @Autowired
+    CustomerRepository customers;
+    @Autowired
+    UserAccountManager uAManager;
+    @Autowired
+    BankAccountRepository bARepo;
+
     @Test
     public void findAllCustomers() {
-        
+
         UserAccount ua1 = uAManager.create("Testperson", "345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
         uAManager.save(ua1);
-        
-        BankAccount ba1 = new BankAccount();       
-        
+
+        BankAccount ba1 = new BankAccount();
+
         ConcreteCustomer c1 = new ConcreteCustomer("Testperson", Status.ACTIVE, ua1, ba1);
-        
+
         bARepo.save(ba1);
         customers.save(c1);
-        
+
         long size = customers.count();
         int sizeInt = new BigDecimal(size).intValueExact();
-        
+
         Iterable<ConcreteCustomer> result = customers.findAll();
-        
+
         assertThat(customers.findAll(), hasItem(c1));
-        
+
         assertThat(result, is(iterableWithSize(sizeInt)));
-       
+
     }
 
 }

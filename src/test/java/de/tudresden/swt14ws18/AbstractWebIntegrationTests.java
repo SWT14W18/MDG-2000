@@ -13,27 +13,28 @@ import org.springframework.web.context.WebApplicationContext;
 
 /**
  * 
- * Dieses Grundgerüst dient als Startgerüst für WebIntegrationtests, also ControllerTests!
- * =========================
- * !!!!!!NICHT FUNKTIONSFÄHIG!!!
+ * Dieses Grundgerüst dient als Startgerüst für WebIntegrationtests, also ControllerTests! ========================= !!!!!!NICHT FUNKTIONSFÄHIG!!!
  * =========================
  * 
  * aber auch nocht vom Tutor gefordert
+ * 
  * @author Reinhard_2
  *
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@SpringApplicationConfiguration(classes = Lotterie.class) //classes = Lotterie.class)
+@SpringApplicationConfiguration(classes = Lotterie.class)
+// classes = Lotterie.class)
 @ContextConfiguration(classes = Lotterie.class)
 public abstract class AbstractWebIntegrationTests {
 
-        @Autowired WebApplicationContext context;
-        protected MockMvc mvc;
+    @Autowired
+    WebApplicationContext context;
+    protected MockMvc mvc;
 
-        @Before
-        public void setUp() {
-                mvc = MockMvcBuilders.webAppContextSetup(context).build();
-        }
+    @Before
+    public void setUp() {
+        mvc = MockMvcBuilders.webAppContextSetup(context).build();
+    }
 }

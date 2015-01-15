@@ -43,92 +43,94 @@ import de.tudresden.swt14ws18.util.Constants;
  *
  */
 
+public class LottoTipTest extends AbstractIntegrationTest {
 
-public class LottoTipTest extends AbstractIntegrationTest{
-    
-    @Autowired LottoTipCollectionRepository ltcRepo;
-    @Autowired UserAccountManager uAManager;
-    @Autowired CustomerRepository customerRepo;
-    @Autowired BankAccountRepository bARepo;
-    @Autowired CommunityRepository commRepo;
-    @Autowired TipFactory tipFactory;
+    @Autowired
+    LottoTipCollectionRepository ltcRepo;
+    @Autowired
+    UserAccountManager uAManager;
+    @Autowired
+    CustomerRepository customerRepo;
+    @Autowired
+    BankAccountRepository bARepo;
+    @Autowired
+    CommunityRepository commRepo;
+    @Autowired
+    TipFactory tipFactory;
 
     @Test
-    public void createALottoTipTest(){
-        
-        LottoGame game = new LottoGame(Lotterie.getInstance().getTime().getTime());        
+    public void createALottoTipTest() {
+
+        LottoGame game = new LottoGame(Lotterie.getInstance().getTime().getTime());
         LottoTip tip = new LottoTip(game, new LottoNumbers(8, 2, 9, 1, 7, 6, 8));
-        
-        UserAccount userAccount = uAManager.create("Dieter","345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
-        uAManager.save(userAccount);       
+
+        UserAccount userAccount = uAManager.create("Dieter", "345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
+        uAManager.save(userAccount);
         BankAccount bankAccount = new BankAccount();
         bankAccount.payIn(200.0);
         ConcreteCustomer c1 = new ConcreteCustomer("Dieter", Status.ACTIVE, userAccount, bankAccount);
-        
+
         bARepo.save(bankAccount);
         customerRepo.save(c1);
-        
-        
+
         LottoTipCollection tipps = new LottoTipCollection(Arrays.asList(tip), c1, null);
-        
+
         ltcRepo.save(tipps);
-        
+
         assertThat(ltcRepo.findAll(), hasItem(tipps));
         assertThat(tipps.getTips(), hasItem(tip));
-        
-        
-        
+
     }
-    
+
     @Test
-    public void createALottoTipCommunity(){
-        
-        LottoGame game = new LottoGame(Lotterie.getInstance().getTime().getTime());        
+    public void createALottoTipCommunity() {
+
+        LottoGame game = new LottoGame(Lotterie.getInstance().getTime().getTime());
         LottoTip tip = new LottoTip(game, new LottoNumbers(8, 2, 9, 1, 7, 6, 8));
-        
-        UserAccount userAccount = uAManager.create("peter","345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
+
+        UserAccount userAccount = uAManager.create("peter", "345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
         uAManager.save(userAccount);
-        UserAccount userAccount2 = uAManager.create("siegbert","345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
+        UserAccount userAccount2 = uAManager.create("siegbert", "345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
         uAManager.save(userAccount);
-        
+
         BankAccount bankAccount = new BankAccount();
         BankAccount bankAccount2 = new BankAccount();
-        
+
         bankAccount.payIn(200.0);
         bankAccount2.payIn(200.0);
-        
+
         ConcreteCustomer c1 = new ConcreteCustomer("peter", Status.ACTIVE, userAccount, bankAccount);
         ConcreteCustomer c2 = new ConcreteCustomer("peter", Status.ACTIVE, userAccount2, bankAccount2);
-        
+
         bARepo.save(bankAccount);
         bARepo.save(bankAccount2);
-        customerRepo.save(Arrays.asList(c1,c2));
-        
+        customerRepo.save(Arrays.asList(c1, c2));
+
         Community comm1 = new Community("Gewinngemeinschaft", "345", c1);
         commRepo.save(comm1);
-        
+
         comm1.addMember(c2);
-        
+
         assertThat(comm1.getAdmin(), is(c1));
         assertEquals(comm1.getName(), "Gewinngemeinschaft");
-        
+
         new LottoTipCollection(Arrays.asList(tip), c1, comm1);
-        
+
     }
 
     @Test
     public void craftALottoTip() {
-        UserAccount userAccount = uAManager.create("Dieter","345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
-        uAManager.save(userAccount);       
+        UserAccount userAccount = uAManager.create("Dieter", "345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);
+        uAManager.save(userAccount);
         BankAccount bankAccount = new BankAccount();
         bankAccount.payIn(200.0);
         ConcreteCustomer c1 = new ConcreteCustomer("Dieter", Status.ACTIVE, userAccount, bankAccount);
-        
+
         bARepo.save(bankAccount);
         customerRepo.save(c1);
-        
+
         Map<String, String> input1 = new HashMap<String, String>();
-        
+
         assertFalse(tipFactory.craftLottoTips(input1, c1));
 
         input1.put("duration", "5");
@@ -142,13 +144,13 @@ public class LottoTipTest extends AbstractIntegrationTest{
         input1.put("number1-4", "13");
         input1.put("number1-5", "14");
         input1.put("number1-6", "15");
-        
+
         assertFalse(tipFactory.craftLottoTips(input1, c1));
-        
+
         input1.put("number1-2", "11");
 
         assertFalse(tipFactory.craftLottoTips(input1, c1));
-        
+
         input1.put("super", "11");
 
         assertFalse(tipFactory.craftLottoTips(input1, c1));

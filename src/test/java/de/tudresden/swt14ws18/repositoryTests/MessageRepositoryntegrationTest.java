@@ -17,8 +17,7 @@ import de.tudresden.swt14ws18.useraccountmanager.Message;
  * 
  * Testen des MessageRepositories
  * 
- * Funktionen
- * Anelgen einer Message, suchen und Finden einer Massge, Finden aller Messages
+ * Funktionen Anelgen einer Message, suchen und Finden einer Massge, Finden aller Messages
  * 
  * @author Reinhard_2
  *
@@ -26,29 +25,30 @@ import de.tudresden.swt14ws18.useraccountmanager.Message;
 
 public class MessageRepositoryntegrationTest extends AbstractIntegrationTest {
 
-    @Autowired MessageRepository MessageRepo;
-    
+    @Autowired
+    MessageRepository MessageRepo;
+
     @Test
     public void findAllMessages() {
-        
+
         long size = MessageRepo.count();
         int sizeInt = new BigDecimal(size).intValueExact();
-        
+
         Iterable<Message> messages = MessageRepo.findAll();
-        
+
         assertThat(messages, is(iterableWithSize(sizeInt)));
-        
+
     }
-    
+
     @Test
-    public void addAMessage(){
-        
+    public void addAMessage() {
+
         Message tempMsg = new Message(GameType.LOTTO);
-        
+
         MessageRepo.save(tempMsg);
-        
+
         assertThat(MessageRepo.findAll(), hasItem(tempMsg));
-        
+
         assertThat(MessageRepo.findOne(tempMsg.getId()), is(tempMsg));
     }
 
