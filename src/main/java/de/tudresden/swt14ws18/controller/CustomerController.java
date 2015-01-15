@@ -44,6 +44,9 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Message;
 import de.tudresden.swt14ws18.util.BoxReason;
 
+/**
+ * Kümmert sich um alle Funktionen die nur von Kunden ausgeführt werden können.
+ */
 @Controller
 @PreAuthorize("hasRole('ROLE_CUSTOMER')")
 public class CustomerController extends ControllerBase {

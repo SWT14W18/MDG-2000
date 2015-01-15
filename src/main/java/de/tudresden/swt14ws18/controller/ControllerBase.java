@@ -28,6 +28,9 @@ import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * Basisversion aller Controller
+ */
 public abstract class ControllerBase {
     protected final UserAccountManager userAccountManager;
     protected final CustomerRepository customerRepository;
@@ -78,27 +81,27 @@ public abstract class ControllerBase {
         this.totoMatchRepository = totoMatchRepository;
     }
 
-    public void handleGeneralValues(ModelMap map) {
+    protected void handleGeneralValues(ModelMap map) {
         map.addAttribute("time", Lotterie.getInstance().getTime().getTime().format(Constants.OUTPUT_DTF));
 
         if (authenticationManager.getCurrentUser().isPresent()) {
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
             map.addAttribute("balance", Constants.MONEY_FORMAT.format(customer.getAccount().getBalance()));
-            // TODO Neue Nachrichten sollten angezeigt werden mit bootbox
             map.addAttribute("newMessages", customer.getNumberOfNewMessages());
         }
-        
+
     }
 
-    public ConcreteCustomer getCurrentUser() {
-        return authenticationManager.getCurrentUser().isPresent() ? customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()) : null;
+    protected ConcreteCustomer getCurrentUser() {
+        return authenticationManager.getCurrentUser().isPresent() ? customerRepository
+                .findByUserAccount(authenticationManager.getCurrentUser().get()) : null;
     }
-    
-    public boolean timeCheck(LocalDateTime t) {
+
+    protected boolean timeCheck(LocalDateTime t) {
         return time.getTime().isAfter(t.minusMinutes(Constants.MINUTES_BEFORE_DATE));
     }
-    
-    public LottoNumbers parseInput(Map<String, String> input) {
+
+    protected LottoNumbers parseInput(Map<String, String> input) {
         if (!input.containsKey("number1"))
             return null;
         if (!input.containsKey("number2"))

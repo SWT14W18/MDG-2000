@@ -25,6 +25,9 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
+/**
+ * Enthält funktionen für angemeldete Nutzer.
+ */
 @Controller
 @PreAuthorize("hasRole('ROLE_USER')")
 public class UserController extends ControllerBase {
@@ -85,15 +88,14 @@ public class UserController extends ControllerBase {
         handleGeneralValues(map);
         return "bankaccount";
     }
-    
+
     @RequestMapping("/transactionOverview")
-    public String transactionOverview(ModelMap map){
+    public String transactionOverview(ModelMap map) {
         handleGeneralValues(map);
-        
+
         BankAccount customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get()).getAccount();
         map.addAttribute("transactions", transactionRepo.findByFromOrToOrderByDateDesc(customer, customer));
-        
-        
+
         return "statistics/transactionOverview";
     }
 }

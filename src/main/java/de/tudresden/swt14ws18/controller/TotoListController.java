@@ -47,6 +47,9 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * Müsste eigentlich in andere Controller aufgeteilt werden, aber never touch a running system.
+ */
 @Controller
 @PreAuthorize("hasRole('ROLE_TOTOLIST')")
 public class TotoListController extends ControllerBase {

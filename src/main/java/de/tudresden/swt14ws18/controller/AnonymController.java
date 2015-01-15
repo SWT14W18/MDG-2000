@@ -25,6 +25,9 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * Der Controller, der für die Funktionen eines anonymen Nutzers zuständig ist.
+ */
 @Controller
 @PreAuthorize("hasRole('ROLE_ANONYM')")
 public class AnonymController extends ControllerBase {
@@ -43,10 +46,11 @@ public class AnonymController extends ControllerBase {
     @RequestMapping("/anonymAuszahlen")
     public String auszahlen(ModelMap map) {
         handleGeneralValues(map);
-        
+
         if (authenticationManager.getCurrentUser().isPresent()) {
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-            if (!customer.getAccount().outgoingTransaction(null, customer.getAccount().getBalance(), "Auszahlung") && !(customer.getAccount().getBalance() > 0)) {
+            if (!customer.getAccount().outgoingTransaction(null, customer.getAccount().getBalance(), "Auszahlung")
+                    && !(customer.getAccount().getBalance() > 0)) {
                 map.addAttribute("paymentOutAnonymError", true);
                 return "forward:bankaccount";
             }

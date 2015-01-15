@@ -27,9 +27,12 @@ import de.tudresden.swt14ws18.repositories.TransactionRepository;
 import de.tudresden.swt14ws18.tips.TipFactory;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
+/**
+ * Beinhaltet alle Funktionalitäten, die dem Kunden gesperrt werden können.
+ */
 @Controller
 @PreAuthorize("hasRole('ROLE_CUSTOMER_BLOCKABLE')")
-public class CustomerBlockableController extends ControllerBase{
+public class CustomerBlockableController extends ControllerBase {
 
     @Autowired
     public CustomerBlockableController(UserAccountManager userAccountManager, CustomerRepository customerRepository,
@@ -37,25 +40,25 @@ public class CustomerBlockableController extends ControllerBase{
             TotoMatchRepository totoRepo, LottoTipCollectionRepository lottoTipCollectionRepo, TotoTipCollectionRepository totoTipCollectionRepo,
             BusinessTime time, TotoTipRepository totoTipRepository, LottoMatchRepository lottoMatchRepository, LottoTipRepository lottoTipRepository,
             TotoMatchRepository totoMatchRepository, MessageRepository messageRepo, TipFactory tipFactory, TransactionRepository transactionRepo) {
-        super(userAccountManager, customerRepository, communityRepository, authenticationManager, bankAccountRepository, totoRepo, lottoTipCollectionRepo,
-                totoTipCollectionRepo, time, totoTipRepository, lottoMatchRepository, lottoTipRepository, totoMatchRepository, messageRepo, tipFactory,
-                transactionRepo);
+        super(userAccountManager, customerRepository, communityRepository, authenticationManager, bankAccountRepository, totoRepo,
+                lottoTipCollectionRepo, totoTipCollectionRepo, time, totoTipRepository, lottoMatchRepository, lottoTipRepository,
+                totoMatchRepository, messageRepo, tipFactory, transactionRepo);
     }
 
     @RequestMapping(value = "/createLottoTip", method = RequestMethod.POST)
     public String createLottoTip(@RequestParam Map<String, String> params, ModelMap map) {
 
         handleGeneralValues(map);
-        if(params.isEmpty()){
+        if (params.isEmpty()) {
             map.addAttribute("lottoError", true);
             return "forward:/lotto";
         }
-        
+
         if (authenticationManager.getCurrentUser().isPresent()) {
 
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 
-            if(!tipFactory.craftLottoTips(params, customer)){
+            if (!tipFactory.craftLottoTips(params, customer)) {
                 map.addAttribute("lottoError", true);
                 return "forward:/lotto";
             }
@@ -72,8 +75,8 @@ public class CustomerBlockableController extends ControllerBase{
         if (authenticationManager.getCurrentUser().isPresent()) {
 
             ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
-            
-            if(!tipFactory.craftTotoTips(params, customer)){
+
+            if (!tipFactory.craftTotoTips(params, customer)) {
                 map.addAttribute("totoError", true);
                 return "forward:/toto";
             }

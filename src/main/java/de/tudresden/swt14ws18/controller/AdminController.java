@@ -42,6 +42,9 @@ import de.tudresden.swt14ws18.tips.TotoTip;
 import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * Der Controller der für alle Adminfunktionen zuständig ist.
+ */
 @Controller
 @PreAuthorize("hasRole('ROLE_BOSS')")
 public class AdminController extends ControllerBase {
@@ -189,7 +192,7 @@ public class AdminController extends ControllerBase {
     @RequestMapping("/lotterydraw")
     public String lotterydraw(ModelMap map) {
         handleGeneralValues(map);
-        
+
         LottoGame result = null;
         for (LottoGame match : lottoMatchRepository.findByResultOrderByDateAsc(null)) {
             if (!match.getDate().isBefore(time.getTime()))
@@ -198,7 +201,7 @@ public class AdminController extends ControllerBase {
             result = match;
             break;
         }
-        
+
         LottoNumbers numbers = LottoNumbers.draw();
 
         map.addAttribute("date", result == null ? "Keine ausstehende Ziehung." : Constants.OUTPUT_DTF.format(result.getDate()));

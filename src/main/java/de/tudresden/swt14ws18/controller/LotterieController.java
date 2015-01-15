@@ -34,6 +34,9 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * Kümmert sich um alle generellen Sachen, die keinen Account bedürfen.
+ */
 @Controller
 public class LotterieController extends ControllerBase {
     @Autowired
