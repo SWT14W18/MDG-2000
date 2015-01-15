@@ -6,7 +6,7 @@ package de.tudresden.swt14ws18.useraccountmanager;
  * @author Reinhard_2
  *
  */
-
 public enum MessageState {
-        NEW, READ
+    NEW,
+    READ
 }

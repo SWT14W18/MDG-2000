@@ -23,14 +23,11 @@ import de.tudresden.swt14ws18.Lotterie;
  * Communities sind genau wie ConcreteCustomer an genau einen UserAccount gebunden, besitzen jedoch keinen BankAccount, da das Geld direkt von den
  * Konten der ConcreteCustomer kommt.
  * 
- * members
- *            : Ein HashSet der Mitglieder der Gemeinschaft.
+ * members : Ein HashSet der Mitglieder der Gemeinschaft.
  * 
- * admin
- *            : Der Administrator der Gruppe
+ * admin : Der Administrator der Gruppe
  * 
- * userAccount
- *            : Der Useraccount, der der Gemeinschaft zugeordnet ist
+ * userAccount : Der Useraccount, der der Gemeinschaft zugeordnet ist
  * 
  *
  *
@@ -177,7 +174,6 @@ public class Community extends Customer {
     public long getId() {
         return id;
     }
-    
 
     /**
      * Ist das Mitglied Gruppenadmin?
@@ -185,20 +181,22 @@ public class Community extends Customer {
      * @return Falls Gruppenadmin: true, sonst false
      */
     public boolean isAdmin() {
-    	ConcreteCustomer c = Lotterie.getInstance().getCustomerRepository()
+        ConcreteCustomer c = Lotterie.getInstance().getCustomerRepository()
                 .findByUserAccount(Lotterie.getInstance().getAuthenticationManager().getCurrentUser().get());
-    	if (getAdmin().equals(c)) return true;
-    	
-    	return false;
+        if (getAdmin().equals(c))
+            return true;
+
+        return false;
     }
-    
+
     /**
      * Ist das Mitglied kein Gruppenadmin?
      * 
      * @return Falls Gruppenadmin: false, sonst true
      */
-    public boolean isNoAdmin(){
-    	if (isAdmin()) return false;
-    	return true;
+    public boolean isNoAdmin() {
+        if (isAdmin())
+            return false;
+        return true;
     }
 }

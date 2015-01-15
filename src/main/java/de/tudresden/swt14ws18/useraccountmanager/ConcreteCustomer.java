@@ -25,16 +25,12 @@ import de.tudresden.swt14ws18.util.Constants;
  * Dem Kunden ist genau ein org.salespointframework.useraccount.UserAccount zugeordnet, über den er später in der Lotterie zu identifizieren ist. Um
  * den Kunden allerdings in unserer Lotterie (persistent) zu speichern, ist ein CustomerRepository angelegt, in dem Jeder Kunde gespeichert ist.
  * 
- * messages
- *            : Anzahl der MItteilungen, die der Kunde bekommen hat, weil er irgendwann nicht liquid war Bei 10 Mitteilungen wird der Kunde gesperrt.
- * account
- *            : Das Bankkonto des Kunden, auf dem sein Geld liegt. Er kann abheben und einzahlen
+ * messages : Anzahl der MItteilungen, die der Kunde bekommen hat, weil er irgendwann nicht liquid war Bei 10 Mitteilungen wird der Kunde gesperrt.
+ * account : Das Bankkonto des Kunden, auf dem sein Geld liegt. Er kann abheben und einzahlen
  * 
- * UserAccount
- *            : der eindeutig zugeordnete UserAccount des Kunden
+ * UserAccount : der eindeutig zugeordnete UserAccount des Kunden
  * 
- * state
- *            : Der Status des Kunden (ACTIVE, CLOSED, ANONYM)
+ * state : Der Status des Kunden (ACTIVE, CLOSED, ANONYM)
  * 
  * @author Reinhard_2
  *
@@ -88,6 +84,12 @@ public class ConcreteCustomer {
         return messages.size();
     }
 
+    /**
+     * Fügt eine Verwarnung zu dem Kunden hinzu. Falls die Anzahl der Verwarnungen des Kunden 10 überschreitet, so wird dieser gesperrt.
+     * 
+     * @param whichGame
+     *            der Spieltyp, für welches der Kunde eine Verwarnung bekommen hat.
+     */
     public void addMessage(GameType whichGame) {
         Message tmp = new Message(whichGame);
         messages.add(tmp);
@@ -105,11 +107,17 @@ public class ConcreteCustomer {
     public boolean hasMessage(Message message) {
         return messages.contains(message);
     }
-    
+
     public UserAccount getUserAccount() {
         return userAccount;
     }
 
+    /**
+     * Zahle eine gegebende Meldung ab. Sollte der Nutzer nun weniger als 10 Meldungen und war vorher gesperrt, so wird dieser entsperrt.
+     * 
+     * @param message
+     *            die zu zahlende Meldung.
+     */
     public void payOneMessage(Message message) {
         if (!account.outgoingTransaction(Lotterie.getInstance().getBankAccount(), 2, "Meldung bezahlt"))
             return;
@@ -139,7 +147,7 @@ public class ConcreteCustomer {
 
     }
 
-    public void SetAllMessageStatesTo(MessageState state) {
+    public void setAllMessageStatesTo(MessageState state) {
         for (Message temp : messages) {
             temp.setState(state);
         }

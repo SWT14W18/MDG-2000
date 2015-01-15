@@ -11,78 +11,75 @@ import de.tudresden.swt14ws18.gamemanagement.GameType;
 import de.tudresden.swt14ws18.util.Constants;
 
 /**
- * Die Message-KLasse repräsentiert eine Mitteilung, die an einen Kunden geschickt wird, sollte er bei einem
- * Spiel seinen Einsatz nicht bezahlen können. Er wird von dem Spiel ausgeshlossen und bekommt eine Mitteilung, die
- * ihn 2€ Strafe kostet. Bei 10 Mitteilungen wird der Kunde gesperrt.
+ * Die Message-KLasse repräsentiert eine Mitteilung, die an einen Kunden geschickt wird, sollte er bei einem Spiel seinen Einsatz nicht bezahlen
+ * können. Er wird von dem Spiel ausgeshlossen und bekommt eine Mitteilung, die ihn 2€ Strafe kostet. Bei 10 Mitteilungen wird der Kunde gesperrt.
  * 
  * 
  * @author Reinhard_2
  *
  */
-
 @Entity
 public class Message {
-    
+
     @Id
     @GeneratedValue
     private long id;
-    
-    
+
     private LocalDateTime date;
     private GameType whichGame;
     private MessageState state;
-    
+
     @Deprecated
-    public Message(){
-        
+    public Message() {
+
     }
-    
+
     /**
      * Der Konstruktor
      * 
-     * @param type      - gibt an, von welchem Typ das Spiel war, bei dem der Kunde nicht bezahlen konnte
+     * @param type
+     *            - gibt an, von welchem Typ das Spiel war, bei dem der Kunde nicht bezahlen konnte
      */
-    public Message(GameType type){
+    public Message(GameType type) {
         this.whichGame = type;
         this.date = Lotterie.getInstance().getTime().getTime();
         Lotterie.getInstance().getMessagesRepository().save(this);
         this.state = MessageState.NEW;
     }
-    
+
     /**
      * 
      * 
-     * @return          - das Datum, an dem die Mitteilung erstellt wurde = das Datum, an dem nicht bezahlt werden 
-     *                     konnte
+     * @return - das Datum, an dem die Mitteilung erstellt wurde = das Datum, an dem nicht bezahlt werden konnte
      */
-    
-    public LocalDateTime getMessageDate(){
+
+    public LocalDateTime getMessageDate() {
         return date;
     }
-    
+
     public String getMessageDateString() {
         return date.format(Constants.OUTPUT_DTF);
     }
-    
-    public MessageState getState(){
+
+    public MessageState getState() {
         return this.state;
     }
-    
-    public void setState(MessageState state){
+
+    public void setState(MessageState state) {
         this.state = state;
     }
-    
+
     /**
      * 
-     * @return          - gibt den Typ des Spiel zurück, bei dem die Message ausgelöst wurde
+     * @return - gibt den Typ des Spiel zurück, bei dem die Message ausgelöst wurde
      */
-    
-    public GameType getWhichGameTypeItWas(){
+
+    public GameType getWhichGameTypeItWas() {
         return whichGame;
     }
 
     public long getId() {
-	return id;
+        return id;
     }
 
     @Override
