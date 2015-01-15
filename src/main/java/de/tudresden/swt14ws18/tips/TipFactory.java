@@ -169,7 +169,7 @@ public class TipFactory {
             }
 
             for (LottoNumbers num : numbers)
-                tips.add(new LottoTip((LottoGame) game, num));
+                tips.add(new LottoTip(game, num));
         }
 
         if (tips.size() == 0)

@@ -114,7 +114,7 @@ public abstract class TipCollection<T extends Tip> {
     }
 
     private void payout(Tip o) {
-        Tip tip = (Tip) o;
+        Tip tip = o;
 
         if (!tip.isValid())
             return;
@@ -142,7 +142,7 @@ public abstract class TipCollection<T extends Tip> {
     }
 
     private void checkMoney(Tip o) {
-        Tip tip = (Tip) o;
+        Tip tip = o;
 
         double ownerExtra = getShares().getShare(owner);
 
