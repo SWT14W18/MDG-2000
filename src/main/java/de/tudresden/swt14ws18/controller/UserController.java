@@ -52,6 +52,9 @@ public class UserController extends ControllerBase {
             if (authenticationManager.getCurrentUser().isPresent() && money > 0) {
                 ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
                 customer.getAccount().payIn(money);
+            } else {
+                map.addAttribute("paymentOutError", true);
+                return "forward:bankaccount";
             }
         } catch (Exception e) {
             map.addAttribute("paymentInError", true);
@@ -73,6 +76,9 @@ public class UserController extends ControllerBase {
                     map.addAttribute("paymentOutError", true);
                     return "forward:bankaccount";
                 }
+            } else {
+                map.addAttribute("paymentOutError", true);
+                return "forward:bankaccount";
             }
         } catch (Exception e) {
             map.addAttribute("paymentOutError", true);
