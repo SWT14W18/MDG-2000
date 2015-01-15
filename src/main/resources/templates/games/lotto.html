@@ -191,7 +191,7 @@
 				<option value="null">Alleine Spielen</option>
 				<option th:each="group : ${groups}" th:value="${group.getId()}" th:text="${group.getName()}">Gruppenname</option>	
 			</select><br/>
-			<label>Überprüfen sie vor dem Absenden alle Tipps auf Fehler. Falls ihnen ein Fehler beim Eintragen einer Zahl unterlaufen ist, können sie ihren Tipp bis 5 Minuten vor Ziehung (Jeden Sonntag 12:00 Uhr) ändern. Falsch eingetragene Tipps werden hingegen ignoriert und sie müssen einen Extra Tippschein erstellen.</label><br/>
+			<label>Überprüfen Sie vor dem Absenden alle Tipps auf Fehler. Falls Ihnen ein Fehler beim Eintragen einer Zahl unterlaufen ist, können Sie Ihren Tipp bis 5 Minuten vor Ziehung (Jeden Sonntag 12:00 Uhr) ändern. Falsch eingetragene Tipps werden hingegen ignoriert und Sie müssen einen extra Tippschein erstellen.</label><br/>
 			<input type="hidden" name="gameType" value="lotto" />
 			<input type="submit" id="submitButton" value="Tipp abgeben" />	
 			</div>	
