@@ -2,5 +2,8 @@
 /.classpath
 /.project
 /.settings
-/target
+/target/*
+!/target/mdg2000.jar
 /db
+/data
+/target/
