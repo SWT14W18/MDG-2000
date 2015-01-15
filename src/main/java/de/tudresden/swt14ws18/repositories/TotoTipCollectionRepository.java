@@ -11,12 +11,11 @@ import de.tudresden.swt14ws18.useraccountmanager.Community;
 import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 public interface TotoTipCollectionRepository extends CrudRepository<TotoTipCollection, Long> {
-
     public Collection<TotoTipCollection> findByOwner(ConcreteCustomer customer);
 
     public TotoTipCollection findByTips(TotoTip totoTip);
-    
-    public List<TotoTipCollection> findByCommunity (Community community);
 
-	public TotoTipCollection findById(long id);
+    public List<TotoTipCollection> findByCommunity(Community community);
+
+    public TotoTipCollection findById(long id);
 }

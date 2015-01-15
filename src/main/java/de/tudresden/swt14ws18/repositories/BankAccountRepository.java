@@ -7,7 +7,5 @@ import de.tudresden.swt14ws18.bank.BankAccount;
 
 @Configuration
 public interface BankAccountRepository extends CrudRepository<BankAccount, Long> {
-	
-	
 
 }

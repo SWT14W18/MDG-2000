@@ -9,8 +9,7 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 
 @Configuration
 public interface CustomerRepository extends CrudRepository<ConcreteCustomer, Long> {
-	
-	public ConcreteCustomer findByUserAccount(UserAccount userAccount);
-	public ConcreteCustomer findByAccount(BankAccount bankAccount);
+    public ConcreteCustomer findByUserAccount(UserAccount userAccount);
 
+    public ConcreteCustomer findByAccount(BankAccount bankAccount);
 }
