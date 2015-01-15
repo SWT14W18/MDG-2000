@@ -28,6 +28,12 @@ public class LottoTip extends Tip {
 
     }
 
+    /**
+     * @param game
+     *            das Spiel für den Tipp
+     * @param numbers
+     *            die Zahlen für den Tipp
+     */
     public LottoTip(LottoGame game, LottoNumbers numbers) {
         this.numbers = numbers;
         this.lottoGame = game;
@@ -112,6 +118,11 @@ public class LottoTip extends Tip {
         return LOTTO_INPUT;
     }
 
+    /**
+     * Erstellt ein String mit dem Format "Getippte Zahlen: x x x x x x"
+     * 
+     * @return der String
+     */
     public String getNumbersAsString() {
         StringBuilder numbers_temp = new StringBuilder();
 
@@ -125,6 +136,11 @@ public class LottoTip extends Tip {
         return numbers_temp.toString();
     }
 
+    /**
+     * Erstellt ein String mit dem Format "Getippte Superzahl: x"
+     * 
+     * @return der String
+     */
     public String getSuperNumberAsString() {
         StringBuilder temp = new StringBuilder();
 
@@ -134,6 +150,11 @@ public class LottoTip extends Tip {
         return temp.toString();
     }
 
+    /**
+     * See Game.getTitle()
+     * 
+     * @return ein String
+     */
     public String getLottoGameTitleAsString() {
         return lottoGame.getTitle();
     }

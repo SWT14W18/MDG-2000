@@ -24,8 +24,7 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.util.Constants;
 
 /**
- * Zuständig um Tipps zu erstellen.
- * Ist kein sauberes Factory Pattern mehr...
+ * Zuständig um Tipps zu erstellen. Ist kein sauberes Factory Pattern mehr...
  */
 @Component
 public class TipFactory {

@@ -73,11 +73,11 @@ public abstract class TipCollection<T extends Tip> {
     public TipShare getShares() {
         return shares;
     }
-    
+
     public Community getCommunity() {
         return community;
     }
-    
+
     public boolean hasCommunity() {
         return community != null;
     }
@@ -88,8 +88,10 @@ public abstract class TipCollection<T extends Tip> {
      * Meldet dem Tippschein, dass einer seiner Tipps fertig ist. Es gibt 2 Modies. Modus "true" überprüft ob der Tipp valide ist und zieht
      * gegebenenfalls das Geld ab. Modus "false" überweist den Spielern ihren Gewinn
      * 
-     * @param o der Tip, der geupdated wurde
-     * @param arg true wenn das Geld überprüft werden soll, false wenn das Ergebnis ausgezahlt werden soll
+     * @param o
+     *            der Tip, der geupdated wurde
+     * @param arg
+     *            true wenn das Geld überprüft werden soll, false wenn das Ergebnis ausgezahlt werden soll
      */
     public void update(Tip o, boolean arg) {
         if (arg)
@@ -118,10 +120,10 @@ public abstract class TipCollection<T extends Tip> {
             return;
 
         double win = tip.getWinAmount();
-        
-        if(win <= 0)
+
+        if (win <= 0)
             return;
-        
+
         double ownerExtra = getShares().getShare(owner);
 
         BankAccount lotterie = Lotterie.getInstance().getBankAccount();
