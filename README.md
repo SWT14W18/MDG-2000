@@ -1,4 +1,5 @@
-=== MDG-2000 ===
+MDG-2000
+======
 Die Lotterie "Mach Dein Glück!!" ist eine webbasierte Lotterie, die weltweit ihre Dienste bereitstellt. Bei uns können Sie
 auf höchstem Nievau sowohl Lotto 6aus49, als auch FußballTOTO spielen für die 1. und 2. Bundesliga sowie für alle Pokalspiele.
 
@@ -7,13 +8,18 @@ Geldtransfer, Tippen und GEWINNEN!
 
 Die innovattive Idee der Gewinngemeinschaften, macht Ihr Spielerlebnis noch besser und steigert ihre Chancen auf einen Hauptgewinn beträchtlich.
 
-=== Zum ausführen ===
+Zum ausführen
+------
 
 Vorraussetzungen:
+
 Java 8, vorzugsweise von Oracle.
 Ein aktuellen Webbrowser, vorzugsweise Google Chrome oder Mozilla Firefox.
 
-Zum kompilieren aus dem Repository wird sowohl Maven 3 als auch git benötigt.
+Zum kompilieren
+------
+Maven 3
+Git
 
 * git clone https://github.com/SWT14W18/MDG-2000/
 * cd MDG-2000
