@@ -92,9 +92,9 @@ public class TotoDataInitializer {
 
             Map<TotoResult, Double> quotes = new HashMap<>();
 
-            quotes.put(TotoResult.DRAW, (double) (random.nextInt(90) / 10) + 1);
-            quotes.put(TotoResult.WIN_GUEST, (double) (random.nextInt(90) / 10) + 1);
-            quotes.put(TotoResult.WIN_HOME, (double) (random.nextInt(90) / 10) + 1);
+            quotes.put(TotoResult.DRAW, (double) random.nextInt(90) / (double) 10 + 1);
+            quotes.put(TotoResult.WIN_GUEST, (double) random.nextInt(90) / (double) 10 + 1);
+            quotes.put(TotoResult.WIN_HOME, (double) random.nextInt(90) / (double) 10 + 1);
 
             TotoMatch totoMatch = new TotoMatch(team1, team2, quotes, gameDate, totoGameType, matchDay, jsonMatchId);
             totoMatchRepository.save(totoMatch);
