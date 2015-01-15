@@ -23,11 +23,12 @@ Ausführen:
 
 Zum kompilieren
 ------
-Benötigt:
+Vorraussetzung:
 * Java 8
 * Maven 3
 * Git
 
+Kompilieren:
 * git clone https://github.com/SWT14W18/MDG-2000/
 * cd MDG-2000
 * mvn install
