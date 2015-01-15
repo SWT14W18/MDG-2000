@@ -19,11 +19,11 @@
 
  					<label th:text="@{${match.getTeamHome()}+' - '+${match.getTeamGuest()}}">FC Beispiel - KeinPlan SC</label>
  					<br/>
- 					<label th:text="@{'Heimsieg : '+${match.getResultInput().get(WIN_HOME)}}"></label>
+ 					<label th:text="@{'Heimsieg : '+${match.getResultInput().get(match.getResult().parseString(0))}}"></label>
 
- 					<label th:text="@{'Auswärtssieg : '+${match.getResultInput().get(WIN_GUEST)}}"></label>
+ 					<label th:text="@{'Auswärtssieg : '+${match.getResultInput().get(match.getResult().parseString(2))}}"></label>
 
- 					<label th:text="@{'Unentschieden : '+${match.getResultInput().get(DRAW)}}"></label>
+ 					<label th:text="@{'Unentschieden : '+${match.getResultInput().get(match.getResult().parseString(1))}}"></label>
  					<br/>
  					<br/>
 				</div>
