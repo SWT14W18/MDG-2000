@@ -26,6 +26,7 @@ public class TotoTip extends Tip {
 
     }
 
+    @SuppressWarnings("deprecation")
     public TotoTip(TotoMatch totoMatch, TotoResult result, double input) {
         this.totoMatch = totoMatch;
         this.result = result;

@@ -1,7 +1,11 @@
 package de.tudresden.swt14ws18.tipsTest;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -108,7 +112,7 @@ public class LottoTipTest extends AbstractIntegrationTest{
         assertThat(comm1.getAdmin(), is(c1));
         assertEquals(comm1.getName(), "Gewinngemeinschaft");
         
-        LottoTipCollection tipps = new LottoTipCollection(Arrays.asList(tip), c1, comm1);
+        new LottoTipCollection(Arrays.asList(tip), c1, comm1);
         
     }
 

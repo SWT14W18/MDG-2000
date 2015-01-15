@@ -1,7 +1,9 @@
 package de.tudresden.swt14ws18.useraccountmanagerTests;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.iterableWithSize;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 import org.salespointframework.useraccount.UserAccount;
@@ -38,8 +40,6 @@ public class ConcreteCustomerTest extends AbstractIntegrationTest{
         @Autowired BankAccountRepository bARepo;
         @Autowired MessageRepository msgRepo;
     
-	
-	@SuppressWarnings("deprecation")
         @Test
 	public void testConcreteCustomer() {
 	        UserAccount userAccount = uAManager.create("Dieter","345", Constants.USER, Constants.CUSTOMER, Constants.CUSTOMER_BLOCKABLE);

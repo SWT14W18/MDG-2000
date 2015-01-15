@@ -60,7 +60,7 @@ public class CustomerController extends ControllerBase {
     }
 
     @RequestMapping("/payMessage")
-    public String payMessage(@RequestParam("id") long id, ModelMap map) {
+    public String payMessage(@RequestParam("id") long id) {
         Message message = messageRepo.findById(id);
         ConcreteCustomer customer = customerRepository.findByUserAccount(authenticationManager.getCurrentUser().get());
 
@@ -355,7 +355,7 @@ public class CustomerController extends ControllerBase {
 
 
     @RequestMapping("/tipCollectionView")
-    public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam(value ="boxReason", required= false) BoxReason boxReason, @RequestParam(value ="success", required = false) Boolean bool, @RequestParam("game") GameType spielType) {
+    public String tipCollectionView(ModelMap map, @RequestParam("id") long tippscheinId, @RequestParam(value ="boxReason", required= false) BoxReason boxReason, @RequestParam("game") GameType spielType) {
         handleGeneralValues(map);
 
           if(boxReason != null)
@@ -463,7 +463,7 @@ public class CustomerController extends ControllerBase {
     }
     
     @RequestMapping(value = "/editTotoTip", method = RequestMethod.POST)
-    public String editTotoTip(@RequestParam("id") long id, @RequestParam("result") TotoResult result, @RequestParam("input") double input, ModelMap map) {
+    public String editTotoTip(@RequestParam("id") long id, @RequestParam("result") TotoResult result, @RequestParam("input") double input) {
 
         TotoTip tip = totoTipRepository.findOne(id);
         TotoTipCollection col = totoTipCollectionRepo.findByTips(tip);

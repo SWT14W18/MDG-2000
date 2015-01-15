@@ -175,7 +175,7 @@ public class AdminController extends ControllerBase {
     }
 
     @RequestMapping("/vorspulen")
-    public String vorspulen(@RequestParam("time") long minutes, ModelMap map) {
+    public String vorspulen(@RequestParam("time") long minutes) {
         time.forward(Duration.ofMinutes(minutes));
         return "redirect:time";
     }

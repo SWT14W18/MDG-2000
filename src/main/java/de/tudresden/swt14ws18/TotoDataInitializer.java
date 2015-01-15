@@ -81,7 +81,6 @@ public class TotoDataInitializer {
 	JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
 	JsonObject rootobj = root.getAsJsonObject();
 	JsonArray matches = (JsonArray) rootobj.get("matchdata");
-	TotoResult result = TotoResult.NOT_PLAYED;
 
 	for (int i = 0; i < a; i++) {
 
