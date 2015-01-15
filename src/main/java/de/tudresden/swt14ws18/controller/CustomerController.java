@@ -135,6 +135,18 @@ public class CustomerController extends ControllerBase {
             if (com.isMember(getCurrentUser()) && !com.isAdmin())
                 com.removeMember(getCurrentUser());
 
+        for (LottoTipCollection tip : lottoTipCollectionRepo.findByCommunity(com)) {
+            if (tip.getShares().containsShareholder(getCurrentUser()))
+                tip.getShares().removeShareholder(getCurrentUser());
+            lottoTipCollectionRepo.save(tip);
+        }
+
+        for (TotoTipCollection tip : totoTipCollectionRepo.findByCommunity(com)) {
+            if (tip.getShares().containsShareholder(getCurrentUser()))
+                tip.getShares().removeShareholder(getCurrentUser());
+            totoTipCollectionRepo.save(tip);
+        }
+
         communityRepository.save(com);
 
         return groupoverview(map);
@@ -359,9 +371,6 @@ public class CustomerController extends ControllerBase {
         for (TipCollection<?> tip : totoTipCollectionRepo.findByOwner(customer))
             if (!tip.isFinished())
                 tips.add(tip);
-
-        // tips.addAll(lottoTipCollectionRepo.findByOwner(customer));
-        // tips.addAll(totoTipCollectionRepo.findByOwner(customer));
 
         return tips;
     }
