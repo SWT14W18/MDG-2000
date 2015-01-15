@@ -21,6 +21,10 @@ Ausführen:
 * Browser öffnen und auf http://localhost:8080 gehen.
 * Für externen Zugriff muss der Port 8080 freigegeben sein.
 
+Für den Debug Modus, welcher das Programm am 1.10.2014 startet muss das Programm mit
+* java -jar /target/mdg2000.jar debug
+gestartet werden.
+
 Zum kompilieren
 ------
 Vorraussetzung:
@@ -32,8 +36,3 @@ Kompilieren:
 * git clone https://github.com/SWT14W18/MDG-2000/
 * cd MDG-2000
 * mvn install
-* java -jar /target/mdg2000.jar
-
-Für den Debug Modus, welcher das Programm am 1.10.2014 startet muss das Programm mit
-* java -jar /target/mdg2000.jar debug
-gestartet werden.
