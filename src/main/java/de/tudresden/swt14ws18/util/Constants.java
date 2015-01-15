@@ -22,4 +22,5 @@ public final class Constants {
     public static final DateTimeFormatter OUTPUT_DTF = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss", Locale.GERMAN);
     public static final double LOTTO_PRICE = 1.00D;
     public static final double INPUT_INTO_POT = 0.9D;
+    public static final String ADMIN_NAME = "Lotterie";
 }

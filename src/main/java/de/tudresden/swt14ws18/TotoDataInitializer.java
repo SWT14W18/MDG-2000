@@ -26,7 +26,6 @@ import de.tudresden.swt14ws18.repositories.TotoMatchRepository;
  * http://openligadb-json.herokuapp.com/api die Daten für alle Partien der 1. und 2. Bundesliga und des DFB-Pokals, erzeugt jeweils ein TotoMatch und
  * speichert es im TotoMatchRepository
  */
-
 public class TotoDataInitializer {
 
     private TotoMatchRepository totoMatchRepository;
@@ -35,96 +34,93 @@ public class TotoDataInitializer {
     DateTimeFormatter inputDTF = DateTimeFormatter.ofPattern("yyyy-MM-dd;HH:mm:ss");
 
     public TotoDataInitializer(TotoMatchRepository totoMatchRepository) {
-    	this.totoMatchRepository = totoMatchRepository;
-    	this.random = new Random();
+        this.totoMatchRepository = totoMatchRepository;
+        this.random = new Random();
     }
-    
-    
-    public void totoInitialize(){
-    	
-    	if(checkConnection()){
-    		try {
-    			loadTotoMatches(TotoGameType.BUNDESLIGA1);
-    			loadTotoMatches(TotoGameType.BUNDESLIGA2);
-    			loadTotoMatches(TotoGameType.POKAL);
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
-    	}
-	}
-    
+
+    public void totoInitialize() {
+
+        if (checkConnection()) {
+            try {
+                loadTotoMatches(TotoGameType.BUNDESLIGA1);
+                loadTotoMatches(TotoGameType.BUNDESLIGA2);
+                loadTotoMatches(TotoGameType.POKAL);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void loadTotoMatches(TotoGameType totoGameType) throws IOException {
-	String urlString = "";
-	int a = 0;
+        String urlString = "";
+        int a = 0;
 
-	switch (totoGameType) {
-	case BUNDESLIGA1:
-	    urlString = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=bl1";
-	    a = 306;
-	    break;
-	case BUNDESLIGA2:
-	    urlString = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=bl2";
-	    a = 306;
-	    break;
-	case POKAL:
-	    urlString = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=dfb2014nf";
-	    a = 56;
-	    break;
-	}
+        switch (totoGameType) {
+        case BUNDESLIGA1:
+            urlString = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=bl1";
+            a = 306;
+            break;
+        case BUNDESLIGA2:
+            urlString = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=bl2";
+            a = 306;
+            break;
+        case POKAL:
+            urlString = "http://openligadb-json.herokuapp.com/api/matchdata_by_league_saison?league_saison=2014&league_shortcut=dfb2014nf";
+            a = 56;
+            break;
+        }
 
-	URL url = new URL(urlString);
-	HttpURLConnection request = (HttpURLConnection) url.openConnection();
-	request.connect();
+        URL url = new URL(urlString);
+        HttpURLConnection request = (HttpURLConnection) url.openConnection();
+        request.connect();
 
-	JsonParser jp = new JsonParser();
-	JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
-	JsonObject rootobj = root.getAsJsonObject();
-	JsonArray matches = (JsonArray) rootobj.get("matchdata");
+        JsonParser jp = new JsonParser();
+        JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+        JsonObject rootobj = root.getAsJsonObject();
+        JsonArray matches = (JsonArray) rootobj.get("matchdata");
 
-	for (int i = 0; i < a; i++) {
+        for (int i = 0; i < a; i++) {
 
-	    JsonObject match = (JsonObject) matches.get(i);
-	    
-	    String team1 = match.get("name_team1").getAsString();
-	    String team2 = match.get("name_team2").getAsString();
-	    int matchDay = match.get("group_order_id").getAsInt();
-	    String date = match.get("match_date_time").getAsString();
-	    int jsonMatchId = match.get("match_id").getAsInt();
-	    LocalDateTime gameDate = LocalDateTime.parse(date.substring(0, 10) + ";" + date.substring(11, 19), inputDTF);
-	    
-    	Map<TotoResult, Double> quotes = new HashMap<>();
-    	
-    	quotes.put(TotoResult.DRAW, (double) (random.nextInt(90)/10)+1);
-    	quotes.put(TotoResult.WIN_GUEST, (double) (random.nextInt(90)/10)+1);
-    	quotes.put(TotoResult.WIN_HOME, (double) (random.nextInt(90)/10)+1);
-	   
-	    TotoMatch totoMatch = new TotoMatch(team1, team2, quotes, gameDate, totoGameType, matchDay, jsonMatchId);
-	    totoMatchRepository.save(totoMatch);
-	    }
-	    
+            JsonObject match = (JsonObject) matches.get(i);
+
+            String team1 = match.get("name_team1").getAsString();
+            String team2 = match.get("name_team2").getAsString();
+            int matchDay = match.get("group_order_id").getAsInt();
+            String date = match.get("match_date_time").getAsString();
+            int jsonMatchId = match.get("match_id").getAsInt();
+            LocalDateTime gameDate = LocalDateTime.parse(date.substring(0, 10) + ";" + date.substring(11, 19), inputDTF);
+
+            Map<TotoResult, Double> quotes = new HashMap<>();
+
+            quotes.put(TotoResult.DRAW, (double) (random.nextInt(90) / 10) + 1);
+            quotes.put(TotoResult.WIN_GUEST, (double) (random.nextInt(90) / 10) + 1);
+            quotes.put(TotoResult.WIN_HOME, (double) (random.nextInt(90) / 10) + 1);
+
+            TotoMatch totoMatch = new TotoMatch(team1, team2, quotes, gameDate, totoGameType, matchDay, jsonMatchId);
+            totoMatchRepository.save(totoMatch);
+        }
 
     }
-    
-    private boolean checkConnection(){
-		boolean connection = false;
-    	try {
-    		try {
-    			URL url = new URL("http://openligadb-json.herokuapp.com/");
-    			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-    			con.connect();
-    			if (con.getResponseCode() == 200){
-    				System.out.println("Connection established");
-    				connection = true;
-    			}
-    		} catch (Exception exception) {
-    			System.out.println("No Connection");
-    			connection = false;
-    		}
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
-    	return connection;
+
+    private boolean checkConnection() {
+        boolean connection = false;
+        try {
+            try {
+                URL url = new URL("http://openligadb-json.herokuapp.com/");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.connect();
+                if (con.getResponseCode() == 200) {
+                    System.out.println("Connection established");
+                    connection = true;
+                }
+            } catch (Exception exception) {
+                System.out.println("No Connection");
+                connection = false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return connection;
     }
-    
+
 }

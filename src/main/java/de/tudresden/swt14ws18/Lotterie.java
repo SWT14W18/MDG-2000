@@ -51,6 +51,9 @@ import de.tudresden.swt14ws18.util.Constants;
  * ANONYM - Anonymes Konto für Mitarbeiter die Tippscheine "echter" Kunden dem System hinzufügen, Kann 1 Tippschein erstellen, Auszahlen und der Account wird auf CLOSED gesetzt
  */
 
+/**
+ * Die Hauptklasse des Projekts. Hier sind jede Menge getter und wenig Implementierung.
+ */
 @Configuration
 @EnableAutoConfiguration
 @EntityScan(basePackageClasses = { Salespoint.class, Lotterie.class })
@@ -59,7 +62,7 @@ import de.tudresden.swt14ws18.util.Constants;
 public class Lotterie {
 
     public static boolean DEBUG = false;
-    
+
     private static Lotterie instance;
     private BusinessTime time;
     private TransactionRepository transactionRepo;
@@ -132,17 +135,15 @@ public class Lotterie {
     public void setTransactionRepository(TransactionRepository transactionRepo) {
         this.transactionRepo = transactionRepo;
     }
-    
-    
-    public UserAccountManager getUserAccountManager(){
+
+    public UserAccountManager getUserAccountManager() {
         return this.userAccountManager;
     }
-    
-    
-    public AuthenticationManager getAuthenticationManager(){
-    	return this.authManager;
+
+    public AuthenticationManager getAuthenticationManager() {
+        return this.authManager;
     }
-    
+
     @Autowired
     public void setAuthenticatioManager(AuthenticationManager authManager) {
         this.authManager = authManager;
@@ -156,21 +157,33 @@ public class Lotterie {
         return instance;
     }
 
+    /**
+     * @param args
+     *            Wenn das 1. Element "debug" ist, wird das Programm im Debug Modus gestartet.
+     */
     public static void main(String[] args) {
-        if(args.length > 0 && args[0].equalsIgnoreCase("debug"))
+        if (args.length > 0 && args[0].equalsIgnoreCase("debug"))
             DEBUG = true;
-        
-        if(DEBUG)
+
+        if (DEBUG)
             System.out.println("Starting in Developer Mode - app date changed to 1.10.2014");
-        
+
         SpringApplication.run(Lotterie.class, args);
     }
-    
 
     public BankAccount getBankAccount() {
-        return customerRepository.findByUserAccount(userAccountManager.get(new UserAccountIdentifier("admin")).get()).getAccount();
+        return customerRepository.findByUserAccount(userAccountManager.get(new UserAccountIdentifier(Constants.ADMIN_NAME)).get()).getAccount();
     }
 
+    /**
+     * Setzt den Jackpot der nächsten unbearbeiteten Lottoziehung. Lottoziehungen werden dabei nach ihrem Ziehungsdatum sortiert.
+     * 
+     * Der Gewinntopf für die nächste Ziehung ist 90% der Summe aller Einsätze der vorherigen Ziehung plus die nicht ausgezahlten Gewinne der
+     * vorherigen Ziehung
+     * 
+     * @param game
+     *            Das letzte abgearbeitete Spiel, aus welchem der nicht ausgeschüttete Gewinn berechnet wird.
+     */
     public void setNextLottoPot(LottoGame game) {
         List<LottoGame> l = lottoRepo.findByResultOrderByDateAsc(null);
         LottoGame result = l.get(0).equals(game) ? l.get(1) : l.get(0);
@@ -226,7 +239,6 @@ public class Lotterie {
     public TotoTipRepository getTotoTipRepository() {
         return totoTipRepo;
     }
-    
 
     public LottoTipCollectionRepository getLottoTipCollectionRepository() {
         return lottoTipColRepo;

@@ -28,6 +28,9 @@ import de.tudresden.swt14ws18.useraccountmanager.ConcreteCustomer;
 import de.tudresden.swt14ws18.useraccountmanager.Status;
 import de.tudresden.swt14ws18.util.Constants;
 
+/**
+ * Initialisiert alle Daten beim Start des Programms.
+ */
 @Component
 public class LotterieDataInitializer implements DataInitializer {
 
@@ -104,15 +107,15 @@ public class LotterieDataInitializer implements DataInitializer {
             BankAccountRepository bankAccountRepository) {
 
         // damit wir nicht immer den db ordner löschen müssen
-        if (userAccountManager.get(new UserAccountIdentifier("admin")).isPresent()) {
+        if (userAccountManager.get(new UserAccountIdentifier(Constants.ADMIN_NAME)).isPresent()) {
             return;
         }
 
-        UserAccount admin = userAccountManager.create("admin", "123", Constants.ADMIN, Constants.USER, Constants.TOTO_LIST);
+        UserAccount admin = userAccountManager.create(Constants.ADMIN_NAME, "123", Constants.ADMIN, Constants.USER, Constants.TOTO_LIST);
         userAccountManager.save(admin);
 
         BankAccount adminAccount = new BankAccount();
-        ConcreteCustomer adminCustomer = new ConcreteCustomer("admin", Status.ACTIVE, admin, adminAccount);
+        ConcreteCustomer adminCustomer = new ConcreteCustomer(Constants.ADMIN_NAME, Status.ACTIVE, admin, adminAccount);
 
         adminAccount.payIn(1000000);
 
