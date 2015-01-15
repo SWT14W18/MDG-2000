@@ -11,9 +11,11 @@ Die innovattive Idee der Gewinngemeinschaften, macht Ihr Spielerlebnis noch bess
 Zum ausführen
 ------
 
+Vorraussetzung:
 * Java 8, vorzugsweise von Oracle.
 * Ein aktuellen Webbrowser, vorzugsweise Google Chrome oder Mozilla Firefox.
 
+Ausführen:
 * cd "pfad zur mdg2000.jar"
 * java -jar mdg2000.jar
 * Browser öffnen und auf http://localhost:8080 gehen.
