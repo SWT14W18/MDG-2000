@@ -44,7 +44,7 @@ public class Transaction {
      *            der Betrag der überwiesen wird
      */
     public Transaction(BankAccount from, BankAccount to, double amount) {
-	this(from, to, amount, "");
+        this(from, to, amount, "");
     }
 
     /**
@@ -60,13 +60,13 @@ public class Transaction {
      *            der Grund für die Überweisung
      */
     public Transaction(BankAccount from, BankAccount to, double amount, String reason) {
-	this.to = to;
-	this.from = from;
-	this.amount = amount;
-	this.date = Lotterie.getInstance().getTime().getTime();
-	this.reason = reason;
+        this.to = to;
+        this.from = from;
+        this.amount = amount;
+        this.date = Lotterie.getInstance().getTime().getTime();
+        this.reason = reason;
 
-	Lotterie.getInstance().getTransactionRepo().save(this);
+        Lotterie.getInstance().getTransactionRepo().save(this);
     }
 
     /**
@@ -75,7 +75,7 @@ public class Transaction {
      * @return der Betrag als double
      */
     public double getAmount() {
-	return amount;
+        return amount;
     }
 
     /**
@@ -84,7 +84,7 @@ public class Transaction {
      * @return der Account von dem die Transaktion ausgeht
      */
     public BankAccount getFrom() {
-	return from;
+        return from;
     }
 
     /**
@@ -96,10 +96,10 @@ public class Transaction {
      */
 
     public String getNameFrom() {
-	if (from == null)
-	    return "Einzahlung";
-	else
-	    return from.getOwnerName();
+        if (from == null)
+            return "Einzahlung";
+        else
+            return from.getOwnerName();
     }
 
     /**
@@ -108,7 +108,7 @@ public class Transaction {
      * @return der Account an dem die Transaktion geht
      */
     public BankAccount getTo() {
-	return to;
+        return to;
     }
 
     /**
@@ -120,42 +120,47 @@ public class Transaction {
      */
 
     public String getNameTo() {
-	if (to == null)
-	    return "Auszahlung";
-	else
-	    return to.getOwnerName();
+        if (to == null)
+            return "Auszahlung";
+        else
+            return to.getOwnerName();
     }
 
     /**
-     * Get the reason for this Transaction. Can be an empty String ("") or null.
+     * Hole den Grund für die Transaktion. Kann ein leerer String ("") oder null sein.
      * 
-     * @return the reason String
+     * @return der Grund als String
      */
     public String getReason() {
-	return reason;
+        return reason;
     }
 
+    /**
+     * Hole das formatierte Datum der Transaktion.
+     * 
+     * @return das formatierte Datum
+     */
     public String getDateString() {
-	return date.format(Constants.OUTPUT_DTF);
+        return date.format(Constants.OUTPUT_DTF);
     }
 
     @Override
     public String toString() {
-	String von;
-	String nach;
-	String betrag;
+        String von;
+        String nach;
+        String betrag;
 
-	betrag = String.valueOf(amount);
+        betrag = String.valueOf(amount);
 
-	if (from == null)
-	    von = "eingezahlt";
-	else
-	    von = from.toString();
-	if (to == null)
-	    nach = "ausgezahlt";
-	else
-	    nach = to.toString();
+        if (from == null)
+            von = "eingezahlt";
+        else
+            von = from.toString();
+        if (to == null)
+            nach = "ausgezahlt";
+        else
+            nach = to.toString();
 
-	return "Datum: " + getDateString() + " Von: " + von + " Nach: " + nach + " Geldbetrag: " + betrag + "€";
+        return "Datum: " + getDateString() + " Von: " + von + " Nach: " + nach + " Geldbetrag: " + betrag + "€";
     }
 }
