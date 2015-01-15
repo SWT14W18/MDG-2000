@@ -73,6 +73,14 @@ public abstract class TipCollection<T extends Tip> {
     public TipShare getShares() {
         return shares;
     }
+    
+    public Community getCommunity() {
+        return community;
+    }
+    
+    public boolean hasCommunity() {
+        return community != null;
+    }
 
     /**
      * Überreste des Observer Patterns

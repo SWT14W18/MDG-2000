@@ -17,6 +17,7 @@
 			<br/>
 		    <br/>
 			<label th:text="@{${item.getGameType()} + ' Tippschein ('+${item.getTips().size()}+' Tipp(s) )'}">Test</label>
+		    <label th:if="${item.hasCommunity()}" th:text="@{'Gruppe: ' + ${item.getCommunity().getCommunityName()}}">Gruppentippschein</label>
 		    <br/>
 		    <br/>
 		    </a>
