@@ -465,6 +465,7 @@ public class CustomerController extends ControllerBase {
 
         map.addAttribute("id", id);
         map.addAttribute("match", tip.getGame());
+        map.addAttribute("result", tip.getResult());
 
         return "games/totoTipChange";
     }
@@ -479,6 +480,9 @@ public class CustomerController extends ControllerBase {
             return "redirect:gameoverview";
 
         if (timeCheck(tip.getGame().getDate()))
+            return "redirect:gameoverview";
+
+        if (input < 0.01)
             return "redirect:gameoverview";
 
         tip.setResult(result);

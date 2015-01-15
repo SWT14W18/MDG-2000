@@ -75,12 +75,12 @@ public class TipFactory {
                     if (result == TotoResult.NOT_PLAYED || result == null)
                         continue;
 
-                    double d = Double.parseDouble(money);
+                    double input = Double.parseDouble(money);
 
-                    if (d < 0)
+                    if (input < 0.01)
                         continue;
 
-                    tips.add(new TotoTip(totoMatch, result, d));
+                    tips.add(new TotoTip(totoMatch, result, input));
                 } catch (NumberFormatException e) {
                     continue;
                 }
