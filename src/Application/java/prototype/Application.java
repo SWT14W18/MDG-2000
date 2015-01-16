@@ -1,4 +1,4 @@
-package prototype;
+package Application.java.prototype;
 
 import org.salespointframework.Salespoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,7 @@ import prototype.persistence.PrototypeRepository;
 public class Application {
 	private static Application instance;
 	private Prototype prototype;
+	private PrototypeRepository prototypeRepository;
 	
 	public Application() {
 		instance = this;
@@ -32,6 +33,10 @@ public class Application {
 		this.prototype = prototype;
 	}
 	
+	@Autowired
+	public void PrototypeRepository(PrototypeRepository prototypeRepository){
+		this.prototypeRepository = prototypeRepository;
+	}
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

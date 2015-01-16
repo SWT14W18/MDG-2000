@@ -1,4 +1,4 @@
-package prototype.persistence;
+package Application.java.prototype.persistence;
 
 //import java.util.ArrayList;
 //import java.util.List;
@@ -6,19 +6,30 @@ package prototype.persistence;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 
+import prototype.persistence.PrototypeRepository;
+
 @Entity
-public class Prototype{
-    
+public class Prototype {
+
     @GeneratedValue 
     private double value = 0;
+	
+    @Deprecated
+    public Prototype() {
+    };
+
+
+    public Prototype(double value) {
+        this.value = value;
+    }
 	
     public void addingValue(Prototype count) {
 	value += count.getCounter();
     }
 
     private double getCounter() {
-		// TODO Auto-generated method stub
-		return 0;
+		double value = PrototypeRepository.
+		return value;
 	}
 
 	public void addTo(double counter) {
